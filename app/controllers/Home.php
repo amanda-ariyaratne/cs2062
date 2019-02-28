@@ -10,4 +10,8 @@
 			$this->view->render('home/index');
 		}
 
+		public function loginAction(){
+			$this->view->render('home/login');
+		}
+
 	}
