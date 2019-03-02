@@ -7,6 +7,35 @@
 
 
 <?= $this->start('body'); ?>
+<div class="wrap-breadcrumb bw-color">
+  <div id="breadcrumb" class="breadcrumb-holder container">
+
+    <div class="row">
+      
+        <div class="col-lg-6 d-none d-lg-block">
+          <div class="page-title">Account</div>
+        </div>
+      
+      
+      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+        <ul class="breadcrumb">
+          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a itemprop="url" href="/">
+              <span itemprop="title" class="d-none">Handy Store</span>Home
+            </a>
+          </li>
+
+          
+
+            <li class="active">Account</li>
+
+          
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
 <div class="container">
   <div id="col-main" class="page-login">
 

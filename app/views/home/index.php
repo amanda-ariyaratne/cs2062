@@ -1,1 +1,0 @@
-<h1>Welcome to CS2062</h1>
