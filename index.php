@@ -23,6 +23,6 @@
 
 	$url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'], '/')) : [];
 	$db = DB::getInstance();
-	dnd($db);
+
 	//route the request
 	Router::route($url);
