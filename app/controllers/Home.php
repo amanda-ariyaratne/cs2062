@@ -14,4 +14,8 @@
 			$this->view->render('home/login');
 		}
 
+		public function ProductListAction(){
+			$this->view->render('home/ProductList');
+		}
+
 	}
