@@ -4,13 +4,14 @@
 
 <head>
   
-    <link rel="shortcut icon" href="images/logo.jpg" type="image/png" />
+  <link rel="shortcut icon" href="images/logo.jpg" type="image/png" />
   
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=0" />
   <link rel="canonical" href="https://arena-handy.myshopify.com/account/login" />
-  <!-- Title and description ================================================== -->
+  <!-- Title and description -->
+
   <title>
     <?= $this->siteTitle(); ?>
   </title>
@@ -30,19 +31,19 @@
     
     <div class="new-loading"></div>     
       <div class="cart-sb">
-  <form action="/cart" method="post">    
-    <div class="cart-sb-title">
-      <span class="c-title">Your Cart</span>
-      <span class="c-close"><i class="demo-icon icon-close" aria-hidden="true"></i></span>
-    </div>
-    
-    <div id="cart-info" class="shipping-true">
-      <div id="cart-content" class="cart-content">
-        <div class="cart-loading"></div>
+        <form action="/cart" method="post">    
+          <div class="cart-sb-title">
+            <span class="c-title">Your Cart</span>
+            <span class="c-close"><i class="demo-icon icon-close" aria-hidden="true"></i></span>
+          </div>
+          
+          <div id="cart-info" class="shipping-true">
+            <div id="cart-content" class="cart-content">
+              <div class="cart-loading"></div>
+            </div>
+          </div>
+        </form>
       </div>
-    </div>
-  </form>
-</div>
 
     <div id="page-body" class="breadcrumb-color">      
       <div id="shopify-section-header" class="shopify-section">
@@ -130,23 +131,13 @@
                     
                     <a href="/account/register" title="Register">
                       
-                        <i class="demo-icon icon-pencil-2"></i>
+                      <i class="demo-icon icon-pencil-2"></i>
 
                       Register
                     </a>
                     
                   </li>
                 
-
-                
-                  <li class="currency uppercase currency-block">
-                    <a class="currency_wrapper" href="javascript:;">
-  <span class="currency_code">USD</span>
-  <span class="expand"><i class="demo-icon icon-angle-down"></i></span>
-</a>
-                  </li>
-                
-
               </ul>
             </div>
 
@@ -478,181 +469,17 @@
       </a>
     </li>
     
-    
-    
-      <li class="currency uppercase currency-block">
-          <a class="currency_wrapper" href="javascript:;">
-  <span class="currency_code">USD</span>
-  <span class="expand"><i class="demo-icon icon-angle-down"></i></span>
-</a>
-
-<ul class="currencies">
-  
-  
-  <li class="currency-USD active">
-    <a href="javascript:;"><i class="flag-usd"></i><span>USD</span></a>
-    <input type="hidden" value="USD" />
-  </li>
-  
-  
-  
-  
-  <li class="currency-EUR">
-    <a href="javascript:;"><i class="flag-eur"></i><span>EUR</span></a>
-    <input type="hidden" value="EUR" />
-  </li>
-  
-  
-  
-  <li class="currency-GBP">
-    <a href="javascript:;"><i class="flag-gbp"></i><span>GBP</span></a>
-    <input type="hidden" value="GBP" />
-  </li>
-  
-  
-  
-  <li class="currency-CAD">
-    <a href="javascript:;"><i class="flag-cad"></i><span>CAD</span></a>
-    <input type="hidden" value="CAD" />
-  </li>
-  
-  
-  
-  <li class="currency-AUD">
-    <a href="javascript:;"><i class="flag-aud"></i><span>AUD</span></a>
-    <input type="hidden" value="AUD" />
-  </li>
-  
-  
-  
-  <li class="currency-TRY">
-    <a href="javascript:;"><i class="flag-try"></i><span>TRY</span></a>
-    <input type="hidden" value="TRY" />
-  </li>
-  
-  
-  
-  <li class="currency-VND">
-    <a href="javascript:;"><i class="flag-vnd"></i><span>VND</span></a>
-    <input type="hidden" value="VND" />
-  </li>
-  
-  
-</ul>
-
-<select class="currencies_src hide" name="currencies">
-  
-  
-  <option value="USD" selected="selected">USD</option>
-  
-  
-  
-  
-  <option value="EUR">EUR</option>
-  
-  
-  
-  <option value="GBP">GBP</option>
-  
-  
-  
-  <option value="CAD">CAD</option>
-  
-  
-  
-  <option value="AUD">AUD</option>
-  
-  
-  
-  <option value="TRY">TRY</option>
-  
-  
-  
-  <option value="VND">VND</option>
-  
-  
-</select>
-
-      </li>
-    
-    
-    
-      
-      <li class="wishlist-target">
-        <a href="/pages/wishlist-page" class="num-items-in-wishlist show-wishlist lazyload waiting" title="Wishlist">
-
-          <span class="wishlist-icon">
-            
-              <i class="demo-icon icon-heart"></i>
-
-            
-            <span class="number">0</span>
-          </span>
-
-        </a>
-      </li>
-    
-
-    
-      
-
-      <li class="compare-target">
-        <a href="/pages/compare-page" class="num-items-in-compare show-compare lazyload waiting" title="Compare">
-          <span class="compare-icon">
-            
-              <i class="demo-icon icon-compare"></i>
-
-            
-            <span id="compare-number" class="number">0</span>
-          </span>
-        </a>
-      </li>
-    
-    
-    
-      <li class="m-cart-icon cart-target lazyload waiting d-lg-none">
-        <a href="/cart" class="mobile-basket" title="cart">
-          
-          <i class="demo-icon icon-handy-cart"></i>
-
-          
-
-          <span class="number"><span class="n-item">0</span></span>
-        </a>
-      </li>
-    
-    
   </ul>
 </div>
-
-  </div>
+</div>
   
 </header>
 
 </div>
-      
-      
-      <div id="body-content" class="layout-boxed">
-        <div id="main-content"> 
-          <div class="main-content">
 
+<?= $this->content('body'); ?>
 
-
-
-
-
-
-
-<?= $this->content('content'); ?>
-
-
-
-
-</div>
-        </div>
-      </div>
-      
-      <div id="shopify-section-bottom" class="shopify-section">
+<div id="shopify-section-bottom" class="shopify-section">
 
 
 
