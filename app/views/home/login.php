@@ -4,9 +4,12 @@
 
 <?= $this->end(); ?>
 
-
-
 <?= $this->start('body'); ?>
+
+<div id="body-content" class="layout-boxed">
+<div id="main-content">
+  <div class="main-content">
+
 <div class="wrap-breadcrumb bw-color">
   <div id="breadcrumb" class="breadcrumb-holder container">
 
@@ -36,6 +39,7 @@
 
   </div>
 </div>
+
 <div class="container">
   <div id="col-main" class="page-login">
 
@@ -146,5 +150,9 @@
     </div>
 
   </div>
+</div>
+
+</div>
+</div>
 </div>
 <?= $this->end(); ?>
