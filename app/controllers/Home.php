@@ -18,8 +18,4 @@
 			$this->view->render('home/ProductList');
 		}
 
-		public function testAction(){
-			$this->view->render('home/test');
-		}
-
 	}
