@@ -7,14 +7,7 @@
 		}
 
 		public function indexAction(){
-			$db = DB::getInstance();
-			$records = $db->findFirst('test', [
-				'conditions' => "id = ?",
-				'bind' => ['1'],
-				'order' => "description",
-				'limit' => 5
-			]);
-			dnd($records);
+			
 			$this->view->render('home/index');
 		}
 
