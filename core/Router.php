@@ -26,5 +26,12 @@
 			}
 
 		}
+
+		public static function redirect($location){
+			if (!headers_sent()) {
+				header('Location: ' . PROOT . $location);
+				exit();
+			}
+		}
 		
 	}
