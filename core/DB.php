@@ -50,13 +50,14 @@
 
 			foreach ($fields as $field=>$value) {
 				$fieldString .= '`' . $field . '`,';
-				$valueString .= '?,';
+				$valueString .= '"' . $value . '",';
 				$values[] = $value;
 			}
 			$fieldString = rtrim($fieldString, ',');
 			$valueString = rtrim($valueString, ',');
 
 			$sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
+			//dnd($sql);
 			if (!$this->query($sql, $values)->error()) {
 				return true;
 			}			
