@@ -12,4 +12,4 @@
 
 	define('PROOT', '/cs2062/'); //set this to '/' for a live server
 
-	define('SITE_TITLE', 'Tailor Mate');
+	define('SITE_TITLE', 'TailorMate');
