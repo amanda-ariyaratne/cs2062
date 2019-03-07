@@ -71,7 +71,11 @@
 
 
 	.far.fa-star{color:#f7d2da}
-	.far.fa-star:before{color:#f7d2da;}
+	.far.fa-star::before{color:#f7d2da;}
+
+  .owl-item{
+    display: inline-block;
+  }
 
 	</style>
 
@@ -284,11 +288,15 @@
                         <div class="rating-links">
                           <span class="apr-badge" id="spr_badge_1588808155195" data-rating="0.0">
                             <span class="spr-starrating spr-badge-starrating">
+                              <i class="spr-icon spr-icon-star-empty" style="color: #f7d2da"></i>
+                              <i class="spr-icon spr-icon-star-empty" style="color: #f7d2da"></i>
+                              <i class="spr-icon spr-icon-star-empty" style="color: #f7d2da"></i>
+                              <i class="spr-icon spr-icon-star-empty" style="color: #f7d2da"></i>
+                              <i class="spr-icon spr-icon-star-empty" style="color: #f7d2da"></i>
+                             <!--  <i class="far fa-star"></i>
                               <i class="far fa-star"></i>
                               <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
-                              <i class="far fa-star"></i>
+                              <i class="far fa-star"></i> -->
                             </span>
                           </span>
                           <div class="shopify-product-reviews-badge" data-id="1588808155195"></div>
@@ -357,7 +365,9 @@
 
                         <div class="group-cw clearfix">
                           
-                          <form method="post" action="/cart/add" id="product_form_1588808155195" accept-charset="UTF-8" class="product-form product-action variants" enctype="multipart/form-data"><input type="hidden" name="form_type" value="product" /><input type="hidden" name="utf8" value="✓" />
+                          <form method="post" action="/cart/add" id="product_form_1588808155195" accept-charset="UTF-8" class="product-form product-action variants" enctype="multipart/form-data">
+                            <input type="hidden" name="form_type" value="product" />
+                            <input type="hidden" name="utf8" value="✓" />
 
                             <div id="product-action-1588808155195"  class="options">
 
@@ -408,28 +418,28 @@
             <input id="swatch-1-red" type="radio" name="option-1" value="Red" />
             
             
-              <label for="swatch-1-red" style="background-image: url(product-shirt-1.png)">
-                <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
-              </label>
+              <label for="swatch-1-red" style="background-image: url(<?=PROOT?>assets/images/product-shirt-1.png)">
+<!--                 <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
+ -->              </label>
             
           </div>
         
       
         
+ <!--          <script>
+            jQuery('.swatch[data-option-index="1"] .red').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
+          </script> -->
+        
+      
+      
+        
+      
+        
+      
+<!--         
           <script>
             jQuery('.swatch[data-option-index="1"] .red').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-          </script>
-        
-      
-      
-        
-      
-        
-      
-        
-          <script>
-            jQuery('.swatch[data-option-index="1"] .red').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-          </script>
+          </script> -->
         
       
       
@@ -453,7 +463,7 @@
             <input id="swatch-0-xs" type="radio" name="option-0" value="XS" />
             <label for="swatch-0-s">
                 XS
-                <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
+                <!-- <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" /> -->
               </label>
           </div>   
       
@@ -461,7 +471,7 @@
             <input id="swatch-0-s" type="radio" name="option-0" value="S" />
             <label for="swatch-0-s">
                 S
-                <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
+                <!-- <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" /> -->
               </label>
           </div>    
    
@@ -470,23 +480,23 @@
             <input id="swatch-0-m" type="radio" name="option-0" value="M" />
             <label for="swatch-0-m">
                 M
-                <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
+                <!-- <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" /> -->
               </label>
           </div>
         
       
         
-          <script>
+  <!--         <script>
             jQuery('.swatch[data-option-index="0"] .m').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-          </script>
+          </script> -->
         
       
           <div data-value="L" class="swatch-element l available">
             <input id="swatch-0-l" type="radio" name="option-0" value="L" />
             <label for="swatch-0-l">
                 L
-                <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
-              </label>
+<!--                 <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
+ -->              </label>
           </div>
         
       
@@ -499,8 +509,8 @@
             <input id="swatch-0-xl" type="radio" name="option-0" value="XL" />
             <label for="swatch-0-xl">
                 XL
-                <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
-              </label>
+<!--                 <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
+ -->              </label>
           </div>   
       
     </div>
@@ -522,11 +532,11 @@
                                   <span class="qty-inner qty-wrapper">
 
                                     <span class="qty-up" title="Increase" data-src="#quantity">
-                                      <i class="fas fa-caret-up"></i>
+                                      <i class="demo-icon icon-plus"></i>
                                     </span>
 
                                     <span class="qty-down" title="Decrease" data-src="#quantity">
-                                      <i class="fas fa-caret-down"></i>
+                                      <i class="demo-icon icon-minus"></i>
                                     </span>
 
                                   </span>
@@ -558,7 +568,7 @@
 
 <div class="people-in-cart">
     <div class="img-user">
-      <img src="icon-cart.png" alt="Image" />
+      <img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image" />
     </div>
     <div class="people-block-text"></div>
 </div>
@@ -566,7 +576,7 @@
 
                           
                           
-                            <ul class="shipping-time" data-deliverytime="2" data-deadline="16">
+<!--                             <ul class="shipping-time" data-deliverytime="2" data-deadline="16">
                               
                               <li class="delivery-time"></li>
                               
@@ -575,7 +585,7 @@
                                 <div class="countdown_deadline"></div>
                               </li>  
                               
-                            </ul>
+                            </ul> -->
                           
                
                         </div>
@@ -755,15 +765,509 @@
               <h3>More Products by Armani</h3>
             </div>
             <div class="related-items"></div>
+          </div>
 
 
-        </div>
 
-        <div class="related-product">
-          <div class="title-wrapper">
-          <h3>Related product</h3>
-        </div>
-        <div class="product-carousel">
+
+
+
+          <div class="related-items owl-carousel owl-theme owl-loaded">
+            <div class="owl-stage-outer">
+
+
+              <div class="container">
+
+                
+
+                <div class="owl-stage" style="width: 1200px; transform: translate3d(0px,0px,0px); transition: all 0s ease 0s;">
+
+
+
+
+
+                  <div class="owl-item active" style="width: 270px; margin-right: 30px;">
+                    <div class="product-grid-item">
+                      <div class="product-wrapper effect-overlay">
+
+                        <div class="product-head">
+                          <div class="product-image">
+
+                            <div class="featured-img">
+                              <a href="/">
+                                <img class="featured-image front" src="<?=PROOT?>assets/images/product-1.png" alt="tshirt 1"></img>
+                              </a>
+                            </div>
+
+                            <div class="product-button">
+                              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-1" data-toggle="modal" title="Quick View">
+                                <i class="demo-icon icon-search"></i>
+                                " quick view"
+                              </div>
+                              <div class="product-wishlist">
+                                <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-1" title="add to wishlist">
+                                  <i class="demo-icon icon-heart"></i>
+                                  " Add to wishlist"
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="wrapper-countdown">
+                              <div class="countdown_1588807401531"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="product-content">
+                          <div class="pc-inner">
+
+                            <div class="product-group-vendor-name">
+                              <h5 class="product-name">
+                                <a href="/">tshirt 1</a>
+                              </h5>
+                            </div>
+
+                            <div class="price-cart-wrapper">
+                              <div class="product-price">
+                                <span class="price-compare">
+                                  <span class="money" data-currency-lkr="Rs. 950" data-currency="LKR">rs. 950</span>
+                                </span>
+                                <span class="price-sale">
+                                  <span class="money" data-currency-lkr="Rs. 850" data-currency="LKR">Rs. 850</span>
+                                </span>
+                              </div>
+
+                              <div class="product-add-cart">
+                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
+                                    <span class="demo-icon icon-basket"></span>
+                                  </a>
+
+                                  <select class="d-none" name="id">
+                                    <option value="14880160612411"> Default Title</option>
+                                  </select>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="owl-item active" style="width: 270px; margin-right: 30px;">
+                    <div class="product-grid-item">
+                      <div class="product-wrapper effect-overlay">
+
+                        <div class="product-head">
+                          <div class="product-image">
+
+                            <div class="featured-img">
+                              <a href="/">
+                                <img class="featured-image front" src="<?=PROOT?>assets/images/product-2.png" alt="tshirt 2"></img>
+                              </a>
+                            </div>
+
+                            <div class="product-button">
+                              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-2" data-toggle="modal" title="Quick View">
+                                <i class="demo-icon icon-search"></i>
+                                " quick view"
+                              </div>
+                              <div class="product-wishlist">
+                                <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-2" title="add to wishlist">
+                                  <i class="demo-icon icon-heart"></i>
+                                  " Add to wishlist"
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="wrapper-countdown">
+                              <div class="countdown_1588807401531"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="product-content">
+                          <div class="pc-inner">
+
+                            <div class="product-group-vendor-name">
+                              <h5 class="product-name">
+                                <a href="/">tshirt 2</a>
+                              </h5>
+                            </div>
+
+                            <div class="price-cart-wrapper">
+                              <div class="product-price">
+                                <span class="price-compare">
+                                  <span class="money" data-currency-lkr="Rs. 950" data-currency="LKR">rs. 950</span>
+                                </span>
+                                <span class="price-sale">
+                                  <span class="money" data-currency-lkr="Rs. 850" data-currency="LKR">Rs. 850</span>
+                                </span>
+                              </div>
+
+                              <div class="product-add-cart">
+                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
+                                    <span class="demo-icon icon-basket"></span>
+                                  </a>
+
+                                  <select class="d-none" name="id">
+                                    <option value="14880160612411"> Default Title</option>
+                                  </select>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="owl-item active" style="width: 270px; margin-right: 30px;">
+                    <div class="product-grid-item">
+                      <div class="product-wrapper effect-overlay">
+
+                        <div class="product-head">
+                          <div class="product-image">
+
+                            <div class="featured-img">
+                              <a href="/">
+                                <img class="featured-image front" src="<?=PROOT?>assets/images/product-3.png" alt="tshirt 3"></img>
+                              </a>
+                            </div>
+
+                            <div class="product-button">
+                              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-3" data-toggle="modal" title="Quick View">
+                                <i class="demo-icon icon-search"></i>
+                                " quick view"
+                              </div>
+                              <div class="product-wishlist">
+                                <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-3" title="add to wishlist">
+                                  <i class="demo-icon icon-heart"></i>
+                                  " Add to wishlist"
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="wrapper-countdown">
+                              <div class="countdown_1588807401531"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="product-content">
+                          <div class="pc-inner">
+
+                            <div class="product-group-vendor-name">
+                              <h5 class="product-name">
+                                <a href="/">tshirt 3</a>
+                              </h5>
+                            </div>
+
+                            <div class="price-cart-wrapper">
+                              <div class="product-price">
+                                <span class="price-compare">
+                                  <span class="money" data-currency-lkr="Rs. 950" data-currency="LKR">rs. 950</span>
+                                </span>
+                                <span class="price-sale">
+                                  <span class="money" data-currency-lkr="Rs. 850" data-currency="LKR">Rs. 850</span>
+                                </span>
+                              </div>
+
+                              <div class="product-add-cart">
+                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
+                                    <span class="demo-icon icon-basket"></span>
+                                  </a>
+
+                                  <select class="d-none" name="id">
+                                    <option value="14880160612411"> Default Title</option>
+                                  </select>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="owl-item active" style="width: 270px; margin-right: 30px;">
+                    <div class="product-grid-item">
+                      <div class="product-wrapper effect-overlay">
+
+                        <div class="product-head">
+                          <div class="product-image">
+
+                            <div class="featured-img">
+                              <a href="/">
+                                <img class="featured-image front" src="<?=PROOT?>assets/images/product-4.png" alt="tshirt 4"></img>
+                              </a>
+                            </div>
+
+                            <div class="product-button">
+                              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-4" data-toggle="modal" title="Quick View">
+                                <i class="demo-icon icon-search"></i>
+                                " quick view"
+                              </div>
+                              <div class="product-wishlist">
+                                <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-4" title="add to wishlist">
+                                  <i class="demo-icon icon-heart"></i>
+                                  " Add to wishlist"
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="wrapper-countdown">
+                              <div class="countdown_1588807401531"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="product-content">
+                          <div class="pc-inner">
+
+                            <div class="product-group-vendor-name">
+                              <h5 class="product-name">
+                                <a href="/">tshirt 4</a>
+                              </h5>
+                            </div>
+
+                            <div class="price-cart-wrapper">
+                              <div class="product-price">
+                                <span class="price-compare">
+                                  <span class="money" data-currency-lkr="Rs. 950" data-currency="LKR">rs. 950</span>
+                                </span>
+                                <span class="price-sale">
+                                  <span class="money" data-currency-lkr="Rs. 850" data-currency="LKR">Rs. 850</span>
+                                </span>
+                              </div>
+
+                              <div class="product-add-cart">
+                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
+                                    <span class="demo-icon icon-basket"></span>
+                                  </a>
+
+                                  <select class="d-none" name="id">
+                                    <option value="14880160612411"> Default Title</option>
+                                  </select>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="owl-item active" style="width: 270px; margin-right: 30px;">
+                    <div class="product-grid-item">
+                      <div class="product-wrapper effect-overlay">
+
+                        <div class="product-head">
+                          <div class="product-image">
+
+                            <div class="featured-img">
+                              <a href="/">
+                                <img class="featured-image front" src="<?=PROOT?>assets/images/product-5.png" alt="tshirt 5"></img>
+                              </a>
+                            </div>
+
+                            <div class="product-button">
+                              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-5" data-toggle="modal" title="Quick View">
+                                <i class="demo-icon icon-search"></i>
+                                " quick view"
+                              </div>
+                              <div class="product-wishlist">
+                                <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-5" title="add to wishlist">
+                                  <i class="demo-icon icon-heart"></i>
+                                  " Add to wishlist"
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="wrapper-countdown">
+                              <div class="countdown_1588807401531"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="product-content">
+                          <div class="pc-inner">
+
+                            <div class="product-group-vendor-name">
+                              <h5 class="product-name">
+                                <a href="/">tshirt 5</a>
+                              </h5>
+                            </div>
+
+                            <div class="price-cart-wrapper">
+                              <div class="product-price">
+                                <span class="price-compare">
+                                  <span class="money" data-currency-lkr="Rs. 950" data-currency="LKR">rs. 950</span>
+                                </span>
+                                <span class="price-sale">
+                                  <span class="money" data-currency-lkr="Rs. 850" data-currency="LKR">Rs. 850</span>
+                                </span>
+                              </div>
+
+                              <div class="product-add-cart">
+                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
+                                    <span class="demo-icon icon-basket"></span>
+                                  </a>
+
+                                  <select class="d-none" name="id">
+                                    <option value="14880160612411"> Default Title</option>
+                                  </select>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+
+
+                  <div class="owl-item active" style="width: 270px; margin-right: 30px;">
+                    <div class="product-grid-item">
+                      <div class="product-wrapper effect-overlay">
+
+                        <div class="product-head">
+                          <div class="product-image">
+
+                            <div class="featured-img">
+                              <a href="/">
+                                <img class="featured-image front" src="<?=PROOT?>assets/images/product-6.png" alt="tshirt 6"></img>
+                              </a>
+                            </div>
+
+                            <div class="product-button">
+                              <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-6" data-toggle="modal" title="Quick View">
+                                <i class="demo-icon icon-search"></i>
+                                " quick view"
+                              </div>
+                              <div class="product-wishlist">
+                                <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-6" title="add to wishlist">
+                                  <i class="demo-icon icon-heart"></i>
+                                  " Add to wishlist"
+                                </a>
+                              </div>
+                            </div>
+
+                            <div class="wrapper-countdown">
+                              <div class="countdown_1588807401531"></div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="product-content">
+                          <div class="pc-inner">
+
+                            <div class="product-group-vendor-name">
+                              <h5 class="product-name">
+                                <a href="/">tshirt 6</a>
+                              </h5>
+                            </div>
+
+                            <div class="price-cart-wrapper">
+                              <div class="product-price">
+                                <span class="price-compare">
+                                  <span class="money" data-currency-lkr="Rs. 950" data-currency="LKR">rs. 950</span>
+                                </span>
+                                <span class="price-sale">
+                                  <span class="money" data-currency-lkr="Rs. 850" data-currency="LKR">Rs. 850</span>
+                                </span>
+                              </div>
+
+                              <div class="product-add-cart">
+                                <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
+                                    <span class="demo-icon icon-basket"></span>
+                                  </a>
+
+                                  <select class="d-none" name="id">
+                                    <option value="14880160612411"> Default Title</option>
+                                  </select>
+                                </form>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+                  
+                </div>
+
+
+
+
+
+
+
+
+
+
+              </div>
+
+              
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+          <div class="related-product">
+            <div class="title-wrapper">
+            <h3>Related product</h3>
+          </div>
+          <div class="product-carousel">
 
 
           <div class="product-wrapper effect-overlay ">
@@ -1740,7 +2244,7 @@
                     <span>Google+</span>
                   </a>
                 </li>
-              </ul>
+              </ul> -->
               
             </div> 
 
