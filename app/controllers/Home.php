@@ -7,19 +7,8 @@
 		}
 
 		public function indexAction(){
-			$db = DB::getInstance();
-			$records = $db->findFirst('test', [
-				'conditions' => "id = ?",
-				'bind' => ['1'],
-				'order' => "description",
-				'limit' => 5
-			]);
-			dnd($records);
-			$this->view->render('home/index');
-		}
 
-		public function loginAction(){
-			$this->view->render('home/login');
+			$this->view->render('home/index');
 		}
 
 		public function ProductListAction(){
