@@ -9,6 +9,7 @@
 
  	define('DEFAULT_CONTROLLER', 'Home'); // default controller
 	define('DEFAULT_LAYOUT', 'default'); //default layout
+	define('SITE_TITLE', 'Tailor Mate');
 
 	define('PROOT', '/cs2062/'); //set this to '/' for a live server
 

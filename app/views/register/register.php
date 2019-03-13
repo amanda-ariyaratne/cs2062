@@ -57,7 +57,7 @@
           <div id="customer-login" class="content">
             <h2 class="heading">Register</h2>
 
-                      <form method="post" action="" >
+            <form method="post" action="" >
 
           <div id="register-form">
 
@@ -78,6 +78,11 @@
 
             <div class="control-wrapper">
               <label for="password">Password<span class="req">*</span></label>
+              <input type="password" value="" name="password" id="password" class="password" />
+            </div>
+
+            <div class="control-wrapper">
+              <label for="password">Confirm Password<span class="req">*</span></label>
               <input type="password" value="" name="password" id="password" class="password" />
             </div>
 
