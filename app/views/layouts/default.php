@@ -4,7 +4,7 @@
 
 <head>
   
-  <link rel="shortcut icon" href="images/logo.jpg" type="image/png" />
+  <link rel="shortcut icon" href="<?=PROOT?>assets/images/logo.jpg" type="image/png" />
   
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -17,12 +17,13 @@
   </title>
 
   <link href="<?=PROOT?>assets/css/bootstrap.4x.css" rel="stylesheet" type="text/css" media="all" />
-  <link href="<?=PROOT?>assets/css/bc.style.scss.php" rel="stylesheet" type="text/css" media="all" />
+  <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <?= $this->content('head'); ?>
+  
 </head>
 
 <body class="templateCustomersLogin category-mode-false cata-grid-3 lazy-loading-img">
@@ -160,7 +161,9 @@
             </div>
 
             <div class="header-right col-lg-9 col-md-12">
-              
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-6">
                 <div class="searchbox">
 
                   <form id="search" class="navbar-form search" action="/search" method="get">
@@ -184,27 +187,27 @@
                   </div>
 
                 </div>
-              
+                </div>
 
-               
+               <div class="col-md-4">
                 <div class="header-phone-widget d-none d-lg-block">
                   
-                  <div class="phone-icon lazyload waiting">
-                    
-                      <i class="demo-icon icon-phone"></i>
-
-                    
-                  </div>
+                  
+                    <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
+                      <i class="demo-icon icon-phone"></i>                    
+                    </div>
+                  
+                  
+                    <div class="text">
+                      <span class="text-1">Call us</span>
+                      <span class="text-2">(+94) 123 456 789</span>
+                    </div>
                   
 
-                  <div class="text">
-                    <span class="text-1">Call us</span>
-                    <span class="text-2">(+94) 123 456 789</span>
-                  </div>
-
                 </div>
+              </div>
               
-
+                <div class="col-md-1">
               <div class="header-icons d-none d-lg-block">
                 <ul class="list-inline"> 
 
@@ -230,6 +233,7 @@
 
                 </ul>
               </div>
+            </div>
 
             </div>
 
@@ -485,8 +489,8 @@
 
 </div>
 
-      <footer id="footer-content">
-        <div id="shopify-section-footer" class="shopify-section">
+<footer id="footer-content">
+  <div id="shopify-section-footer" class="shopify-section">
 
 
 <div class="footer-container layout-boxed">

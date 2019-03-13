@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Login') ?>
+<?= $this->setSiteTitle('TailorMate - Login') ?>
 
 <?= $this->start('head'); ?>
 
