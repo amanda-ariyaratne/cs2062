@@ -18,4 +18,7 @@
 			$this->view->render('home/Men_s_Baseball_T_Shirt');
 		}
 
+        public function addProductAction(){
+            $this->view->render('home/addProduct');
+        }
 	}
