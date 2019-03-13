@@ -14,7 +14,7 @@
 				'order' => "description",
 				'limit' => 5
 			]);
-			dnd($records);
+
 			$this->view->render('home/index');
 		}
 
@@ -24,6 +24,10 @@
 
 		public function ProductListAction(){
 			$this->view->render('home/ProductList');
+		}
+
+		public function addProductAction(){
+			$this->view->render('home/addProduct');
 		}
 
 	}
