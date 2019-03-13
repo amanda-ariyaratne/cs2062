@@ -112,14 +112,14 @@
 			return $this->query("SHOW COLUMNS FROM {$table}")->results();
 		}
 
-		public function find($table, $params=[]){
+		public function findFirst($table, $params=[]){
 			if ($this->_read($table, $params)) {
 				return $this->results();///////////////
 			}
 			return false;
 		}
 
-		public function findFirst($table, $params=[]){
+		public function find($table, $params=[]){
 			if ($this->_read($table, $params)) {
 				return $this->first();///////////////////
 			}
@@ -127,11 +127,12 @@
 		}
 
 		protected function _read($table, $params=[]){
+
 			$conditionString = '';
 			$bind = [];
 			$order = '';
 			$limit = '';
-
+			
 			//conditions
 			if (isset($params['conditions'])) {
 				if (is_array($params['conditions'])) {
@@ -165,7 +166,7 @@
 			}
 
 			$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
-
+			
 			if ($this->query($sql, $bind)) {
 				if (!count($this->_result)) {
 					return false;

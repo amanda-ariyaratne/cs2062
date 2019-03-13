@@ -89,9 +89,12 @@
 
                     <li class="customer-account lazyload waiting">
                         <a href="<?=PROOT?>register/login" title="Account">
+<<<<<<< HEAD
+=======
                           
-                        <i class="demo-icon icon-user"></i>
-                          Login
+                        <i class="demo-icon icon-user"></i>Login
+>>>>>>> 2e25e8847ee31b87506f2fce5fb62e7734870a02
+                          
                         </a>
                     </li>
 
@@ -604,7 +607,7 @@
     
     
   
-    <li>
+    <!-- <li>
       <a target="_blank" rel="noopener" href="" title="Github">
         
           <i class="demo-icon icon-github-circled-alt2"></i>
@@ -790,11 +793,9 @@
           <i class="demo-icon icon-behance"></i>
         
       </a>
-    </li>
+    </li> -->
   
   
-  
-
 </ul>
         </div>
       </div>
