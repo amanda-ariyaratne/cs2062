@@ -7,7 +7,6 @@
 		}
 
 		public function indexAction(){
-
 			$this->view->render('home/index');
 		}
 
@@ -17,6 +16,10 @@
 
 		public function Men_s_Baseball_T_ShirtAction(){
 			$this->view->render('home/Men_s_Baseball_T_Shirt');
+		}
+
+		public function loginAction(){
+			$this->view->render('register/login');
 		}
 
 	}

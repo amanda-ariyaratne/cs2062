@@ -88,7 +88,7 @@
                 <ul class="list-inline">
 
                     <li class="customer-account lazyload waiting">
-                        <a href="<?=PROOT?>home/login" title="Account">
+                        <a href="<?=PROOT?>register/login" title="Account">
                           
                         <i class="demo-icon icon-user"></i>
                           Login
