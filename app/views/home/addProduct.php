@@ -1,7 +1,9 @@
 <?= $this->setSiteTitle('Add Product'); ?>
 
 <?= $this->start('head'); ?>
-		<link rel='stylesheet' id='pt-grid-css'  href='../../../assets/css/pt-grid.css' type='text/css' media='all' />
+		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
+        <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
+        <link rel='stylesheet' href="<?=PROOT?>assets/css/bootstrap.4x.css' />
 
 <?= $this->end(); ?>
 
@@ -58,12 +60,20 @@
 			</div>
 
 			<br />
+
+
+
+
+
                             <div class="wcv-tabs top" data-prevent-url-change="true">
 
                                 <div class="tabs-content" id="store">
 
                                     <!-- Store Name -->
-                                    <div class="control-group"><label for="_wcv_store_name" class="">Product Name <small>Required</small></label><div class="control"><input type="text" class="" style="" name="_wcv_store_name" id="_wcv_store_name" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> --></div>
+                                    <div class="control-group"><label for="_wcv_store_name" class="">Product Name 
+                                        <span class="require">*</span>
+
+                                    </label><div class="control"><input type="text" class="" style="" name="_wcv_store_name" id="_wcv_store_name" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> --></div>
                                     <br>
 
                                     <!-- Store Description -->
@@ -78,6 +88,11 @@
 
 
                                     <br />
+
+                                    <!-- Add image -->
+                                    
+ -->
+                                     <br/>
 
 
                                     <!-- Company URL -->
@@ -118,6 +133,25 @@
                                         </div>
                                     </div>
                                     <br>
+
+
+
+                                    <!-- select sizes -->
+                                    <div class=""><label class="">Select Availabe Sizes</label></div>
+
+                                    <div class="select_sizes">
+                                        <input type="checkbox" name="xs" value="Bike"> xs<br>
+                                        <input type="checkbox" name="s" value="Car"> s<br>
+                                        <input type="checkbox" name="M" value="Boat" checked> M<br>
+                                        <input type="checkbox" name="M" value="Boat" checked> L<br>
+                                        <input type="checkbox" name="M" value="Boat" checked> x<br>
+
+                                    </div>
+                                    <br>
+
+
+
+
 
                                     <!-- Address 1 -->
                                     <div class="control-group"><label for="_wcv_store_address1" class="">Store Address</label><div class="control"><input type="text" class="" style="" name="_wcv_store_address1" id="_wcv_store_address1" value="" placeholder="Street Address"  /> </div></div>
