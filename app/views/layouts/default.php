@@ -88,10 +88,10 @@
                 <ul class="list-inline">
 
                     <li class="customer-account lazyload waiting">
-                        <a href="<?=PROOT?>home/login" title="Account">
+                        <a href="<?=PROOT?>register/login" title="Account">
                           
-                        <i class="demo-icon icon-user"></i>
-                          Login
+                        <i class="demo-icon icon-user"></i>Login
+                          
                         </a>
                     </li>
 
@@ -604,7 +604,7 @@
     
     
   
-    <li>
+    <!-- <li>
       <a target="_blank" rel="noopener" href="" title="Github">
         
           <i class="demo-icon icon-github-circled-alt2"></i>
@@ -790,11 +790,9 @@
           <i class="demo-icon icon-behance"></i>
         
       </a>
-    </li>
+    </li> -->
   
   
-  
-
 </ul>
         </div>
       </div>

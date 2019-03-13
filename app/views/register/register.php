@@ -1,13 +1,7 @@
-<?= $this->setSiteTitle('Login') ?>
+<?= $this->setSiteTitle('Register') ?>
 
 <?= $this->start('head'); ?>
 
-<?= $this->end(); ?>
-
-<?= $this->start('body'); ?>
-<?= $this->setSiteTitle('Login') ?>
-
-<?= $this->start('head'); ?>
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>

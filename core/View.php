@@ -7,7 +7,8 @@
 
 		}
 
-		public function render($viewName){
+		public function render($viewName, $params =[]){
+			
 			$viewArray = explode('/', $viewName);
 			$viewString = implode(DS, $viewArray);
 			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {

@@ -9,9 +9,10 @@
 
  	define('DEFAULT_CONTROLLER', 'Home'); // default controller
 	define('DEFAULT_LAYOUT', 'default'); //default layout
+	define('SITE_TITLE', 'default');
 
 	define('PROOT', '/cs2062/'); //set this to '/' for a live server
 
-	define('CURRENT_USER_SESSION_NAME', 'bjkdwqte673r732r8f');
+	define('CURRENT_USER_SESSION_NAME', 'bjkdwqte673r732r8f'); //
 	define('REMEMBER_ME_COOKIE_NAME', 'ncsjwei27483r09jf');
 	define('REMEMBER_ME_COOKIE_EXPIRY', 604800); //30 days;
