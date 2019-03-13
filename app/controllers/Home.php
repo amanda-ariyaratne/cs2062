@@ -7,7 +7,6 @@
 		}
 
 		public function indexAction(){
-
 			$this->view->render('home/index');
 		}
 
