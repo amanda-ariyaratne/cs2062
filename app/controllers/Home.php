@@ -14,12 +14,18 @@
 
 			$db=DB::getInstance();
 			$limit = array('limit'=>$a.',2');
-			$details = $db->find('products',$limit);			
+			$details = $db->findFirst('products',$limit);	//////findFirt vs find issue		
 			$params = array();
+
 			array_push($params,$details);
-			array_push($params,$a);
-			$b = (count($db->find('products')));
-			array_push($params,$b);
+			array_push($params,$a);			
+
+			$temp= array();
+			$x=$db->findFirst('products');	//////findFirt vs find issue		
+			array_push($temp,$x);
+			
+			$pageNo = count($temp[0]);
+			array_push($params,$pageNo);
 
 			$this->view->render('home/ProductList',$params);
 		}
