@@ -114,14 +114,14 @@
 
 		public function findFirst($table, $params=[]){
 			if ($this->_read($table, $params)) {
-				return $this->first();
+				return $this->results();///////////////
 			}
 			return false;
 		}
 
 		public function find($table, $params=[]){
 			if ($this->_read($table, $params)) {
-				return $this->results();
+				return $this->first();///////////////////
 			}
 			return false;
 		}
@@ -161,7 +161,7 @@
 
 			//limit
 			if (array_key_exists('limit', $params)) {
-				$order = ' LIMIT ' . $params['limit'];
+				$limit = ' LIMIT ' . $params['limit'];/////////////////////////
 			}
 
 			$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";

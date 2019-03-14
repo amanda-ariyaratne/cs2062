@@ -7,11 +7,6 @@
 		}
 
 		public function indexAction(){
-
-			// $db=DB::getInstance();
-			// $contacts=$db -> findFirst('users');
-			// $params = array();
-			// array_push($params, $contacts);
 			$this->view->render('home/index');
 		}
 
@@ -33,9 +28,9 @@
 			$this->view->render('home/Men_s_Baseball_T_Shirt');
 		}
 
-
         public function addProductAction(){
 
             $this->view->render('home/addProduct');
         }
+
 	}

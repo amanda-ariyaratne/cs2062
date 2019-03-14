@@ -1,7 +1,7 @@
 <?php
 
 	class View {
-		protected $_head, $_body, $_siteTitle = SITE_TITLE, $_outputBuffer, $_layout = DEFAULT_LAYOUT;
+		protected $_head, $_body, $_siteTitle , $_outputBuffer, $_layout = DEFAULT_LAYOUT;/////////////////////////////
 
 		public function __construct(){
 
