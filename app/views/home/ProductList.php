@@ -826,9 +826,9 @@
     </li>
 
     <?php
-      $noOfPages=count($params[0]) /15+1;
+      $noOfPages = $params[2] /2+1;
       for($i=1; $i<=$noOfPages; $i++) {
-        echo '<li><a href="1">'.$i.'</a></li>';
+        echo '<li><a href="'.$i.'">'.$i.'</a></li>';
       }
      ?>
 

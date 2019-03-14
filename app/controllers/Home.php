@@ -23,6 +23,8 @@
 			$params = array();
 			array_push($params,$details);
 			array_push($params,$a);
+			$b = (count($db->find('products')));
+			array_push($params,$b);
 
 			$this->view->render('home/ProductList',$params);
 		}
@@ -33,6 +35,7 @@
 
 
         public function addProductAction(){
+
             $this->view->render('home/addProduct');
         }
 	}

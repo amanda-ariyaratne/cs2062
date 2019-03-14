@@ -253,10 +253,16 @@
             <nav class="navbar navbar-expand-lg">
               <div class="collapse navbar-collapse">
                 <ul class="menu-list">
+
+                  <li>
+                    <a href="#" class="dropdown-link">
+                    <span>All Products</span>
+                    </a>
+                  </li>
                   
               
                   <li class="dropdown">
-                      <a href="#" class="dropdown-link">
+                      <a href="0" class="dropdown-link">
                       <span>Men's</span>
                       </a>
                       <span class="expand"></span>
