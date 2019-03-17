@@ -24,12 +24,12 @@
 			}
 		}
 
-		public function findByUsername($username){
-			dnd($username);
-			$condition = 'email = ' . $username;
-			$user = $this->findFirst(['conditions'=>$condition]);
-			return $user;
-		}
+		// public function findByUsername($username){
+		// 	dnd($username);
+		// 	$condition = 'email = ' . $username;
+		// 	$user = $this->findFirst(['conditions'=>$condition]);
+		// 	return $user;
+		// }
 
 		public function login($rememberMe = false){
 			Session::set($this->$_sessionName, $this->id);
