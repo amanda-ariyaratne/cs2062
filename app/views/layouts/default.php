@@ -253,7 +253,7 @@
                 <ul class="menu-list">
 
                   <li>
-                    <a href="<?=PROOT?>home/ProductList/0" class="dropdown-link">
+                    <a href="<?=PROOT?>home/ProductList/1" class="dropdown-link">
                     <span>All Products</span>
                     </a>
                   </li>
@@ -261,7 +261,7 @@
               
                   <li class="dropdown">
                       <a href="0" class="dropdown-link">
-                      <span>Men's</span>
+                      <span>Men</span>
                       </a>
                       <span class="expand"></span>
 
@@ -284,7 +284,7 @@
 
                   <li class="dropdown">
                   <a href="#" class="dropdown-link">
-                  <span>Women's</span>
+                  <span>Women</span>
                   </a>
                   <span class="expand"></span>
 
@@ -381,25 +381,7 @@
                   </li>
 
 
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Bags</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
-                          
-                      </ul>
-                  </li>
-
+                  
                   <li class="dropdown">
                   <a href="#" class="dropdown-link">
                   <span>Uniforms</span>
@@ -444,6 +426,27 @@
                           
                       </ul>
                   </li>
+
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Bags</span>
+                  </a>
+                  <span class="expand"></span>
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
+                          
+                      </ul>
+                  </li>
+
 
                 </ul>
               </div>

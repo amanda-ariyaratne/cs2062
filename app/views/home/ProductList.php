@@ -292,8 +292,11 @@
     
     <div class="pagination-showing">
       <div class="showing">
-        
-          Showing 1 - 15 of 28 <?php  ?> Items
+          <?php                       
+            $pageNo=$params[1];
+            $noOfPages = ceil(($params[2]/6));           
+            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
+          ?>
         
       </div>
     </div>
@@ -740,6 +743,7 @@
               <?php 
                 
                 foreach($params[0] as $value){
+                      $pid=$value->id;
                       echo '<div class="product-grid-item mode-view-item">                   
 
                           <div class="product-wrapper effect-overlay ">
@@ -747,7 +751,7 @@
                               <div class="product-image">
                                 
                                 <div class="featured-img lazyload">
-                                  <a href="/products/consectetur-nibh-eget"> 
+                                  <a href="'.PROOT.'home/product/'.$pid.'"> 
                                     <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->image_path.'"/>
                                   </a>
                                 </div> 
@@ -826,18 +830,61 @@
     </li>
 
     <?php
-      $noOfPages = $params[2] /2+1;
-      for($i=1; $i<=$noOfPages; $i++) {
+      $pageNo=$params[1];
+      $noOfPages = ceil(($params[2]/6));      
+
+      if ($pageNo-1>0){
+        $previousPage=$pageNo-1;
+        echo
+        '<li>
+          <a href="'.$previousPage.'" title="Next" class="next">
+            <i class="icon-demo icon-angle-left"></i>
+          </a>
+        </li>';
+      }
+
+      $start=$pageNo-2;
+      $end=$pageNo+2;
+
+      if ($noOfPages<=5){
+        $start=1;
+        $end=$noOfPages;
+      }
+      
+      else{
+
+        if ($pageNo==1 || $pageNo==2){        
+          $start=1;
+            $end=$noOfPages;
+        }
+
+        else if($pageNo+1==$noOfPages) {
+          $start=$pageNo-3;
+          $end=$noOfPages;
+        }
+
+        else if ($pageNo==$noOfPages){
+          $start=$noOfPages-4;
+          $end=$noOfPages;
+        }
+
+      }
+
+      for($i=$start; $i<=$end; $i++) {
         echo '<li><a href="'.$i.'">'.$i.'</a></li>';
       }
-     ?>
+        
+      if ($pageNo+1<=$noOfPages){
+        $nextPage=$pageNo+1;
+        echo
+        '<li>
+          <a href="'.$nextPage.'" title="Next" class="next">
+            <i class="icon-demo icon-angle-right"></i>
+          </a>
+        </li>';
+      }
 
-    <li>
-      <a href="/collections/all?page=2" title="Next" class="next">
-        <i class="icon-demo icon-angle-right"></i>
-      </a>
-    </li>
-    
+    ?>
 
   </ul>
 </div>

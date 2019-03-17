@@ -6,26 +6,31 @@
 			parent::__construct($controller, $action);
 		}
 
-		public function indexAction(){
+		public function indexAction($a){
+			$db=DB::getInstance();
+			$params=array($a);
 			$this->view->render('home/index');
 		}
+
+		// public function CategoryItemAction($id){
+		// 	$db=DB::getInstance();
+						
+		// 	$details=$db->findById('condition'=> '$id= ?','bind'=>[$id]);
+		// 	$params=array($details,$id);
+		// 	$this->view->render('home/CategoryItem',$params);
+		// }
+
 
 		public function ProductListAction($a){
 
 			$db=DB::getInstance();
-			$limit = array('limit'=>$a.',2');
+			$limit = array('limit'=>$a.',6');
 			$details = $db->findFirst('products',$limit);	//////findFirt vs find issue		
-			$params = array();
-
-			array_push($params,$details);
-			array_push($params,$a);			
-
-			$temp= array();
-			$x=$db->findFirst('products');	//////findFirt vs find issue		
-			array_push($temp,$x);
 			
-			$pageNo = count($temp[0]);
-			array_push($params,$pageNo);
+			$temp= array($db->findFirst('products'));
+			$noOfProducts = count($temp[0]);
+
+			$params=array($details,$a,$noOfProducts);
 
 			$this->view->render('home/ProductList',$params);
 		}
