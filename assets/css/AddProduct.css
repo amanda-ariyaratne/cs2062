@@ -1,5 +1,9 @@
 .require {
     size: 40px;
-    color: #FF0000;
+    color: #FF0000 !important;
 
+}
+
+.box{
+	width: ;
 }

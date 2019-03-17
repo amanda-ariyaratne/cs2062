@@ -1,50 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="<?=PROOT?>assets/css/bootstrap.4x.css">
-    <link rel="stylesheet" href="<?=PROOT?>assets/css/Categories.css">
+    <link rel="stylesheet" href="<?=PROOT?>assets/css/bootstrap.4x.css" />
+    <link rel="stylesheet" href="<?=PROOT?>assets/css/Categories.css" />
     <script src="<?=PROOT?>assets/js/jquery.min.js"></script>
     <script src="<?=PROOT?>assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
 
+<div class="page">
 <div class="categories">
     <h4 class="categories-title">Categories</h4>
     <ul class="categories-list">
 
         <li class="cat-item cat-item-70 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="assets/images/categories_icons/791499-200.png">
+                <img src="">
             </span>
-            <a href="#" class="line">Clothes</a>
+            <a href="#" class="line">Men's</a>
             <!--<span class="count">(12)</span>-->
             <a data-toggle="collapse" class="collapsed" href="#collapse1"><i class="far"></i></a>
             <div id="collapse1" class="panel-collapse collapse">
                 <ul id="children-of-70" class="children collapse in">
+
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/Business_formal_shirt-512.png"
+                            <img src=""
                                  >
                         </span>
-                        <a href="#">Men</a>
+                        <a href="#">T-shirts</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
-
                     <li>
                         <span class="list-icon">
                             <img 
-                            src="assets/images/categories_icons/female_clothes-05-512.png">
+                            src="">
                         </span>
-                        <a href="#">Women</a>                        
+                        <a href="#">Shirts</a>                        
                     </li>
-
                     <li>
                     	<span class="list-icon">
                             <img 
-                                 src="assets/images/categories_icons/32-512.png">
+                                 src="">
                              </span>
-                        <a href="#" class="line">Kids & Babies</a>
+                        <a href="#" class="line">Sweater Shirts & Hoodies</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img 
+                            src="">
+                        </span>
+                        <a href="#">Tank Tops</a>                        
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img 
+                            src="">
+                        </span>
+                        <a href="#">Trousers</a>                        
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img 
+                            src="">
+                        </span>
+                        <a href="#">Sarongs</a>                        
                     </li>
                 </ul>
             </div>
@@ -52,100 +73,257 @@
 
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="assets/images/categories_icons/Home-Decorations.png">
+                <img src="">
             </span>
-            <a href="#" class="line">Home Decor</a>
+            <a href="#" class="line">Women's</a>
             <!--<span class="count">(12)</span>-->
             <a data-toggle="collapse" class="collapsed" href="#collapse2"><i class="far"></i></a>
             <div id="collapse2" class="panel-collapse collapse">
                 <ul id="children-of-80" class="children collapse in">
+
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/140090-200.png">
+                            <img src="">
                         </span>
-                        <a href="#">Curtains</a>
+                        <a href="#">T-shirts & Tops</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
-
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/il_570xN.1706629259_stie.jpg">
+                            <img src="">
                         </span>
-                        <a href="#">Cushion Covers</a>                        
+                        <a href="#">Tank Tops</a>                        
                     </li>
-
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/bedroom-Line-02-512.png">
+                            <img src="">
                         </span>
-                        <a href="#">Pillow Covers</a>
+                        <a href="#">Sweater & Hoodies</a>
                     </li>
-
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/bed_355610.png" >
+                            <img src="" >
                         </span>
-                        <a href="#">Bedsheets</a>
+                        <a href="#">Dresses</a>
                     </li>
-
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/181443727Untitled-3-512.png">
+                            <img src="">
                         </span>
-                        <a href="#" class="line">Wall Arts</a>
+                        <a href="#" class="line">Mini-skirts</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Leggins</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Scraves</a>
                     </li>
                 </ul>
             </div>
         </li>
 
-        <li>
+        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="assets/images/categories_icons/Very-Basic-Briefcase-icon.png">
+                <img src="">
             </span>
-            <a href="#" class="line">Device Cases</a>
-        </li>
-
-        <li>
-            <span class="list-icon">
-                <img src="assets/images/categories_icons/62d8e49f120d2cb54a3b0a50396d3f30.jpg">
-            </span>
-            <a href="#" class="line">Bags</a>
-        </li>
-
-        <li class="cat-item cat-item-90 cat-parent current-cat-parent">
-            <span class="list-icon">
-                <img src="assets/images/categories_icons/117792-200.png">
-            </span>
-            <a href="#" class="line">Other</a>
-            <!--<span class="count">(12)</span>-->
+            <a href="#" class="line">Kids</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse3"><i class="far"></i></a>
             <div id="collapse3" class="panel-collapse collapse">
-                <ul id="children-of-90" class="children collapse in">
+                <ul id="children-of-80" class="children collapse in">
+
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/97-512.png">
+                            <img src="">
                         </span>
-                        <a href="#">Greeting Cards</a>
+                        <a href="#">Kids T-shirts</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
-
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/clothes_030-earring-accessory-fashion-jewelry-512.png">
+                            <img src="">
                         </span>
-                        <a href="#">Handmade Jewellery</a>                        
+                        <a href="#">Baby T-shirts</a>                        
                     </li>
-
                     <li>
                         <span class="list-icon">
-                            <img src="assets/images/categories_icons/teddy-bear-clip-art-39.png">
+                            <img src="">
                         </span>
-                        <a href="#" >Toys</a>
-                    </li>    
+                        <a href="#">Baby one piece</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="" >
+                        </span>
+                        <a href="#">Baby Dresses</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#" class="line">Baby Skirts</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Baby Leggins</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Baby Trousers</a>
+                    </li>
                 </ul>
             </div>
         </li>
+
+        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
+            <span class="list-icon">
+                <img src="">
+            </span>
+            <a href="#" class="line">Sarees</a>
+            <a data-toggle="collapse" class="collapsed" href="#collapse4"><i class="far"></i></a>
+            <div id="collapse4" class="panel-collapse collapse">
+                <ul id="children-of-80" class="children collapse in">
+
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Kandian</a>
+                        <!--<span class="count">(2)</span>-->
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Indian</a>                        
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Western</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="" >
+                        </span>
+                        <a href="#">Bathik</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#" class="line">Cotton</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Silk</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Wedding Saree</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Saree Jackets</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
+            <span class="list-icon">
+                <img src="">
+            </span>
+            <a href="#" class="line">Home Decor</a>
+            <a data-toggle="collapse" class="collapsed" href="#collapse5"><i class="far"></i></a>
+            <div id="collapse5" class="panel-collapse collapse">
+                <ul id="children-of-80" class="children collapse in">
+
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Pillows & Cushions</a>
+                        <!--<span class="count">(2)</span>-->
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Duvel Covers</a>                        
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Wall Taperstries</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="" >
+                        </span>
+                        <a href="#">Curtains</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
+            <span class="list-icon">
+                <img src="">
+            </span>
+            <a href="#" class="line">Bags</a>
+            <a data-toggle="collapse" class="collapsed" href="#collapse6"><i class="far"></i></a>
+            <div id="collapse6" class="panel-collapse collapse">
+                <ul id="children-of-80" class="children collapse in">
+
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Tote Bags</a>
+                        <!--<span class="count">(2)</span>-->
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Studio Pouches</a>                        
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="">
+                        </span>
+                        <a href="#">Drowstring Bags</a>
+                    </li>
+                    <li>
+                        <span class="list-icon">
+                            <img src="" >
+                        </span>
+                        <a href="#">Laptop Sleeves</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
     </ul>
+</div>
 </div>
 </body>
 </html>
