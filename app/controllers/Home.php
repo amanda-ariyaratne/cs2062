@@ -41,7 +41,29 @@
 
         public function addProductAction(){
 
-            $this->view->render('home/addProduct');
+        	$this->load_model('Product');
+        	            
+        	$db = DB::getInstance();
+        	$categories = $db->find('sub_categories');
+        	$params = [$categories];
+
+        	if ($_POST) {
+				// $db = DB::getInstance();
+
+				$fields = [
+					"name" => $_POST["Product_Name"],
+					"description" => $_POST["Product_Description"],
+					"price" => $_POST["price"],
+					"category" => $_POST["category"],
+				];
+
+				// $this->Product->insert($fields);
+				$db->insert('products', $fields);
+			}
+			 // dnd($fields);
+            $this->view->render('home/addProduct', $params);
+
+            
         }
 
 	}
