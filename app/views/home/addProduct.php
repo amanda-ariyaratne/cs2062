@@ -51,7 +51,9 @@
 		
 			<div class="wcvendors-pro-dashboard-wrapper"> 
 		
-			<div class="wcv-grid"><form method="post" id="wcv-store-settings" action="" class="wcv-form wcv-formvalidator"> 
+			<div class="wcv-grid">
+
+                <form name="add-product-form" method="post" id="wcv-store-settings" action="" class="wcv-form wcv-formvalidator" enctype="multipart/form-data"> 
 
 			<input type="hidden" id="_wcv-save_store_settings" name="_wcv-save_store_settings" value="92d9c35492" /><input type="hidden" name="_wp_http_referer" value="/dashboard/?terms=1" /></label><input type="hidden" class="" style="" name="_wcv_vendor_application_id" id="_wcv_vendor_application_id" value="5181" placeholder=""  /> 
 			<h3>Product Details</h3>
@@ -70,14 +72,17 @@
                                 <div class="tabs-content" id="store">
 
                                     <!-- Store Name -->
-                                    <div class="control-group"><label for="_wcv_store_name" class="">Product Name 
+                                    <div class="control-group">
+                                        <label for="_wcv_store_name" class="">Product Name 
                                         <span class="require">*</span>
 
-                                    </label><div class="control"><input type="text" class="" style="" name="_wcv_store_name" id="_wcv_store_name" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> --></div>
+                                    </label><div class="control"><input type="text" class="" style="" name="_wcv_store_name" id="_wcv_store_name" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> -->
+                                    </div>
                                     <br>
 
                                     <!-- Store Description -->
-                                    <label>Product Description</label><div id="wp-pv_shop_description-wrap" class="wp-core-ui wp-editor-wrap tmce-active"><link rel='stylesheet' id='editor-buttons-css'  href='handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
+                                    <label>Product Description</label>
+                                    <div id="wp-pv_shop_description-wrap" class="wp-core-ui wp-editor-wrap tmce-active"><link rel='stylesheet' id='editor-buttons-css'  href='handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
                                         <div id="wp-pv_shop_description-editor-tools" class="wp-editor-tools hide-if-no-js"><div class="wp-editor-tabs"><button type="button" id="pv_shop_description-tmce" class="btn btn-1" data-wp-editor-id="pv_shop_description">Visual</button>
                                                 <button type="button" id="pv_shop_description-html" class="btn btn-1" data-wp-editor-id="pv_shop_description">Text</button>
                                             </div>
@@ -91,7 +96,6 @@
 
                                     <!-- Add image -->
                                     
- -->
                                      <br/>
 
 

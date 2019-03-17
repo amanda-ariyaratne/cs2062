@@ -3,7 +3,6 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="js"> <!--<![endif]-->
 
 <head>
-  
   <link rel="shortcut icon" href="<?=PROOT?>assets/images/logo.jpg" type="image/png" />
   
   <meta charset="UTF-8">
