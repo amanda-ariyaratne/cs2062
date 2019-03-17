@@ -39,10 +39,10 @@
 					]
 				]);
 
-
 				if($validation->passed()){
 					$username = $_POST['username'];
 					$user = $this->UserModel->findByUsername($username);
+					dnd($user);
 					if($user && password_verify(Input::get("password") , $user->password)){
 						$remember = (isset($_POST['remember_me']) && Input::get('remember_me')) ? true : false;
 
@@ -65,13 +65,13 @@
 
 
 
-		public function logoutAction(){
-			dnd(currentUser());/////////////////
-			if(currentUser()){
-				currentUser()->logout();
-			}
+		// public function logoutAction(){
+		// 	//dnd(currentUser());/////////////////
+		// 	if(currentUser()){
+		// 		currentUser()->logout();
+		// 	}
 			
-			Router::redirect('register/login');
-		}
+		// 	Router::redirect('register/login');
+		// }
 
 	}

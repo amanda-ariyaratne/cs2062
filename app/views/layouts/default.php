@@ -3,7 +3,6 @@
 <!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="js"> <!--<![endif]-->
 
 <head>
-  
   <link rel="shortcut icon" href="<?=PROOT?>assets/images/logo.jpg" type="image/png" />
   
   <meta charset="UTF-8">
@@ -89,7 +88,13 @@
 
                     <li class="customer-account lazyload waiting">
                         <a href="<?=PROOT?>register/login" title="Account">
+<<<<<<< HEAD
+                          
+                        <i class="demo-icon icon-user"></i>
+                          Login
+=======
                         <i class="demo-icon icon-user"></i>Login
+>>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
                         </a>
                     </li>
 
@@ -267,13 +272,13 @@
 
                       <ul class="dropdown-menu">
 
-                          <li><a tabindex="-1" href="#"><span>T-Shirts</span></a></li>
+                          <li><a tabindex="-1" href="2"><span>T-Shirts</span></a></li>
 
-                          <li><a tabindex="-1" href="#"><span>Shirts</span></a></li>
+                          <li><a tabindex="-1" href="1"><span>Shirts</span></a></li>
 
-                          <li><a tabindex="-1" href="#"><span>Sweate Shirts & Hoodies</span></a></li>
+                          <li><a tabindex="-1" href="3"><span>Sweate Shirts & Hoodies</span></a></li>
 
-                          <li><a tabindex="-1" href="#"><span>Tank Tops</span></a></li>
+                          <li><a tabindex="-1" href="4"><span>Tank Tops</span></a></li>
 
                           <li><a tabindex="-1" href="#"><span>Trousers</span></a></li>
                          
