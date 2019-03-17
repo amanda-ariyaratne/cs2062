@@ -6,8 +6,7 @@
 			parent::__construct($controller, $action);
 		}
 
-		public function indexAction(){
-			$db=DB::getInstance();
+		public function indexAction(){ 
 			$this->view->render('home/index');
 		}
 
@@ -15,12 +14,9 @@
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
 			$limit = array('limit'=>$id.',3');
-			$details=$db->findFirst('products',$condition,$limit);
-		
-
-			$temp= array($db->findFirst('products',$condition));
+			$details=$db->find('products',$condition,$limit);	
+			$temp= array($db->find('products',$condition));
 			$noOfProducts = count($temp[0]);
-
 			$params=array($details,$id,$noOfProducts);
 			$this->view->render('home/ProductList',$params);
 		}
@@ -29,9 +25,9 @@
 
 			$db=DB::getInstance();
 			$limit = array('limit'=>$a.',6');
-			$details = $db->findFirst('products',$limit);
+			$details = $db->find('products',$limit);
 			
-			$temp= array($db->findFirst('products'));
+			$temp= array($db->find('products'));
 			$noOfProducts = count($temp[0]);
 
 			$params=array($details,$a,$noOfProducts);
@@ -48,7 +44,7 @@
         	$this->load_model('Product');
         	            
         	$db = DB::getInstance();
-        	$categories = $db->find('sub_categories');
+        	$categories = $db->findFirst('sub_categories');
         	$params = [$categories];
 
         	if ($_POST) {
@@ -72,7 +68,19 @@
 
         public function ProductRequestAction(){
 
-            $this->view->render('home/ProductRequest');
+        	$db=DB::getInstance();
+        	
+        	if($_POST){
+        		$fields=[
+        			"name"=> $_POST["design_name"],
+        			"description"=> $_POST["Design-Description"],
+        			// "image"=> $_POST["design_name"],
+        			"location" => $_POST["postal code"],
+        			"date" => $_POST["due date"] 
+        		];    
+        		$this->insert('customer_requests',$feilds);   		
+        	}
+            $this->view->render('home/test', $fields);
         }
 
 

@@ -50,7 +50,8 @@
 		
 			<div class="wcvendors-pro-dashboard-wrapper"> 
 		
-			<div class="wcv-grid"><form method="post" id="wcv-store-settings" action="" class="wcv-form wcv-formvalidator"> 
+			<div class="wcv-grid">
+                <form method="post" id="wcv-store-settings" action="" class="wcv-form wcv-formvalidator"> 
 
             <h2 class="heading">Product Details</h2>
 
@@ -88,7 +89,9 @@
                                         <div id="wp-pv_shop_description-editor-tools" class="wp-editor-tools hide-if-no-js"><div class="wp-editor-tabs">
                                             </div>
                                         </div>
-                                        <div id="wp-pv_shop_description-editor-container" class="wp-editor-container"><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
+
+                                        <div id="wp-pv_shop_description-editor-container" class="wp-editor-container">
+                                            <div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
                                         <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
                                         </div>
                                     </div>
