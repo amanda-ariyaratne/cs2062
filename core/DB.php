@@ -112,14 +112,14 @@
 			return $this->query("SHOW COLUMNS FROM {$table}")->results();
 		}
 
-		public function findFirst($table, $params=[]){
+		public function find($table, $params=[]){
 			if ($this->_read($table, $params)) {
 				return $this->results();///////////////
 			}
 			return false;
 		}
 
-		public function find($table, $params=[]){
+		public function findFirst($table, $params=[]){
 			if ($this->_read($table, $params)) {
 				return $this->first();///////////////////
 			}

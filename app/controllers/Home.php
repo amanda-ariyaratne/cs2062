@@ -7,13 +7,11 @@
 		}
 
 
-
 		public function indexAction(){
 			$this->view->render('home/index');
 		}
 
-<<<<<<< HEAD
-=======
+
 		public function CategoryItemAction($id){
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
@@ -28,10 +26,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductListAction($a){
->>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
-
-
+		
 		public function ProductListAction($a){
 			$db=DB::getInstance();
 			$limit = array('limit'=>$a.',6');
@@ -80,17 +75,34 @@
             
         }
 
-        public function ProductRequestAction(){
+        // public function ProductRequestAction(){
 
-            $this->view->render('home/ProductRequest');
+        //     $this->view->render('home/ProductRequest');
+        // }
+         public function ProductRequestAction(){
+
+        	$db=DB::getInstance();
+        	
+        	if($_POST){
+        		$fields=[
+        			"name"=> $_POST["design_name"],
+        			"description"=> $_POST["Design-Description"],
+        			// "image"=> $_POST["design_name"],
+        			"location" => $_POST["postal code"],
+        			"date" => $_POST["due date"]
+        		];    
+        		$this->insert('customer_requests',$feilds);   		
+        	}
+            $this->view->render('home/test',$fields);
         }
 
 
 
-<<<<<<< HEAD
-		public function loginAction(){
-			$this->view->render('register/login');
-		}
+
+
+		// public function loginAction(){
+		// 	$this->view->render('register/login');
+		// }
 
 
 
@@ -118,6 +130,5 @@
 
 
 
-=======
->>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
+
 	}

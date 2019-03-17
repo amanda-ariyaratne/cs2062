@@ -90,7 +90,7 @@
                                             </div>
                                         </div>
                                         <div id="wp-pv_shop_description-editor-container" class="wp-editor-container"><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                        <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
+                                            <label for="pv_shop_description"></label><textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
                                         </div>
                                     </div>
                                     <br/>
@@ -137,11 +137,21 @@
                                     <div class=""><label class="">Select Availabe Sizes</label><br>
 
                                     <form class="select_sizes" action="#" method="post">
-                                        <input type="checkbox" name="xs" value="XS"><label>XS</label><br>
-                                        <input type="checkbox" name="s" value="S"><label>S</label><br>
-                                        <input type="checkbox" name="m" value="M"><label>M</label><br>
-                                        <input type="checkbox" name="l" value="L"><label>L</label><br>
-                                        <input type="checkbox" name="xl" value="XL"><label>XL</label><br>
+                                        <label>
+                                            <input type="checkbox" name="xs" value="XS">
+                                        </label><label>XS</label><br>
+                                        <label>
+                                            <input type="checkbox" name="s" value="S">
+                                        </label><label>S</label><br>
+                                        <label>
+                                            <input type="checkbox" name="m" value="M">
+                                        </label><label>M</label><br>
+                                        <label>
+                                            <input type="checkbox" name="l" value="L">
+                                        </label><label>L</label><br>
+                                        <label>
+                                            <input type="checkbox" name="xl" value="XL">
+                                        </label><label>XL</label><br>
 
                                     </form>
                                     </div>
