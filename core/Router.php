@@ -3,7 +3,7 @@
 	class Router {
 
 		public static function route($url) {
-
+			
 			//controller
 			$controller = (isset($url[0]) && $url[0] != '') ? ucwords($url[0]) : DEFAULT_CONTROLLER ;
 			$controller_name = $controller;
@@ -31,6 +31,14 @@
 			if (!headers_sent()) {
 				header('Location: ' . PROOT . $location);
 				exit();
+			}else{
+				echo '<script type="text/javascript">';
+				echo 'window.location.href="'.PROOT.$location.'";';
+				echo '</script>';
+				echo '<noscript>';
+				echo '<meta http-equiv="refresh" content="0;url='.$location.'"/>';
+				echo '</noscript>';
+				exit;
 			}
 		}
 		

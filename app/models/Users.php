@@ -20,7 +20,7 @@
 					foreach ($u as $key => $value) {
 						$this->$key = $value;
 					}
-				}
+				}  
 			}
 		}
 

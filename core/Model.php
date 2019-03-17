@@ -2,7 +2,7 @@
 
 	class Model { 
 
-		protected $_db, $_table, $_modelName, $_softDelete = false, $columnNames = [];
+		protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];///////////
 
 		public $id;
 
@@ -32,7 +32,7 @@
 			foreach ($resultsQuery as $result) {
 				$obj = new $this->_modelName($this->_table);
 				$obj->populateObjectData($result);
-				$results[] = $obj;
+				$results[] = $obj;    
 			}
 			return $results;
 		}
@@ -40,13 +40,16 @@
 		public function findFirst($params = []){
 			$resultQuery = $this->_db->findFirst($this->_table, $params);
 			$result = new $this->_modelName($this->_table);
-			$result->populateObjectData($resultQuery);
-			return $result;
+			if($resultQuery){
+				$result->populateObjectData($resultQuery);
+			}
+			return $result;//////////return $result;
 		}
 
 		protected function populateObjectData($obj){
-			foreach ($result as $key => $value) {
-				$this->key = $val;
+			foreach ($obj as $key => $val) {
+				$this->$key = $val;
+
 			}
 		}
 
@@ -109,7 +112,7 @@
 
 		public function assign($params){
 			if (!empty($params)) {
-				foreach ($params as $key => $value) {
+				foreach ($params as $key => $val) {////////////////////////////
 					if (in_array($key, $this->_columnNames)) {
 						$this->$key = sanitize($val);
 					}

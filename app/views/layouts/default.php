@@ -87,10 +87,8 @@
                 <ul class="list-inline">
 
                     <li class="customer-account lazyload waiting">
-                        <a href="<?=PROOT?>home/login" title="Account">
-                          
-                        <i class="demo-icon icon-user"></i>
-                          Login
+                        <a href="<?=PROOT?>register/login" title="Account">
+                        <i class="demo-icon icon-user"></i>Login
                         </a>
                     </li>
 
@@ -252,23 +250,29 @@
             <nav class="navbar navbar-expand-lg">
               <div class="collapse navbar-collapse">
                 <ul class="menu-list">
+
+                  <li>
+                    <a href="<?=PROOT?>home/ProductList/1" class="dropdown-link">
+                    <span>All Products</span>
+                    </a>
+                  </li>
                   
               
                   <li class="dropdown">
-                      <a href="#" class="dropdown-link">
-                      <span>Men's</span>
+                      <a href="0" class="dropdown-link">
+                      <span>Men</span>
                       </a>
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">
 
-                          <li><a tabindex="-1" href="#"><span>T-Shirts</span></a></li>
+                          <li><a tabindex="-1" href="2"><span>T-Shirts</span></a></li>
 
-                          <li><a tabindex="-1" href="#"><span>Shirts</span></a></li>
+                          <li><a tabindex="-1" href="1"><span>Shirts</span></a></li>
 
-                          <li><a tabindex="-1" href="#"><span>Sweate Shirts & Hoodies</span></a></li>
+                          <li><a tabindex="-1" href="3"><span>Sweate Shirts & Hoodies</span></a></li>
 
-                          <li><a tabindex="-1" href="#"><span>Tank Tops</span></a></li>
+                          <li><a tabindex="-1" href="4"><span>Tank Tops</span></a></li>
 
                           <li><a tabindex="-1" href="#"><span>Trousers</span></a></li>
                          
@@ -279,7 +283,7 @@
 
                   <li class="dropdown">
                   <a href="#" class="dropdown-link">
-                  <span>Women's</span>
+                  <span>Women</span>
                   </a>
                   <span class="expand"></span>
 
@@ -376,25 +380,7 @@
                   </li>
 
 
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Bags</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
-                          
-                      </ul>
-                  </li>
-
+                  
                   <li class="dropdown">
                   <a href="#" class="dropdown-link">
                   <span>Uniforms</span>
@@ -439,6 +425,27 @@
                           
                       </ul>
                   </li>
+
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Bags</span>
+                  </a>
+                  <span class="expand"></span>
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
+                          
+                      </ul>
+                  </li>
+
 
                 </ul>
               </div>
@@ -603,7 +610,7 @@
     
     
   
-    <li>
+    <!-- <li>
       <a target="_blank" rel="noopener" href="" title="Github">
         
           <i class="demo-icon icon-github-circled-alt2"></i>
@@ -789,11 +796,9 @@
           <i class="demo-icon icon-behance"></i>
         
       </a>
-    </li>
+    </li> -->
   
   
-  
-
 </ul>
         </div>
       </div>

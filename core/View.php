@@ -1,13 +1,14 @@
 <?php
 
 	class View {
-		protected $_head, $_body, $_siteTitle = SITE_TITLE, $_outputBuffer, $_layout = DEFAULT_LAYOUT;
+		protected $_head, $_body, $_siteTitle , $_outputBuffer, $_layout = DEFAULT_LAYOUT;/////////////////////////////
 
 		public function __construct(){
 
 		}
 
-		public function render($viewName){
+		public function render($viewName, $params =[]){
+			
 			$viewArray = explode('/', $viewName);
 			$viewString = implode(DS, $viewArray);
 			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {

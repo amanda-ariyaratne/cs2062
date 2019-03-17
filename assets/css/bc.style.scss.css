@@ -6744,10 +6744,9 @@ button.mfp-close{color:#333333;font-size:2.5em;margin:30px;opacity:1}
 
 }
 
-.lazy-loading-img .lazyload{font:0px;}
+.lazy-loading-img .lazyload{}
 
-.
-ing-img #home-slideshow .swiper-slide.lazyload{background-image:url(//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/loading.gif?2722615774399024038) !important;width:100% !important;background-size:100px auto !important;opacity:1 !important}
+.lazy-loading-img #home-slideshow .swiper-slide.lazyload{background-image:url(//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/loading.gif?2722615774399024038) !important;width:100% !important;background-size:100px auto !important;opacity:1 !important}
 
 .lazy-loading-img #home-slideshow .swiper-slide.lazyload .swiper-content{opacity:0}
 

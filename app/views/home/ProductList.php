@@ -10,7 +10,7 @@
 
 <?= $this->start('body'); ?>
 
-<div id="body-content" class="layout-boxed">
+<div id="body-content" class="layout-boxed" style="background: #fff !important;">
   <div id="main-content"> 
     <div class="main-content">
       <div id="shopify-section-collection-template" class="shopify-section">
@@ -69,14 +69,14 @@
 
               
                 <a href="/collections/birthday-gifts" >
-                  <img class="lazyload" src = "<?=PROOT?>assets/images/sb_banner_270x.jpg" alt="" /> 
+                  <img class="lazyload" src = "<?=PROOT?>assets/images/products/front2.jpg" alt="" /> 
                 </a>
             
               
               
               <div class="block-text">
-                <span class="text" style="color: #ffffff;">Wooden kitchen tools</span>
-                <a class="btn btn-1" href="/collections/birthday-gifts">shop now</a>
+                <span class="text" style="color: #fff;">Let clothes color your life!</span>
+                <a class="btn btn-1" href="#pagination-holder">shop now</a>
               </div>
           </div>
         </div>
@@ -292,8 +292,11 @@
     
     <div class="pagination-showing">
       <div class="showing">
-        
-          Showing 1 - 15 of 28 Items
+          <?php                       
+            $pageNo=$params[1];
+            $noOfPages = ceil(($params[2]/6));           
+            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
+          ?>
         
       </div>
     </div>
@@ -737,119 +740,77 @@
 
         <div id="col-main">
             <div class="cata-product cp-grid">
+              <?php 
+                
+                foreach($params[0] as $value){
+                      $pid=$value->id;
+                      echo '<div class="product-grid-item mode-view-item">                   
+
+                          <div class="product-wrapper effect-overlay ">
+                            <div class="product-head">
+                              <div class="product-image">
+                                
+                                <div class="featured-img lazyload">
+                                  <a href="'.PROOT.'home/product/'.$pid.'"> 
+                                    <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->image_path.'"/>
+                                  </a>
+                                </div> 
 
 
-              <div class="product-grid-item mode-view-item">                   
+                                 <!-- <div class="product-button">
+                                    <div data-target="#quick-shop-popup" class="quick_shop" data-handle="consectetur-nibh-eget" data-toggle="modal" title="Quick View">
+                                      <i class="demo-icon icon-search"></i>
+                                      Quick View
+                                    </div>
+                                  
+                                    <div class="product-wishlist">
+                                      <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="consectetur-nibh-eget" title="Add to wishlist">
+                                        <i class="demo-icon icon-heart"></i>
+                                        Add to wishlist
+                                      </a>
+                                    </div>  
+                                  </div> -->  
 
-                  <div class="product-wrapper effect-overlay ">
-                    <div class="product-head">
-                      <div class="product-image">
-                        
-                        <div class="featured-img lazyload">
-                          <a href="/products/consectetur-nibh-eget"> 
-                            <img class="featured-image front lazyload" src="<?=PROOT?>assets/images/images.jpg">
-                          </a>
-                        </div>
-                        
-                        <!-- <div class="product-button">
 
-                        <div data-target="#quick-shop-popup" class="quick_shop" data-handle="consectetur-nibh-eget" data-toggle="modal" title="Quick View">
-                          <i class="demo-icon icon-search"></i>
-                          Quick View
-                        </div>
-                      
-                        <div class="product-wishlist">
-                          <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="consectetur-nibh-eget" title="Add to wishlist">
-                            <i class="demo-icon icon-heart"></i>
-                            Add to wishlist
-                          </a>
-                        </div>  
-                      
-                        </div> -->                            
-                      </div>
-                    </div>
+                              </div>
+                            </div>
 
-                    <div class="product-content">
-                      <div class="pc-inner">          
-                        <div class="product-group-vendor-name"> 
-                          <h5 class="product-name"><a href="/products/consectetur-nibh-eget">Frock Sample 1</a></h5>  
+                            <div class="product-content">
+                              <div class="pc-inner">          
+                                <div class="product-group-vendor-name"> 
+                                  <h5 class="product-name"><a href="/products/consectetur-nibh-eget">'. $value->name .'</a></h5>  
 
-                          <!-- <div class="product-des-list"><ul>
+                                  <!-- <div class="product-des-list"><ul>
 
-                            <li><span class="a-list-item">Party Frock</span></li>
-                            <li><span class="a-list-item">Linen material</span></li>
-                            <li><span class="a-list-item">Colours available</span></li>
+                                    <li><span class="a-list-item">Party Frock</span></li>
+                                    <li><span class="a-list-item">Linen material</span></li>
+                                    <li><span class="a-list-item">Colours available</span></li>
 
-                            </ul>
-                          </div> -->
-                          
-                          <div class="product-review">
-                            <span class="shopify-product-reviews-badge" data-id="1588807794747"></span>
+                                    </ul>
+                                  </div> -->
+
+                                  <div class="product-review">
+                                    <span class="shopify-product-reviews-badge" data-id="1588807794747"></span>
+                                  </div>
+                                  
+                                </div>          
+                                <div class="price-cart-wrapper">                          
+                                  <div class="product-price">                          
+                                    <span class="sold-out">$'. $value->price .'</span>                          
+                                  </div>
+
+                                  <div class="product-add-cart"></div>
+
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          
-                        </div>          
-                        <div class="price-cart-wrapper">                          
-                          <div class="product-price">                          
-                            <span class="sold-out">$30</span>                          
-                          </div>
+                      </div>';    
 
-                          <div class="product-add-cart"></div>
+                }
+               ?>
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>              
-
-
-
-
-
-
-
-
-              <div class="product-grid-item mode-view-item">                   
-
-                  <div class="product-wrapper effect-overlay ">
-                    <div class="product-head">
-                      <div class="product-image">
-                        
-                        <div class="featured-img lazyload">
-                          <a href="/products/consectetur-nibh-eget"> 
-                            <img class="featured-image front lazyload" src="<?=PROOT?>assets/images/images.jpg"/>
-                          </a>
-                        </div>                                                  
-                      </div>
-                    </div>
-
-                    <div class="product-content">
-                      <div class="pc-inner">          
-                        <div class="product-group-vendor-name"> 
-                          <h5 class="product-name"><a href="/products/consectetur-nibh-eget">Frock Sample-2</a></h5>  
-
-                          <div class="product-review">
-                            <span class="shopify-product-reviews-badge" data-id="1588807794747"></span>
-                          </div>
-                          
-                        </div>          
-                        <div class="price-cart-wrapper">                          
-                          <div class="product-price">                          
-                            <span class="sold-out">$50</span>                          
-                          </div>
-
-                          <div class="product-add-cart"></div>
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>              
-
-
-
-
-
-
+              
             </div>
         </div>
                 
@@ -858,48 +819,84 @@
     </div>
 </div>
 
-        
+
 <div class="pagination-holder">
   <ul class="pagination">
 
-    
     <li>
       <a class="prev disabled" href="javascript:;">
         <i class="icon-demo icon-angle-left"></i>
       </a>
     </li>
-    
 
-    
-      
-        
-        <li class="active"><a href="javascript:;">1</a></li>
-        
-      
-    
-      
-        <li><a href="/collections/all?page=2">2</a></li>
-      
-    
+    <?php
+      $pageNo=$params[1];
+      $noOfPages = ceil(($params[2]/6));      
 
-    
-    <li>
-      <a href="/collections/all?page=2" title="Next" class="next">
-        <i class="icon-demo icon-angle-right"></i>
-      </a>
-    </li>
-    
+      if ($pageNo-1>0){
+        $previousPage=$pageNo-1;
+        echo
+        '<li>
+          <a href="'.$previousPage.'" title="Next" class="next">
+            <i class="icon-demo icon-angle-left"></i>
+          </a>
+        </li>';
+      }
+
+      $start=$pageNo-2;
+      $end=$pageNo+2;
+
+      if ($noOfPages<=5){
+        $start=1;
+        $end=$noOfPages;
+      }
+      
+      else{
+
+        if ($pageNo==1 || $pageNo==2){        
+          $start=1;
+            $end=$noOfPages;
+        }
+
+        else if($pageNo+1==$noOfPages) {
+          $start=$pageNo-3;
+          $end=$noOfPages;
+        }
+
+        else if ($pageNo==$noOfPages){
+          $start=$noOfPages-4;
+          $end=$noOfPages;
+        }
+
+      }
+
+      for($i=$start; $i<=$end; $i++) {
+        echo '<li><a href="'.$i.'">'.$i.'</a></li>';
+      }
+        
+      if ($pageNo+1<=$noOfPages){
+        $nextPage=$pageNo+1;
+        echo
+        '<li>
+          <a href="'.$nextPage.'" title="Next" class="next">
+            <i class="icon-demo icon-angle-right"></i>
+          </a>
+        </li>';
+      }
+
+    ?>
 
   </ul>
-</div>  
 </div>
 
-    </div>
+
+</div>
+</div>
   
-  </div>
+</div>
 </div>
 
-    <div id="country-target" class="d-none"></div>
+<div id="country-target" class="d-none"></div>
 </div>
 </div>
 </div>
