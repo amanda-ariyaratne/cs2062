@@ -146,8 +146,7 @@
 				}
 				if ($conditionString != '') {
 					$conditionString = ' WHERE ' . $conditionString;
-				}
-				
+				}				
 			}
 
 			//bind

@@ -12,15 +12,35 @@
 			$this->view->render('home/index');
 		}
 
+<<<<<<< HEAD
+=======
+		public function CategoryItemAction($id){
+			$db=DB::getInstance();
+			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
+			$limit = array('limit'=>$id.',3');
+			$details=$db->findFirst('products',$condition,$limit);
+		
+
+			$temp= array($db->findFirst('products',$condition));
+			$noOfProducts = count($temp[0]);
+
+			$params=array($details,$id,$noOfProducts);
+			$this->view->render('home/ProductList',$params);
+		}
+
+		public function ProductListAction($a){
+>>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
 
 
 		public function ProductListAction($a){
 			$db=DB::getInstance();
-			$limit = array('limit'=>$a.',2');
-			$details = $db->find('products',$limit);			
-			$params = array();
-			array_push($params,$details);
-			array_push($params,$a);
+			$limit = array('limit'=>$a.',6');
+			$details = $db->findFirst('products',$limit);
+			
+			$temp= array($db->findFirst('products'));
+			$noOfProducts = count($temp[0]);
+
+			$params=array($details,$a,$noOfProducts);
 
 			$this->view->render('home/ProductList',$params);
 		}
@@ -34,11 +54,40 @@
 
 
         public function addProductAction(){
-            $this->view->render('home/addProduct');
+
+        	$this->load_model('Product');
+        	            
+        	$db = DB::getInstance();
+        	$categories = $db->find('sub_categories');
+        	$params = [$categories];
+
+        	if ($_POST) {
+				// $db = DB::getInstance();
+
+				$fields = [
+					"name" => $_POST["Product_Name"],
+					"description" => $_POST["Product_Description"],
+					"price" => $_POST["price"],
+					"category" => $_POST["category"],
+				];
+
+				// $this->Product->insert($fields);
+				$db->insert('products', $fields);
+			}
+			 // dnd($fields);
+            $this->view->render('home/addProduct', $params);
+
+            
+        }
+
+        public function ProductRequestAction(){
+
+            $this->view->render('home/ProductRequest');
         }
 
 
 
+<<<<<<< HEAD
 		public function loginAction(){
 			$this->view->render('register/login');
 		}
@@ -69,4 +118,6 @@
 
 
 
+=======
+>>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
 	}

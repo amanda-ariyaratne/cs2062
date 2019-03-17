@@ -32,7 +32,7 @@
 			foreach ($resultsQuery as $result) {
 				$obj = new $this->_modelName($this->_table);
 				$obj->populateObjectData($result);
-				$results[] = $obj;
+				$results[] = $obj;    
 			}
 			return $results;
 		}
