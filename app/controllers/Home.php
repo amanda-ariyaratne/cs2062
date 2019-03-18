@@ -12,8 +12,6 @@
 			$this->view->render('home/index');
 		}
 
-<<<<<<< HEAD
-=======
 		public function CategoryItemAction($id){
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
@@ -28,8 +26,6 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductListAction($a){
->>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
 
 
 		public function ProductListAction($a){
@@ -87,7 +83,7 @@
 
 
 
-<<<<<<< HEAD
+
 		public function loginAction(){
 			$this->view->render('register/login');
 		}
@@ -97,7 +93,7 @@
 		public function productViewAction(){
 			$db=DB::getInstance();
 			//load product table
-			$product_array = array('condition'=>'id = ?' , 'bind' => [1]);
+			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
 			$details = $db->find('products_1',$product_array);			
 			$params = array();
 			array_push($params,$details);
@@ -107,17 +103,13 @@
 
 			$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
 			$review_details = $db2->findfirst('review',$review_array);
+			$reverse_reviews = array_reverse($review_details);
 
 			$review_params = array();
-			array_push($review_params,$review_details);
+			array_push($review_params,$reverse_reviews);
 			array_push($params,$review_params);
-			//dnd($params);
 
 			$this->view->render('home/productView',$params);
 		}
 
-
-
-=======
->>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
 	}

@@ -7,7 +7,7 @@
 		public function __construct($user=''){
 			$table = 'user';
 			parent::__construct($table);
-			//$this->$_sessionName = 'bjkdwqte673r732r8f';
+			//$this->_sessionName = 'bjkdwqte673r732r8f';
 			$this->_cookieName = REMEMBER_ME_COOKIE_NAME;
 			$this->_softDelete = true;
 			if ($user != '') {
