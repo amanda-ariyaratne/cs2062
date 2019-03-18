@@ -88,13 +88,10 @@
 
                     <li class="customer-account lazyload waiting">
                         <a href="<?=PROOT?>register/login" title="Account">
-<<<<<<< HEAD
-                          
+
                         <i class="demo-icon icon-user"></i>
                           Login
-=======
-                        <i class="demo-icon icon-user"></i>Login
->>>>>>> 815a885c25b8084b528cce00068a074ca9e4c64f
+
                         </a>
                     </li>
 

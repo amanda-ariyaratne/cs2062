@@ -1,6 +1,7 @@
 <?php
 
 	class Home extends Controller {
+        public $image;
 
 		public function __construct($controller, $action){
 			parent::__construct($controller, $action);
@@ -50,30 +51,43 @@
 
         public function addProductAction(){
 
-        	$this->load_model('Product');
-        	            
         	$db = DB::getInstance();
         	$categories = $db->find('sub_categories');
         	$params = [$categories];
 
         	if ($_POST) {
-				// $db = DB::getInstance();
+				$db = DB::getInstance();
 
-				$fields = [
-					"name" => $_POST["Product_Name"],
-					"description" => $_POST["Product_Description"],
-					"price" => $_POST["price"],
-					"category" => $_POST["category"],
-				];
+                $fields = [
+                    "name" => $_POST["Product_Name"],
+                    "description" => $_POST["Product_Description"],
+                    "price" => $_POST["product_price"],
+                    "sale_price" => $_POST["sale_price"],
+                    "category" => $_POST["category"],
+                    "material" => $_POST["material"],
+                    "image_path" => $_FILES["imagesUpload"]["name"][0],
+//                    "image_path2" => $image_2_value
+                ];
 
-				// $this->Product->insert($fields);
-				$db->insert('products', $fields);
-			}
-			 // dnd($fields);
+                $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/products';
+
+                $target_file = $target_dir . '/' . basename($_FILES["imagesUpload"]["name"][0]);
+
+                $target_file = ltrim($target_file,"/");
+                //dnd($target_file);
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+                move_uploaded_file($_FILES["imagesUpload"]["tmp_name"][0], $target_file);
+
+                // $this->Product->insert($fields);
+                $db->insert('products', $fields);
+            }
+
             $this->view->render('home/addProduct', $params);
 
-            
         }
+
 
         // public function ProductRequestAction(){
 
@@ -91,20 +105,10 @@
         			"location" => $_POST["postal code"],
         			"date" => $_POST["due date"]
         		];    
-        		$this->insert('customer_requests',$feilds);   		
+        		$this->insert('customer_requests',$fields);
         	}
             $this->view->render('home/test',$fields);
         }
-
-
-
-
-
-		// public function loginAction(){
-		// 	$this->view->render('register/login');
-		// }
-
-
 
 		public function productViewAction(){
 			$db=DB::getInstance();
