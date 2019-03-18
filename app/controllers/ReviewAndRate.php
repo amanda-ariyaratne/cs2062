@@ -17,8 +17,10 @@
 				$fields = [
 					"username" => $_POST["username"],
 					"text" => $_POST["body"],
-					"product_id" => $_POST["id"]
+					"product_id" => $_POST["id"],
+					"yes_no" => $_POST["yes-no"]
 				];
+
 				$db2->insert('review', $fields);
 
 
@@ -38,11 +40,13 @@
 
 				$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
 				$review_details = $db2->findfirst('review',$review_array);
+				$reverse_review = array_reverse($review_details);
 
 				$review_params = array();
-				array_push($review_params,$review_details);
+				array_push($review_params,$reverse_review);
 				array_push($params,$review_params);
 
+				// dnd($params);
 				Router::redirect('home/productView');
 
 

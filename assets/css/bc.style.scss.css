@@ -771,7 +771,7 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 .top-bar .list-inline>li>img{display:inline-block;margin:0 5px 0 0;vertical-align:middle}
 
-.top-bar .list-inline>li>a{color:#898e91}
+.top-bar .list-inline>li>a{color:black}
 
 .top-bar .list-inline>li>a.waiting{padding:0 !important;background:transparent !important}
 
@@ -821,7 +821,7 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 .top-bar-textbox ul{display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:-webkit-flex;display:flex;-webkit-justify-content:center;-moz-justify-content:center;-ms-justify-content:center;justify-content:center;-ms-flex-pack:center;-webkit-align-items:center;-moz-align-items:center;-ms-align-items:center;align-items:center;list-style-type:none;padding:10px 0}
 
-.top-bar-textbox ul li{text-transform:uppercase;color:#898e91;line-height:18px;font-size:14px;padding:0 15px}
+.top-bar-textbox ul li{text-transform:uppercase;color:black;line-height:18px;font-size:14px;padding:0 15px}
 
 .top-bar-textbox ul li span{font-weight:500}
 
@@ -903,7 +903,7 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 }
 
-.header-container{font-family:Roboto,sans-serif;font-weight:300;padding:0;margin:0;position:relative;background:#fff;color:#898e91;border-bottom:1px solid #e1e1e1}
+.header-container{font-family:Roboto,sans-serif;font-weight:400;padding:0;margin:0;position:relative;background:#fff;color:white;border-bottom:1px solid #e1e1e1}
 
 @media (max-width: 991px){.header-container{-webkit-box-shadow:0 0 8px rgba(201,201,201,0.75);-ms-transform:0 0 8px rgba(201,201,201,0.75);-o-transform:0 0 8px rgba(201,201,201,0.75);box-shadow:0 0 8px rgba(201,201,201,0.75);z-index:9999}
 
@@ -931,7 +931,7 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 .header-container .header-main .header-phone-widget .text span{display:block;white-space:nowrap}
 
-.header-container .header-main .header-phone-widget .text .text-1{padding-bottom:5px;font-weight:400;color:#6a6a6a}
+.header-container .header-main .header-phone-widget .text .text-1{padding-bottom:5px;font-weight:500;color:white}
 
 .header-container .header-navigation{border-bottom:1px solid #fff}
 
@@ -1097,7 +1097,9 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 }
 
-.header-container.bg-image{background-image:url(../images/header_bg_image.jpg);background-position:center;background-repeat:repeat}
+.header-container.bg-image{
+	background-image:url(<?=PROOT?>assets/images/back-1.jpg);
+	background-position:center;background-repeat:repeat}
 
 .header-container.layout-full>.top-bar,.header-container.layout-full>.top-bar-textbox,.header-container.layout-full>.header-main{padding-left:15px;padding-right:15px}
 

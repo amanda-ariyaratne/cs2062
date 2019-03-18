@@ -10,6 +10,8 @@
 <body>
 
 
+<div class="page" style=" background-image:url(<?=PROOT?>assets/images/body-8.jpg); height: 10%">
+
 <div class="categories">
     <h4 class="categories-title">Categories</h4>
     <ul class="categories-list">

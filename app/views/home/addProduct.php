@@ -56,7 +56,9 @@
 
 			<div class="wcv-grid">
 
+
                 <form name="add-product-form" method="post" id="wcv-store-settings" action="" onsubmit="return validateData();" class="wcv-form wcv-formvalidator" enctype="multipart/form-data">
+
 
             <h2 class="heading">Product Details</h2>
 
@@ -89,9 +91,11 @@
                                     <!-- Product Description -->
                                     <label>Product Description</label>
                                     <div id="wp-pv_shop_description-wrap" class="wp-core-ui wp-editor-wrap tmce-active"><link rel='stylesheet' id='editor-buttons-css'  href='handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
+                                        </div>
 
                                         <div id="wp-pv_shop_description-editor-container" class="wp-editor-container"><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                            <label for="pv_shop_description"></label><textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="productDescription"></textarea>
+                                        <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
+
                                         </div>
                                     </div>
                                     <br/>
