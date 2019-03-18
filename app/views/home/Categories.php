@@ -9,14 +9,16 @@
 </head>
 <body>
 
-<div class="page">
+
+<div class="page" style=" background-image:url(<?=PROOT?>assets/images/body-8.jpg); height: 10%">
+
 <div class="categories">
     <h4 class="categories-title">Categories</h4>
     <ul class="categories-list">
 
         <li class="cat-item cat-item-70 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="">
+                <img src="<?=PROOT?>assets/images/categories_icons/2049-512.png">
             </span>
             <a href="#" class="line">Men's</a>
             <!--<span class="count">(12)</span>-->
@@ -26,44 +28,38 @@
 
                     <li>
                         <span class="list-icon">
-                            <img src=""
-                                 >
+
                         </span>
                         <a href="#">T-shirts</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img 
-                            src="">
+
                         </span>
                         <a href="#">Shirts</a>                        
                     </li>
                     <li>
                     	<span class="list-icon">
-                            <img 
-                                 src="">
+
                              </span>
                         <a href="#" class="line">Sweater Shirts & Hoodies</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img 
-                            src="">
+
                         </span>
                         <a href="#">Tank Tops</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img 
-                            src="">
+
                         </span>
                         <a href="#">Trousers</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img 
-                            src="">
+
                         </span>
                         <a href="#">Sarongs</a>                        
                     </li>
@@ -73,7 +69,7 @@
 
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="">
+                <img src="<?=PROOT?>assets/images/categories_icons/dress_s13-512.png">
             </span>
             <a href="#" class="line">Women's</a>
             <!--<span class="count">(12)</span>-->
@@ -83,44 +79,44 @@
 
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">T-shirts & Tops</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Tank Tops</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Sweater & Hoodies</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="" >
+
                         </span>
                         <a href="#">Dresses</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#" class="line">Mini-skirts</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Leggins</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Scraves</a>
                     </li>
@@ -139,44 +135,44 @@
 
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Kids T-shirts</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Baby T-shirts</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Baby one piece</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="" >
+
                         </span>
                         <a href="#">Baby Dresses</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#" class="line">Baby Skirts</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Baby Leggins</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Baby Trousers</a>
                     </li>
@@ -186,7 +182,7 @@
 
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="">
+                <img src="https://cdn4.iconfinder.com/data/icons/accessories-1/100/saree-512.png">
             </span>
             <a href="#" class="line">Sarees</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse4"><i class="far"></i></a>
@@ -195,50 +191,50 @@
 
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Kandian</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Indian</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Western</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="" >
+
                         </span>
                         <a href="#">Bathik</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#" class="line">Cotton</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Silk</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Wedding Saree</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Saree Jackets</a>
                     </li>
@@ -248,7 +244,7 @@
 
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="">
+                <img src="https://cdn0.iconfinder.com/data/icons/interior-and-decoration-1/64/21-512.png">
             </span>
             <a href="#" class="line">Home Decor</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse5"><i class="far"></i></a>
@@ -257,26 +253,26 @@
 
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Pillows & Cushions</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Duvel Covers</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Wall Taperstries</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="" >
+
                         </span>
                         <a href="#">Curtains</a>
                     </li>
@@ -286,7 +282,7 @@
 
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="">
+                <img src="https://image.flaticon.com/icons/png/512/16/16929.png">
             </span>
             <a href="#" class="line">Bags</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse6"><i class="far"></i></a>
@@ -295,26 +291,26 @@
 
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Tote Bags</a>
                         <!--<span class="count">(2)</span>-->
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Studio Pouches</a>                        
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="">
+
                         </span>
                         <a href="#">Drowstring Bags</a>
                     </li>
                     <li>
                         <span class="list-icon">
-                            <img src="" >
+
                         </span>
                         <a href="#">Laptop Sleeves</a>
                     </li>
@@ -323,7 +319,6 @@
         </li>
 
     </ul>
-</div>
 </div>
 </body>
 </html>

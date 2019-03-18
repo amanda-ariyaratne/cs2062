@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Login') ?>
+<?= $this->setSiteTitle('Home') ?>
 
 <?= $this->start('head'); ?>
 

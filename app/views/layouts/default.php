@@ -21,6 +21,37 @@
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <style type="text/css">
+    .header-container.bg-imagee{
+      background-image:url(<?=PROOT?>assets/images/back-1.jpg);
+  
+  }
+
+    .header-container.bg-image{
+      animation: animateee 16s ease-in-out infinite;
+    }
+
+    @keyframes animateee{
+      0%,100%{
+        background-image: url(<?=PROOT?>assets/images/back-1.jpg);
+      }
+      20%{
+        background-image: url(<?=PROOT?>assets/images/back-2.jpg);
+      }
+      40%{
+        background-image: url(<?=PROOT?>assets/images/back-3.jpg);
+      }
+      60%{
+        background-image: url(<?=PROOT?>assets/images/back-4.jpg);
+      }
+      80%{
+        background-image: url(<?=PROOT?>assets/images/back-5.jpg);
+      }
+    }
+  </style>
+
+
+
   <?= $this->content('head'); ?>
   
 </head>
@@ -88,7 +119,9 @@
 
                     <li class="customer-account lazyload waiting">
                         <a href="<?=PROOT?>register/login" title="Account">
+
                         <i class="demo-icon icon-user"></i>Login
+
                         </a>
                     </li>
 
@@ -152,8 +185,8 @@
             <div class="header-logo col-lg-3 col-md-12">
               
               
-              <a href="#" title="Handy Store" class="logo-site lazyload waiting">
-                <img class=" lazyloaded" data-srcset="images/handylogo_225x.png 1x, image/handylogo_450x.png 2x" alt="Handy Store" style="max-width: 225px;" srcset="images/handylogo_225x.png 1x, images/handylogo_450x.png 2x">
+              <a href="#" title="Tailor Mate" class="logo-site lazyload waiting">
+                <img class=" lazyloaded" data-srcset="<?=PROOT?>assets/images/icon-main.jpg 1x, <?=PROOT?>assets/images/icon-main.jpg 2x" alt="Tailor Mate" style="max-width: 150px; border-radius: 50%;" srcset="<?=PROOT?>assets/images/icon-main.jpg 1x, <?=PROOT?>assets/images/icon-main.jpg 2x">
               </a>
             </div>
 
@@ -886,7 +919,7 @@
 
                         <ul class="f-list">
                           
-                          <li><a href="/account/login"><span>Login</span></a></li>
+                          <li><a href="/account/login" ><span>Login</span></a></li>
                           
                           <li><a href="/account/register"><span>Register</span></a></li>
                           

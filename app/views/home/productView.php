@@ -167,7 +167,34 @@
 	</style>
 
 
+<!--   <style type="text/css">
 
+    .boxed-wrapper{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      animation: animateee 16s ease-in-out infinite;
+    }
+
+    @keyframes animateee{
+      0%,100%{
+        background-image: url(<?=PROOT?>assets/images/back-1.jpg);
+      }
+      20%{
+        background-image: url(<?=PROOT?>assets/images/back-2.jpg);
+      }
+      40%{
+        background-image: url(<?=PROOT?>assets/images/back-3.jpg);
+      }
+      60%{
+        background-image: url(<?=PROOT?>assets/images/back-4.jpg);
+      }
+      80%{
+        background-image: url(<?=PROOT?>assets/images/back-5.jpg);
+      }
+    }
+  </style> -->
 
 <?= $this->end(); ?>
 
@@ -181,7 +208,7 @@
 
 <!-- <body class="templateProduct category-mode-false cata-grid-3 lazy-loading-img"> -->
 
-  <div class="boxed-wrapper">
+  <div class="boxed-wrapper" id="changing-image">
     
     <div class="new-loading"></div>
     <div class="cart-sb">
@@ -759,7 +786,7 @@
 
 
 
-            <div class="product-simple-tab" style="width: 1200px;height: 400px;">
+            <div class="product-simple-tab" style="width: 1200px;height: 450px;">
               <div role="tabpanel">
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item" id="tab_review">
@@ -770,20 +797,42 @@
                 <div class="tab-content" style="height: 300px;">
                   <div class="FixedHeightContainer" style="height: 100px ">
                     <ul style="height: 300px; overflow: scroll;">
+
+<!--                       <script type="text/javascript">
+                        function checkBox(c){
+                          if(c.includes("Yes")){
+                            document.getElementById
+                          }
+                          else{
+
+                          }
+                        }
+                      </script> -->
+
                       <?php
                         foreach($params[1][0] as $review){
-                          echo'
-                            <li>
+                          echo '<li>
                               <div class="spr-review">
                                 <div class="spr-review-header">
                                   <span style="font-size: 15px; color: black"><i class="demo-icon icon-user"></i>
                                     '.$review->username.'
                                   </span>
-                                  
                                 </div>
+
                                 <div class="spr-review-content">
                                   <h6 style="padding-left: 30px;">'.$review->text.'</h6>
-                                  <br></br>
+                                </div>
+
+                                <div>
+                                  <div ';
+                                    if ($review->yes_no == "Yes") {
+                                      echo '<p style="border-radius:50px; text-align:center; color:white; width:50px; height:20px; background-color:#55fc69; padding:4px; font-size:8px">recieved</i></p>';
+                                    } else {
+                                      echo '<p style="border-radius:50px; text-align:center; color:white; width:50px; height:20px; background-color:#f42c2c; padding:3px 0px; font-size:8px">not recieved</p>';
+                                    }
+                                    echo '
+                                    <br></br>
+                                  </div>
                                 </div>
                               </div>
                             </li>
@@ -794,7 +843,7 @@
 
                   </div>
                 </div>
-                <div class="tab-footer">
+                <div class="tab-footer" style="padding: 20px">
                   <button id="myBtn" style="background-color: #c1939e; color: #fff; border:1px solid #c1939e; padding: 5px 25px; cursor: pointer; outline: none; border-radius: 4px;">Add a Review</button>
 
                   <!-- The Modal -->
@@ -807,6 +856,8 @@
                         <span class="close" data-dismiss="modal" style="float: right;">&times;</span>
                         
                       </div>
+
+
                       <form method="post" action="<?=PROOT?>ReviewAndRate/addReview">
                         <div class="modal-body">    
                           <div class="spr-form-contact-name">
@@ -819,7 +870,14 @@
                             <div class="spr-form-input">
                               <textarea name="body" rows="10" class="spr-form-input spr-form-input-textarea" placeholder="Write your comments here"></textarea>
                             </div>
-                            
+                          </div>
+
+                          <div class="yes-no-selector">
+                            <label class="spr-form-label">Did the product recived before deadline?</label>
+                            <div class="spr-form-input">
+                              <input type="radio" name="yes-no" checked value="Yes">Yes</input>
+                              <input type="radio" name="yes-no" value="No">No</input>
+                            </div>
                           </div>
 
                         </div>
@@ -828,6 +886,8 @@
                           <?php echo'<input type="hidden" name="id" value='.$params[0]->id.'>';?> 
                         </div>
                       </form>
+
+
                     </div>
 
                   </div>

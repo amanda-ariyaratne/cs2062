@@ -1,7 +1,3 @@
-.page{
-    height: 1150px;
-}
-
 .categories-title{
     font-style: s;
 }
@@ -115,8 +111,6 @@ border: 0;
     vertical-align: baseline;
 }
 
-element.style {
-}
 
 .widget_pt_categories .pt-categories li .show-children{
     border-color: #e1e1e1;
