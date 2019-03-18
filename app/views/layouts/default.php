@@ -120,11 +120,10 @@
                     <li class="customer-account lazyload waiting">
                         <a href="<?=PROOT?>register/login" title="Account">
 
+
                           
                         <i class="demo-icon icon-user"></i>
                           Login
-
-<!--                         <i class="demo-icon icon-user"></i>Login -->
 
                         </a>
                     </li>
