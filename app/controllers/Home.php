@@ -10,6 +10,68 @@
 			$this->view->render('home/index');
 		}
 
+		public function CustomerRequestViewAction($a){
+			$db=DB::getInstance();
+			$limit = array('limit'=>$a.',6');
+			$details = $db->find('customer_requests',$limit);
+			
+			$temp= array($db->find('products'));
+			$noOfProducts = count($temp[0]);
+
+			$params=array($details,$a,$noOfProducts);
+
+			$this->view->render('home/CustomerRequests',$params);
+		}
+
+		public function ProductRequestAction(){
+
+        	$db=DB::getInstance();        	
+        	
+        	if($_POST){
+            	$images=array($_FILES["fileUpload"]["name"])[0];	
+	        	$image_2=array_key_exists(1, $images);
+	        	$image_3=array_key_exists(2, $images);
+
+	        	if (!$image_2){
+	        		$image_value_2="";
+	        	}
+	        	else{
+	        		$image_value_2=$images[1];
+	        	}
+
+	        	if (!$image_3){
+	        		$image_value_3="";
+	        	}
+	        	else{
+	        		$image_value_3=$images[2];
+	        	}
+	        	
+        		$fields=[
+        			'pr_name'=> $_POST["design-name"],
+        			'description'=> $_POST["Design-Description"],
+        			'location' => $_POST["postal-code"],
+        			'image_1' => $images[0],
+        			'image_2' => $image_value_2,
+        			'image_3' => $image_value_3,
+        			'due_date' => $_POST["due-date"] 
+        		];    
+        		// dnd($fields);
+        		$target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
+        		$target_file=$target_dir.'/'.basename($images[0]);
+
+
+
+        		move_uploaded_file($images[0],$target_file);
+        		$db->insert('customer_requests',$fields);  
+
+        		Router::redirect('home/CustomerRequestView/1');
+
+        	}
+
+        	$this->view->render('home/ProductRequest'); 
+            
+        }
+
 		public function CategoryItemAction($id){
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
@@ -21,7 +83,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductListAction($a){
+		public function ProductListAction($a='1'){
 			$db=DB::getInstance();
 			$limit = array('limit'=>$a.',6');
 			$details = $db->find('products',$limit);
@@ -60,30 +122,11 @@
 					"category" => $_POST["category"],
 				];
 
-				// $this->Product->insert($fields);
 				$db->insert('products', $fields);
 			}
-			 // dnd($fields);
             $this->view->render('home/addProduct', $params);
 
             
-        }
-
-        public function ProductRequestAction(){
-
-        	$db=DB::getInstance();
-        	
-        	if($_POST){
-        		$fields=[
-        			"name"=> $_POST["design_name"],
-        			"description"=> $_POST["Design-Description"],
-        			// "image"=> $_POST["design_name"],
-        			"location" => $_POST["postal code"],
-        			"date" => $_POST["due date"] 
-        		];    
-        		$this->insert('customer_requests',$feilds);   		
-        	}
-            $this->view->render('home/test', $fields);
         }
 
 
@@ -110,6 +153,7 @@
 			array_push($params,$review_params);
 			//dnd($params);
 
+			
 			$this->view->render('home/productView',$params);
 		}
 	}

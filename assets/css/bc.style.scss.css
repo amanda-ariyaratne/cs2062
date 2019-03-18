@@ -2501,6 +2501,10 @@ body.cart-opened #page-body:before{background:rgba(0,0,0,0.3);content:"" !import
 
 }
 
+.product-des-list-{
+	list-style-position: outside;
+}
+
 .product-wrapper .product-content .pc-inner{display:block;width:100%;position:relative}
 
 .product-wrapper .product-content .product-des-list{line-height:18px;margin:10px 0;padding:0;overflow:hidden;display:none}
