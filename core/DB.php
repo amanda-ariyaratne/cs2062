@@ -34,7 +34,7 @@
 				if ($this->_query->execute()) {
 					$this->_result = $this->_query->fetchALL(PDO::FETCH_OBJ);
 					$this->_count = $this->_query->rowCount();
-					$this-> _lastInsertID = $this->_pdo->lastInsertId();
+					$this->_lastInsertID = $this->_pdo->lastInsertId();
 				} else {
 					$this->_error = true;
 				}
@@ -57,10 +57,9 @@
 			$valueString = rtrim($valueString, ',');
 
 			$sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
-			//dnd($sql);
 			if (!$this->query($sql, $values)->error()) {
 				return true;
-			}			
+			}		
 			return false;
 		}
 
@@ -112,14 +111,14 @@
 			return $this->query("SHOW COLUMNS FROM {$table}")->results();
 		}
 
-		public function findFirst($table, $params=[]){
+		public function find($table, $params=[]){
 			if ($this->_read($table, $params)) {
 				return $this->results();///////////////
 			}
 			return false;
 		}
 
-		public function find($table, $params=[]){
+		public function findFirst($table, $params=[]){
 			if ($this->_read($table, $params)) {
 				return $this->first();///////////////////
 			}

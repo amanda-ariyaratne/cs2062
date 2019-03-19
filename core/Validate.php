@@ -11,7 +11,7 @@ class Validate{
 
 	public function check($source, $items=[]){
 		$this->_errors=[];
-
+		
 		foreach($items as $item => $rules) {
 			$item = Input::sanitize($item);
 			$display = $rules['display'];
@@ -71,7 +71,6 @@ class Validate{
 								$this->addError(["{$display} must be a valid email address. {$display}.", $item]);/////////
 							}
 							break;
-
 					}
 				}
 			}

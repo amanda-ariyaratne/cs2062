@@ -70,7 +70,6 @@
         }
 
         public function ProductRequestAction(){
-
             $this->view->render('home/ProductRequest');
         }
 

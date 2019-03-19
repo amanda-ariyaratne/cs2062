@@ -52,13 +52,13 @@
                   <h2 class="heading">Login</h2>
 
 
-                  <form method="post" action="<?=PROOT?>register/login" >
+                  <form method="post" action="<?=PROOT?>register/login">
 
                     <div class="bg-danger"><?=$this->displayErrors ?></div>
 
                     <div class="control-wrapper">
-                      <label for="username">User name<span class="req">*</span></label>
-                      <input type="text" name="username" id="username" />
+                      <label for="email">Email<span class="req">*</span></label>
+                      <input type="text" name="email" id="email" />
                     </div>
 
                     
