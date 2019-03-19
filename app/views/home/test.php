@@ -1,4 +1,6 @@
-<?= $this->setSiteTitle('Home') ?>
+
+
+<?= $this->setSiteTitle('test'); ?>
 
 <?= $this->start('head'); ?>
 
@@ -7,3 +9,4 @@
 <?= $this->start('body'); ?>
 
 <?= $this->end(); ?>
+

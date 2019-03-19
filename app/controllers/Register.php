@@ -115,12 +115,14 @@
 			$this->view->render('register/editDetails');
 		}
 
+
 		public function logoutAction(){
 			if (currentUser()) {
 				currentUser()->logout();
 			}
+
 			
-			Router::redirect('register/login');
-		}
+		// 	Router::redirect('register/login');
+		// }
 
 	}

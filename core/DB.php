@@ -57,9 +57,13 @@
 			$valueString = rtrim($valueString, ',');
 
 			$sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
+
 			if (!$this->query($sql, $values)->error()) {
+//			    dnd('qqqq');
 				return true;
+
 			}		
+
 			return false;
 		}
 

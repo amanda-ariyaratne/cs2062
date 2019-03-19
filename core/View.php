@@ -8,9 +8,11 @@
 		}
 
 		public function render($viewName, $params =[]){
+
 			
 			$user = new User();
 			$user = $user->currentLoggedInUser();
+
 			$viewArray = explode('/', $viewName);
 			$viewString = implode(DS, $viewArray);
 			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {

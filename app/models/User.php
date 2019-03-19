@@ -60,16 +60,16 @@
 
 
 
-		public function logout(){
-			$user_agnet = Session::uagent_no_version();
-			$this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?",[$this->id, $user_agent]);
-			Session::delete(CURRENT_USER_SESSION_NAME);
+		// public function logout(){
+		// 	$user_agnet = Session::uagent_no_version();
+		// 	$this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?",[$this->id, $user_agent]);
+		// 	Session::delete(CURRENT_USER_SESSION_NAME);
 
-			if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
-				Cookie::delete(REMEMBER_ME_COOKIE_NAME);
-			}
+		// 	if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
+		// 		Cookie::delete(REMEMBER_ME_COOKIE_NAME);
+		// 	}
 
-			self::$currentLoggedInUser = null;
-			return true;
-		}
+		// 	self::$currentLoggedInUser = null;
+		// 	return true;
+		// }
 	}
