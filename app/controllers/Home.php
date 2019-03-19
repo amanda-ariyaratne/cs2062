@@ -89,16 +89,17 @@
 		public function productViewAction(){
 			$db=DB::getInstance();
 			//load product table
-			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
-			$details = $db->find('products_1',$product_array);			
+			$product_array = array('condition'=>'id = ?' , 'bind' => [1]);
+			$details = $db->findFirst('products_1',$product_array);			
 			$params = array();
 			array_push($params,$details);
+
 
 			//load review table
 			$db2=DB::getInstance();
 
 			$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
-			$review_details = $db2->findfirst('review',$review_array);
+			$review_details = $db2->find('review',$review_array);  
 			$reverse_reviews = array_reverse($review_details);
 
 			$review_params = array();
