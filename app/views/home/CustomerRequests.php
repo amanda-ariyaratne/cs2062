@@ -71,15 +71,12 @@
                 <a href="#">
                   <img class="lazyload" src = "<?=PROOT?>assets/images/products/front2.jpg" alt="" /> 
                 </a>
-            
-              
-              
               <div class="block-text">
                 <span class="text" style="color: #fff;">Let clothes color your life!</span>
                 <a class="btn btn-1" href="<?=PROOT?>Home/ProductList">shop now</a>
               </div>
           </div>
-        </d iv>
+        </div>
   
         <div class="sb-widget">
           <div class="sb-caterogies">
@@ -168,19 +165,19 @@
     
       
 
-  <li><a href="/collections/toys"><span>Toys</span></a></li>
+    <li><a href="/collections/toys"><span>Toys</span></a></li>
 
 
     
       
 
-  <li><a href="/collections/variables"><span>Variables</span></a></li>
+    <li><a href="/collections/variables"><span>Variables</span></a></li>
 
 
     
       
 
-  <li><a href="/collections/vintage"><span>Vintage</span></a></li>
+    <li><a href="/collections/vintage"><span>Vintage</span></a></li>
 
 
     

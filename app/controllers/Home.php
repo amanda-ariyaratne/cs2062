@@ -73,6 +73,30 @@
         	$this->view->render('home/ProductRequest'); 
             
         }
+        public function productViewAction(){
+        	
+			$db=DB::getInstance();
+			//load product table
+			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
+			$details = $db->find('products_1',$product_array);			
+			$params = array();
+			array_push($params,$details);
+
+			//load review table
+			$db2=DB::getInstance();
+
+			$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
+			$review_details = $db2->findfirst('review',$review_array);
+			$reverse_reviews = array_reverse($review_details);
+
+			$review_params = array();
+			array_push($review_params,$reverse_reviews);
+			array_push($params,$review_params);
+
+			
+			$this->view->render('home/productView',$params);
+		}
+
 
 
 		public function CategoryItemAction($id){
@@ -154,45 +178,23 @@
 
         //     $this->view->render('home/ProductRequest');
         // }
-         public function ProductRequestAction(){
+        //  public function ProductRequestAction(){
 
-        	$db=DB::getInstance();
+        // 	$db=DB::getInstance();
         	
-        	if($_POST){
-        		$fields=[
-        			"name"=> $_POST["design_name"],
-        			"description"=> $_POST["Design-Description"],
-        			// "image"=> $_POST["design_name"],
-        			"location" => $_POST["postal code"],
-        			"date" => $_POST["due date"]
-        		];    
-        		$this->insert('customer_requests',$fields);
-        	}
-            $this->view->render('home/test',$fields);
-        }
+        // 	if($_POST){
+        // 		$fields=[
+        // 			"name"=> $_POST["design_name"],
+        // 			"description"=> $_POST["Design-Description"],
+        // 			// "image"=> $_POST["design_name"],
+        // 			"location" => $_POST["postal code"],
+        // 			"date" => $_POST["due date"]
+        // 		];    
+        // 		$this->insert('customer_requests',$fields);
+        // 	}
+        //     $this->view->render('home/test',$fields);
+        // }
 
 
-		public function productViewAction(){
-			$db=DB::getInstance();
-			//load product table
-			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
-			$details = $db->find('products_1',$product_array);			
-			$params = array();
-			array_push($params,$details);
-
-			//load review table
-			$db2=DB::getInstance();
-
-			$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
-			$review_details = $db2->findfirst('review',$review_array);
-			$reverse_reviews = array_reverse($review_details);
-
-			$review_params = array();
-			array_push($review_params,$reverse_reviews);
-			array_push($params,$review_params);
-
-			
-			$this->view->render('home/productView',$params);
-		}
 
 	}
