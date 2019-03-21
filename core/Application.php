@@ -9,7 +9,7 @@
 
 		private function _set_reporting() {
 			if (DEBUG) {
-				error_reporting(E_ALL);
+				error_reporting(~E_NOTICE);
 				ini_set('display_errors', 1);
 			} else {
 				error_reporting(0);

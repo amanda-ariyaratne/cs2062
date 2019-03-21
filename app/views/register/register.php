@@ -51,37 +51,50 @@
           <div id="customer-login" class="content">
             <h2 class="heading">Register</h2>
 
-            <form method="post" action="" >
+            <form method="post" action="" id="registerform" name="registerform" onsubmit="return validateRegistration();">
 
           <div id="register-form">
 
-            <div class="control-wrapper">
-              <label for="first-name">First Name</label>
-              <input type="text" name="first_name" id="first-name"  autocapitalize="words" autofocus />
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_first_name" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <label class="col-md-3" for="first-name">First Name</label>
+              <input class="col-md-8" type="text" name="first_name" id="first_name" autofocus autocomplete="on" value="<?php if(isset($_SESSION['first_name']))
+    echo $_SESSION['first_name']; $_SESSION['first_name'] = '';?>" />
+              <label class="col-md-1" id="first_name_error"></label>
             </div>
 
-            <div class="control-wrapper">
-              <label for="last-name">Last Name</label>
-              <input type="text" name="last_name" id="last-name"  autocapitalize="words" autofocus />
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_last_name" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <label class="col-md-3" for="last-name">Last Name</label>
+              <input type="text" name="last_name" id="last_name" value="<?php if(isset($_SESSION['last_name']))
+    echo $_SESSION['last_name']; $_SESSION['last_name'] = '';?>"/>
+              <label class="col-md-1" id="first_name_error"></label>
             </div>
 
-            <div class="control-wrapper">
-              <label for="email">Email address<span class="req">*</span></label>
-              <input type="text" value="" name="email" id="email"  />
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_email" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <label class="col-md-3" for="email">Email address<span class="req">*</span></label>
+              <input type="text" name="email" id="email"  value="<?php if(isset($_SESSION['email']))
+    echo $_SESSION['email'];$_SESSION['email']='';?>"/>
+              <label class="col-md-1" id="first_name_error"></label>
             </div>
 
-            <div class="control-wrapper">
-              <label for="password">Password<span class="req">*</span></label>
-              <input type="password" value="" name="password" id="password" class="password" />
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_password" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <label class="col-md-3" for="password">Password<span class="req">*</span></label>
+              <input type="password" name="password" id="password" class="password" />
+              <label class="col-md-1" id="first_name_error"></label>
             </div>
 
-            <div class="control-wrapper">
-              <label for="password">Confirm Password<span class="req">*</span></label>
-              <input type="password" value="" name="password" id="password" class="password" />
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_confirm_password" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <label class="col-md-3" for="password">Confirm Password<span class="req">*</span></label>
+              <input type="password" name="confirm_password" id="confirm_password" class="password" />
+              <label class="col-md-1" id="first_name_error"></label>
             </div>
 
-            <div class="control-wrapper last">
-              <button class="btn btn-1" type="submit">Register</button>
+            <div class="row control-wrapper last">
+              <button class="btn btn-1" name="register" type="submit">Register</button>
             </div>
 
           </div>
@@ -115,47 +128,8 @@
         </div>
 
       </div>
-
-<!--       <div class="col-sm-6 col-xs-12 login-or">
-        <div class="form-wrapper">
-
-          <h2 class="heading">Register</h2>
-
-          <form method="post" action="/account" id="create_customer" accept-charset="UTF-8"><input type="hidden" name="form_type" value="create_customer" /><input type="hidden" name="utf8" value="✓" />
-
-          
-
-          <div id="register-form">
-
-            <div class="control-wrapper">
-              <label for="first-name">First Name</label>
-              <input type="text" name="customer[first_name]" id="first-name"  autocapitalize="words" autofocus />
-            </div>
-
-            <div class="control-wrapper">
-              <label for="last-name">Last Name</label>
-              <input type="text" name="customer[last_name]" id="last-name"  autocapitalize="words" autofocus />
-            </div>
-
-            <div class="control-wrapper">
-              <label for="email">Email address<span class="req">*</span></label>
-              <input type="email" value="" name="customer[email]" id="email"  />
-            </div>
-
-            <div class="control-wrapper">
-              <label for="password">Password<span class="req">*</span></label>
-              <input type="password" value="" name="customer[password]" id="password" class="password" />
-            </div>
-
-            <div class="control-wrapper last">
-              <button class="btn btn-1" type="submit">Register</button>
-            </div>
-
-          </div>
-          </form>
-
-        </div>
-      </div> -->
+      <div class="col-sm-6 col-xs-12" id="error-msg"><?php if(isset($_SESSION['message']))
+    echo $_SESSION['message']; $_SESSION['message'] = '';?></div>
 
     </div>
 
@@ -165,4 +139,79 @@
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  
+function validateRegistration(){
+    
+    document.getElementById('error_first_name').innerHTML = "";
+    document.getElementById('error_last_name').innerHTML = "";
+    document.getElementById('error_email').innerHTML = "";
+    document.getElementById('error_confirm_password').innerHTML = "";
+    document.getElementById('error_password').innerHTML = "";
+    
+    var first_name = document.getElementById("first_name").value;
+    var last_name = document.getElementById("last_name").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var confirm_password = document.getElementById("confirm_password").value;
+    var el;
+    var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+    if (first_name == "")
+    {
+        el = document.getElementById('error_first_name');
+        el.innerHTML = "First name field is required!";
+        return false;
+    }
+    else if (last_name == "")
+    {
+        el = document.getElementById('error_last_name');
+        el.innerHTML = "Last name field is required!";
+        return false;
+    }
+    else if (email == "")
+    {
+        el = document.getElementById('error_email');
+        el.innerHTML = "Email field is required!";
+        return false;
+    }
+    else if (!email_regex.test(email))
+    {
+        el = document.getElementById('error_email');
+        el.innerHTML = "Please enter valid email!";
+        return false;
+    }
+    else if (password == "")
+    {
+        el = document.getElementById('error_password');
+        el.innerHTML = "<div style='color: red;'>Password field is required!</div>";
+        return false;
+    }
+    else if (password.length < 8)
+    {
+        el = document.getElementById('error_password');
+        el.innerHTML = "<div style='color: red;'>Password must be minimum 8 charachters!</div>";
+        return false;
+    }
+    else if (confirm_password == "")
+    {
+        el = document.getElementById('error_confirm_password');
+        el.innerHTML = "<div style='color: red;'>Password confirmation is required!</div>";
+        return false;
+    }
+    else if (password != confirm_password)
+    {
+        el = document.getElementById('error_password');
+        el.innerHTML = "<div style='color: red;'>Password and Password Confirm don't match!</div>";
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+</script>
+
 <?= $this->end(); ?>

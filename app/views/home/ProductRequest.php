@@ -6,8 +6,6 @@
 	<link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
 	<link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
 	<link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
-   <!--  <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
- -->
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
@@ -43,10 +41,10 @@
 	<div class="wcv-grid">
 
 
-		<form method="post" enctype="multipart/form-data" action="validatVData()">
+		<form method="post" enctype="multipart/form-data" action="<?=PROOT?>home/ProductRequest" onsubmit="return validateData();">
 
 			<h3>Design Request Area</h3>
-			<div id="error-msg"></div>
+			
 
 			<br />
 
@@ -64,8 +62,11 @@
 						</label>
 
 						<div class="control" >
-							<input type="text" class="form-control" name="design_name" id="design-name"  placeholder="design name" data-rules="required"/> 
+							<input type="text" class="form-control" name="design-name" id="design-name"  placeholder="design name" data-rules="required"/> 
+
 						</div>
+
+						<small id="error-msg-name"></small>
 
 					</div>
 					<br />
@@ -82,6 +83,7 @@
 						<textarea  style="height: 200px" autocomplete="off" cols="40" name="Design-Description" id="design-description"></textarea>				    
 					</div>
 					</div>
+					<small id="error-msg-description"></small>
 					<br/>
 
 
@@ -90,16 +92,19 @@
 
 					<div class="control-group">
 						<label>Image</label>	<br>
-						<input type='file' id="design-image" name="fileUpload[]" multiple="true" style="border:none; background-color: none;" />				
+						<input type='file' id="design-image" name="fileUpload[]" multiple="true" style="border:none; background-color: none;" />	
+						<small">Add 1-3 images</small>+			
 					</div>
+					<small id="error-msg-images"></small>
 					<br/>
 
 					<!-- Add location -->
 
 					<div class="control-group">
 						<label >Postal Code</label>	
-						<input type='text' id="postal-code" class="form-control" name="postal code"  />			
+						<input type='text' id="postal-code" class="form-control" name="postal-code"  />			
 					</div>
+					<small id="error-msg-location"></small>
 					<br/>
 
 					<!-- Add due Date -->
@@ -107,9 +112,9 @@
 					<div class="control-group">
 						<label>Due date</label>
 						<small style="font-color:#000000;">before</small>	
-						<input type='date' id="due-date" name="due date" class="form-control" />				
+						<input type='date' id="due-date" name="due-date" class="form-control" />				
 					</div>
-					
+					<small id="error-msg-date"></small>
 					                    
 				</div>
 
@@ -127,44 +132,58 @@
 	</div><!-- end of Page content -->
 
 	</main><!-- end of Main content -->
-
 	
 	<script type="text/javascript">
 
-		function validatVData(){
-			var date=documant.getElementById("due-date").value;
+		function validateData(){
+
+			document.getElementById("error-msg-name").innerHTML="";
+			document.getElementById("error-msg-description").innerHTML="";
+			document.getElementById("error-msg-images").innerHTML="";
+			document.getElementById("error-msg-location").innerHTML="";
+			document.getElementById("error-msg-date").innerHTML="";
+
+			var date=document.getElementById("due-date").value;
 			var postalCode=document.getElementById("postal-code").value;
-			var name=document.getElementById("design-name");
-			var description=document.getElementByID("design-description");
-			var images=document.getElementByID("design-description");
+			var name=document.getElementById("design-name").value;
+			var description=document.getElementById("design-description").value;
+			var images=document.getElementById("design-image").files;
 			var error;
 
+		
+
 			if (name==""){
-				error=document.getElementByID("error-msg");
-				error.innerHTML="<div style="font-color=red;">Name is required!</div>"
+				error=document.getElementById("error-msg-name");
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
 				return false;
 			}
+
+			else if (images.length<0 || images.length>3){
+				error=document.getElementById("error-msg-images");
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add valid number of images!</small>";
+				return false;
+			}
+
+			else if (postalCode==""){
+				error=document.getElementById("error-msg-location");
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Invalid postalCode!</small>";
+				return false;
+			}
+
 			else if (date==""){
-				error=document.getElementByID("error-msg");
-				error.innerHTML="<div style="font-color=red;">Date is required!</div>"
+				error=document.getElementById("error-msg-date");
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Date is required!</small>";
 				return false;
 			} 
 
-			// else if (image==""){
-			// 	error=document.getElementByID("error-msg");
-			// 	error.innerHTML="<div style="font-color=red;">image is required!</div>"
-			// 	return false;
-			// }
-
-			else if (postalCode==""){
-				error=document.getElementByID("error-msg");
-				error.innerHTML="<div style="font-color=red;">Invalid postalCode!</div>"
-				return false;
-			}	
-
 			else{
-				return true;
+				return true;				
 			}
+
+			
+
+				
+
 			
 		}	
 
@@ -244,18 +263,6 @@
 	</div>
 				
 			
-
-
-
-
-
-
-
-
-
-
-		
-	
 
 			</div>
 		</div><!-- end of Content wrapper -->

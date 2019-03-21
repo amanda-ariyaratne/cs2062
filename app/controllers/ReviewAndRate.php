@@ -53,7 +53,6 @@
 			} else {
 				$params = [];
 			}
-			//dnd("again");
 			$this->view->render('home/productView',$params);
 		}
 	}

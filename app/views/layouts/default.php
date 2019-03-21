@@ -118,14 +118,14 @@
                 <ul class="list-inline">
 
                     <li class="customer-account lazyload waiting">
+                      
                         <a href="<?=PROOT?>register/login" title="Account">
 
-                          
-                        <i class="demo-icon icon-user"></i>
-                          Login
-
-<!--                         <i class="demo-icon icon-user"></i>Login -->
-
+                        <i class="demo-icon icon-user"></i><?php if ($user->first_name!='') {
+                        echo 'Hi ' . $user->first_name;
+                      } else {
+                        echo 'Login';
+                      } ?>
                         </a>
                     </li>
 
@@ -164,11 +164,15 @@
                 
                   <li class="customer-register lazyload waiting">
                     
-                    <a href="/account/register" title="Register">
+                    <a href="<?php if (isset($user)) {echo PROOT . 'register/logout';} else {echo PROOT . 'register/register';} ?>" title="Register">
                       
                       <i class="demo-icon icon-pencil-2"></i>
 
-                      Register
+                      <?php if (isset($user)) {
+                        echo 'Logout';
+                      } else {
+                        echo 'Register';
+                      } ?>
                     </a>
                     
                   </li>
