@@ -301,6 +301,8 @@
 
   <div class="cata-product cp-grid">
 
+   
+
     <!-- product view -->
 <?php 
     foreach ($params[0] as $field){
@@ -390,38 +392,6 @@
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

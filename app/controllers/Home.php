@@ -30,41 +30,38 @@
         	$db=DB::getInstance();        	
         	
         	if($_POST){
-            	$images=array($_FILES["fileUpload"]["name"])[0];	
-	        	$image_2=array_key_exists(1, $images);
-	        	$image_3=array_key_exists(2, $images);
-
-	        	if (!$image_2){
-	        		$image_value_2="";
-	        	}
-	        	else{
-	        		$image_value_2=$images[1];
-	        	}
-
-	        	if (!$image_3){
-	        		$image_value_3="";
-	        	}
-	        	else{
-	        		$image_value_3=$images[2];
-	        	}
-	        	
+            	
         		$fields=[
         			'pr_name'=> $_POST["design-name"],
         			'description'=> $_POST["Design-Description"],
         			'location' => $_POST["postal-code"],
-        			'image_1' => $images[0],
-        			'image_2' => $image_value_2,
-        			'image_3' => $image_value_3,
+        			'color' => $_POST["color-picker"],
         			'due_date' => $_POST["due-date"] 
         		];    
-        		// dnd($fields);
-        		$target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
-        		$target_file=$target_dir.'/'.basename($images[0]);
 
-
-
-        		move_uploaded_file($images[0],$target_file);
         		$db->insert('customer_requests',$fields);  
+
+        		$id=count($db->find('customer_requests'));
+
+        		$images=($_FILES["fileUpload"]);
+        		
+        		for ($x = 0; $x <= 10; $x++){
+        			$image=$images["name"][$x];
+        			//dnd($images);
+	        		$imageTable=[
+	        			'image_path'=>$image,
+	        			'product_id'=>$id
+	        		];
+
+	        		$db->insert('images',$imageTable);  
+
+	        		// $target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
+	        		// $Itype=$images["type"][$x];
+	        		
+	        		// $target_file=$target_dir.'/'.'request_Image'.$id.'.jpg';
+	        		// //dnd($target_file);
+	        		// move_uploaded_file($image,$target_file);
+        		}       		
 
         		Router::redirect('home/CustomerRequestView/1');
 
@@ -73,11 +70,13 @@
         	$this->view->render('home/ProductRequest'); 
             
         }
+
+
         public function productViewAction(){
         	
 			$db=DB::getInstance();
 			//load product table
-			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
+			$product_array = array('condition'=>'id = ?' , 'bind' => [1]);
 			$details = $db->find('products_1',$product_array);			
 			$params = array();
 			array_push($params,$details);
@@ -111,13 +110,36 @@
 		}
 
 
-		public function ProductListAction($a='1'){
+		public function ProductListAction($a='0'){
 
 			$db=DB::getInstance();
-			$limit = array('limit'=>$a.',6');
-			$details = $db->find('products',$limit);
-			
-			$temp= array($db->find('products'));
+			$limit = array('limit'=>(3*$a-3).',3');
+			$details = $db->find('product_features',$limit);
+			//dnd($details);
+			foreach ($details as $row){
+
+				$pr_sub_id=$row->sub_category_id;
+							
+				$condition=array('cond0. itions'=> 'product_id = ?','bind'=>[$pr_sub_id]);
+				
+
+				$image_details = $db->find('images',$condition);
+				$imageList=array();
+				
+				$images = array();
+				$row->images = $images;
+
+				if (is_array($image_details)) {
+					foreach ($image_details as $imagePath){
+						array_push($row->images,$imagePath->image_path);
+					}
+				}
+					
+			}
+
+			//dnd($details);
+			$temp= array($db->find('product_features'));
+			//dnd($temp);
 			$noOfProducts = count($temp[0]);
 
 			$params=array($details,$a,$noOfProducts);

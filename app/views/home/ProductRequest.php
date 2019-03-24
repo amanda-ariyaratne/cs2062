@@ -93,9 +93,36 @@
 					<div class="control-group">
 						<label>Image</label>	<br>
 						<input type='file' id="design-image" name="fileUpload[]" multiple="true" style="border:none; background-color: none;" />	
-						<small">Add 1-3 images</small>+			
+						<small">Add 1-3 images</small>			
 					</div>
 					<small id="error-msg-images"></small>
+					<br/>
+
+
+					<!-- Add a color -->
+
+
+					<div class="control-group">
+						<label>Color</label>	<br>
+						<input type="color" id="design-color" name="color-picker[]" style="border:none; background-color: none;" />
+
+						
+						<?php 
+							
+							for($x=1;$x<10;$x++){
+
+								echo '<input type="color" id="design-color-more-'.$x.'" name="color-picker-'.$x.'" style="border:none; display:none; background-color: none;" />';
+							}
+
+							
+						 ?>
+						 <br>
+						 <button  type="button" onclick="addMore()" >more colors</button>
+
+						
+						<small">Pick colour</small>			
+					</div>
+					<small id="error-msg-color"></small>
 					<br/>
 
 					<!-- Add location -->
@@ -135,6 +162,23 @@
 	
 	<script type="text/javascript">
 
+		var count=1;
+
+		function addMore(){
+
+			var sid=("design-color-more-"+count);
+
+			var addMoreV=document.getElementById(sid);
+			window.alert(sid);
+
+
+			addMoreV.innerHTML = "<input type="color" id=sid name="color-picker1" style="border:none; display:inline block; background-color: none;" />";
+			// window.alert(addMore.style.display);
+
+			// count++;
+
+		}
+
 		function validateData(){
 
 			document.getElementById("error-msg-name").innerHTML="";
@@ -148,8 +192,10 @@
 			var name=document.getElementById("design-name").value;
 			var description=document.getElementById("design-description").value;
 			var images=document.getElementById("design-image").files;
+			var color=document.getElementById("design-color");
 			var error;
 
+			//window.alert(color);
 		
 
 			if (name==""){

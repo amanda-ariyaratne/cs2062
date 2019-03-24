@@ -297,6 +297,28 @@
                     <span>All Products</span>
                     </a>
                   </li>
+
+
+                  <!-- <?php 
+                    //foreach($params as $val){
+                      // echo '
+                      // <li>
+                      //   <a href="#pathtothecategorylist">
+                      //     <span>name of the category</span>
+                      //   </a>
+                      //   <span class="expand"></span>
+
+                      //   <ul class="dropdown-menu">
+
+                      //     <li><a tabindex="-1" href="2"><span>Name of the subcategory</span></a></li>
+
+                      //   </ul>
+                      // </li>
+                      // ';
+                      
+                    //}
+                  ?> -->
+                  
                   
               
                   <li class="dropdown">
@@ -467,7 +489,7 @@
                       </ul>
                   </li>
 
-
+                  
                   <li class="dropdown">
                   <a href="#" class="dropdown-link">
                   <span>Bags</span>
