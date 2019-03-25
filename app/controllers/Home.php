@@ -73,27 +73,50 @@
         	$this->view->render('home/ProductRequest'); 
             
         }
+
+
         public function productViewAction(){
+        	$p_id = 1;
         	
 			$db=DB::getInstance();
-			//load product table
-			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
-			$details = $db->findFirst('products_1',$product_array);			
 			$params = array();
-			array_push($params,$details);
+
+
+			//load product table
+			$product_array = array('conditions'=>'id = ?' , 'bind' => [$p_id ]);
+			$product_obj = $db->findFirst('product_features',$product_array);	
+
+			//load sub categories table and instert sub category name into product
+			$sub_category_array = array('conditions' => 'id = ?' , 'bind' => [$product_obj->sub_category_id]);
+			$sub_category_obj = $db->findFirst('sub_categories',$sub_category_array);
+			$product_obj->sub_category_name = $sub_category_obj->name;
+
+			//load categories table and instert main category name -> product_obj
+			$main_category_conditions = array('conditions' => 'category_id = ?' , 'bind' => [$sub_category_obj->main_id]);
+			$main_category_obj = $db->findFirst('categories',$main_category_conditions);
+			$product_obj->main_category_name = $main_category_obj->category_name;
+			array_push($params,$product_obj);
+
+			//load images array - inster to params
+			$images_array = array('conditions' => 'product_id = ?' , 'bind' => [$p_id ]);
+			$images_details = $db->find('images',$images_array);
+			array_push($params,$images_details);
 
 			//load review table
-			$db2=DB::getInstance();
-
-			$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
-			$review_details = $db2->find('review',$review_array);
+			$review_array = array('conditions' => 'product_id = ?' , 'bind' => [$p_id ]);
+			$review_details = $db->find('reviews',$review_array);
 			$reverse_reviews = array_reverse($review_details);
 
-			$review_params = array();
-			array_push($review_params,$reverse_reviews);
-			array_push($params,$review_params);
+			//load user table
+			foreach($reverse_reviews as $review){
+				$user_table = array('conditions' => 'id = ?', 'bind' => [$review->user_id]);
+				$user = $db->findFirst('user',$user_table);
+				$review->user_fname = $user->first_name;
+				$review->user_lname = $user->last_name;
+			}
+			array_push($params,$reverse_reviews);
+			//dnd($params);
 
-			
 			$this->view->render('home/productView',$params);
 		}
 

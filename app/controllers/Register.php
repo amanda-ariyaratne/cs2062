@@ -125,4 +125,5 @@
 		// 	Router::redirect('register/login');
 		// }
 
+		}
 	}
