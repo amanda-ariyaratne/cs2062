@@ -126,7 +126,7 @@
 
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
-                <img src="">
+                <img src="<?=PROOT?>assets/images/categories_icons/106020.png">
             </span>
             <a href="#" class="line">Kids</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse3"><i class="far"></i></a>

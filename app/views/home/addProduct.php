@@ -131,15 +131,6 @@
                                     </div>
                                     <br>
 
-                                    <!-- Product Material -->
-                                    <div class="control-group">
-                                        <label for="_wcv_store_phone" class="">Product Material</label>
-                                        <div class="control">
-                                            <input type="text" class="box" style="" name="material" id="productMaterial" value="" placeholder=""  />
-                                        </div>
-                                    </div>
-                                    <br>
-
                                     <!-- select category  -->
                                     <div class="control-group">
                                         <label for="_wcv_store_country">Select Category</label>
@@ -155,31 +146,45 @@
                                     <small id="error-msg-category"></small>
                                     <br>
 
+                                <!-- Product Material -->
+                                <div class="control-group">
+                                    <label for="_wcv_store_phone" class="">Product Material</label>
+                                    <div class="control">
+                                        <input type="text" class="box" style="" name="material" id="productMaterial" value="" placeholder=""  />
+                                    </div>
+                                </div>
+                                <br>
+
+                                <!-- select colors -->
+                                <div class=""><label class="">Select Availabe colors</label><br>
+
+                                    <div class="sample" sample-id="3" draggable="true" style="top: 5px; left: 161px; background-color: rgb(255, 255, 255);"></div>
+
+                                    <input type="color" name="color1" value="">
+                                    <input type="color" name="color2" value="">
+                                    <input type="color" name="color3" value="">
+                                    <input type="color" name="color4" value="">
+                                    <input type="color" name="color5" value=""><br>
+                                    <input type="color" name="color6" value="">
+                                    <input type="color" name="color7" value="">
+                                    <input type="color" name="color8" value="">
+                                    <input type="color" name="color9" value="">
+                                    <input type="color" name="color10" value="">
+
+                                    <br><br>
+
+                                    <!-- select Measurements -->
+                                    <div class=""><label class="">Select Availabe Measurements</label><br>
 
 
-                                    <!-- select sizes -->
-<!--                                    <div class=""><label class="">Select Availabe Sizes</label><br>-->
-<!---->
-<!--                                    <form class="select_sizes" action="#" method="post">-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="xs" value="XS">-->
-<!--                                        </label><label>XS</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="s" value="S">-->
-<!--                                        </label><label>S</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="m" value="M">-->
-<!--                                        </label><label>M</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="l" value="L">-->
-<!--                                        </label><label>L</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="xl" value="XL">-->
-<!--                                        </label><label>XL</label><br>-->
-<!---->
-<!--                                    </form>-->
-<!--                                    </div>-->
-<!--                                    <br>-->
+                                            <input type="checkbox" name="measurement1" value="measurement1"> measurement1<br>
+                                            <input type="checkbox" name="measurement2" value="measurement2"> measurement2<br>
+                                            <input type="checkbox" name="measurement3" value="measurement3"> measurement3<br><br>
+
+
+
+                                    </div>
+                                    <br>
 
 
 
