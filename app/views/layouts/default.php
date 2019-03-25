@@ -9,6 +9,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=0" />
   <link rel="canonical" href="https://arena-handy.myshopify.com/account/login" />
+  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- Title and description -->
 
   <title>
@@ -83,19 +84,19 @@
   <div class="header-container layout-boxed bg-image">
 
     
-      <div class="top-bar-textbox d-none d-lg-block">
+      <div class="top-bar-textbox d-none d-lg-block" style="background-color: white; border-bottom: none;">
         <div class="textbox-container">
 
           <div class="container">
 
             
-              <ul class="top-bar-list">
-                
-                  <li><span>30 days</span> free return</li>
-                
-                  <li><span>Free</span> delivery</li>
+              <ul class="top-bar-list" style="">
 
-                  <li><span>Best</span> Islandwide delivery</li>
+                  <li><a href="/" title="Customer Request" >Customer Request</a></li>
+                
+                  <li><a href="<?=PROOT?>home/ContactUs" title="help and Support" >Help and support</a></li>
+
+                  <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
                 
               </ul>
             
@@ -297,6 +298,28 @@
                     <span>All Products</span>
                     </a>
                   </li>
+
+
+                  <!-- <?php 
+                    //foreach($params as $val){
+                      // echo '
+                      // <li>
+                      //   <a href="#pathtothecategorylist">
+                      //     <span>name of the category</span>
+                      //   </a>
+                      //   <span class="expand"></span>
+
+                      //   <ul class="dropdown-menu">
+
+                      //     <li><a tabindex="-1" href="2"><span>Name of the subcategory</span></a></li>
+
+                      //   </ul>
+                      // </li>
+                      // ';
+                      
+                    //}
+                  ?> -->
+                  
                   
               
                   <li class="dropdown">
@@ -467,7 +490,7 @@
                       </ul>
                   </li>
 
-
+                  
                   <li class="dropdown">
                   <a href="#" class="dropdown-link">
                   <span>Bags</span>

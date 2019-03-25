@@ -14,6 +14,7 @@
 		}
 
 		protected function _setTableColumns(){
+			
 			$columns = $this->get_columns();
 			foreach ($columns as $column) {
 				$columnName = $column->Field;

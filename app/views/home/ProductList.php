@@ -741,9 +741,12 @@
         <div id="col-main">
             <div class="cata-product cp-grid">
               <?php 
-                
-                foreach($params[0] as $value){
+               
+                foreach($params[0]as $value){
+                      //dnd($value->images);
+
                       $pid=$value->id;
+
                       echo '<div class="product-grid-item mode-view-item">                   
 
                           <div class="product-wrapper effect-overlay ">
@@ -751,25 +754,10 @@
                               <div class="product-image">
                                 
                                 <div class="featured-img lazyload">
-                                  <a href="'.PROOT.'home/product/'.$pid.'"> 
-                                    <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->image_path.'"/>
+                                  <a href="'.PROOT.'home/produb ctView"> 
+                                    <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
                                   </a>
                                 </div> 
-
-
-                                 <!-- <div class="product-button">
-                                    <div data-target="#quick-shop-popup" class="quick_shop" data-handle="consectetur-nibh-eget" data-toggle="modal" title="Quick View">
-                                      <i class="demo-icon icon-search"></i>
-                                      Quick View
-                                    </div>
-                                  
-                                    <div class="product-wishlist">
-                                      <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="consectetur-nibh-eget" title="Add to wishlist">
-                                        <i class="demo-icon icon-heart"></i>
-                                        Add to wishlist
-                                      </a>
-                                    </div>  
-                                  </div> -->  
 
 
                               </div>
@@ -778,7 +766,7 @@
                             <div class="product-content">
                               <div class="pc-inner">          
                                 <div class="product-group-vendor-name"> 
-                                  <h5 class="product-name"><a href="/products/consectetur-nibh-eget">'. $value->name .'</a></h5>  
+                                  <h5 class="product-name"><a href="/products/consectetur-nibh-eget">'. $value->name.'</a></h5>  
 
                                   <!-- <div class="product-des-list"><ul>
 
@@ -794,9 +782,10 @@
                                   </div>
                                   
                                 </div>          
-                                <div class="price-cart-wrapper">                          
+                                <div class="price-cart-wrapper">    
+
                                   <div class="product-price">                          
-                                    <span class="sold-out">$'. $value->price .'</span>                          
+                                    <span class="sold-out">$'. $value->sale_price.'</span>                          
                                   </div>
 
                                   <div class="product-add-cart"></div>
@@ -831,59 +820,65 @@
 
     <?php
       $pageNo=$params[1];
-      $noOfPages = ceil(($params[2]/6));      
+      $noOfPages = ceil(($params[2]/6));  
 
-      if ($pageNo-1>0){
+      if ($noOfPages>1){
         $previousPage=$pageNo-1;
-        echo
-        '<li>
-          <a href="'.$previousPage.'" title="Next" class="next">
-            <i class="icon-demo icon-angle-left"></i>
-          </a>
-        </li>';
-      }
 
-      $start=$pageNo-2;
-      $end=$pageNo+2;
+        if ($previousPage>0){
+          
+          echo
+          '<li>
+            <a href="'.$previousPage.'" title="Next" class="next">
+              <i class="icon-demo icon-angle-left"></i>
+            </a>
+          </li>';
+        }
 
-      if ($noOfPages<=5){
-        $start=1;
-        $end=$noOfPages;
-      }
-      
-      else{
+        $start=$pageNo-2;
+        $end=$pageNo+2;
 
-        if ($pageNo==1 || $pageNo==2){        
+        if ($noOfPages<=5){
           $start=1;
-            $end=$noOfPages;
-        }
-
-        else if($pageNo+1==$noOfPages) {
-          $start=$pageNo-3;
           $end=$noOfPages;
         }
-
-        else if ($pageNo==$noOfPages){
-          $start=$noOfPages-4;
-          $end=$noOfPages;
-        }
-
-      }
-
-      for($i=$start; $i<=$end; $i++) {
-        echo '<li><a href="'.$i.'">'.$i.'</a></li>';
-      }
         
-      if ($pageNo+1<=$noOfPages){
-        $nextPage=$pageNo+1;
-        echo
-        '<li>
-          <a href="'.$nextPage.'" title="Next" class="next">
-            <i class="icon-demo icon-angle-right"></i>
-          </a>
-        </li>';
-      }
+        else{
 
+          if ($pageNo==1 || $pageNo==2){        
+            $start=1;
+              $end=$noOfPages;
+          }
+
+          else if($pageNo+1==$noOfPages) {
+            $start=$pageNo-3;
+            $end=$noOfPages;
+          }
+
+          else if ($pageNo==$noOfPages){
+            $start=$noOfPages-4;
+            $end=$noOfPages;
+          }
+
+        }
+
+        for($i=$start; $i<=$end; $i++) {
+          echo '<li><a href="'.$i.'">'.$i.'</a></li>';
+        }
+          
+        if ($pageNo+1<=$noOfPages){
+          $nextPage=$pageNo+1;
+          echo
+          '<li>
+            <a href="'.$nextPage.'" title="Next" class="next">
+              <i class="icon-demo icon-angle-right"></i>
+            </a>
+          </li>';
+        }
+
+
+      }    
+      
     ?>
 
   </ul>

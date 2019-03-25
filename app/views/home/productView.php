@@ -164,6 +164,35 @@
 }
 
 
+
+
+
+.slide-container{
+  width: 400px;
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-align: center;
+}
+
+.image-container{
+  width: 2400px;
+  height: 600px;
+  position: relative;
+  transition:left 2s;
+  -webkit-transition: left 2s;
+  -moz-transition: left 2s;
+  -o-transition: left 2s;
+}
+
+.slider-image{
+  float:left;
+  margin: 0px;
+  padding:0px;
+}
+
+
 	</style>
 
 
@@ -252,6 +281,7 @@
         
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
           <ul class="breadcrumb">
+            
             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
               <a itemprop="url" href="/">
                 <span itemprop="title" class="d-none">Handy Store</span>Home
@@ -259,26 +289,25 @@
             </li>
 
             
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
+              <a href="" itemprop="url">
+                <span itemprop="title"><?=$params[0]->main_category_name?></span>
+              </a>
+            </li>    
+            
+            <li>
+              <a href="" title=""><?=$params[0]->main_category_name?></a>
+            </li>
 
-              
-                
+            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
+              <a href="/products/donkix-product-sample" itemprop="url">
+                <span itemprop="title"><?=$params[0]->sub_category_name?></span>
+              </a>
+            </li>
 
-                  <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-                    <a href="/collections/birthday-gifts" itemprop="url">
-                      <span itemprop="title">Mens T-Shirt</span>
-                    </a>
-                  </li>    
-                  <li><a href="/collections/birthday-gifts" title=""><?=$params[0]->main_category_id?></a></li>
-
-                
-              
-
-              <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-                <a href="/products/donkix-product-sample" itemprop="url">
-                  <span itemprop="title">params[0]->name</span>
-                </a>
-              </li>
-              <li class="active"><?=$params[0]->sub_category_id?></li>
+            <li>
+              <a href="" title=""><?=$params[0]->sub_category_name?></a>
+            </li>
 
             
           </ul>
@@ -321,68 +350,35 @@
                 <div class="row">
 
                   <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div id="product-image" class="product-image">
-                     
+                    <div id="product-image" class="product-image ">
+                      <div class="product-image-inner ">
+                        <ul style="height: 600px; overflow: scroll; list-style: none;">
 
-                      <div class="product-image-inner">
-
-                          
-                            <div class="slider-main-image">
-
-                              <div class="slider-for-03">
-                                
-
-                                <div class="slick-item slick-zoom">
-                                  
-                                    <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
-                                  <?php
-                                    echo '
-                                    <img class="image-zoom" src="'.PROOT.'assets/images/'.$params[0]->img_1.'" alt="'.$params[0]->name.'">
-                                    ';
-                                  ?>
-                                </div>
-                                
-
-                                <div class="slick-item slick-zoom">
-                                  
-                                    <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
-                                  
-                                 <!--  <img class="image-zoom" src="//cdn.shopify.com/s/files/1/0102/1155/7435/products/6-1_b2b89dde-90c9-42d8-b81c-87514c5c7335_2048x2048.jpg?v=1537342931" alt="Men's Baseball ¾ T-Shirt"> -->
-                                </div>
-                                
-                              </div>
-
-                              <div class="slick-btn-03">
-                                <span class="btn-prev"><i class="demo-icon icon-left-1"></i></span>
-                                <span class="btn-next"><i class="demo-icon icon-right-1"></i></span>
-                              </div>  
-
-                              
-                                
-                                
-
-                                
-
-                              
-                            </div>
-
-                            <div class="slider-thumbs-03">
-                              <?php
-                                echo '
-
-                                <div class="slick-item">
-                                  <img src="'.PROOT.'assets/images/'.$params[0]->img_2.'" alt="'.$params[0]->name.'" />
-                                </div>
-                              
-                                <div class="slick-item">
-                                  <img src="'.PROOT.'assets/images/'.$params[0]->img_3.'" alt="'.$params[0]->name.'" />
-                                </div>
-
-                                ';
-                              ?>
-                            </div>
-
-                          
+                          <?php
+                            foreach($params[1] as $image){
+                              echo '
+                              <li>
+                                <div class="slider-main-image">
+                                  <div class="slider-for-03">
+                                    <div class="slick-item slick-zoom">
+                                        <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image->image_path.'" alt="'.$params[0]->name.'">
+                                    </div>
+                                    <div class="slick-item slick-zoom">
+                                        <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
+                                    </div> 
+                                  </div>
+                                  <div class="slick-btn-03">
+                                    <span class="btn-prev"><i class="demo-icon icon-left-1"></i></span>
+                                    <span class="btn-next"><i class="demo-icon icon-right-1"></i></span>
+                                  </div> 
+                                </div>                               
+                              </li>
+                              <br></br>
+                             
+                             ';
+                            }
+                          ?>         
 
                       </div>
                     </div>
@@ -751,7 +747,7 @@
                         
                           <li class="product-vendor">
                             <span>Sold By:</span>
-                            <a href="/collections/vendors?q=Armani" title="Armani"><?=$params[0]->vendor?></a>
+                            <a href="/collections/vendors?q=Armani" title="Armani"><?=$params[0]->vendor_id?></a>
                           </li>
                         
 
@@ -796,31 +792,28 @@
 
                 <div class="tab-content" style="height: 300px;">
                   <div class="FixedHeightContainer" style="height: 100px ">
-                    <ul style="height: 300px; overflow: scroll;">
-
-<!--                       <script type="text/javascript">
-                        function checkBox(c){
-                          if(c.includes("Yes")){
-                            document.getElementById
-                          }
-                          else{
-
-                          }
+                    <ul style="height: 300px; overflow: scroll;list-style: none;">
+                      <style type="text/css">
+                        .inline-user-date{
+                          display: inline-block;
                         }
-                      </script> -->
+                      </style>
 
                       <?php
-                        foreach($params[1][0] as $review){
+                        foreach($params[2] as $review){
                           echo '<li>
                               <div class="spr-review">
-                                <div class="spr-review-header">
-                                  <span style="font-size: 15px; color: black"><i class="demo-icon icon-user"></i>
-                                    '.$review->username.'
+                                <div class="spr-review-header" style="position:relative;">
+                                  <span style="font-size: 15px; color: black; font-weight:600;"><i class="demo-icon icon-user inline-user-date"></i>
+                                    '.$review->user_fname.'
+                                  </span>
+                                  <span style="font-size: 15px; color: black; font-weight:400; padding-right:10px; position:absolute; top:0; right:20px;"><i class="inline-user-date"></i>
+                                    '.$review->created_at.'
                                   </span>
                                 </div>
 
                                 <div class="spr-review-content">
-                                  <h6 style="padding-left: 30px;">'.$review->text.'</h6>
+                                  <h6 style="padding-left: 30px;">'.$review->content.'</h6>
                                 </div>
 
                                 <div>
@@ -836,6 +829,7 @@
                                 </div>
                               </div>
                             </li>
+                            <br></br>
                           ';
                         }
                       ?>
@@ -850,7 +844,7 @@
                   <div id="myModal" class="modal">
 
                     <!-- Modal content -->
-                    <div class="modal-content">
+                    <div class="modal-content" style="width: 20%">
                       <div class="modal-header">
                         <h4 style="float: left;">Write a review</h4>
                         <span class="close" data-dismiss="modal" style="float: right;">&times;</span>
@@ -860,20 +854,20 @@
 
                       <form method="post" action="<?=PROOT?>ReviewAndRate/addReview">
                         <div class="modal-body">    
-                          <div class="spr-form-contact-name">
+<!--                           <div class="spr-form-contact-name">
                             <label class="spr-form-label">Username</label>
                             <input type="text" name="username" class="spr-form-input spr-form-input-text" value placeholder="Enter your username">
-                          </div>    
+                          </div>  -->   
 
                           <div class="spr-form-review-body">
-                            <label class="spr-form-label">Body of Review</label>
+                            <label class="spr-form-label" style="font-weight: 600">Body of Review</label>
                             <div class="spr-form-input">
-                              <textarea name="body" rows="10" class="spr-form-input spr-form-input-textarea" placeholder="Write your comments here"></textarea>
+                              <textarea name="body" rows="7" style="width: 95%" class="spr-form-input spr-form-input-textarea" placeholder="Write your comments here"></textarea>
                             </div>
                           </div>
 
                           <div class="yes-no-selector">
-                            <label class="spr-form-label">Did the product recived before deadline?</label>
+                            <label class="spr-form-label" style="font-weight: 600">Did the product recived before deadline?</label>
                             <div class="spr-form-input">
                               <input type="radio" name="yes-no" checked value="Yes">Yes</input>
                               <input type="radio" name="yes-no" value="No">No</input>
@@ -883,7 +877,7 @@
                         </div>
                         <div class="modal-footer">
                           <input type="submit" class="button button-primary btn-primary" value="Submit" style="background-color: #c1939e; outline: none; cursor: pointer; border-color: #c1939e; border-radius: 4px; border:1px solid #c1939e;">
-                          <?php echo'<input type="hidden" name="id" value='.$params[0]->id.'>';?> 
+                          <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?> 
                         </div>
                       </form>
 
