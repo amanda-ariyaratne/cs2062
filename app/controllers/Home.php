@@ -16,7 +16,7 @@
 			$db=DB::getInstance();
 			$limit = array('limit'=>$a.',6');
 			$details = $db->find('customer_requests',$limit);
-			
+
 			$temp= array($db->find('products'));
 			$noOfProducts = count($temp[0]);
 
@@ -27,10 +27,10 @@
 
 		public function ProductRequestAction(){
 
-        	$db=DB::getInstance();        	
-        	
+        	$db=DB::getInstance();
+
         	if($_POST){
-            	$images=array($_FILES["fileUpload"]["name"])[0];	
+            	$images=array($_FILES["fileUpload"]["name"])[0];
 	        	$image_2=array_key_exists(1, $images);
 	        	$image_3=array_key_exists(2, $images);
 
@@ -47,7 +47,7 @@
 	        	else{
 	        		$image_value_3=$images[2];
 	        	}
-	        	
+
         		$fields=[
         			'pr_name'=> $_POST["design-name"],
         			'description'=> $_POST["Design-Description"],
@@ -55,8 +55,8 @@
         			'image_1' => $images[0],
         			'image_2' => $image_value_2,
         			'image_3' => $image_value_3,
-        			'due_date' => $_POST["due-date"] 
-        		];    
+        			'due_date' => $_POST["due-date"]
+        		];
         		// dnd($fields);
         		$target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
         		$target_file=$target_dir.'/'.basename($images[0]);
@@ -64,21 +64,21 @@
 
 
         		move_uploaded_file($images[0],$target_file);
-        		$db->insert('customer_requests',$fields);  
+        		$db->insert('customer_requests',$fields);
 
         		Router::redirect('home/CustomerRequestView/1');
 
         	}
 
-        	$this->view->render('home/ProductRequest'); 
-            
+        	$this->view->render('home/ProductRequest');
+
         }
         public function productViewAction(){
-        	
+
 			$db=DB::getInstance();
 			//load product table
 			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
-			$details = $db->findFirst('products_1',$product_array);			
+			$details = $db->findFirst('products_1',$product_array);
 			$params = array();
 			array_push($params,$details);
 
@@ -93,7 +93,7 @@
 			array_push($review_params,$reverse_reviews);
 			array_push($params,$review_params);
 
-			
+
 			$this->view->render('home/productView',$params);
 		}
 
@@ -135,39 +135,59 @@
         	$params = [$categories];
 
         	if ($_POST) {
-
 				$db = DB::getInstance();
+
+//				dnd($_POST);
+
+                $measurement1=0;$measurement2=0;$measurement3=0;
+                if(strlen($_POST["measurement1"])>0) {
+                    $measurement1 = 1;
+                }
+                if(strlen($_POST["measurement2"])>0) {
+                    $measurement2 = 1;
+                }
+                if(strlen($_POST["measurement3"])>0) {
+                    $measurement3 = 1;
+                }
 
                 $fields = [
                     "name" => $_POST["Product_Name"],
                     "description" => $_POST["Product_Description"],
                     "price" => $_POST["product_price"],
                     "sale_price" => $_POST["sale_price"],
-                    "category" => $_POST["category"],
+                    "sub_category_id" => $_POST["category"],
                     "material" => $_POST["material"],
-                    "image_path" => $_FILES["imagesUpload"]["name"][0],
-//                    "image_path2" => $image_2_value
+                    "measurement_1_al" => $measurement1,
+                    "measurement_2_al" => $measurement2,
+                    "measurement_3_al" => $measurement3
                 ];
+                $db->insert('product_features', $fields);
+
+//                $sql = "SELECT * FROM products";
+//                $db->query($sql);
+//                dnd($detail);
+                $product_id = $db->lastID();
 
                 $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/products';
+                $images=$_FILES["imagesUpload"];
+//                dnd($images);
+                $i=0;
+        		foreach ($images["name"] as $path) {
+                    $target_file = $target_dir . '/' . basename($path);
+                    $target_file = ltrim($target_file,"/");
+                    move_uploaded_file($images["tmp_name"][$i], $target_file);
 
+        			$values = [
+        				"product_id" => $product_id,
+        				"image_path" => $path,
+        			];
+                    $i++;
+        		    $db->insert('images', $values);
+        	}
 
-                $target_file = $target_dir . '/' . basename($_FILES["imagesUpload"]["name"][0]);
+        		//insert to colors table
 
-
-                $target_file = ltrim($target_file,"/");
-                //dnd($target_file);
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-
-                move_uploaded_file($_FILES["imagesUpload"]["tmp_name"][0], $target_file);
-
-                // $this->Product->insert($fields);
-                $db->insert('products', $fields);
             }
-
-
             $this->view->render('home/addProduct', $params);
 
         }
