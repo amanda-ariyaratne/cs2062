@@ -409,7 +409,7 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 .alert-danger{border-radius:0;border-color:#d02e2e;color:#d02e2e;background-color:#fff6f6}
 
-.alert-success{border-radius:0;border-color:#56ad6a;color:#56ad6a;background-color:#ecfeee}
+.alert-success{border-radius:0;border-color:#c1939e;color:#c1939e;background-color:#ecfeee}
 
 .alert-success button.close{color:#222;opacity:1}
 
@@ -2501,6 +2501,10 @@ body.cart-opened #page-body:before{background:rgba(0,0,0,0.3);content:"" !import
 
 @media (max-width: 479px){.product-wrapper .product-content{padding:15px 10px}
 
+}
+
+.product-des-list-{
+	list-style-position: outside;
 }
 
 .product-wrapper .product-content .pc-inner{display:block;width:100%;position:relative}

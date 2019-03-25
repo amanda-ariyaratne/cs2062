@@ -1,14 +1,12 @@
 
 
-<?= $this->setSiteTitle('Login') ?>
+<?= $this->setSiteTitle('test'); ?>
 
 <?= $this->start('head'); ?>
 
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
-
-<?= dnd($params); ?>;
 
 <?= $this->end(); ?>
 

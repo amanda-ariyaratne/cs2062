@@ -3,7 +3,6 @@
 	class Session {
 
 		public static function exists($name){
-			dnd(isset($_SESSION[$name]));
 			return (isset($_SESSION[$name])) ? true : false;
 		}
 
@@ -12,7 +11,7 @@
 		}
 
 		public static function set($name, $value){
-			return $_SESSION[$name] = CURRENT_USER_SESSION_NAME;/////////////
+			return $_SESSION[$name] = $value;
 		}
 
 		public static function delete($name){

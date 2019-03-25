@@ -42,8 +42,11 @@
 			$result = new $this->_modelName($this->_table);
 			if($resultQuery){
 				$result->populateObjectData($resultQuery);
+				return $result;
+			} else {
+				return [];
 			}
-			return $result;//////////return $result;
+			//////////return $result;
 		}
 
 		protected function populateObjectData($obj){
@@ -61,7 +64,7 @@
 			if (empty($fields)) {
 				return false;
 			} else {
-				return $this->_db->insert($this->_db->insert($this->_table, $fields));
+				$this->_db->insert($this->_table, $fields);
 			}
 		}
 
