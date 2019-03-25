@@ -1,4 +1,4 @@
-<?php 
+
 
 <?= $this->setSiteTitle('Login') ?>
 
@@ -12,4 +12,3 @@
 
 <?= $this->end(); ?>
 
-?>

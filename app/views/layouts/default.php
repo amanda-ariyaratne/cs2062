@@ -89,13 +89,13 @@
           <div class="container">
 
             
-              <ul class="top-bar-list">
+              <ul class="top-bar-list" style="color: black!important">
                 
-                  <li><span>30 days</span> free return</li>
+                  <li style="color: black!important"><span>30 days</span> free return</li>
                 
-                  <li><span>Free</span> delivery</li>
+                  <li style="color: black!important"><span>Free</span> delivery</li>
 
-                  <li><span>Best</span> Islandwide delivery</li>
+                  <li style="color: black!important"><span>Best</span> Islandwide delivery</li>
                 
               </ul>
             
@@ -115,14 +115,14 @@
 
             
               <div class="top-bar-left col-lg-6">
-                <ul class="list-inline">
+                <ul class="list-inline" >
 
-                    <li class="customer-account lazyload waiting">
-                        <a href="<?=PROOT?>register/login" title="Account">
+                    <li class="customer-account lazyload waiting" >
+                        <a href="<?=PROOT?>register/login" title="Account" style="color: black!important;">
 
 
                           
-                        <i class="demo-icon icon-user"></i>
+                        <i class="demo-icon icon-user" style="color: black!important;"></i>
                           Login
 
                         </a>
@@ -163,9 +163,9 @@
                 
                   <li class="customer-register lazyload waiting">
                     
-                    <a href="/account/register" title="Register">
+                    <a href="/account/register" title="Register" style="color: black!important">
                       
-                      <i class="demo-icon icon-pencil-2"></i>
+                      <i class="demo-icon icon-pencil-2" style="color: black!important"></i>
 
                       Register
                     </a>
@@ -231,9 +231,9 @@
                     </div>
                   
                   
-                    <div class="text">
-                      <span class="text-1">Call us</span>
-                      <span class="text-2">(+94) 123 456 789</span>
+                    <div class="text" style="color: white!important">
+                      <span class="text-1" style="color: white!important">Call us</span>
+                      <span class="text-2" style="color: white!important">(+94) 123 456 789</span>
                     </div>
                   
 

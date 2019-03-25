@@ -16,7 +16,7 @@
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
 			$limit = array('limit'=>$id.',3');
-			$details=$db->find('products',$condition,$limit);	
+			$details=$db->find('products',$condition,$limit);
 			$temp= array($db->find('products',$condition));
 			$noOfProducts = count($temp[0]);
 			$params=array($details,$id,$noOfProducts);
@@ -38,48 +38,67 @@
 		}
 
 
-
-
         public function addProductAction(){
 
         	$db = DB::getInstance();
-        	$categories = $db->findFirst('sub_categories');
+        	$categories = $db->find('sub_categories');
         	$params = [$categories];
 
         	if ($_POST) {
 				$db = DB::getInstance();
+
+//				dnd($_POST);
+
+                $measurement1=0;$measurement2=0;$measurement3=0;
+                if(strlen($_POST["measurement1"])>0) {
+                    $measurement1 = 1;
+                }
+                if(strlen($_POST["measurement2"])>0) {
+                    $measurement2 = 1;
+                }
+                if(strlen($_POST["measurement3"])>0) {
+                    $measurement3 = 1;
+                }
 
                 $fields = [
                     "name" => $_POST["Product_Name"],
                     "description" => $_POST["Product_Description"],
                     "price" => $_POST["product_price"],
                     "sale_price" => $_POST["sale_price"],
-                    "category" => $_POST["category"],
+                    "sub_category_id" => $_POST["category"],
                     "material" => $_POST["material"],
-                    "image_path" => $_FILES["imagesUpload"]["name"][0],
-//                    "image_path2" => $image_2_value
+                    "measurement_1_al" => $measurement1,
+                    "measurement_2_al" => $measurement2,
+                    "measurement_3_al" => $measurement3
                 ];
+                $db->insert('product_features', $fields);
+
+//                $sql = "SELECT * FROM products";
+//                $db->query($sql);
+//                dnd($detail);
+                $product_id = $db->lastID();
 
                 $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/products';
+                $images=$_FILES["imagesUpload"];
+//                dnd($images);
+                $i=0;
+        		foreach ($images["name"] as $path) {
+                    $target_file = $target_dir . '/' . basename($path);
+                    $target_file = ltrim($target_file,"/");
+                    move_uploaded_file($images["tmp_name"][$i], $target_file);
 
+        			$values = [
+        				"product_id" => $product_id,
+        				"image_path" => $path,
+        			];
+                    $i++;
+        		    $db->insert('images', $values);
+        	}
 
-                $target_file = $target_dir . '/' . basename($_FILES["imagesUpload"]["name"][0]);
+        		//insert to colors table
 
-
-                $target_file = ltrim($target_file,"/");
-                //dnd($target_file);
-                $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-
-                move_uploaded_file($_FILES["imagesUpload"]["tmp_name"][0], $target_file);
-
-                // $this->Product->insert($fields);
-                $db->insert('products', $fields);
             }
-
             $this->view->render('home/addProduct', $params);
-
         }
 
 
@@ -109,7 +128,7 @@
 			$db=DB::getInstance();
 			//load product table
 			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
-			$details = $db->find('products_1',$product_array);			
+			$details = $db->findFirst('products_1',$product_array);
 			$params = array();
 			array_push($params,$details);
 
@@ -117,7 +136,7 @@
 			$db2=DB::getInstance();
 
 			$review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
-			$review_details = $db2->findfirst('review',$review_array);
+			$review_details = $db2->find('review',$review_array);
 			$reverse_reviews = array_reverse($review_details);
 
 			$review_params = array();
