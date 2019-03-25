@@ -20,7 +20,11 @@
 			$temp= array($db->find('products'));
 			$noOfProducts = count($temp[0]);
 
+			//$params=array($details,$a,$noOfProducts);
+			
+
 			$params=array($details,$a,$noOfProducts);
+
 
 			$this->view->render('home/CustomerRequests',$params);
 		}
@@ -39,9 +43,14 @@
         			'due_date' => $_POST["due-date"] 
         		];    
 
-        		$db->insert('customer_requests',$fields);  
+        		//$db->insert('customer_requests',$fields);  
 
-        		$id=count($db->find('customer_requests'));
+        		if (!($db->find('customer_requests'))) {
+        			$id = 1;
+        		} else {
+        			$id=count($db->find('customer_requests'));
+        		}
+        		
 
         		$images=($_FILES["fileUpload"]);
         		
@@ -55,15 +64,33 @@
 
 	        		$db->insert('images',$imageTable);  
 
-	        		// $target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
-	        		// $Itype=$images["type"][$x];
+	        		$alertMsg='
+						<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
+						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+						<div class="container">
+							<div class="alert alert-success fade in">    
+						    	<strong>Success!</strong> This alert box could indicate a successful or positive action.
+						  	</div>
+						</div>';
+
+
+
+
+
+	        		$target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
+	        		$Itype=$images["type"][$x];
 	        		
 	        		// $target_file=$target_dir.'/'.'request_Image'.$id.'.jpg';
-	        		// //dnd($target_file);
-	        		// move_uploaded_file($image,$target_file);
+	        		//dnd($target_file);
+	        		// if(move_uploaded_file($image,$target_file)){
+	        		// 	dnd('success');
+	        		// } else {
+	        		// 	dnd('failure');
+	        		// }
         		}       		
 
-        		Router::redirect('home/CustomerRequestView/1');
+        		Router::redirect('home/ProductRequest',array($alertMsg));
 
         	}
 

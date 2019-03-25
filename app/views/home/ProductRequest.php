@@ -6,19 +6,22 @@
 	<link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
 	<link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
 	<link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
+
+
+
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
 
-
 <div class="site-wrapper">
 
-
-<div class="site-main container"><!-- Content wrapper -->
+<div class="site-main container">
+	<!-- Content wrapper -->
 	<div class="row">
-	<div class="breadcrumbs-wrapper col-md-12 col-sm-12 col-xs-12"><!-- Breadcrumbs-wrapper -->
-<div class="container">
-	<div class="row">
+	<div class="breadcrumbs-wrapper col-md-12 col-sm-12 col-xs-12">
+		<!-- Breadcrumbs-wrapper -->
+	<div class="container">
+		<div class="row">
 			<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="page-title">
 	Pro Dashboard		</div>
@@ -107,18 +110,18 @@
 						<input type="color" id="design-color" name="color-picker[]" style="border:none; background-color: none;" />
 
 						
-						<?php 
+						<!-- <?php 
 							
-							for($x=1;$x<10;$x++){
+							// for($x=1;$x<10;$x++){
 
-								echo '<input type="color" id="design-color-more-'.$x.'" name="color-picker-'.$x.'" style="border:none; display:none; background-color: none;" />';
-							}
+							// 	echo '<input type="color" id="design-color-more-'.$x.'" name="color-picker-'.$x.'" style="border:none; display:none; background-color: none;" />';
+							//}
 
 							
-						 ?>
+						 ?> -->
 						 <br>
-						 <button  type="button" onclick="addMore()" >more colors</button>
-
+						 <!-- <button  type="button" onclick="addMore()">+</button>
+ -->
 						
 						<small">Pick colour</small>			
 					</div>
@@ -127,9 +130,12 @@
 
 					<!-- Add location -->
 
-					<div class="control-group">
-						<label >Postal Code</label>	
-						<input type='text' id="postal-code" class="form-control" name="postal-code"  />			
+					<div class="control-group row">
+						<div class="col-md-6">
+							<label >Postal Code</label>	
+						<input type='text'  style="width: 80px" id="postal-code" class="form-control" name="postal-code"  />		
+						</div>
+							
 					</div>
 					<small id="error-msg-location"></small>
 					<br/>
@@ -139,7 +145,7 @@
 					<div class="control-group">
 						<label>Due date</label>
 						<small style="font-color:#000000;">before</small>	
-						<input type='date' id="due-date" name="due-date" class="form-control" />				
+						<input type='date' id="due-date" name="due-date" style="width: 153px; padding-left: : 10px;" class="form-control" />				
 					</div>
 					<small id="error-msg-date"></small>
 					                    
@@ -163,20 +169,12 @@
 	<script type="text/javascript">
 
 		var count=1;
-
 		function addMore(){
 
 			var sid=("design-color-more-"+count);
-
 			var addMoreV=document.getElementById(sid);
-			window.alert(sid);
-
-
-			addMoreV.innerHTML = "<input type="color" id=sid name="color-picker1" style="border:none; display:inline block; background-color: none;" />";
-			// window.alert(addMore.style.display);
-
-			// count++;
-
+			addMoreV.style.display="inline-block";
+			count++;
 		}
 
 		function validateData(){
@@ -225,12 +223,6 @@
 			else{
 				return true;				
 			}
-
-			
-
-				
-
-			
 		}	
 
 
@@ -310,8 +302,15 @@
 				
 			
 
-			</div>
-		</div><!-- end of Content wrapper -->
+</div>
+</div><!-- end of Content wrapper -->
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script type="text/javascript">
+	// Display an info toast with no title
+	toastr.info('Are you the 6 fingered man?')
+
+</script>
 
 <?php include 'Categories.php';?>
 
