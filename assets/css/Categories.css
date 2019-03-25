@@ -1,9 +1,10 @@
 .categories-title{
-    font-style: s;
+    font-style: normal;
+    font-family: -webkit-body;
 }
 
 .categories {
-    border: 1px solid #e1e1e1;
+    border: 1px solid #2125298f;
     padding: 19px 25px 25px;
     border-radius: 2px 2px 2px 2px;
     -moz-border-radius: 2px 2px 2px 2px;
