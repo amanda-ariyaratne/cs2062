@@ -6,4 +6,6 @@
 
 <?= $this->start('body'); ?>
 
+<?php include 'Categories.php'?>
+
 <?= $this->end(); ?>
