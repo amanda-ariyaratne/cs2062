@@ -191,7 +191,7 @@
         public function addProductAction(){
 
         	$db = DB::getInstance();
-        	$categories = $db->findFirst('sub_categories');
+        	$categories = $db->find('sub_categories');
         	$params = [$categories];
 
         	if ($_POST) {
@@ -246,6 +246,38 @@
         	}
 
         		//insert to colors table
+//                dnd($_POST);
+
+                if($_POST["color1"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color1"]]);
+                }
+                if($_POST["color2"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color2"]]);
+                }
+                if($_POST["color3"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color3"]]);
+                }
+                if($_POST["color4"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color4"]]);
+                }
+                if($_POST["color5"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color5"]]);
+                }
+                if($_POST["color6"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color6"]]);
+                }
+                if($_POST["color7"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color7"]]);
+                }
+                if($_POST["color8"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color8"]]);
+                }
+                if($_POST["color9"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color9"]]);
+                }
+                if($_POST["color10"]!="#000000"){
+                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color10"]]);
+                }
 
             }
             $this->view->render('home/addProduct', $params);
