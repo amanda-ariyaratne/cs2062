@@ -173,6 +173,30 @@
 
                                     <br><br>
 
+<!---->
+<!--                                    <div class="inputs wrap">-->
+<!--                                        <div class="popup" style="display: none;">-->
+<!--                                            <div class="popup-inner">-->
+<!---->
+<!--                                                Select a base color for your color scheme.-->
+<!--                                                <div class="popup-tip">▼</div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="steps">-->
+<!--                                            <div class="number-a">1.</div>-->
+<!--                                            <div class="number-b">pick a color</div>-->
+<!--                                        </div>-->
+<!--                                        <span class="minicolors sm minicolors-swatch-position-right minicolors-position-default"><input id="i1" class="ilu ui-autocomplete-input minicolors-input" type="text" data-custom-class="sm" data-default-value="#fff" autocomplete="off" size="7" maxlength="7"><span class="minicolors-swatch"><span style="background-color: rgb(199, 48, 169); opacity: 1;"></span></span><span class="minicolors-panel minicolors-slider-hue" style="display: none;"><span class="minicolors-slider" style="background-image: url(&quot;/wp-content/themes/divi-child/color-calculator/slider-hue-ryb.png&quot;);"><span class="minicolors-picker picked" style="top: 21px;"></span></span><span class="minicolors-opacity-slider"><span class="minicolors-picker"></span></span><span class="minicolors-grid" style="background-color: rgb(255, 0, 204);"><span class="minicolors-grid-inner"></span><span class="minicolors-picker picked" style="top: 34px; left: 116px;"><span></span></span></span><span class="mini-inputs"><p>C:</p><input id="c" class="cmyk" size="1" value="0"><p>M:</p><input id="m" class="cmyk" size="1" value="0"><p>Y:</p><input id="y" class="cmyk" size="1" value="0"><p>K:</p><input id="k" class="cmyk" size="1" value="0"><p>R:</p><input id="r" class="rgb" size="1" value="255"><p>G:</p><input id="g" class="rgb" size="1" value="255"><p>B:</p><input id="b" class="rgb" size="1" value="255"></span></span></span><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>-->
+<!--                                        <span class="minicolors sm minicolors-swatch-position-right minicolors-position-default off"><input id="i2" class="ilu ui-autocomplete-input minicolors-input" type="text" data-custom-class="sm" data-default-value="#fff" autocomplete="off" size="7" maxlength="7"><span class="minicolors-swatch"><span style="background-color: rgb(240, 29, 29); opacity: 1;"></span></span><span class="minicolors-panel minicolors-slider-hue" style="display: none;"><span class="minicolors-slider" style="background-image: url(&quot;/wp-content/themes/divi-child/color-calculator/slider-hue-ryb.png&quot;);"><span class="minicolors-picker picked" style="top: 0px;"></span></span><span class="minicolors-opacity-slider"><span class="minicolors-picker"></span></span><span class="minicolors-grid" style="background-color: rgb(255, 0, 0);"><span class="minicolors-grid-inner"></span><span class="minicolors-picker picked" style="top: 11px; left: 134px;"><span></span></span></span><span class="mini-inputs"><p>C:</p><input id="c" class="cmyk" size="1" value="0"><p>M:</p><input id="m" class="cmyk" size="1" value="0"><p>Y:</p><input id="y" class="cmyk" size="1" value="0"><p>K:</p><input id="k" class="cmyk" size="1" value="0"><p>R:</p><input id="r" class="rgb" size="1" value="255"><p>G:</p><input id="g" class="rgb" size="1" value="255"><p>B:</p><input id="b" class="rgb" size="1" value="255"></span></span><a class="remove"><img src="/wp-content/themes/divi-child/color-calculator/remove.png" alt="remove"> Remove</a></span><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>-->
+<!---->
+<!--                                        <span class="minicolors sm minicolors-swatch-position-right minicolors-position-default off"><input id="i3" class="ilu ui-autocomplete-input minicolors-input" type="text" data-custom-class="sm" data-default-value="#fff" autocomplete="off" size="7" maxlength="7"><span class="minicolors-swatch"><span style="background-color: rgb(255, 255, 255);"></span></span><span class="minicolors-panel minicolors-slider-hue"><span class="minicolors-slider" style="background-image: url(&quot;/wp-content/themes/divi-child/color-calculator/slider-hue-ryb.png&quot;);"><span class="minicolors-picker picked" style="top: 0px;"></span></span><span class="minicolors-opacity-slider"><span class="minicolors-picker"></span></span><span class="minicolors-grid" style="background-color: rgb(255, 0, 0);"><span class="minicolors-grid-inner"></span><span class="minicolors-picker picked" style="top: 0px; left: 0px;"><span></span></span></span><span class="mini-inputs"><p>C:</p><input id="c" class="cmyk" size="1" value="0"><p>M:</p><input id="m" class="cmyk" size="1" value="0"><p>Y:</p><input id="y" class="cmyk" size="1" value="0"><p>K:</p><input id="k" class="cmyk" size="1" value="0"><p>R:</p><input id="r" class="rgb" size="1" value="255"><p>G:</p><input id="g" class="rgb" size="1" value="255"><p>B:</p><input id="b" class="rgb" size="1" value="255"></span></span><a class="remove"><img src="/wp-content/themes/divi-child/color-calculator/remove.png" alt="remove"> Remove</a></span><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>-->
+<!--s-->
+<!--                                        <a class="addmore"><img src="/wp-content/themes/divi-child/color-calculator/add.png" alt="add more"> Add More</a>-->
+<!---->
+<!--                                    </div>-->
+
+
+
                                     <!-- select Measurements -->
                                     <div class=""><label class="">Select Availabe Measurements</label><br>
 
@@ -187,60 +211,63 @@
                                     <br>
 
 
+                                    <script type="text/javascript">
+                                        function validateData(){
+
+                                            document.getElementById("error-msg-name").innerHTML="";
+                                            document.getElementById("error-msg-image").innerHTML="";
+                                            document.getElementById("error-msg-price").innerHTML="";
+                                            document.getElementById("error-msg-category").innerHTML="";
+
+                                            var name=document.getElementById("productName").value;
+                                            var price=document.getElementById("productPrice").value;
+                                            var category=document.getElementById("productCategory").value;
+                                            var image=document.getElementById("productImage").files;
+                                            var error;
+
+
+                                            var msg = "fill requirerd fields";
+                                            if (name==""){
+                                                error=document.getElementById("error-msg-name");
+                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
+                                                return false;
+                                            }
+
+                                            else if (image.length==0){
+                                                error=document.getElementById("error-msg-image");
+                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
+                                                return false;
+                                            }
+
+                                            else if (price==""){
+                                                error=document.getElementById("error-msg-price");
+                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
+                                                return false;
+                                            }
+
+                                            else if (category==""){
+                                                error=document.getElementById("error-msg-category");
+                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
+                                                return false;
+                                            }
+
+                                            else{
+                                                var msg = "";
+                                                return true;
+                                            }
+                                        }
+
+                                    </script>
+
 
                                     <div class="control-wrapper last">
                                         <button class="btn btn-1" type="submit" name="submit">Submit Product</button>
+                                        <? var_dump(msg);?>
                                     </div>
 
                         </form>
                     </div>
 
-                <script type="text/javascript">
-                    function validateData(){
-
-                        document.getElementById("error-msg-name").innerHTML="";
-                        document.getElementById("error-msg-image").innerHTML="";
-                        document.getElementById("error-msg-price").innerHTML="";
-                        document.getElementById("error-msg-category").innerHTML="";
-
-                        var name=document.getElementById("productName").value;
-                        var price=document.getElementById("productPrice").value;
-                        var category=document.getElementById("productCategory").value;
-                        var image=document.getElementById("productImage").files;
-                        var error;
-
-
-
-                        if (name==""){
-                            error=document.getElementById("error-msg-name");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
-                            return false;
-                        }
-
-                        else if (image.length==0){
-                            error=document.getElementById("error-msg-image");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
-                            return false;
-                        }
-
-                        else if (price==""){
-                            error=document.getElementById("error-msg-price");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
-                            return false;
-                        }
-
-                        else if (category==""){
-                            error=document.getElementById("error-msg-category");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
-                            return false;
-                        }
-
-                        else{
-                            return true;
-                        }
-                    }
-
-                </script>
 
 
 
