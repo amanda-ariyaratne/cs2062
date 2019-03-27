@@ -32,6 +32,7 @@
 				header('Location: ' . PROOT . $location);
 				exit();
 			}else{
+			
 				echo '<script type="text/javascript">';
 				echo 'window.location.href="'.PROOT.$location.'";';
 				echo '</script>';

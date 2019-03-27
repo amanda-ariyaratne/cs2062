@@ -362,7 +362,7 @@
                                   <div class="slider-for-03">
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image->image_path.'" alt="'.$params[0]->name.'">
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image->image_path.'" alt="'.$params[0]->name.'">
                                     </div>
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>

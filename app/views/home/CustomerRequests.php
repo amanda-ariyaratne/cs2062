@@ -280,7 +280,7 @@
 <div class="col-lg-9 col-md-12">
         
   <div class="wrap-cata-title">
-    <h2>Design</h2>
+    <h2>Customer Requests</h2>
   </div>
 
 <div class="cata-toolbar">
@@ -288,8 +288,16 @@
       
   <div class="pagination-showing">
     <div class="showing">
-            
-              Showing all 8 Items
+            <!-- <?php 
+            // echo 'Showing '.count($params[0]).' Items';
+             ?> -->
+
+          <?php                       
+            $pageNo=$params[1];
+            $noOfPages = ceil(($params[2]/6));           
+            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
+          ?>
+             
             
     </div>
   </div>
@@ -306,6 +314,8 @@
     <!-- product view -->
 <?php 
     foreach ($params[0] as $field){
+      //dnd($field);
+
       echo '
   <div class="product-grid-item mode-view-item">
           
@@ -317,7 +327,7 @@
       
           <div class="featured-img">
             <a href="/collections/personal/products/georgeous-white-dresses"> 
-                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$field->image_1.'" alt="Georgeous White Dresses" />       
+                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$field->images[0].'" alt="Georgeous White Dresses" />       
               <span class="product-label"></span>
         </a>
       </div>
@@ -339,10 +349,25 @@
 
         <div class="product-des-list-" style="list-style-position: outside;">
           <ul>    
+            
             <li>
-              <span class="a-list-item">'.$field->description.'</span>
+              <span>Color: </span>
+              <span class="a-list-item">'.$field->color.'</span>
             </li>
-          </ul>
+            <li>
+              <span>Loaction: </span>
+              <span class="a-list-item">'.$field->location.'</span>
+            </li>
+            <li>
+              <span>Due date: </span>
+              <span class="a-list-item">'.$field->due_date.'</span>
+            </li>
+            </ul>
+                        
+              <span class="a-list-item">'.$field->description.'</span>
+            
+
+          
         </div>   
 
         <div class="product-review">
@@ -355,6 +380,7 @@
      <div class="price-cart-wrapper">
     <div class="product-price">   
         <span class="price">
+          <br>
           <span class=money>$100.00</span>
         </span>
     </div>

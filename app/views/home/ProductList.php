@@ -754,7 +754,8 @@
                               <div class="product-image">
                                 
                                 <div class="featured-img lazyload">
-                                  <a href="'.PROOT.'home/produb ctView"> 
+
+                                  <a href="'.PROOT.'home/productView/'.$pid.'"> 
                                     <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
                                   </a>
                                 </div> 

@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=0" />
   <link rel="canonical" href="https://arena-handy.myshopify.com/account/login" />
-  <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+ 
   <!-- Title and description -->
 
   <title>
@@ -20,7 +20,8 @@
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
-  <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
+<!--   <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <style type="text/css">
     .header-container.bg-imagee{
@@ -92,7 +93,7 @@
             
               <ul class="top-bar-list" style="">
 
-                  <li><a href="/" title="Customer Request" >Customer Request</a></li>
+                  <li><a href="<?=PROOT?>home/CustomerRequestView/1" title="Customer Request" >Customer Request</a></li>
                 
                   <li><a href="<?=PROOT?>home/ContactUs" title="help and Support" >Help and support</a></li>
 
@@ -191,7 +192,7 @@
         <div class="table-row">
           <div class="row">
 
-            <div class="header-logo col-lg-3 col-md-12">
+            <div class="header-logo col-lg-1 col-md-12">
               
               
               <a href="#" title="Tailor Mate" class="logo-site lazyload waiting">
@@ -199,10 +200,30 @@
               </a>
             </div>
 
-            <div class="header-right col-lg-9 col-md-12">
+            <div class="header-right col-lg-11 col-md-12">
               <div class="col-md-1">
               </div>
-              <div class="col-md-6">
+
+              <div class="col-md-2">
+                <div class="header-phone-widget d-none d-lg-block">
+                  
+                    
+                    <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
+                      <a href="<?=PROOT?>home/ProductRequest/1">
+                      <!-- <i class="demo-icon icon-phone"></i> -->
+                      <i class="fas fa-tshirt"></i>
+                      </a>
+                    </div>
+                  
+                  
+                    <div class="text">
+                      <span class="text-1">Add Your Designs</span>
+                    </div>
+                    
+
+                </div>
+              </div>
+              <div class="col-md-4">
                 <div class="searchbox">
 
                   <form id="search" class="navbar-form search" action="/search" method="get">
@@ -509,7 +530,6 @@
                           
                       </ul>
                   </li>
-
 
                 </ul>
               </div>

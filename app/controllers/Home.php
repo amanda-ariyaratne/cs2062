@@ -11,19 +11,110 @@
 			$this->view->render('home/index');
 		}
 
+		public function ProductListAction($a='0'){
 
-		public function CustomerRequestViewAction($a){
 			$db=DB::getInstance();
-			$limit = array('limit'=>$a.',6');
-			$details = $db->find('customer_requests',$limit);
+			$limit = array('limit'=>(3*$a-3).',3');
+			$details = $db->find('product_features',$limit);
+			//dnd($details);
+			foreach ($details as $row){
 
-			$temp= array($db->find('products'));
+				$pr_sub_id=$row->sub_category_id;
+				$name=$row->name;
+				
+				$condition=array('conditions'=> ['product_id = ?','pr_name = ?'],'bind'=>[$pr_sub_id,$name]);
+				
+
+				$image_details = $db->find('images',$condition);
+
+				//dnd ($image_details);
+				
+				$imageList=array();
+				
+
+				$images = array();
+				$row->images = $images;
+
+				if (is_array($image_details)) {
+					foreach ($image_details as $imagePath){
+						array_push($row->images,$imagePath->image_path);
+					}
+				}
+					
+			}
+
+			
+			$temp= array($db->find('product_features'));
+
 			$noOfProducts = count($temp[0]);
 
-			//$params=array($details,$a,$noOfProducts);
+			$params=array($details,$a,$noOfProducts);
+
+			$this->view->render('home/ProductList',$params);
+		}
+		public function CustomerRequestViewAction($a){
+
+
+			$db=DB::getInstance();
+			$a--;
+			$limit = array('limit'=>$a.',6');
+			$a++;
+			$details = $db->find('customer_requests',$limit);
+			//dnd($details[0]->id); 
+
+			foreach ($details as $row){
+
+				$id=$row->id;
+				$name=$row->pr_name;
+
+				$condition=array('conditions'=> ['product_id = ?','pr_name = ?'],'bind'=>[$id,$name]);	
+				$image_details = $db->find('images',$condition);
+
+				//dnd ($image_details);
+				$imageList=array();
+				
+
+				$images = array();
+				$row->images = $images;
+
+				if (is_array($image_details)) {
+					foreach ($image_details as $imagePath){
+						array_push($row->images,$imagePath->image_path);
+					}
+				}
+					
+			}
 			
+			$temp= array($db->find('product_features'));
+
+			$noOfProducts = count($temp[0]);
 
 			$params=array($details,$a,$noOfProducts);
+			//dnd($details);
+			//$this->view->render('home/ProductList',$params);
+
+
+			// $images=array();
+			// //dnd('fgh');
+			// for($x=0; $x<6; $x++){
+			// 	$id=$details[$x]->id;
+			// 	$name=$details[$x]->pr_name;
+			// 	$condition=array('conditions'=> ['product_id = ?','pr_name = ?'],'bind'=>[$id,$name]);	
+
+			// 	$image_details = $db->find('images',$condition);
+
+			// 	//dnd($image_details);
+			// 	//array_push($details[$x], $image_details->image_path);
+				
+			// }
+			// dnd($details);
+			// $temp= array($db->find('products'));
+			// $noOfProducts = count($temp[0]);
+
+			// //$params=array($details,$a,$noOfProducts);
+			
+
+			// $params=array($details,$a,$noOfProducts);
 
 
 			$this->view->render('home/CustomerRequests',$params);
@@ -36,11 +127,13 @@
         	if($_POST){
         		$fields=[
         			'pr_name'=> $_POST["design-name"],
-        			'description'=> $_POST["Design-Description"],
+        			'description'=> $_POST["design-Description"],
         			'location' => $_POST["postal-code"],
         			'color' => $_POST["color-picker"],
         			'due_date' => $_POST["due-date"] 
         		];    
+
+        		//dnd ($fields);
 
         		// $target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
         		// $target_file=$target_dir.'/'.basename($images[0]);
@@ -50,35 +143,44 @@
         		if (!($db->find('customer_requests'))) {
         			$id = 1;
         		} else {
-        			$id=count($db->find('customer_requests'));
+        			$id=count($db->find('customer_requests'))+1;
         		}
         		
 
-        		$images=($_FILES["fileUpload"]);
-        		
-        		for ($x = 0; $x <= 10; $x++){
-        			$image=$images["name"][$x];
-        			//dnd($images);
+        		$images=($_FILES["fileUpload"]["name"]);
+        		$pr_name=$_POST["design-name"];        		
+        		$upTo=count($images);
+        		for ($x = 0; $x < $upTo; $x++){
+        			$image=$images[$x];
+        			
 	        		$imageTable=[
 	        			'image_path'=>$image,
-	        			'product_id'=>$id
+	        			'product_id'=>$id,
+	        			'pr_name'=>$pr_name
 	        		];
 
-	        		$db->insert('images',$imageTable);  
+	        		//dnd($imageTable);
+	        		if($db!=null){
+	        			$db->insert('images',$imageTable);
+	        		}
+	        		
+	        		//dnd("tghj");
 
-	        		$alertMsg='
-						<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
-						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-						<div class="container">
-							<div class="alert alert-success fade in">    
-						    	<strong>Success!</strong> This alert box could indicate a successful or positive action.
-						  	</div>
-						</div>';
+	        	}
 
 					$db->insert('customer_requests',$fields);
 
-        		}       		
+					$_SESSION['alert']='
+					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
+					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+					<div class="container">
+						<div class="alert alert-success fade in">    
+					    	<strong>Success!</strong> You have successfully added a CUSTOM REQUEST!
+					  	</div>
+					</div>';					
+
+        				
 
         		Router::redirect('home/ProductRequest');
 
@@ -89,8 +191,8 @@
         }
 
 
-        public function productViewAction(){
-        	$p_id = 1;
+        public function productViewAction($p_id){
+        	//$p_id = 1;
         	
 			$db=DB::getInstance();
 			$params = array();			
@@ -118,14 +220,17 @@
 			//load review table
 			$review_array = array('conditions' => 'product_id = ?' , 'bind' => [$p_id ]);
 			$review_details = $db->find('reviews',$review_array);
-			$reverse_reviews = array_reverse($review_details);
+			$reverse_reviews = array();
+			if (is_array($review_details)){
+				$reverse_reviews = array_reverse($review_details);
 
-			//load user table
-			foreach($reverse_reviews as $review){
-				$user_table = array('conditions' => 'id = ?', 'bind' => [$review->user_id]);
-				$user = $db->findFirst('user',$user_table);
-				$review->user_fname = $user->first_name;
-				$review->user_lname = $user->last_name;
+				//load user table
+				foreach($reverse_reviews as $review){
+					$user_table = array('conditions' => 'id = ?', 'bind' => [$review->user_id]);
+					$user = $db->findFirst('user',$user_table);
+					$review->user_fname = $user->first_name;
+					$review->user_lname = $user->last_name;
+				}
 			}
 			array_push($params,$reverse_reviews);
 			//dnd($params);
@@ -148,42 +253,7 @@
 		}
 
 
-		public function ProductListAction($a='0'){
-
-			$db=DB::getInstance();
-			$limit = array('limit'=>(3*$a-3).',3');
-			$details = $db->find('product_features',$limit);
-			//dnd($details);
-			foreach ($details as $row){
-
-				$pr_sub_id=$row->sub_category_id;
-							
-				$condition=array('cond0. itions'=> 'product_id = ?','bind'=>[$pr_sub_id]);
-				
-
-				$image_details = $db->find('images',$condition);
-				$imageList=array();
-				
-				$images = array();
-				$row->images = $images;
-
-				if (is_array($image_details)) {
-					foreach ($image_details as $imagePath){
-						array_push($row->images,$imagePath->image_path);
-					}
-				}
-					
-			}
-
-			//dnd($details);
-			$temp= array($db->find('product_features'));
-			//dnd($temp);
-			$noOfProducts = count($temp[0]);
-
-			$params=array($details,$a,$noOfProducts);
-
-			$this->view->render('home/ProductList',$params);
-		}
+		
 
 
 

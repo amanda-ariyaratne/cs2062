@@ -45,9 +45,13 @@
 
 
 		<form method="post" enctype="multipart/form-data" action="<?=PROOT?>home/ProductRequest" onsubmit="return validateData();">
-
-			<h3>Design Request Area</h3>
+			<?php 
+				if(isset($_SESSION['alert']))
+					{echo $_SESSION['alert']; $_SESSION['alert'] = '';
+				}
+			?>
 			
+			<h3>Design Request Area</h3>			
 
 			<br />
 
@@ -83,7 +87,7 @@
 					<div id="wp-pv_shop_description-editor-container" class="wp-editor-container">
 						<div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
 
-						<textarea  style="height: 200px" autocomplete="off" cols="40" name="Design-Description" id="design-description"></textarea>				    
+						<textarea  style="height: 200px" autocomplete="off" cols="40" name="design-Description" id="design-description"></textarea>				    
 					</div>
 					</div>
 					<small id="error-msg-description"></small>
@@ -107,23 +111,10 @@
 
 					<div class="control-group">
 						<label>Color</label>	<br>
-						<input type="color" id="design-color" name="color-picker[]" style="border:none; background-color: none;" />
+						<input type="color" id="design-color" name="color-picker" style="border:none; background-color: none;" />
 
-						
-						<!-- <?php 
-							
-							// for($x=1;$x<10;$x++){
-
-							// 	echo '<input type="color" id="design-color-more-'.$x.'" name="color-picker-'.$x.'" style="border:none; display:none; background-color: none;" />';
-							//}
-
-							
-						 ?> -->
 						 <br>
-						 <!-- <button  type="button" onclick="addMore()">+</button>
- -->
-						
-						<small">Pick colour</small>			
+
 					</div>
 					<small id="error-msg-color"></small>
 					<br/>
@@ -133,7 +124,7 @@
 					<div class="control-group row">
 						<div class="col-md-6">
 							<label >Postal Code</label>	
-						<input type='text'  style="width: 80px" id="postal-code" class="form-control" name="postal-code"  />		
+						<input type='text'  style="width: 32%;" id="postal-code" class="form-control" name="postal-code"  />		
 						</div>
 							
 					</div>
@@ -145,7 +136,7 @@
 					<div class="control-group">
 						<label>Due date</label>
 						<small style="font-color:#000000;">before</small>	
-						<input type='date' id="due-date" name="due-date" style="width: 153px; padding-left: : 10px;" class="form-control" />				
+						<input type='date' id="due-date" name="due-date" style="width: 15%; padding-left: : 10px;" class="form-control" />				
 					</div>
 					<small id="error-msg-date"></small>
 					                    
