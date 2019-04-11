@@ -60,6 +60,16 @@
     <div class="row">
 
       
+
+
+
+
+
+
+
+
+
+
         <div id="sidebar" class="left-column-container col-lg-3  d-none d-lg-block">
 
   
@@ -78,209 +88,16 @@
           </div>
         </div>
   
-        <div class="sb-widget">
-          <div class="sb-caterogies">
-            
-            
-            
-            <h4 class="sb-title">Categories</h4>
-            
-            <ul class="caterogies-list">
-              
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/birthday-gifts.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/birthday-gifts">Birthday Gifts</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="dropdown">
-  
-    
-      <span class="icon lazyload waiting">
-        
-          <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/decor-art.svg?13873283579714053224" alt="" />
-        
-      </span>
-    
-  
-  
-  <a href="/collections/decor-art" class="dropdown-link"><span>Decor Art</span></a>
-  <span class="expand"></span>
-
-  <ul class="dropdown-menu">
-    
-      
-
-  <li><a href="/collections/personal"><span>Personal</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/romantic"><span>Romantic</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/special-goods"><span>Special Goods</span></a></li>
-
-
-    
-  </ul>
-</li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="dropdown">
-  
-    
-<span class="icon lazyload waiting">
-  
-    <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/every-day.svg?13873283579714053224" alt="" />
-  
-</span>
-
-  
-  
-  <a href="/collections/every-day" class="dropdown-link"><span>Every Day</span></a>
-  <span class="expand"></span>
-
-  <ul class="dropdown-menu">
-    
-      
-
-    <li><a href="/collections/toys"><span>Toys</span></a></li>
-
-
-    
-      
-
-    <li><a href="/collections/variables"><span>Variables</span></a></li>
-
-
-    
-      
-
-    <li><a href="/collections/vintage"><span>Vintage</span></a></li>
-
-
-    
-  </ul>
-</li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/furniture.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/furniture">Furniture</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/kitchen-things.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/kitchen-things">Kitchen Things</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/illumination.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/illumination">Illumination</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/party.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/party">Party</a>
-                    </li>
-              
-                  
-
-                
-
-              
-            </ul>
-            
-          </div>
-        </div>
-  
-        
-
-          <div class="sb-widget widget-recently-viewed hide">
-            <div class="sb-product sb-recently-viewed">
-              
-              <h4 class="sb-title">Recently viewed</h4>
-              
-              <div id="recently-viewed-products" class="collection clearfix"></div>
-
-            </div>
-          </div>
+        <?php include 'Categories.php';?>
 
     </div>
 
+    
 
 <div class="col-lg-9 col-md-12">
         
   <div class="wrap-cata-title">
-    <h2>Design</h2>
+    <h2>Customer Requests</h2>
   </div>
 
 <div class="cata-toolbar">
@@ -288,8 +105,16 @@
       
   <div class="pagination-showing">
     <div class="showing">
-            
-              Showing all 8 Items
+            <!-- <?php 
+            // echo 'Showing '.count($params[0]).' Items';
+             ?> -->
+
+          <?php                       
+            $pageNo=$params[1];
+            $noOfPages = ceil(($params[2]/6));           
+            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
+          ?>
+             
             
     </div>
   </div>
@@ -306,6 +131,8 @@
     <!-- product view -->
 <?php 
     foreach ($params[0] as $field){
+      //dnd($field);
+
       echo '
   <div class="product-grid-item mode-view-item">
           
@@ -317,7 +144,7 @@
       
           <div class="featured-img">
             <a href="/collections/personal/products/georgeous-white-dresses"> 
-                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$field->image_1.'" alt="Georgeous White Dresses" />       
+                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$field->images[0].'" alt="Georgeous White Dresses" />       
               <span class="product-label"></span>
         </a>
       </div>
@@ -339,10 +166,25 @@
 
         <div class="product-des-list-" style="list-style-position: outside;">
           <ul>    
+            
             <li>
-              <span class="a-list-item">'.$field->description.'</span>
+              <span>Color: </span>
+              <span class="a-list-item">'.$field->color.'</span>
             </li>
-          </ul>
+            <li>
+              <span>Loaction: </span>
+              <span class="a-list-item">'.$field->location.'</span>
+            </li>
+            <li>
+              <span>Due date: </span>
+              <span class="a-list-item">'.$field->due_date.'</span>
+            </li>
+            </ul>
+                        
+              <span class="a-list-item">'.$field->description.'</span>
+            
+
+          
         </div>   
 
         <div class="product-review">
@@ -355,6 +197,7 @@
      <div class="price-cart-wrapper">
     <div class="product-price">   
         <span class="price">
+          <br>
           <span class=money>$100.00</span>
         </span>
     </div>

@@ -11,6 +11,8 @@
 
 			$user = new User();
 
+			$category=new Category('category');
+			$categories=$category->getCatSubCatArray();
 			try {
 				$user = $user->currentLoggedInUser();
 			} catch (Exception $e) {

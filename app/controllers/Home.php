@@ -11,86 +11,139 @@
 			$this->view->render('home/index');
 		}
 
+		public function AllVendorsAction($no){
 
-		public function CustomerRequestViewAction($a){
-			$db=DB::getInstance();
-			$limit = array('limit'=>$a.',6');
-			$details = $db->find('customer_requests',$limit);
+			$tailorshop=new Tailorshop('tailor_shop');
+			
+			$details = $tailorshop->getShops((6*$no-6),6);			
+			$noOfProducts = $tailorshop->noOfShops();
 
-			$temp= array($db->find('products'));
-			$noOfProducts = count($temp[0]);
+			$params=array($details,$no,$noOfProducts);
 
-			//$params=array($details,$a,$noOfProducts);
+			$this->view->render('home/AllVendors',$params);
+		}
+
+		public function VendorPageAction($a){
+			$product=new Product('product');
+			$details=$product->getViewDetailsOfId($a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+
+			$params=array($param,$a,$noOfProducts);
+			$this->view->render('home/VendorPage',$params);
+		}
+
+		public function VendorPage2Action(){
+			$this->view->render('home/VendorPage2');
+		}
+
+
+
+		public function ProductListAction($a='0'){
+
+			$product=new Product('product');
+			$details=$product->getViewDetails($a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+
+			$params=array($param,$a,$noOfProducts);
+			// $db=DB::getInstance();
+			// $limit = array('limit'=>(3*$a-3).',3');
+			// $details = $db->find('product_features',$limit);
+			// //dnd($details);
+			// foreach ($details as $row){
+
+			// 	$pr_sub_id=$row->sub_category_id;
+			// 	$name=$row->name;
+				
+			// 	$condition=array('conditions'=> ['product_id = ?','pr_name = ?'],'bind'=>[$pr_sub_id,$name]);
+				
+
+			// 	$image_details = $db->find('images',$condition);
+
+			// 	//dnd ($image_details);
+				
+			// 	$imageList=array();
+				
+
+			// 	$images = array();
+			// 	$row->images = $images;
+
+			// 	if (is_array($image_details)) {
+			// 		foreach ($image_details as $imagePath){
+			// 			array_push($row->images,$imagePath->image_path);
+			// 		}
+			// 	}
+					
 			
 
-			$params=array($details,$a,$noOfProducts);
 
+			$this->view->render('home/ProductList',$params);
+		}
+
+
+		public function CustomerRequestViewAction($a){
+
+			$viewRequest = new CustomRequest('custom_request');
+
+			$details= $viewRequest-> getViewRequestDetails($a);
+			$param=$details[0];
+			$noOfProducts =$details[1];
+			
+
+			$params=array($param,$a,$noOfProducts);
 
 			$this->view->render('home/CustomerRequests',$params);
 		}
 
+
+
+
 		public function ProductRequestAction(){
 
-        	$db=DB::getInstance();
+			if($_POST){
+				$customRequest=new CustomRequest('custom_request');
+				$customRequest-> createRequest();
+			
+				$_SESSION['alert']='
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
-        	if($_POST){
-        		$fields=[
-        			'pr_name'=> $_POST["design-name"],
-        			'description'=> $_POST["Design-Description"],
-        			'location' => $_POST["postal-code"],
-        			'color' => $_POST["color-picker"],
-        			'due_date' => $_POST["due-date"] 
-        		];    
+				<div class="container">
+					<div class="alert alert-success fade in">    
+				    	<strong>Success!</strong> You have successfully added a CUSTOM REQUEST!
+				  	</div>
+				</div>';	
 
-        		// $target_dir=$_SERVER['DOCUMENT_ROOT'].PROOT.'asset/images/productrequest';
-        		// $target_file=$target_dir.'/'.basename($images[0]);
-
-        		//$db->insert('customer_requests',$fields);  
-
-        		if (!($db->find('customer_requests'))) {
-        			$id = 1;
-        		} else {
-        			$id=count($db->find('customer_requests'));
-        		}
-        		
-
-        		$images=($_FILES["fileUpload"]);
-        		
-        		for ($x = 0; $x <= 10; $x++){
-        			$image=$images["name"][$x];
-        			//dnd($images);
-	        		$imageTable=[
-	        			'image_path'=>$image,
-	        			'product_id'=>$id
-	        		];
-
-	        		$db->insert('images',$imageTable);  
-
-	        		$alertMsg='
-						<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
-						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-						<div class="container">
-							<div class="alert alert-success fade in">    
-						    	<strong>Success!</strong> This alert box could indicate a successful or positive action.
-						  	</div>
-						</div>';
-
-					$db->insert('customer_requests',$fields);
-
-        		}       		
-
-        		Router::redirect('home/ProductRequest');
-
-        	}
+				Router::redirect('home/ProductRequest');				
+			}
 
         	$this->view->render('home/ProductRequest');
 
         }
 
+        public function addProductAction(){
 
-        public function productViewAction(){
-        	$p_id = 1;
+        	$db = DB::getInstance();
+        	$categories = $db->find('sub_category');
+        	$params = [$categories];
+        	if ($_POST) {
+				$product=new Product('product');
+				$product-> addProduct();
+
+				//redirect to some page\\
+				Router::redirect('home/addProduct');	
+            }
+            $this->view->render('home/addProduct', $params);
+
+        }
+
+
+
+        public function productViewAction($p_id){
+        	//$p_id = 1;
         	
 			$db=DB::getInstance();
 			$params = array();			
@@ -118,20 +171,20 @@
 			//load review table
 			$review_array = array('conditions' => 'product_id = ?' , 'bind' => [$p_id ]);
 			$review_details = $db->find('reviews',$review_array);
-			$reverse_reviews = array_reverse($review_details);
+			$reverse_reviews = array();
+			if (is_array($review_details)){
+				$reverse_reviews = array_reverse($review_details);
 
-			//load user table
-			foreach($reverse_reviews as $review){
-				$user_table = array('conditions' => 'id = ?', 'bind' => [$review->user_id]);
-				$user = $db->findFirst('user',$user_table);
-				$review->user_fname = $user->first_name;
-				$review->user_lname = $user->last_name;
+				//load user table
+				foreach($reverse_reviews as $review){
+					$user_table = array('conditions' => 'id = ?', 'bind' => [$review->user_id]);
+					$user = $db->findFirst('user',$user_table);
+					$review->user_fname = $user->first_name;
+					$review->user_lname = $user->last_name;
+				}
 			}
 			array_push($params,$reverse_reviews);
-//			dnd($params);
-//            dnd($_GET);
-
-
+			
 			$this->view->render('home/productView',$params);
 		}
 
@@ -149,162 +202,7 @@
 		}
 
 
-		public function ProductListAction($a='0'){
-
-			$db=DB::getInstance();
-			$limit = array('limit'=>(3*$a-3).',3');
-			$details = $db->find('product_features',$limit);
-			//dnd($details);
-			foreach ($details as $row){
-
-				$pr_sub_id=$row->sub_category_id;
-							
-				$condition=array('cond0. itions'=> 'product_id = ?','bind'=>[$pr_sub_id]);
-				
-
-				$image_details = $db->find('images',$condition);
-				$imageList=array();
-				
-				$images = array();
-				$row->images = $images;
-
-				if (is_array($image_details)) {
-					foreach ($image_details as $imagePath){
-						array_push($row->images,$imagePath->image_path);
-					}
-				}
-					
-			}
-
-			//dnd($details);
-			$temp= array($db->find('product_features'));
-			//dnd($temp);
-			$noOfProducts = count($temp[0]);
-
-			$params=array($details,$a,$noOfProducts);
-
-			$this->view->render('home/ProductList',$params);
-		}
-
-
-        public function cartAction(){
-
-//            $cart = new Cart();
-//            $cart->editCart();
-            $this->view->render('home/cart');
-        }
-
-        public function addCart(){
-            echo "add this to cart";
-            $cart = new Cart();
-            $cart->editCart();
-            $this->view->render('home/cart');
-
-        }
-
-
-
-        public function addProductAction(){
-		    $product = new Product();
-            $categories = $product->get_db()->find('sub_categories');
-            $params = [$categories];
-		    $product->addProduct();
-
-
-//        	$db = DB::getInstance();
-//        	$categories = $db->find('sub_categories');
-//        	$params = [$categories];
-//
-//        	if ($_POST) {
-//				$db = DB::getInstance();
-//
-////				dnd($_POST);
-//
-//                $measurement1=0;$measurement2=0;$measurement3=0;
-//                if(strlen($_POST["measurement1"])>0) {
-//                    $measurement1 = 1;
-//                }
-//                if(strlen($_POST["measurement2"])>0) {
-//                    $measurement2 = 1;
-//                }
-//                if(strlen($_POST["measurement3"])>0) {
-//                    $measurement3 = 1;
-//                }
-//
-//                $fields = [
-//                    "name" => $_POST["Product_Name"],
-//                    "description" => $_POST["Product_Description"],
-//                    "price" => $_POST["product_price"],
-//                    "sale_price" => $_POST["sale_price"],
-//                    "sub_category_id" => $_POST["category"],
-//                    "material" => $_POST["material"],
-//                    "measurement_1_al" => $measurement1,
-//                    "measurement_2_al" => $measurement2,
-//                    "measurement_3_al" => $measurement3
-//                ];
-//                $db->insert('product_features', $fields);
-//
-////                $sql = "SELECT * FROM products";
-////                $db->query($sql);
-////                dnd($detail);
-//                $product_id = $db->lastID();
-//
-//                $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images';
-//                $images=$_FILES["imagesUpload"];
-////                dnd($images);
-//                $i=0;
-//        		foreach ($images["name"] as $path) {
-//                    $target_file = $target_dir . '/' . basename($path);
-//                    $target_file = ltrim($target_file,"/");
-//                    move_uploaded_file($images["tmp_name"][$i], $target_file);
-//
-//        			$values = [
-//        				"product_id" => $product_id,
-//        				"image_path" => $path,
-//        			];
-//                    $i++;
-//        		    $db->insert('images', $values);
-//        	}
-//
-//        		//insert to colors table
-////                dnd($_POST);
-//
-//                if($_POST["color1"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color1"]]);
-//                }
-//                if($_POST["color2"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color2"]]);
-//                }
-//                if($_POST["color3"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color3"]]);
-//                }
-//                if($_POST["color4"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color4"]]);
-//                }
-//                if($_POST["color5"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color5"]]);
-//                }
-//                if($_POST["color6"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color6"]]);
-//                }
-//                if($_POST["color7"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color7"]]);
-//                }
-//                if($_POST["color8"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color8"]]);
-//                }
-//                if($_POST["color9"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color9"]]);
-//                }
-//                if($_POST["color10"]!="#000000"){
-//                    $db->insert('product_colors',["product_id"=>$product_id , "color_code"=>$_POST["color10"]]);
-//                }
-//
-//            }
-            $this->view->render('home/addProduct', $params);
-
-        }
-
+        
 
 		public function contactUsAction(){
 			$this->view->render('home/ContactUs');

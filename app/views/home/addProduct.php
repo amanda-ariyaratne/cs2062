@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Add Product') ?>
+<?= $this->setSiteTitle('Add Product'); ?>
 
 <?= $this->start('head'); ?>
 		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
@@ -8,9 +8,8 @@
 <!--        <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
 <?= $this->end(); ?>
 
-
-
 <?= $this->start('body'); ?>
+
 <div id="body-content" class="layout-boxed">
     <div id="main-content">
         <div class="main-content">
@@ -145,8 +144,6 @@
                                     <small id="error-msg-category"></small>
                                     <br>
 
-
-
                                 <!-- Product Material -->
                                 <div class="control-group">
                                     <label for="_wcv_store_phone" class="">Product Material</label>
@@ -274,7 +271,9 @@
                 </div>
             </div>
             </main>
-
+            <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+                <?php include 'Categories.php'?>
+            </div>
         </div>
     </div>
 </div>

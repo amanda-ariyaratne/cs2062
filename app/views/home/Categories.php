@@ -10,10 +10,10 @@
 <body>
 
 
-<div class="page" style=" background-image:url(<?=PROOT?>assets/images/body-8.jpg); height: 10%">
 
-<div class="categories">
-    <h4 class="categories-title">Categories</h4>
+<div class="sb-widget">
+    <div class="sb-caterogies">
+    <h4 class="sb-title">Categories</h4>
     <ul class="categories-list">
 
         <li class="cat-item cat-item-70 cat-parent current-cat-parent">
@@ -28,7 +28,6 @@
 
                     <li>
                         <span class="list-icon">
-
                         </span>
                         <a href="#">T-shirts</a>
                         <!--<span class="count">(2)</span>-->
@@ -67,13 +66,17 @@
             </div>
         </li>
 
+
+
         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
             <span class="list-icon">
                 <img src="<?=PROOT?>assets/images/categories_icons/dress_s13-512.png">
             </span>
             <a href="#" class="line" class="subName">Women's</a>
             <!--<span class="count">(12)</span>-->
-            <a data-toggle="collapse" class="collapsed" href="#collapse2"><i class="far"></i></a>
+            <a data-toggle="collapse" class="collapsed" href="#collapse2">
+                <i class="far"></i>
+            </a>
             <div id="collapse2" class="panel-collapse collapse">
                 <ul id="children-of-80" class="children collapse in">
 
@@ -124,14 +127,14 @@
             </div>
         </li>
 
-        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
+        <li class="cat-item cat-item-90 cat-parent current-cat-parent">
             <span class="list-icon">
                 <img src="<?=PROOT?>assets/images/categories_icons/106020.png">
             </span>
             <a href="#" class="line" class="subName">Kids</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse3"><i class="far"></i></a>
             <div id="collapse3" class="panel-collapse collapse">
-                <ul id="children-of-80" class="children collapse in">
+                <ul id="children-of-90" class="children collapse in">
 
                     <li>
                         <span class="list-icon">
@@ -319,6 +322,7 @@
         </li>
 
     </ul>
+</div>
 </div>
 </body>
 </html>
