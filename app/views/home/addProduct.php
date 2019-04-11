@@ -4,7 +4,7 @@
 		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
         <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
         <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
+        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style-1.css' type='text/css' media='all' />
         <link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
         <link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
 
@@ -62,9 +62,6 @@
 
             <h2 class="heading">Product Details</h2>
 
-			<!-- <input type="hidden" id="_wcv-save_store_settings" name="Product Details" value="92d9c35492" /><input type="hidden" name="Product Details" value="/dashboard/?terms=1" /></label><input type="hidden" class="" style="" name="Product Details" id="_wcv_vendor_application_id" value="5181" placeholder=""  />
-			<h3>Product Details</h3> -->
-
 			<div class="wcv-signupnotice">
 			</div>
 
@@ -105,8 +102,9 @@
                                 <form action="" method="post" enctype="multipart/form-data">
                                     <label for="_wcv_store_phone" class="">Select image</label>
                                     <span class="require">*</span>
+                                    <div>
                                     <input type="file" name="fileUpload[]" id="productImage" multiple >
-                                
+                                    </div>
                                     <small id="error-msg-image"></small>
                                     <br/>
                                      <br/>
@@ -131,20 +129,21 @@
                                     </div>
                                     <br>
 
-                                    <!-- select category  -->
-                                    <div class="control-group">
-                                        <label for="_wcv_store_country">Select Category</label>
-                                        <span class="require">*</span>
-                                        <div class="control select">
-                                            <select id="productCategory" type="number" name="category" class="box " style="" >
-                                                <?php foreach ($params[0] as $cat) {
-                                                    echo '<option value="' .$cat->id . '">' . $cat->name . '</option>';
-                                                } ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <small id="error-msg-category"></small>
-                                    <br>
+                    <!-- select category  -->
+                    <div class="control-group">
+                        <label for="_wcv_store_country">Select Category</label>
+                        <span class="require">*</span>
+                        <div class="control select">
+                            <select id="productCategory" type="number" name="category" class="box " style="" >
+                                <?php 
+                                foreach ($params[0] as $cate) {
+                                    echo '<option value="' .$cate->id . '">' . $cate->name . '</option>';
+                                } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <small id="error-msg-category"></small>
+                    <br>
 
                                 <!-- Product Material -->
                                 <div class="control-group">
@@ -158,12 +157,16 @@
                                 <!-- select colors -->
 
                                 <div class="control-group">
-                                    <label>Select Availabe colors</label><br>
-                                    <div id="colorsAdd">
-                                        <input type="color" name="color-1" value="">
-                                    </div><br>
+                                    <label>Select Availabe colors</label>
+                                    <span class="require">*</span>
                                     
-                                    <button  class="btn btn-1" onclick="addMoreColorNow()">click me</button>                               
+                                    <div id="colorsAdd">
+                                        <input type="color" name="color[]">
+                                    </div>
+                                    <small id="warning" style="font-color:red; font-size:12px;"> </small>
+                                    <br>
+                                    
+                                    <button  onclick="addMoreColorNow()">+</button>                               
                                     
                                 </div>
                                 <br><br>
@@ -187,9 +190,19 @@
 
                                     var count=1;
                                     function addMoreColorNow(){
-                                        document.getElementById("colorsAdd").innerHTML='<input type="color" name="color-'+count+'">';
-                                        count++;
-                                        return true;
+                                       
+                                        if (count<=10){
+                                            var innerdoc=document.getElementById("colorsAdd").innerHTML;
+                                            document.getElementById("colorsAdd").innerHTML=innerdoc+
+                                            '<input type="color" name="color[]">';
+                                            count++;
+                                            return true;
+                                        }
+                                        else{
+                                            document.getElementById("warning").innerHTML='Add only 10 colors';
+                                            return false;
+                                        }
+                                        
                                     }
 
                                     function validateData(){
@@ -237,6 +250,7 @@
                                         }
                                     }
 
+
                                 </script>
 
 
@@ -254,7 +268,9 @@
                 </div>
             </div>
             </main>
-
+            <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+            <?php include 'Categories.php'?>                    
+    </div>
         </div>
     </div>
 </div>

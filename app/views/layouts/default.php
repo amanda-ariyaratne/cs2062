@@ -22,7 +22,6 @@
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
   <link href="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/jquery.plugin.css?0" rel="stylesheet" type="text/css" media="all" />
-<!--   <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
   <style type="text/css">
     .header-container.bg-imagee{

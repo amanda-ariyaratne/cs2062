@@ -100,25 +100,27 @@
                 $im_id=count($image->find());
 
                 $image_name=date("Y-m-d-h-i-sa-").$this->_table.'-'.$im_id;
+                
                 $ext=pathinfo($images[$x])['extension'];
                 $image_path=$image_name.'.'.$ext;
 
                 $image->addImage($pr_id,$image_path,$x,'products');
             }
 
-            
-            // for ($x=1; $x<= 10; $x++){
-            //     $color='color'.$x;
+            //add colors
+            dnd($_POST["color"]);
+            for ($x=1; $x<= 10; $x++){
+                $color='color'.$x;
 
-            //     if ($_POST[$color]!=''){
-            //         $color=new Color('color');
-            //         $cl_id=count($color->find());
+                if ($_POST[$color]!=''){
+                    $color=new Color('color');
+                    $cl_id=count($color->find());
 
-            //         $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
-            //         $color=new Color('color');
-            //         $color->addProduct($pr_id,);
-            //     }            
-            // }
+                    $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
+                    $color=new Color('color');
+                    $color->addProduct($pr_id,);
+                }            
+            }
 
         }
 

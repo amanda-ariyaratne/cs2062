@@ -14,9 +14,7 @@
     		];
 			$this->insert($imageTable);
 
-			$this->saveImage
-
-			($image_path,$ind,$folder);
+			$this->saveImage($image_path,$ind,$folder);
     		    	
 		}
 

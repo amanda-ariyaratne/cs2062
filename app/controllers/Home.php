@@ -127,9 +127,8 @@
         public function addProductAction(){
 
         	$db = DB::getInstance();
-        	$categories = $db->find('sub_categories');
+        	$categories = $db->find('sub_category');
         	$params = [$categories];
-
         	if ($_POST) {
 				$product=new Product('product');
 				$product-> addProduct();
