@@ -60,6 +60,16 @@
     <div class="row">
 
       
+
+
+
+
+
+
+
+
+
+
         <div id="sidebar" class="left-column-container col-lg-3  d-none d-lg-block">
 
   
@@ -78,204 +88,11 @@
           </div>
         </div>
   
-        <div class="sb-widget">
-          <div class="sb-caterogies">
-            
-            
-            
-            <h4 class="sb-title">Categories</h4>
-            
-            <ul class="caterogies-list">
-              
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/birthday-gifts.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/birthday-gifts">Birthday Gifts</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="dropdown">
-  
-    
-      <span class="icon lazyload waiting">
-        
-          <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/decor-art.svg?13873283579714053224" alt="" />
-        
-      </span>
-    
-  
-  
-  <a href="/collections/decor-art" class="dropdown-link"><span>Decor Art</span></a>
-  <span class="expand"></span>
-
-  <ul class="dropdown-menu">
-    
-      
-
-  <li><a href="/collections/personal"><span>Personal</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/romantic"><span>Romantic</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/special-goods"><span>Special Goods</span></a></li>
-
-
-    
-  </ul>
-</li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="dropdown">
-  
-    
-<span class="icon lazyload waiting">
-  
-    <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/every-day.svg?13873283579714053224" alt="" />
-  
-</span>
-
-  
-  
-  <a href="/collections/every-day" class="dropdown-link"><span>Every Day</span></a>
-  <span class="expand"></span>
-
-  <ul class="dropdown-menu">
-    
-      
-
-    <li><a href="/collections/toys"><span>Toys</span></a></li>
-
-
-    
-      
-
-    <li><a href="/collections/variables"><span>Variables</span></a></li>
-
-
-    
-      
-
-    <li><a href="/collections/vintage"><span>Vintage</span></a></li>
-
-
-    
-  </ul>
-</li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/furniture.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/furniture">Furniture</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/kitchen-things.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/kitchen-things">Kitchen Things</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/illumination.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/illumination">Illumination</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/party.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/party">Party</a>
-                    </li>
-              
-                  
-
-                
-
-              
-            </ul>
-            
-          </div>
-        </div>
-  
-        
-
-          <div class="sb-widget widget-recently-viewed hide">
-            <div class="sb-product sb-recently-viewed">
-              
-              <h4 class="sb-title">Recently viewed</h4>
-              
-              <div id="recently-viewed-products" class="collection clearfix"></div>
-
-            </div>
-          </div>
+        <?php include 'Categories.php';?>
 
     </div>
 
+    
 
 <div class="col-lg-9 col-md-12">
         
@@ -327,7 +144,7 @@
       
           <div class="featured-img">
             <a href="/collections/personal/products/georgeous-white-dresses"> 
-                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$field->images[0].'" alt="Georgeous White Dresses" />       
+                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$field->images[0].'" alt="Georgeous White Dresses" />       
               <span class="product-label"></span>
         </a>
       </div>

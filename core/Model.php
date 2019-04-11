@@ -16,6 +16,7 @@
 		protected function _setTableColumns(){
 			
 			$columns = $this->get_columns();
+			
 			foreach ($columns as $column) {
 				$columnName = $column->Field;
 				$this->_columnNames[] = $column->Field;
@@ -47,7 +48,6 @@
 			} else {
 				return [];
 			}
-			//////////return $result;
 		}
 
 		protected function populateObjectData($obj){
@@ -101,7 +101,8 @@
 			//determine whether to update or insert
 			if (property_exists($this, 'id') && $this->id != '') {
 				return $this->update($this->id, $fields);
-			} else {
+			} 
+			else {
 				return $this->insert($fields);
 			}
 		}
@@ -124,5 +125,13 @@
 				return true;
 			}
 			return false;
+		}
+
+		public function lastInsertedID(){
+			return $this->_db->lastID();
+		}
+
+		public function count(){
+			return $this->_db->count();
 		}
 	}

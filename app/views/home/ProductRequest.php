@@ -303,6 +303,4 @@
 
 </script>
 
-<?php include 'Categories.php';?>
-
 <?= $this->end(); ?>
