@@ -20,7 +20,7 @@
             <span class="list-icon">
                 <img src="<?=PROOT?>assets/images/categories_icons/2049-512.png">
             </span>
-            <a href="#" class="line">Men's</a>
+            <a href="#" class="line" class="subName">Men's</a>
             <!--<span class="count">(12)</span>-->
             <a data-toggle="collapse" class="collapsed" href="#collapse1"><i class="far"></i></a>
             <div id="collapse1" class="panel-collapse collapse">
@@ -71,7 +71,7 @@
             <span class="list-icon">
                 <img src="<?=PROOT?>assets/images/categories_icons/dress_s13-512.png">
             </span>
-            <a href="#" class="line">Women's</a>
+            <a href="#" class="line" class="subName">Women's</a>
             <!--<span class="count">(12)</span>-->
             <a data-toggle="collapse" class="collapsed" href="#collapse2"><i class="far"></i></a>
             <div id="collapse2" class="panel-collapse collapse">
@@ -128,7 +128,7 @@
             <span class="list-icon">
                 <img src="<?=PROOT?>assets/images/categories_icons/106020.png">
             </span>
-            <a href="#" class="line">Kids</a>
+            <a href="#" class="line" class="subName">Kids</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse3"><i class="far"></i></a>
             <div id="collapse3" class="panel-collapse collapse">
                 <ul id="children-of-80" class="children collapse in">
@@ -184,7 +184,7 @@
             <span class="list-icon">
                 <img src="https://cdn4.iconfinder.com/data/icons/accessories-1/100/saree-512.png">
             </span>
-            <a href="#" class="line">Sarees</a>
+            <a href="#" class="line" class="subName">Sarees</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse4"><i class="far"></i></a>
             <div id="collapse4" class="panel-collapse collapse">
                 <ul id="children-of-80" class="children collapse in">
@@ -246,7 +246,7 @@
             <span class="list-icon">
                 <img src="https://cdn0.iconfinder.com/data/icons/interior-and-decoration-1/64/21-512.png">
             </span>
-            <a href="#" class="line">Home Decor</a>
+            <a href="#" class="line" class="subName">Home Decor</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse5"><i class="far"></i></a>
             <div id="collapse5" class="panel-collapse collapse">
                 <ul id="children-of-80" class="children collapse in">
@@ -284,7 +284,7 @@
             <span class="list-icon">
                 <img src="https://image.flaticon.com/icons/png/512/16/16929.png">
             </span>
-            <a href="#" class="line">Bags</a>
+            <a href="#" class="line" class="subName">Bags</a>
             <a data-toggle="collapse" class="collapsed" href="#collapse6"><i class="far"></i></a>
             <div id="collapse6" class="panel-collapse collapse">
                 <ul id="children-of-80" class="children collapse in">

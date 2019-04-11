@@ -241,7 +241,7 @@
     
     <div class="new-loading"></div>
     <div class="cart-sb">
-      <form action="/cart" method="post">
+      <form action="" method="post">
         <div class="cart-sb-title">
           <span class="c-title">Your Cart</span>
           <span class="c-close">
@@ -635,8 +635,8 @@
                                                     </div>
                                                   </div>
 
-                                                  <div class="action-button">
-                                                    <button id="add-to-cart" class="add-to-cart btn btn-1" type="button">Add to cart</button> 
+                                                  <div class="action-button" action="<?=PROOT?>Home/addCart">
+                                                    <button id="add-to-cart" class="add-to-cart btn btn-1" type="submit" name="addToCart">Add to cart</button>
                                                   </div>
                                                   
                                                   
@@ -1072,7 +1072,7 @@
                                 </div>
 
                                 <div class="product-add-cart">
-                                  <form action="/cart/add" method="post" enctype="multipart/form-data">
+                                  <form action="<?=PROOT?>Home/cartAction" method="post" enctype="multipart/form-data">
                                     <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
                                       <span class="demo-icon icon-basket"></span>
                                     </a>

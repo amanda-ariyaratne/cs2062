@@ -1,17 +1,16 @@
-<?= $this->setSiteTitle('Add Product'); ?>
+<?= $this->setSiteTitle('Add Product') ?>
 
 <?= $this->start('head'); ?>
 		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
         <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
         <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
-<!--        <link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />-->
-
+<!--        <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/style.css' type='text/css' media='all' />-->
+<!--        <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
 <?= $this->end(); ?>
 
-<?= $this->start('body'); ?>
 
+
+<?= $this->start('body'); ?>
 <div id="body-content" class="layout-boxed">
     <div id="main-content">
         <div class="main-content">
@@ -146,6 +145,8 @@
                                     <small id="error-msg-category"></small>
                                     <br>
 
+
+
                                 <!-- Product Material -->
                                 <div class="control-group">
                                     <label for="_wcv_store_phone" class="">Product Material</label>
@@ -226,7 +227,7 @@
                                             var error;
 
 
-                                            var msg = "fill requirerd fields";
+
                                             if (name==""){
                                                 error=document.getElementById("error-msg-name");
                                                 error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
@@ -252,7 +253,6 @@
                                             }
 
                                             else{
-                                                var msg = "";
                                                 return true;
                                             }
                                         }
@@ -262,7 +262,6 @@
 
                                     <div class="control-wrapper last">
                                         <button class="btn btn-1" type="submit" name="submit">Submit Product</button>
-                                        <? var_dump(msg);?>
                                     </div>
 
                         </form>
