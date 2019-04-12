@@ -14,15 +14,17 @@
     		];
 			$this->insert($imageTable);
 
-			$this->saveImage
 
-			($image_path,$ind,$folder);
+			$this->saveImage($image_path,$ind,$folder);
+
     		    	
 		}
 
 		public function saveImage($im_path,$ind,$folder){
 
-			$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/custom_requests';
+
+			$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/'.$folder;
+
 
 			$target_file = ltrim($target_file,"/");
 
@@ -33,6 +35,7 @@
 		public function removeImage(){}
 
 		// get details of a particular image\\
+
 		public function getImage($pr_id){
 			$condition=array('conditions'=> 'product_id = ?','bind'=>[$pr_id]);
 			$image_details = $this->find($condition);
@@ -46,6 +49,7 @@
 			}
 			return $images;
 		}
+
 
 		public function getMoreImagesByVendor($related_products){
 			$products = array();

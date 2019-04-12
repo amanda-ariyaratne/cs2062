@@ -9,9 +9,15 @@
 
 		public function render($viewName, $params =[]){
 
-			
 			$user = new User();
-			$user = $user->currentLoggedInUser();
+
+			$category=new Category('category');
+			$categories=$category->getCatSubCatArray();
+			try {
+				$user = $user->currentLoggedInUser();
+			} catch (Exception $e) {
+				$user = null;
+			}
 
 			$viewArray = explode('/', $viewName);
 			$viewString = implode(DS, $viewArray);

@@ -2,8 +2,7 @@
 
 	class Color extends Model{
 
-		public function __construct($a=''){
-			$table = 'color';
+		public function __construct($table='color'){
 			parent::__construct($table);
 		}
 
@@ -21,4 +20,16 @@
 			return $colors;
 			
 		}
+
+
+
+		public function addColor($color,$pr_id,$type){
+			$fields = [
+                "color_code" => $_POST["color"],
+                "pr_id" => $_POST["product_price"],
+                "type" => $_POST["sale_price"]
+            ];
+			$this->insert($fields);
+		}
 	}
+

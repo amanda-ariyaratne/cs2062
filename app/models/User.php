@@ -59,7 +59,9 @@
 		}
 
 
-
+		public function getDetails($params){
+			return $this->findFirst($params);
+		}
 		// public function logout(){
 		// 	$user_agnet = Session::uagent_no_version();
 		// 	$this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?",[$this->id, $user_agent]);

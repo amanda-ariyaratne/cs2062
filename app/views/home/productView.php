@@ -149,7 +149,9 @@
                                   <div class="slider-for-03">
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
+
                                         <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px">
+
                                     </div>
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
@@ -607,6 +609,10 @@
                       <style type="text/css">
                         .inline-user-date{
                           display: inline-block;
+                        }
+                        .spr-review-content h6{
+                          font-size: 15px;
+                          margin: 0px;
                         }
                       </style>
 
