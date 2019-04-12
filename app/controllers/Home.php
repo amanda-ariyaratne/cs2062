@@ -330,6 +330,10 @@
 			$this->view->render('home/ContactUs');
 		}
 
+		public function aboutUsAction(){
+			$this->view->render('home/AboutUs');
+		}
+
 		public function frontPageAction(){
 			$this->view->renderFrontPage('home/frontPage');
 		}

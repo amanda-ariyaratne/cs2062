@@ -93,7 +93,7 @@
 
                   <li><a href="/" title="Customer Request" >Customer Request</a></li>
                 
-                  <li><a href="<?=PROOT?>home/ContactUs" title="help and Support" >Help and support</a></li>
+                  <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
 
                   <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
                 
