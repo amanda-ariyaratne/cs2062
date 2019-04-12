@@ -23,6 +23,25 @@
 			}
 		}
 
+
+
+		public function renderFrontPage($viewName, $params =[]){
+
+			
+			$user = new User();
+			$user = $user->currentLoggedInUser();
+
+			$viewArray = explode('/', $viewName);
+			$viewString = implode(DS, $viewArray);
+			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {
+				include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
+				//include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $layout . '.php');
+			} else {
+				die('The view \"' . $viewName . '\" does not exist.');
+			}
+		}
+
+
 		public function content($type){
 			if ($type == 'head') {
 				return $this->_head;

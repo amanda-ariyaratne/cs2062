@@ -62,7 +62,7 @@ class Validate{
 
 						case 'is_numeric':
 							if(!is_numeric($value)){
-								$this->addError(["{$display} already exists. Please use a numeric value. {$display}.", $item]);////////////
+								$this->addError(["Please use a numeric value for {$display}.", $item]);////////////
 							}
 							break;
 

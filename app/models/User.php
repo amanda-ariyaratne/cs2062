@@ -72,4 +72,9 @@
 		// 	self::$currentLoggedInUser = null;
 		// 	return true;
 		// }
+
+
+		public function findByUserID($p_id){
+			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		}
 	}

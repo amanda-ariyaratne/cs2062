@@ -29,11 +29,14 @@
 		public function find($params = []){
 			$results = [];
 			$resultsQuery = $this->_db->find($this->_table, $params);
-			foreach ($resultsQuery as $result) {
-				$obj = new $this->_modelName($this->_table);
-				$obj->populateObjectData($result);
-				$results[] = $obj;    
+			if($resultsQuery!=false){
+				foreach ($resultsQuery as $result) {
+					$obj = new $this->_modelName($this->_table);
+					$obj->populateObjectData($result);
+					$results[] = $obj;    
+				}
 			}
+			
 			return $results;
 		}
 
