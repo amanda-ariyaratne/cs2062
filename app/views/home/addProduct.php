@@ -4,9 +4,9 @@
 		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
         <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
         <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
+        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style-1.css' type='text/css' media='all' />
         <link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
-<!--        <link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />-->
+        <link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
 
 <?= $this->end(); ?>
 
@@ -62,9 +62,6 @@
 
             <h2 class="heading">Product Details</h2>
 
-			<!-- <input type="hidden" id="_wcv-save_store_settings" name="Product Details" value="92d9c35492" /><input type="hidden" name="Product Details" value="/dashboard/?terms=1" /></label><input type="hidden" class="" style="" name="Product Details" id="_wcv_vendor_application_id" value="5181" placeholder=""  />
-			<h3>Product Details</h3> -->
-
 			<div class="wcv-signupnotice">
 			</div>
 
@@ -85,6 +82,7 @@
 
                                     </label><div class="control"><input type="text" class="box" style="" name="Product_Name" id="productName" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> -->
                                     </div>
+
                                     <small id="error-msg-name"></small>
                                     <br>
 
@@ -97,16 +95,16 @@
                                         <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
 
                                         </div>
-                                    </div>
+                                </div>
                                     <br/>
 
                                     <!-- Add image -->
-                                    <form action="" method="post" enctype="multipart/form-data">
-                                        <label for="_wcv_store_phone" class="">Select image</label>
-                                        <span class="require">*</span>
-                                        <input type="file" name="imagesUpload[]" id="productImage" multiple >
-<!--                                        <input type="submit" name="upload" value="UPLOAD">-->
-                                    </form>
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    <label for="_wcv_store_phone" class="">Select image</label>
+                                    <span class="require">*</span>
+                                    <div>
+                                    <input type="file" name="fileUpload[]" id="productImage" multiple >
+                                    </div>
                                     <small id="error-msg-image"></small>
                                     <br/>
                                      <br/>
@@ -131,111 +129,138 @@
                                     </div>
                                     <br>
 
-                                    <!-- Product Material -->
-                                    <div class="control-group">
-                                        <label for="_wcv_store_phone" class="">Product Material</label>
-                                        <div class="control">
-                                            <input type="text" class="box" style="" name="material" id="productMaterial" value="" placeholder=""  />
-                                        </div>
+                    <!-- select category  -->
+                    <div class="control-group">
+                        <label for="_wcv_store_country">Select Category</label>
+                        <span class="require">*</span>
+                        <div class="control select">
+                            <select id="productCategory" type="number" name="category" class="box " style="" >
+                                <?php 
+                                foreach ($params[0] as $cate) {
+                                    echo '<option value="' .$cate->id . '">' . $cate->name . '</option>';
+                                } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <small id="error-msg-category"></small>
+                    <br>
+
+                                <!-- Product Material -->
+                                <div class="control-group">
+                                    <label for="_wcv_store_phone" class="">Product Material</label>
+                                    <div class="control">
+                                        <input type="text" class="box" style="" name="material" id="productMaterial" value="" placeholder=""  />
                                     </div>
-                                    <br>
+                                </div>
+                                <br>
 
-                                    <!-- select category  -->
-                                    <div class="control-group">
-                                        <label for="_wcv_store_country">Select Category</label>
-                                        <span class="require">*</span>
-                                        <div class="control select">
-                                            <select id="productCategory" type="number" name="category" class="box " style="" >
-                                                <?php foreach ($params[0] as $cat) {
-                                                    echo '<option value="' .$cat->id . '">' . $cat->name . '</option>';
-                                                } ?>
-                                            </select>
-                                        </div>
+                                <!-- select colors -->
+
+                                <div class="control-group">
+                                    <label>Select Availabe colors</label>
+                                    <span class="require">*</span>
+                                    
+                                    <div id="colorsAdd">
+                                        <input type="color" name="color[]">
                                     </div>
-                                    <small id="error-msg-category"></small>
+                                    <small id="warning" style="font-color:red; font-size:12px;"> </small>
                                     <br>
+                                    
+                                    <button  onclick="addMoreColorNow()">+</button>                               
+                                    
+                                </div>
+                                <br><br>
 
+                                <!-- select Measurements -->
 
+                                <div class=""><label class="">Select Availabe Measurements</label><br>
 
-                                    <!-- select sizes -->
-<!--                                    <div class=""><label class="">Select Availabe Sizes</label><br>-->
-<!---->
-<!--                                    <form class="select_sizes" action="#" method="post">-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="xs" value="XS">-->
-<!--                                        </label><label>XS</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="s" value="S">-->
-<!--                                        </label><label>S</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="m" value="M">-->
-<!--                                        </label><label>M</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="l" value="L">-->
-<!--                                        </label><label>L</label><br>-->
-<!--                                        <label>-->
-<!--                                            <input type="checkbox" name="xl" value="XL">-->
-<!--                                        </label><label>XL</label><br>-->
-<!---->
-<!--                                    </form>-->
-<!--                                    </div>-->
-<!--                                    <br>-->
+                                        <input type="checkbox" name="measurement1" value="measurement1"> measurement1<br>
+                                        <input type="checkbox" name="measurement2" value="measurement2"> measurement2<br>
+                                        <input type="checkbox" name="measurement3" value="measurement3"> measurement3<br><br>
+                                </div>
 
+                                <br>
 
-
-                                    <div class="control-wrapper last">
+                                <div class="control-wrapper last">
                                         <button class="btn btn-1" type="submit" name="submit">Submit Product</button>
-                                    </div>
+                                </div>
+                             </form>
+                                <script type="text/javascript">
 
-                        </form>
+                                    var count=1;
+                                    function addMoreColorNow(){
+                                       
+                                        if (count<=10){
+                                            var innerdoc=document.getElementById("colorsAdd").innerHTML;
+                                            document.getElementById("colorsAdd").innerHTML=innerdoc+
+                                            '<input type="color" name="color[]">';
+                                            count++;
+                                            return true;
+                                        }
+                                        else{
+                                            document.getElementById("warning").innerHTML='Add only 10 colors';
+                                            return false;
+                                        }
+                                        
+                                    }
+
+                                    function validateData(){
+
+                                        document.getElementById("error-msg-name").innerHTML="";
+                                        document.getElementById("error-msg-image").innerHTML="";
+                                        document.getElementById("error-msg-price").innerHTML="";
+                                        document.getElementById("error-msg-category").innerHTML="";
+
+                                        var name=document.getElementById("productName").value;
+                                        var price=document.getElementById("productPrice").value;
+                                        var category=document.getElementById("productCategory").value;
+                                        var image=document.getElementById("productImage").files;
+                                        var error;
+
+
+                                        var msg = "fill requirerd fields";
+                                        if (name==""){
+                                            error=document.getElementById("error-msg-name");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
+                                            return false;
+                                        }
+
+                                        else if (image.length==0){
+                                            error=document.getElementById("error-msg-image");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
+                                            return false;
+                                        }
+
+                                        else if (price==""){
+                                            error=document.getElementById("error-msg-price");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
+                                            return false;
+                                        }
+
+                                        else if (category==""){
+                                            error=document.getElementById("error-msg-category");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
+                                            return false;
+                                        }
+
+                                        else{
+                                            var msg = "";
+                                            return true;
+                                        }
+                                    }
+
+
+                                </script>
+
+
+                                    
+
+
+
+                       
                     </div>
 
-                <script type="text/javascript">
-                    function validateData(){
-
-                        document.getElementById("error-msg-name").innerHTML="";
-                        document.getElementById("error-msg-image").innerHTML="";
-                        document.getElementById("error-msg-price").innerHTML="";
-                        document.getElementById("error-msg-category").innerHTML="";
-
-                        var name=document.getElementById("productName").value;
-                        var price=document.getElementById("productPrice").value;
-                        var category=document.getElementById("productCategory").value;
-                        var image=document.getElementById("productImage").files;
-                        var error;
-
-
-
-                        if (name==""){
-                            error=document.getElementById("error-msg-name");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
-                            return false;
-                        }
-
-                        else if (image.length==0){
-                            error=document.getElementById("error-msg-image");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
-                            return false;
-                        }
-
-                        else if (price==""){
-                            error=document.getElementById("error-msg-price");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
-                            return false;
-                        }
-
-                        else if (category==""){
-                            error=document.getElementById("error-msg-category");
-                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
-                            return false;
-                        }
-
-                        else{
-                            return true;
-                        }
-                    }
-
-                </script>
 
 
 
@@ -243,7 +268,9 @@
                 </div>
             </div>
             </main>
-
+            <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+            <?php include 'Categories.php'?>                    
+    </div>
         </div>
     </div>
 </div>

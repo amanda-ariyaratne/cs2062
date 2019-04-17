@@ -14,7 +14,9 @@
 		}
 
 		protected function _setTableColumns(){
+			
 			$columns = $this->get_columns();
+			
 			foreach ($columns as $column) {
 				$columnName = $column->Field;
 				$this->_columnNames[] = $column->Field;
@@ -29,11 +31,14 @@
 		public function find($params = []){
 			$results = [];
 			$resultsQuery = $this->_db->find($this->_table, $params);
-			foreach ($resultsQuery as $result) {
-				$obj = new $this->_modelName($this->_table);
-				$obj->populateObjectData($result);
-				$results[] = $obj;    
+			if($resultsQuery!=false){
+				foreach ($resultsQuery as $result) {
+					$obj = new $this->_modelName($this->_table);
+					$obj->populateObjectData($result);
+					$results[] = $obj;    
+				}
 			}
+			
 			return $results;
 		}
 
@@ -46,7 +51,6 @@
 			} else {
 				return [];
 			}
-			//////////return $result;
 		}
 
 		protected function populateObjectData($obj){
@@ -100,7 +104,8 @@
 			//determine whether to update or insert
 			if (property_exists($this, 'id') && $this->id != '') {
 				return $this->update($this->id, $fields);
-			} else {
+			} 
+			else {
 				return $this->insert($fields);
 			}
 		}
@@ -123,5 +128,13 @@
 				return true;
 			}
 			return false;
+		}
+
+		public function lastInsertedID(){
+			return $this->_db->lastID();
+		}
+
+		public function count(){
+			return $this->_db->count();
 		}
 	}

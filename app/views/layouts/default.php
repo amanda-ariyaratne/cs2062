@@ -83,19 +83,19 @@
   <div class="header-container layout-boxed bg-image">
 
     
-      <div class="top-bar-textbox d-none d-lg-block">
+      <div class="top-bar-textbox d-none d-lg-block" style="background-color: white; border-bottom: none;">
         <div class="textbox-container">
 
           <div class="container">
 
             
-              <ul class="top-bar-list">
-                
-                  <li><span>30 days</span> free return</li>
-                
-                  <li><span>Free</span> delivery</li>
+              <ul class="top-bar-list" style="">
 
-                  <li><span>Best</span> Islandwide delivery</li>
+                  <li><a href="/" title="Customer Request" >Customer Request</a></li>
+                
+                  <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
+
+                  <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
                 
               </ul>
             
@@ -118,7 +118,7 @@
                 <ul class="list-inline">
 
                     <li class="customer-account lazyload waiting">
-                      
+
                         <a href="<?=PROOT?>register/login" title="Account">
 
                         <i class="demo-icon icon-user"></i><?php if ($user->first_name!='') {
