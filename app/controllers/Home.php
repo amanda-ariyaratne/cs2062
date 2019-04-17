@@ -73,6 +73,7 @@
         	$this->view->render('home/ProductRequest'); 
             
         }
+        
         public function productViewAction(){
         	
 			$db=DB::getInstance();

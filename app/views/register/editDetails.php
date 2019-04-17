@@ -110,7 +110,7 @@
             <div class="control-wrapper">
               <div class="row"><span id="error_city" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
               <label>&nbsp</label>
-              <input type="text" id="city" class="col-md-6 col-sm-12" name="city" placeholder="City" value="" />
+              <input type="text" id="city" class="col-md-6 col-sm-12" name="city" placeholder="City" value="<?php if(isset($user)){echo $user->city;}?>" />
             </div>            
             <div class="control-wrapper">
               <div class="row"><span id="error_postalCode" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>

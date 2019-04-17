@@ -101,7 +101,7 @@
             </div>
             <div class="control-wrapper">
               <label>&nbsp</label>
-              <input type="text" id="city" class="col-md-6 col-sm-12" name="city" placeholder="City" value="" disabled/>
+              <input type="text" id="city" class="col-md-6 col-sm-12" name="city" placeholder="City" value="<?php if(isset($user)){echo $user->city;}?>" disabled/>
             </div>            
             <div class="control-wrapper">
               <label>Postal Code</label>

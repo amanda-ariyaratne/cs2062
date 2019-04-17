@@ -31,7 +31,11 @@
 				    	];
 				    	$user->insert($fields);
 
-				    	Router::redirect("register/login");
+				    	$user = $this->UserModel->findByEmail($email);
+						$user->login($remember);
+						Router::redirect('register/orderHistory');
+
+				    	//Router::redirect("register/login");
 				    	//user->login();
 				    } else {
 				    	$_SESSION['message'] = "<div style='color: red;'>This user already exists</div>";
@@ -39,6 +43,9 @@
 				    }
 				
 			} else {
+				$_SESSION['email'] = '';
+				$_SESSION['first_name'] = '';
+				$_SESSION['last_name'] = '';
 				$this->view->render('register/register');
 			}
 			
@@ -120,9 +127,10 @@
 			if (currentUser()) {
 				currentUser()->logout();
 			}
+			Router::redirect('register/login');
 
+		}
 			
-		// 	Router::redirect('register/login');
-		// }
+		
 
 	}
