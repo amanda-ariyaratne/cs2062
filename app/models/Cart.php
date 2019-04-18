@@ -12,8 +12,7 @@ class Cart extends Model{
     public $id;
 
 
-    public function __construct($products="cart"){
-        $table = $products;
+    public function __construct($table="cart"){
         parent::__construct($table);
 
 
@@ -22,6 +21,26 @@ class Cart extends Model{
     public function get_db(){
         return $this->_db;
     }
+
+    public function getPaymenteDetails($o_id){
+        $payments = array();
+
+        $details = $this->find(array('conditions' => 'order_id = ?' , 'bind' => [$o_id]));
+
+        if(count($details)!=0){
+            foreach ($details as $item) {
+                $field = [
+                    'product_id' => $item->product_id,
+                    'quantity'   => $item->quantity
+                ];
+                array_push($payments, $field);
+            }
+        }
+        return $payments;
+    }
+
+
+
 
 
 

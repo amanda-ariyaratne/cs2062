@@ -131,7 +131,7 @@
 
                                     <!-- select category  -->
                                     <div class="control-group">
-                                        <label for="_wcv_store_country">Select Category</label>
+                                        <label id="lab" for="_wcv_store_country">Select Category</label>
                                         <span class="require">*</span>
                                         <div class="control select">
                                             <select id="productCategory" type="number" name="category" class="box " style="" >
@@ -144,6 +144,21 @@
                                     <small id="error-msg-category"></small>
                                     <br>
 
+                                <!-- select Measurements -->
+                                <div class="">
+                                    <button type="button" onclick="getMeasurements()">Select Required Measurements</button><br>
+                                    <?php
+                                    $arry = $params[1];
+                                    ?>
+                                    <div id="measurements" name="mesname">
+                                        <a></a>
+
+                                    </div>
+                                    <a name="m" style="display: none"></a>
+                                </div>
+                                <br>
+
+
                                 <!-- Product Material -->
                                 <div class="control-group">
                                     <label for="_wcv_store_phone" class="">Product Material</label>
@@ -154,102 +169,101 @@
                                 <br>
 
                                 <!-- select colors -->
-                                <div class=""><label class="">Select Availabe colors</label><br>
+                                <div class="control-group">
+                                    <label>Select Availabe colors</label>
+                                    <span class="require">*</span>
 
-                                    <div class="sample" sample-id="3" draggable="true" style="top: 5px; left: 161px; background-color: rgb(255, 255, 255);"></div>
-
-                                    <input type="color" name="color1" value="">
-                                    <input type="color" name="color2" value="">
-                                    <input type="color" name="color3" value="">
-                                    <input type="color" name="color4" value="">
-                                    <input type="color" name="color5" value=""><br>
-                                    <input type="color" name="color6" value="">
-                                    <input type="color" name="color7" value="">
-                                    <input type="color" name="color8" value="">
-                                    <input type="color" name="color9" value="">
-                                    <input type="color" name="color10" value="">
-
-                                    <br><br>
-
-<!---->
-<!--                                    <div class="inputs wrap">-->
-<!--                                        <div class="popup" style="display: none;">-->
-<!--                                            <div class="popup-inner">-->
-<!---->
-<!--                                                Select a base color for your color scheme.-->
-<!--                                                <div class="popup-tip">▼</div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                        <div class="steps">-->
-<!--                                            <div class="number-a">1.</div>-->
-<!--                                            <div class="number-b">pick a color</div>-->
-<!--                                        </div>-->
-<!--                                        <span class="minicolors sm minicolors-swatch-position-right minicolors-position-default"><input id="i1" class="ilu ui-autocomplete-input minicolors-input" type="text" data-custom-class="sm" data-default-value="#fff" autocomplete="off" size="7" maxlength="7"><span class="minicolors-swatch"><span style="background-color: rgb(199, 48, 169); opacity: 1;"></span></span><span class="minicolors-panel minicolors-slider-hue" style="display: none;"><span class="minicolors-slider" style="background-image: url(&quot;/wp-content/themes/divi-child/color-calculator/slider-hue-ryb.png&quot;);"><span class="minicolors-picker picked" style="top: 21px;"></span></span><span class="minicolors-opacity-slider"><span class="minicolors-picker"></span></span><span class="minicolors-grid" style="background-color: rgb(255, 0, 204);"><span class="minicolors-grid-inner"></span><span class="minicolors-picker picked" style="top: 34px; left: 116px;"><span></span></span></span><span class="mini-inputs"><p>C:</p><input id="c" class="cmyk" size="1" value="0"><p>M:</p><input id="m" class="cmyk" size="1" value="0"><p>Y:</p><input id="y" class="cmyk" size="1" value="0"><p>K:</p><input id="k" class="cmyk" size="1" value="0"><p>R:</p><input id="r" class="rgb" size="1" value="255"><p>G:</p><input id="g" class="rgb" size="1" value="255"><p>B:</p><input id="b" class="rgb" size="1" value="255"></span></span></span><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>-->
-<!--                                        <span class="minicolors sm minicolors-swatch-position-right minicolors-position-default off"><input id="i2" class="ilu ui-autocomplete-input minicolors-input" type="text" data-custom-class="sm" data-default-value="#fff" autocomplete="off" size="7" maxlength="7"><span class="minicolors-swatch"><span style="background-color: rgb(240, 29, 29); opacity: 1;"></span></span><span class="minicolors-panel minicolors-slider-hue" style="display: none;"><span class="minicolors-slider" style="background-image: url(&quot;/wp-content/themes/divi-child/color-calculator/slider-hue-ryb.png&quot;);"><span class="minicolors-picker picked" style="top: 0px;"></span></span><span class="minicolors-opacity-slider"><span class="minicolors-picker"></span></span><span class="minicolors-grid" style="background-color: rgb(255, 0, 0);"><span class="minicolors-grid-inner"></span><span class="minicolors-picker picked" style="top: 11px; left: 134px;"><span></span></span></span><span class="mini-inputs"><p>C:</p><input id="c" class="cmyk" size="1" value="0"><p>M:</p><input id="m" class="cmyk" size="1" value="0"><p>Y:</p><input id="y" class="cmyk" size="1" value="0"><p>K:</p><input id="k" class="cmyk" size="1" value="0"><p>R:</p><input id="r" class="rgb" size="1" value="255"><p>G:</p><input id="g" class="rgb" size="1" value="255"><p>B:</p><input id="b" class="rgb" size="1" value="255"></span></span><a class="remove"><img src="/wp-content/themes/divi-child/color-calculator/remove.png" alt="remove"> Remove</a></span><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>-->
-<!---->
-<!--                                        <span class="minicolors sm minicolors-swatch-position-right minicolors-position-default off"><input id="i3" class="ilu ui-autocomplete-input minicolors-input" type="text" data-custom-class="sm" data-default-value="#fff" autocomplete="off" size="7" maxlength="7"><span class="minicolors-swatch"><span style="background-color: rgb(255, 255, 255);"></span></span><span class="minicolors-panel minicolors-slider-hue"><span class="minicolors-slider" style="background-image: url(&quot;/wp-content/themes/divi-child/color-calculator/slider-hue-ryb.png&quot;);"><span class="minicolors-picker picked" style="top: 0px;"></span></span><span class="minicolors-opacity-slider"><span class="minicolors-picker"></span></span><span class="minicolors-grid" style="background-color: rgb(255, 0, 0);"><span class="minicolors-grid-inner"></span><span class="minicolors-picker picked" style="top: 0px; left: 0px;"><span></span></span></span><span class="mini-inputs"><p>C:</p><input id="c" class="cmyk" size="1" value="0"><p>M:</p><input id="m" class="cmyk" size="1" value="0"><p>Y:</p><input id="y" class="cmyk" size="1" value="0"><p>K:</p><input id="k" class="cmyk" size="1" value="0"><p>R:</p><input id="r" class="rgb" size="1" value="255"><p>G:</p><input id="g" class="rgb" size="1" value="255"><p>B:</p><input id="b" class="rgb" size="1" value="255"></span></span><a class="remove"><img src="/wp-content/themes/divi-child/color-calculator/remove.png" alt="remove"> Remove</a></span><span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>-->
-<!--s-->
-<!--                                        <a class="addmore"><img src="/wp-content/themes/divi-child/color-calculator/add.png" alt="add more"> Add More</a>-->
-<!---->
-<!--                                    </div>-->
-
-
-
-                                    <!-- select Measurements -->
-                                    <div class=""><label class="">Select Availabe Measurements</label><br>
-
-
-                                            <input type="checkbox" name="measurement1" value="measurement1"> measurement1<br>
-                                            <input type="checkbox" name="measurement2" value="measurement2"> measurement2<br>
-                                            <input type="checkbox" name="measurement3" value="measurement3"> measurement3<br><br>
-
-
-
+                                    <div id="colorsAdd">
+                                        <input type="color" name="color[]">
                                     </div>
+                                    <small id="warning" style="font-color:red; font-size:12px;"> </small>
                                     <br>
+
+                                    <button  type="button" onclick="addMoreColorNow()">+</button>
+
+                                </div>
+                                <br><br>
+
 
 
                                     <script type="text/javascript">
-                                        function validateData(){
 
+                                        function getMeasurements() {
+                                            var cat_id = Number(document.getElementById("productCategory").value);
+
+                                            var array = <?php echo json_encode($arry); ?>;
+                                            var m = [];
+                                            var i;
+                                            for (i=0;i<array.length;i++){
+                                                // alert(typeof(array[i].category_id));
+                                                if(Number(array[i].category_id)===cat_id){
+                                                    var mes = document.getElementById("measurements").innerHTML;
+                                                    var mname = array[i].name;
+                                                    document.getElementById("measurements").innerHTML = mes+" "+mname+'<input type="checkbox" id="reqMes" name="m[]" >';
+
+                                                    // if(document.getElementById("reqMes").checked===true){
+                                                    //     document.getElementById("lab").innerHTML = "good";
+                                                    //     m.push(mname);
+                                                        // var s = JSON.stringify(m);
+                                                        // document.getElementById("lab").innerHTML = s;
+                                                    // }
+                                                }
+
+                                            }
+
+
+                                        }
+
+                                        var count=1;
+                                        function addMoreColorNow(){
+
+                                            if (count<=10){
+                                                var innerdoc=document.getElementById("colorsAdd").innerHTML;
+                                                document.getElementById("colorsAdd").innerHTML=innerdoc+
+                                                    '<input type="color" name="color[]">';
+                                                count++;
+                                                return true;
+                                            }
+                                            else{
+                                                document.getElementById("warning").innerHTML='Add only 10 colors';
+                                                return false;
+                                            }
+
+                                        }
+
+                                        function validateData(){
                                             document.getElementById("error-msg-name").innerHTML="";
                                             document.getElementById("error-msg-image").innerHTML="";
                                             document.getElementById("error-msg-price").innerHTML="";
                                             document.getElementById("error-msg-category").innerHTML="";
-
                                             var name=document.getElementById("productName").value;
                                             var price=document.getElementById("productPrice").value;
                                             var category=document.getElementById("productCategory").value;
                                             var image=document.getElementById("productImage").files;
                                             var error;
-
-
-
+                                            var msg = "fill requirerd fields";
                                             if (name==""){
                                                 error=document.getElementById("error-msg-name");
                                                 error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
                                                 return false;
                                             }
-
                                             else if (image.length==0){
                                                 error=document.getElementById("error-msg-image");
                                                 error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
                                                 return false;
                                             }
-
                                             else if (price==""){
                                                 error=document.getElementById("error-msg-price");
                                                 error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
                                                 return false;
                                             }
-
                                             else if (category==""){
                                                 error=document.getElementById("error-msg-category");
                                                 error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
                                                 return false;
                                             }
-
                                             else{
+                                                var msg = "";
                                                 return true;
                                             }
                                         }

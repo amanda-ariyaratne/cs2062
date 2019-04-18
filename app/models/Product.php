@@ -7,8 +7,8 @@
         public $id;
 
 
-		public function __construct($products){
-			$table = $products;
+		public function __construct($product){
+			$table = $product;
 			parent::__construct($table);
 		}
 
@@ -61,19 +61,8 @@
 
 
         public function addProduct(){
-            $measurement1 = 0;
-            $measurement2 = 0;
-            $measurement3 = 0;
-            if (strlen($_POST["measurement1"]) > 0) {
-                $measurement1 = 1;
-            }
-            if (strlen($_POST["measurement2"]) > 0) {
-                $measurement2 = 1;
-            }
-            if (strlen($_POST["measurement3"]) > 0) {
-                $measurement3 = 1;
-            }
 
+//		    dnd($_POST);
 
             $fields = [
                 "name" => $_POST["Product_Name"],
@@ -81,10 +70,7 @@
                 "price" => $_POST["product_price"],
                 "sale_price" => $_POST["sale_price"],
                 "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"],
-                "measurement_1_al" => $measurement1,
-                "measurement_2_al" => $measurement2,
-                "measurement_3_al" => $measurement3
+                "material" => $_POST["material"]
             ];
             
             $this->insert($fields);
@@ -92,6 +78,7 @@
             $pr_id = $this->lastInsertedID();
             $images=($_FILES['fileUpload']['name']);
             //dnd($images);
+
 
             for ($x=0; $x<sizeof($images); $x++){
                 
@@ -107,8 +94,10 @@
                 $image->addImage($pr_id,$image_path,$x,'products');
             }
 
+//            $measurements = json_decode($_POST['mesname']);
+//            dnd($measurements);
             //add colors
-            dnd($_POST["color"]);
+//            dnd($_POST["color"]);
             for ($x=1; $x<= 10; $x++){
                 $color='color'.$x;
 
@@ -121,6 +110,7 @@
                     $color->addProduct($pr_id,);
                 }            
             }
+
 
         }
 

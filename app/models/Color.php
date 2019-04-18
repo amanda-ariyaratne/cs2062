@@ -2,7 +2,7 @@
 	class Color extends Model{
 
 		public function __construct($table){
-			parent::__construct($table)
+			parent::__construct($table);
 		}
 
 		public function addColor($color,$pr_id,$type){
@@ -14,4 +14,3 @@
 			$this->insert($fields);
 		}
 	}
- ?>
