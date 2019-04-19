@@ -11,6 +11,9 @@
 
 
 
+<div class="page" style=" background-image:url(<?=PROOT?>assets/images/body-9.jpg); height: 10%;">
+
+
 <div class="sb-widget">
     <div class="sb-caterogies">
     <h4 class="sb-title">Categories</h4>

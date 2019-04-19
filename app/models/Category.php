@@ -1,10 +1,14 @@
-<?php 
+<?php
+
 	class Category extends Model{
 		private $table;
-
-		public function __construct($_table){
+		public function __construct($_table='category'){
 			$this->table=$_table;
 			parent::__construct($_table);
+		}
+
+		public function findByID($id){
+			return $this->findFirst(array('conditions' => 'category_id = ?' , 'bind' => [$id]));
 		}
 
 		public function getDetails(){
@@ -38,4 +42,4 @@
 		}
 
 	}
- ?>
+

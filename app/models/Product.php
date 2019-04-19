@@ -6,11 +6,12 @@
 
         public $id;
 
+        public function __construct($products="product"){
+            $table = $products;
+            parent::__construct($table);
 
-		public function __construct($product){
-			$table = $product;
-			parent::__construct($table);
-		}
+
+        }
 
 		public function get_db(){
 		    return $this->_db;
@@ -79,7 +80,6 @@
             $images=($_FILES['fileUpload']['name']);
             //dnd($images);
 
-
             for ($x=0; $x<sizeof($images); $x++){
                 
                 $image=new Image('tailor_product_image'); 
@@ -96,30 +96,72 @@
 
 //            $measurements = json_decode($_POST['mesname']);
 //            dnd($measurements);
-            //add colors
-//            dnd($_POST["color"]);
-            for ($x=1; $x<= 10; $x++){
-                $color='color'.$x;
 
-                if ($_POST[$color]!=''){
-                    $color=new Color('color');
-                    $cl_id=count($color->find());
+        public function findBy_vendorId($v_id , $lmt , $p_id){
+            $product_details = $this->_db->query("SELECT * FROM product WHERE vendor_id=".$v_id." AND NOT id=".$p_id." LIMIT ".$lmt.";")->results();
 
-                    $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
-                    $color=new Color('color');
-                    $color->addProduct($pr_id,);
-                }            
+            $related_products = array();
+            if (is_array($product_details)) {
+
+                foreach ($product_details as $product){
+                    $product_obj = array();
+                    $product_obj['id'] = $product->id;
+                    $product_obj['name'] = $product->name;
+                    $product_obj['price'] = $product->price;
+                    $product_obj['sale_price'] = $product->sale_price;
+
+                    array_push($related_products, $product_obj);
+                }
             }
-
-
+            return $related_products;
         }
 
-        public function getDetails(){
-
+        public function findById($p_id){
+            return $this->findFirst(array('conditions'=>'id = ?' , 'bind' => [$p_id ]));
         }
 
 
-	}
+        public function getProductPriceByID($item_array){
+            $new_item_array = array();
+            foreach ($item_array as $item) {
+                $product = $this->findById($item['product_id']);
+                $item['name'] = $product->name;
+                $item['price'] = $product->sale_price;
+                array_push($new_item_array, $item);
+            }
+            return $new_item_array;
+        }
+
+
+    }
+
+
+
+        //     //add colors
+        //     dnd($_POST["color"]);
+        //     for ($x=1; $x<= 10; $x++){
+        //         $color='color'.$x;
+
+        //         if ($_POST[$color]!=''){
+        //             $color=new Color('color');
+        //             $cl_id=count($color->find());
+
+        //             $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
+        //             $color=new Color('color');
+        //             $color->addProduct($pr_id,);
+        //         }
+        //     }
+
+        // }
+
+        // public function getDetails(){
+
+        // }
+
+
+
+	// }
+
 
 
 

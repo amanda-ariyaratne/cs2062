@@ -59,9 +59,25 @@
 		}
 
 
+
+		public function logout(){
+			$user_agnet = Session::uagent_no_version();
+			$this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?",[$this->id, $user_agent]);
+			Session::delete(CURRENT_USER_SESSION_NAME);
+
+			if(Cookie::exists(REMEMBER_ME_COOKIE_NAME)){
+				Cookie::delete(REMEMBER_ME_COOKIE_NAME);
+			}
+
+			self::$currentLoggedInUser = null;
+			return true;
+		}
+
+
 		public function getDetails($params){
 			return $this->findFirst($params);
 		}
+
 		// public function logout(){
 		// 	$user_agnet = Session::uagent_no_version();
 		// 	$this->_db->query("DELETE FROM user_sessions WHERE user_id = ? AND user_agent = ?",[$this->id, $user_agent]);
@@ -74,4 +90,9 @@
 		// 	self::$currentLoggedInUser = null;
 		// 	return true;
 		// }
+
+
+		public function findByUserID($p_id){
+			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		}
 	}

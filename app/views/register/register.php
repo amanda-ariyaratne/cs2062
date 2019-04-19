@@ -57,7 +57,7 @@
 
             <div class="row control-wrapper">
               <div class="row"><span id="error_first_name" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
-              <label class="col-md-3" for="first-name">First Name</label>
+              <label class="col-md-3" for="first-name">First Name<span class="req">*</span></label>
               <input class="col-md-8" type="text" name="first_name" id="first_name" autofocus autocomplete="on" value="<?php if(isset($_SESSION['first_name']))
     echo $_SESSION['first_name']; $_SESSION['first_name'] = '';?>" />
               <label class="col-md-1" id="first_name_error"></label>
@@ -65,7 +65,7 @@
 
             <div class="row control-wrapper">
               <div class="row"><span id="error_last_name" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
-              <label class="col-md-3" for="last-name">Last Name</label>
+              <label class="col-md-3" for="last-name">Last Name<span class="req">*</span></label>
               <input type="text" name="last_name" id="last_name" value="<?php if(isset($_SESSION['last_name']))
     echo $_SESSION['last_name']; $_SESSION['last_name'] = '';?>"/>
               <label class="col-md-1" id="first_name_error"></label>
