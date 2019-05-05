@@ -124,15 +124,6 @@
 
         }
 
-        
-        public function productViewAction(){
-        	
-			$db=DB::getInstance();
-			//load product table
-			$product_array = array('condition'=>'id = ?' , 'bind' => [2]);
-			$details = $db->find('products_1',$product_array);		
-		}	
-
 
     //     public function addProductAction(){
 

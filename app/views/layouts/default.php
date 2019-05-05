@@ -48,8 +48,13 @@
         background-image: url(<?=PROOT?>assets/images/back-5.jpg);
       }
     }
-  </style>
 
+    input[type="text"], input[type="password"] {
+      padding-left: 7px;
+      padding-right: 7px;
+    }
+    
+  </style>
 
 
   <?= $this->content('head'); ?>
@@ -119,14 +124,14 @@
 
                     <li class="customer-account lazyload waiting">
 
-                        <a href="<?=PROOT?>register/login" title="Account">
+                        
 
-                        <i class="demo-icon icon-user"></i><?php if ($user->first_name!='') {
-                        echo 'Hi ' . $user->first_name;
+                        <?php if ($user->first_name!='') {
+                        echo '<a href="'.PROOT.'register/myAccount" ><i class="demo-icon icon-user"></i>' . $user->first_name . '</a>';
                       } else {
-                        echo 'Login';
+                        echo '<a href="'.PROOT.'register/login" title="Account"><i class="demo-icon icon-user"></i>Login</a>';
                       } ?>
-                        </a>
+                        
                     </li>
 
                     <!-- 

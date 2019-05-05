@@ -15,10 +15,12 @@
 				    $_SESSION['email'] = $_POST['email'];
     				$_SESSION['first_name'] = $_POST['first_name'];
 	    			$_SESSION['last_name'] = $_POST['last_name'];
+	    			$_SESSION['role'] = $_POST['role'];
 
 				    $first_name = $_POST['first_name'];
 				    $last_name = $_POST['last_name'];
 				    $email = $_POST['email'];
+				    $role = $_POST['role'];
 				    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 				    $hash = md5(rand(0,1000));
 
@@ -29,17 +31,23 @@
 				    		"last_name" => $last_name,
 				    		"email" => $email,
 				    		"password" => $password,
+				    		"role" => $role
 				    	];
 				    	$user->insert($fields);
-
 				    	$user = $this->UserModel->findByEmail($email);
+				    	$remember = true;
 						$user->login($remember);
-						Router::redirect('register/orderHistory');
+						if ($user->role == 2) {
+							Router::redirect('home/vendorPage/'.$user->id);
+						} else if($user->role == 3){
+							Router::redirect('register/orderHistory');
+						}
+						
 
 				    	//Router::redirect("register/login");
 				    	//user->login();
 				    } else {
-				    	$_SESSION['message'] = "<div style='color: red;'>This user already exists</div>";
+				    	$_SESSION['error_email'] = "<div style='color: red;'>This user already exists</div>";
 				    	$this->view->render('register/register');
 				    }
 				
@@ -47,6 +55,8 @@
 				$_SESSION['email'] = '';
 				$_SESSION['first_name'] = '';
 				$_SESSION['last_name'] = '';
+				$_SESSION['role'] = '';
+				$_SESSION['error_email'] = '';
 				$this->view->render('register/register');
 			}
 			
@@ -77,7 +87,12 @@
 
 						$user->login($remember);
 
-						Router::redirect('register/orderHistory');
+						if (currentUser()->role == 3) {
+							Router::redirect('register/orderHistory');
+						} else if(currentUser()->role == 2){
+							Router::redirect('home/vendorPage/'.currentUser()->id);
+						}
+						
 					}
 					else{
 						$validation->addError("There is an error with your username or password.");
@@ -91,15 +106,37 @@
 			$this->view->render('register/login');
 		}
 
-		public function userDetailsAction(){
-			$this->view->render('register/details');
+		public function myAccountAction(){
+			$user = currentUser();
+			if ($user->role == 2) {
+				$this->view->render('register/storeDetails');
+			} else if($user->role == 3){
+				$this->view->render('register/details');
+			}
+			dnd('The requested page cannot be found.');
 		}
 
 		public function orderHistoryAction(){
-			$this->view->render('register/orderHistory');
+			if (currentUser()->role == 3) {
+				$this->view->render('register/orderHistory');
+			}
+			else {
+				$this->view->render('home/index');
+			}
 		}
 
-		public function editDetailsAction(){
+		public function editMyAccountAction(){
+
+			if (currentUser()->role == 2) {
+				$this->view->render('register/editStoreDetails');
+			} else if(currentUser()->role == 3){
+				$this->view->render('register/editDetails');
+			} else {
+				dnd("The page you requested is not found");
+			}
+		}
+
+		public function saveEditMyAccountAction(){
 			if ($_POST) {
 				$id = currentUser()->id;
 				$fields = [
@@ -114,13 +151,12 @@
 					"mobileNo" => $_POST['mobileNo'],
 					"landLine" => $_POST['landLine']
 				];
-
 				$user = new User();
 				$user = currentUser();
 				$user->update($id, $fields);
-				Router::redirect('register/userDetails');
-			}
-			$this->view->render('register/editDetails');
+
+				Router::redirect('register/myAccount');
+			}	
 		}
 
 
@@ -131,10 +167,28 @@
 			Router::redirect('register/login');
 
 		}
+
+
+		public function storeDetailsAction(){
+			$vendor = currentUser();
+			$store = new TailorShop();
+			$store = $store->getStoreByVendor($vendor->id);
+			$params['vendor'] = $vendor;
+			$params['store'] = $store;
+			$this->view->render('register/storeDetails', $params);
+		}
 			
-		
+		public function editStoreDetailsAction(){
+			$vendor = currentUser();
+			$store = new TailorShop();
+			$store = $store->getStoreByVendor($vendor->id);
+			$params['vendor'] = $vendor;
+			$params['store'] = $store;
+			$this->view->render('register/editStoreDetails', $params);
+		}
 
 	}
+		
 /*
     class Register extends Controller{
 

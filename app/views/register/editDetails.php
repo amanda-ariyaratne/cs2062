@@ -65,7 +65,7 @@
       <div id="col-main" class="col-12">
 
         <div id="add_address" class="customer_address edit_address">
-          <form method="post" action="" id="userDetailsForm" onsubmit="return validateDetails();">
+          <form method="post" action="saveEditMyAccount" id="userDetailsForm" onsubmit="return validateDetails();">
 
           <div class="customer_address_table">
             <!-- <div class="control-wrapper">
@@ -185,16 +185,17 @@ function validateDetails(){
         el.innerHTML = "Postal Code is not valid!";
         return false;
     }
-    else if (mobileNo.toString().length != 9)
+    else if ((mobileNo.toString().length != 9) && (mobileNo.toString().length != 0))
     {
         el = document.getElementById('error_mobileNo');
         el.innerHTML = "Mobile No is not valid!";
+        alert("gh");
         return false;
     }
-    else if (landLine.toString().length != 9)
+    else if ((landLine.toString().length != 9) && (landLine.toString().length != 0))
     {
-        el = document.getElementById('error_mobileNo');
-        el.innerHTML = "Mobile No is not valid!";
+        el = document.getElementById('error_landLine');
+        el.innerHTML = "Land line No is not valid!";
         return false;
     }
     else

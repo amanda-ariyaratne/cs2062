@@ -72,7 +72,12 @@
             </div>
 
             <div class="row control-wrapper">
-              <div class="row"><span id="error_email" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <div class="row"><span id="error_email" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;">
+                <?php if (isset($_SESSION['error_email'])) {
+                  echo $_SESSION['error_email'];
+                  $_SESSION['error_email'] = '';
+                }  ?>
+              </span></div>
               <label class="col-md-3" for="email">Email address<span class="req">*</span></label>
               <input type="text" name="email" id="email"  value="<?php if(isset($_SESSION['email']))
     echo $_SESSION['email'];$_SESSION['email']='';?>"/>
@@ -90,6 +95,28 @@
               <div class="row"><span id="error_confirm_password" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
               <label class="col-md-3" for="password">Confirm Password<span class="req">*</span></label>
               <input type="password" name="confirm_password" id="confirm_password" class="password" />
+              <label class="col-md-1" id="first_name_error"></label>
+            </div>
+
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_role" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
+              <label class="col-md-3" for="role">I want to be a <span class="req">*</span></label>
+              <input type="radio" name="role" id="role" value="2" style="display: inline;" class="col-md-1" <?php 
+                if(isset($_SESSION['role'])){
+                  if($_SESSION['role'] == '2'){
+                    echo("checked='checked'");
+                  }
+                } else {
+                  echo("checked='checked'");
+                }
+              ?> /> Seller 
+              <input type="radio" name="role" id="role" value="3" style="display: inline;" class="col-md-1" <?php 
+                if(isset($_SESSION['role'])){
+                  if($_SESSION['role'] == '3'){
+                    echo("checked='checked'");
+                  }
+                }
+              ?> /> Buyer 
               <label class="col-md-1" id="first_name_error"></label>
             </div>
 
@@ -128,8 +155,6 @@
         </div>
 
       </div>
-      <div class="col-sm-6 col-xs-12" id="error-msg"><?php if(isset($_SESSION['message']))
-    echo $_SESSION['message']; $_SESSION['message'] = '';?></div>
 
     </div>
 

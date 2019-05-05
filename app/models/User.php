@@ -46,8 +46,8 @@
 
 
 		public function login($rememberMe = false){
-			Session::set($this->_sessionName, $this->id);////////
-
+			Session::set($this->_sessionName, $this->id);
+			$rememberMe = true;
 			if ($rememberMe) {
 				$hash = md5(uniqid()+rand(0,100));
 				$user_agent = Session::uagent_no_version();

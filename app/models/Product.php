@@ -2,7 +2,6 @@
 
 
 	class Product extends Model {
-//		protected $_db, $_table;
 
         protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];
 
@@ -56,7 +55,10 @@
             $user=new User('user');
             $user_info=$user->getDetails($con);
             $name=$user_info->first_name.$user_info->last_name;
-            $details[0]->vendorName = $name; 
+            if ($details) {
+                $details[0]->vendorName = $name; 
+            }
+            
 
             //dnd($details);
             $noOfRows=count($this->find());
