@@ -13,6 +13,53 @@
 
 <?= $this->start('body'); ?>
 
+<div id="body-content" class="layout-boxed" style="background: #fff !important;">
+  <div id="main-content"> 
+    <div class="main-content">
+      <div id="shopify-section-collection-template" class="shopify-section">
+
+
+
+        <div class="wrap-breadcrumb bw-color">
+          <div id="breadcrumb" class="breadcrumb-holder container">
+
+            <div class="row">
+
+               <?php 
+                      echo '
+                        <div class="col-lg-8 d-none d-lg-block">
+                          <div class="page-title">'.
+                             end($params).'
+                          </div>
+                        </div>
+                      ';
+                 ?> 
+
+                               
+      
+                <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <ul class="breadcrumb">
+
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                      <a itemprop="url" href="#home">
+                        Home
+                      </a>
+                    </li>
+
+                    <li class="active">
+                      <?= end($params)?>
+                      
+                    </li>
+                    
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
 <div class="boxed-wrapper">
   <div id="page-body" class="breadcrumb-color">
  
@@ -22,37 +69,6 @@
           <div class="main-content">
 
 <div id="shopify-section-page-vendor-template" class="shopify-section">
-
-
-
-
-
-<div class="wrap-breadcrumb bw-color">
-  <div id="breadcrumb" class="breadcrumb-holder container">
-
-    <div class="row">
-      
-        <div class="col-lg-6 d-none d-lg-block">
-          <div class="page-title">All Tailors</div>
-        </div>
-      
-      
-      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-        <ul class="breadcrumb">
-          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop="url" href="#">
-              Home
-            </a>
-          </li>         
-
-          <li class="active">All Vendor Store</li>
-
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <div class="page-contact">
   <div class="container">
@@ -252,6 +268,16 @@
    
   </div>
 </div>
+
+
+          
+      </div>
+    </div>
+
+  
+  </div>
+</div>
+
 
 
 <?= $this->end(); ?>

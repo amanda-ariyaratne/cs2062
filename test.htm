@@ -1,6 +1,8 @@
-<?= $this->setSiteTitle('Home') ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
-</script>-
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+    </script>
+
+
 <style type="text/css">
     ul {
         display:block;
@@ -118,30 +120,8 @@
       padding:0;
     }
 </style>
-<?= $this->start('head'); ?>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-
-    <div>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Find Friends</a></li>
-            <li id="noti_Container">
-                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
-                
-                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
-                <div id="noti_Button"></div>    
-
-                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
-                <div id="notifications">
-                    <h3>Notifications</h3>
-                    <div style="height:300px;"></div>
-                    <div class="seeAll"><a href="#">See All</a></div>
-                </div>
-            </li>
-            <li><a href="#">Messages</a></li>
-        </ul>
-    </div>
+    
     <script>
     $(document).ready(function () {
 
@@ -184,8 +164,9 @@
         });
     });
 </script>
-<?= $this->end(); ?>
 
-<?= $this->start('body'); ?>
+</head>
+<body>
 
-<?= $this->end(); ?>
+</body>
+</html>

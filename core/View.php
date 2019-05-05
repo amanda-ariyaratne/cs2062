@@ -24,7 +24,8 @@
 			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {
 				include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
 				include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $this->_layout . '.php');
-			} else {
+			} 
+			else {
 				die('The view \"' . $viewName . '\" does not exist.');
 			}
 		}

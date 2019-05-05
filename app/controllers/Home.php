@@ -1,5 +1,4 @@
 <?php
-
 	class Home extends Controller {
         public $image;
 
@@ -11,6 +10,11 @@
 			$this->view->render('home/index');
 		}
 
+		public function testAction(){
+			$this->view->render('home/test');
+		}
+
+
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
@@ -18,27 +22,35 @@
 			$details = $tailorshop->getShops((6*$no-6),6);			
 			$noOfProducts = $tailorshop->noOfShops();
 
-			$params=array($details,$no,$noOfProducts);
+			$params=array($details,$no,$noOfProducts,'Tailor shops');
 
 			$this->view->render('home/AllVendors',$params);
 		}
 
-		public function VendorPageAction($a){
+		public function NewRequestPageAction($a){
 			$product=new Product('product');
-			$details=$product->getViewDetailsOfId($a);
+			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
-			$params=array($param,$a,$noOfProducts);
+			$params=array($param,$a,$noOfProducts,'New Requests');
+			$this->view->render('home/NewRequestPage',$params);
+		}
+
+		public function VendorPageAction($a){
+			$product=new Product('product');
+			$details=$product->getPageVendor($a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+
+			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
+
+
+			//get vendor name 
 		}
-
-		public function VendorPage2Action(){
-			$this->view->render('home/VendorPage2');
-		}
-
-
 
 		public function ProductListAction($a='0'){
 
@@ -48,38 +60,9 @@
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
-			$params=array($param,$a,$noOfProducts);
-			// $db=DB::getInstance();
-			// $limit = array('limit'=>(3*$a-3).',3');
-			// $details = $db->find('product_features',$limit);
-			// //dnd($details);
-			// foreach ($details as $row){
-
-			// 	$pr_sub_id=$row->sub_category_id;
-			// 	$name=$row->name;
-				
-			// 	$condition=array('conditions'=> ['product_id = ?','pr_name = ?'],'bind'=>[$pr_sub_id,$name]);
-				
-
-			// 	$image_details = $db->find('images',$condition);
-
-			// 	//dnd ($image_details);
-				
-			// 	$imageList=array();
-				
-
-			// 	$images = array();
-			// 	$row->images = $images;
-
-			// 	if (is_array($image_details)) {
-			// 		foreach ($image_details as $imagePath){
-			// 			array_push($row->images,$imagePath->image_path);
-			// 		}
-			// 	}
+			$params=array($param,$a,$noOfProducts,'All Products');
 					
 			
-
-
 			$this->view->render('home/ProductList',$params);
 		}
 
@@ -88,24 +71,24 @@
 
 			$viewRequest = new CustomRequest('custom_request');
 
-			$details= $viewRequest-> getViewRequestDetails($a);
+			$details= $viewRequest-> getViewDetails($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];
 			
 
-			$params=array($param,$a,$noOfProducts);
+			$params=array($param,$a,$noOfProducts,'Custome Requests');
 
 			$this->view->render('home/CustomerRequests',$params);
 		}
 
 
-
-
 		public function ProductRequestAction(){
 
+			$params=array('Product Request');
 			if($_POST){
 				$customRequest=new CustomRequest('custom_request');
 				$customRequest-> createRequest();
+
 			
 				$_SESSION['alert']='
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
@@ -117,10 +100,10 @@
 				  	</div>
 				</div>';	
 
-				Router::redirect('home/ProductRequest');				
+				Router::redirect('home/ProductRequest',$params);				
 			}
 
-        	$this->view->render('home/ProductRequest');
+        	$this->view->render('home/ProductRequest',$params);
 
         }
 
@@ -128,7 +111,7 @@
 
         	$db = DB::getInstance();
         	$categories = $db->find('sub_category');
-        	$params = [$categories];
+        	$params = [$categories,'AddProduct'];
         	if ($_POST) {
 				$product=new Product('product');
 				$product-> addProduct();
@@ -191,6 +174,7 @@
 
 
 		public function CategoryItemAction($id){
+
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
 			$limit = array('limit'=>$id.',3');
