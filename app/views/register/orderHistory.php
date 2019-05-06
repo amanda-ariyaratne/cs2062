@@ -72,7 +72,7 @@
     
   </div>
 
-  <a href="<?=PROOT?>register/userDetails" class="btn btn-1">View More... </a>
+  <a href="<?=PROOT?>register/myAccount" class="btn btn-1">View More... </a>
 </div>
       </div>
     

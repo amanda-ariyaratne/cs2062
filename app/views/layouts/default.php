@@ -9,7 +9,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=0" />
   <link rel="canonical" href="https://arena-handy.myshopify.com/account/login" />
- 
   <!-- Title and description -->
 
   <title>
@@ -20,6 +19,7 @@
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
+  
   <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
   <link href="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/jquery.plugin.css?0" rel="stylesheet" type="text/css" media="all" />
   
@@ -52,6 +52,7 @@
         background-image: url(<?=PROOT?>assets/images/back-5.jpg);
       }
     }
+<<<<<<< HEAD
 
     .noti {  
       text-decoration: none;
@@ -169,8 +170,13 @@
             color:#3b5998;
             text-decoration:underline;
         }
-  </style>
 
+    input[type="text"], input[type="password"] {
+      padding-left: 7px;
+      padding-right: 7px;
+    }
+    
+  </style>
 
 
   <?= $this->content('head'); ?>
@@ -213,11 +219,8 @@
 
             
               <ul class="top-bar-list" style="">
-
-                  <!-- <li><a href="<?=PROOT?>home/CustomerRequestView/1" title="Customer Request" >Customer Request</a></li> -->
-
-                  
-                  <li><a href="<?=PROOT?>home/ContactUs" title="help and Support" >Help and support</a></li>
+                
+                  <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
 
                   <li><a href="<?=PROOT?>home/AllVendors/1" title="Customer Request" >All Tailors</a></li>
 
@@ -245,18 +248,40 @@
 
                     <li class="customer-account lazyload waiting">
 
-                        <a href="<?=PROOT?>register/login" title="Account">
+                      <?php 
 
-                        <i
-                         class="demo-icon icon-user"></i><?php if ($user->first_name!='') {
-                        echo 'Hi ' . $user->first_name;
-                      } else {
-                        echo 'Login';
+                      if ($user->first_name!='') {
+                        echo '<a href="'.PROOT.'register/myAccount" ><i class="demo-icon icon-user"></i>' . $user->first_name . '</a>';
+                      } 
+                      else {
+                        echo '<a href="'.PROOT.'register/login" title="Account"><i class="demo-icon icon-user"></i>Login</a>';
                       } ?>
-                        </a>
+                        
                     </li>
 
-                                     
+                    <!-- 
+                    
+                    <li class="wishlist-target">
+                      <a href="/pages/wishlist-page" class="num-items-in-wishlist show-wishlist waiting" title="Wishlist">
+
+                        <span class="wishlist-icon">                          
+                          <i class="demo-icon icon-heart"></i>                          
+                        </span>
+                        Wishlist
+                      </a>
+                    </li>
+                  
+
+                    <li class="compare-target">
+                      <a href="/pages/compare-page" class="num-items-in-compare show-compare waiting" title="Compare">
+
+                        <span class="compare-icon">                          
+                          <i class="demo-icon icon-compare"></i>                          
+                        </span>
+                        Compare
+                      </a>
+                    </li> -->
+                  
 
                 </ul>
               </div>
@@ -297,6 +322,7 @@
 
         <div class="table-row">
           <div class="row">
+
 
             <div class="header-logo col-lg-2 col-md-12">
               
@@ -460,7 +486,6 @@
 
             <nav class="navbar navbar-expand-lg">
               <div class="collapse navbar-collapse">
-                
                 <ul class="menu-list">
 
                   <li>
@@ -468,36 +493,197 @@
                     <span>All Products</span>
                     </a>
                   </li>
-
-
-                  <?php 
-                    foreach($categories as $cat=>$subCat){
-
-                      echo '
-                      <li class="dropdown">
+                  
+              
+                  <li class="dropdown">
                       <a href="0" class="dropdown-link">
-                      <span>'.$cat.'</span>
+                      <span>Men</span>
                       </a>
                       <span class="expand"></span>
 
-                      <ul class="dropdown-menu">';
+                      <ul class="dropdown-menu">
 
-                        foreach ($subCat as $sc){
-                            echo '<li>
-                              <a tabindex="-1" href="#">
-                                <span>'.$sc.'</span>
-                              </a>
-                            </li>';
+                          <li><a tabindex="-1" href="2"><span>T-Shirts</span></a></li>
 
-                            
-                        }
+                          <li><a tabindex="-1" href="1"><span>Shirts</span></a></li>
 
-                      echo '</ul>
+                          <li><a tabindex="-1" href="3"><span>Sweate Shirts & Hoodies</span></a></li>
+
+                          <li><a tabindex="-1" href="4"><span>Tank Tops</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Trousers</span></a></li>
+                         
+                          <li><a tabindex="-1" href="#"><span>Sarongs</span></a></li>
+
+                      </ul>
                   </li>
-                      ';
-                      
-                    }
-                  ?>
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Women</span>
+                  </a>
+                  <span class="expand"></span>
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>T-shirts and Tops</span></a></li>                          
+
+                          <li><a tabindex="-1" href="#"><span>Tank Tops</span></a></li>
+                         
+                          <li><a tabindex="-1" href="#"><span>Sweater and Hoodies</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Dresses</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Mini-Skirts</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Leggings</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Scraves</span></a></li>
+
+                      </ul>
+                  </li>
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Kids</span>
+                  </a>
+                  <span class="expand"></span>
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>Kids T-shirtd</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Baby T-shirts</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Baby one piece</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Baby dresses</span></a></li>
+                          
+                          <li><a tabindex="-1" href="#"><span>Baby skirts</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Baby leggings</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Baby trousers</span></a></li>
+
+                      </ul>
+                  </li>
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Sarees</span>
+                  </a>
+                  <span class="expand"></span>
+
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>Kandian Saree</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Indian Saree</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Western Saree</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Bathik Saree</span></a></li>
+                          
+                          <li><a tabindex="-1" href="#"><span>Cotton Saree</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Wedding Saree</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Silk Saree</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Saree Jackets</span></a></li>
+                          
+                      </ul>
+                  </li>
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Home Decor</span>
+                  </a>
+                  <span class="expand"></span>
+
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>Pillows and Cushions</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Duvel Covers</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Wall Taperstries</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Curtains</span></a></li>
+                          
+                      </ul>
+                  </li>
+
+
+                  
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Uniforms</span>
+                  </a>
+                  <span class="expand"></span>
+
+                  <ul class="dropdown-menu" >
+
+                        <li class="dropdown dropdown-submenu">
+                          <a href="#" class="dropdown-link">
+                            <span>Girl's</span>    
+                          </a>    
+                          <span class="expand"></span>    
+                          <ul class="dropdown-menu">
+
+                                <li><a tabindex="-1" href="#"><span>Sirimavo B. Vidyalaya</span></a></li>
+
+                                <li><a tabindex="-1" href="#"><span>SPM</span></a></li>
+
+                                <li><a tabindex="-1" href="#"><span>Musaeus College</span></a></li>
+                          </ul>
+                        </li>
+
+
+                         <li class="dropdown dropdown-submenu">
+                          <a href="/collections/birthday-gifts" class="dropdown-link">
+                            <span>Boy's</span>    
+                          </a>    
+                          <span class="expand"></span>    
+                          <ul class="dropdown-menu">
+
+                                <li><a tabindex="-1" href="#"><span>St.Peter's College</span></a></li>
+
+                                <li><a tabindex="-1" href="#"><span>Common</span></a></li>
+
+                                <li><a tabindex="-1" href="#"><span>Lyceum I. School</span></a></li>
+
+                                <li><a tabindex="-1" href="#"><span>Royal Institute</span></a></li>
+                          </ul>
+                        </li>
+
+                          
+                      </ul>
+                  </li>
+
+
+                  <li class="dropdown">
+                  <a href="#" class="dropdown-link">
+                  <span>Bags</span>
+                  </a>
+                  <span class="expand"></span>
+
+                  <ul class="dropdown-menu">
+
+                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
+
+                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
+                          
+                      </ul>
+                  </li>
+
+
                 </ul>
               </div>
             </nav>
@@ -580,53 +766,301 @@
   
     
       
-  <div class="widget-social">
-    <div class="container">
-      
-        <h4>Let’s Connect:</h4>
-      
+      <div class="widget-social">
+        <div class="container">
+          
+            <h4>Let’s Connect:</h4>
+          
 
-      <ul class="widget-social-icons list-inline">
-
-        <li>
-          <a target="_blank" rel="noopener" href="https://www.facebook.com/shopify/" title="Facebook">
-            
-              <i class="demo-icon icon-facebook"></i>
-            
-          </a>
-        </li>
-      
-        <li>
-          <a target="_blank" rel="noopener" href="https://www.twitter.com/shopify/" title="Twitter">
-            
-              <i class="demo-icon icon-twitter"></i>
-            
-          </a>
-        </li>
+          <ul class="widget-social-icons list-inline">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://www.facebook.com/shopify/" title="Facebook">
         
-        <li>
-          <a target="_blank" rel="noopener" href="https://www.instagram.com/shopify/" title="Instagram">
-            
-              <i class="demo-icon icon-instagram"></i>
-            
-          </a>
-        </li>
-
-        <li>
-          <a target="_blank" rel="noopener" href="https://www.pinterest.com/shopify/" title="Pinterest">
-            
-              <i class="demo-icon icon-pinterest-circled"></i>
-            
-          </a>
-        </li>
-      
-        <li>
-          <a target="_blank" rel="noopener" href="" title="Google">
-            
-              <i class="demo-icon icon-google"></i>
-            
-          </a>
-        </li>
+          <i class="demo-icon icon-facebook"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://www.twitter.com/shopify/" title="Twitter">
+        
+          <i class="demo-icon icon-twitter"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://www.instagram.com/shopify/" title="Instagram">
+        
+          <i class="demo-icon icon-instagram"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="https://www.pinterest.com/shopify/" title="Pinterest">
+        
+          <i class="demo-icon icon-pinterest-circled"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Google">
+        
+          <i class="demo-icon icon-google"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <!-- <li>
+      <a target="_blank" rel="noopener" href="" title="Github">
+        
+          <i class="demo-icon icon-github-circled-alt2"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="RSS">
+        
+          <i class="demo-icon icon-rss"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Flickr">
+        
+          <i class="demo-icon icon-flickr"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Bitbucket">
+        
+          <i class="demo-icon icon-bitbucket"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Tumblr">
+        
+          <i class="demo-icon icon-tumblr"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Dribbble">
+        
+          <i class="demo-icon icon-dribbble"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Vimeo">
+        
+          <i class="demo-icon icon-vimeo"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Delicious">
+        
+          <i class="demo-icon icon-delicious"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Skype">
+        
+          <i class="demo-icon icon-skype"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Digg">
+        
+          <i class="demo-icon icon-digg"></i>
+        
+      </a>
+    </li>
+  
+  
+  
+  
+  
+  
+    
+    
+    
+    
+  
+    <li>
+      <a target="_blank" rel="noopener" href="" title="Behance">
+        
+          <i class="demo-icon icon-behance"></i>
+        
+      </a>
+    </li> -->
+  
   
 </ul>
         </div>

@@ -2,7 +2,7 @@
 	class SubCategory extends Model{
 		private $table;
 
-		public function __construct($_table){
+		public function __construct($_table = 'subCategory'){
 			$this->table=$_table;
 			parent::__construct($_table);
 		}
@@ -14,5 +14,10 @@
 			return $this->find($condition);
 		}
 
+		public function findByID($id){
+			return $this->findFirst(array('conditions' => 'id = ?' , 'bind' => [$id]));
+		}
+
 	}
  ?>
+

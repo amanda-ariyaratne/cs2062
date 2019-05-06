@@ -1,7 +1,7 @@
 <?php
 
 	class View {
-		protected $_head, $_body, $_siteTitle , $_outputBuffer, $_layout = DEFAULT_LAYOUT;/////////////////////////////
+		protected $_head, $_body, $_siteTitle , $_outputBuffer, $_layout = DEFAULT_LAYOUT;
 
 		public function __construct(){
 
@@ -26,6 +26,40 @@
 				include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $this->_layout . '.php');
 			} 
 			else {
+				die('The view \"' . $viewName . '\" does not exist.');
+			}
+		}
+
+
+
+		public function renderFrontPage($viewName, $params =[]){
+
+			
+			$user = new User();
+			$user = $user->currentLoggedInUser();
+
+			$viewArray = explode('/', $viewName);
+			$viewString = implode(DS, $viewArray);
+			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {
+				include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
+				//include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $layout . '.php');
+			} else {
+				die('The view \"' . $viewName . '\" does not exist.');
+			}
+		}
+
+		public function renderLayout($viewName, $layoutName, $params =[]){
+
+			
+			$user = new User();
+			$user = $user->currentLoggedInUser();
+
+			$viewArray = explode('/', $viewName);
+			$viewString = implode(DS, $viewArray);
+			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {
+				include(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php');
+				include(ROOT . DS . 'app' . DS . 'views' . DS . 'layouts' . DS . $layoutName . '.php');
+			} else {
 				die('The view \"' . $viewName . '\" does not exist.');
 			}
 		}

@@ -16,57 +16,48 @@
 				$user = new User();
 				$user = $user->currentLoggedInUser();
 
-				//dnd($user);
-
 				if ($user!=null) {
-					$db=DB::getInstance();
+					//create objects of review and rate
+					$review_obj = new Review();
+					$rate_obj = new Rate();
+
+					//add reviews to review table
 					$fields = [
 						"content" => $_POST["body"],
 						"product_id" => $_POST["product_id"],
 						"yes_no" => $_POST["yes-no"],
 						"user_id" => $user->id
 					];
+					$review_obj->insert($fields);
 
-					$db->insert('reviews', $fields);
-					Router::redirect('home/productView');
+					//add rating to rates table
+					$fields_ratings = [
+						"rate" => $_POST["star"],
+						"product_id" => $_POST["product_id"],
+						"user_id" => $user->id
+					];
+					$rate_obj->insert($fields_ratings);
+					
+					$p_id = $_POST["product_id"];
+					Router::redirect('home/productView/'.$p_id);
 				}
 				else{
 					Router::redirect('register/login');
 				}
 
-				//insert to review DB
-				
-
-
-				// //product table
-				// $db=DB::getInstance();
-
-				// $integerIDs = array_map('intval', explode(',', $_POST["id"]));
-
-				// $array = array('condition'=>'id = ?' , 'bind' => $integerIDs);
-				// $details = $db->find('products_features',$array);			
-				// $params = array();
-				// array_push($params,$details);	
-
-
-				// //review table
-				
-
-				// $review_array = array('condition' => 'product_id = ?' , 'bind' => [1]);
-				// $review_details = $db2->findfirst('reviews',$review_array);
-				// $reverse_review = array_reverse($review_details);
-
-				// $review_params = array();
-				// array_push($review_params,$reverse_review);
-				// array_push($params,$review_params);
-
-				// // dnd($params);
-				// Router::redirect('home/productView');
-
-
 			} else {
 				$params = [];
 			}
 			$this->view->render('home/productView',$params);
+		}
+
+
+
+		public function calculateStarRating(){
+			$p_id = 3;
+
+			$rate_obj = new Rate();
+
+			$starAvg = $rate_obj->calculateAvg($p_id);
 		}
 	}

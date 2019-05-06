@@ -11,6 +11,9 @@
 
 
 
+<div class="page">
+
+
 <div class="sb-widget">
     <div class="sb-caterogies">
     <h4 class="sb-title">Categories</h4>
