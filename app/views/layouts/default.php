@@ -174,7 +174,9 @@
       padding-left: 7px;
       padding-right: 7px;
     }
-    
+    .footer-heading{
+      font-size: 18px;
+    }
   </style>
 
 
@@ -1078,7 +1080,7 @@
                     <div class="col-lg-3 col-md-12 col-sm-12 col-12 d-none d-md-block">
                       <div class="footer-block footer-logo">
 
-                        <h6>Who We Are</h6>
+                        <h6 class="footer-heading">Who We Are</h6>
                         
                         <ul>
                           
@@ -1141,7 +1143,7 @@
                       <div class="footer-block footer-menu">
 
                         
-                        <h6>Quick Links</h6>
+                        <h6 class="footer-heading">Quick Links</h6>
 
                         <ul class="f-list">
                           
@@ -1174,7 +1176,7 @@
 
                         
                         
-                        <h6>Information</h6>
+                        <h6 class="footer-heading">Information</h6>
 
                         
                         
@@ -1272,7 +1274,7 @@
                       <div class="footer-block footer-subscribe">
 
                         
-                        <h6>Subscribe to our Newsletter</h6>
+                        <h6 class="footer-heading">Subscribe to our Newsletter</h6>
 
                         <div class="content">
 
