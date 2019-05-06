@@ -256,24 +256,13 @@
 
                                 </script>
 
-
-                                    
-
-
-
-                       
                     </div>
-
-
-
-
-
                 </div>
             </div>
             </main>
             <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
             <?php include 'Categories.php'?>                    
-    </div>
+            </div>
         </div>
     </div>
 </div>

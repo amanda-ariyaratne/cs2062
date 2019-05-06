@@ -53,16 +53,14 @@
 		}
 
 		public function ProductListAction($a='0'){
-
 			$product=new Product('product');
-			$details=$product->getViewDetails($a);
 
+			$details=$product->getViewDetails($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
 			$params=array($param,$a,$noOfProducts,'All Products');
-					
-			
+
 			$this->view->render('home/ProductList',$params);
 		}
 
@@ -308,6 +306,10 @@
 
 		public function frontPageAction(){
 			$this->view->renderFrontPage('home/frontPage');
+		}
+
+		public function newProductsAction(){
+			$this->view->render('home/newProducts');
 		}
 
 
