@@ -2,6 +2,10 @@
 
 class CartController extends Controller{
 
+    public $values = [];
+
+
+
     public function addToCartAction(){
         $validation = new Validate();
         if($_POST){
@@ -39,7 +43,8 @@ class CartController extends Controller{
                     foreach ($measurements as $key => $mes) {
                         $fields[$mes] = $_POST["measuremnt".$key];
                     }
-                    dnd($fields);
+                    $this->values = $fields;
+//                    dnd($fields);
                 }
                 else{
                     ////////////////////////////////////////////////load product details
@@ -112,6 +117,13 @@ class CartController extends Controller{
             }
         }
     }
+
+    public function cartAction(){
+        $this->view->render('cart/cart');
+
+    }
+
+
 
 
 }

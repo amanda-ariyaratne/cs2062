@@ -14,9 +14,9 @@
 <div class="page" style=" background-image:url(<?=PROOT?>assets/images/body-9.jpg); height: 10%;">
 
 
-<div class="sb-widget">
+<div class="categories">
     <div class="sb-caterogies">
-    <h4 class="sb-title">Categories</h4>
+    <h4 class="categories-title">Categories</h4>
     <ul class="categories-list">
 
         <li class="cat-item cat-item-70 cat-parent current-cat-parent">

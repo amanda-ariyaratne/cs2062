@@ -134,7 +134,8 @@
                                         <label id="lab" for="_wcv_store_country">Select Category</label>
                                         <span class="require">*</span>
                                         <div class="control select">
-                                            <select id="productCategory" type="number" name="category" class="box " style="" >
+                                            <select id="productCategory" type="number" name="category" class="box " style="" onchange="getMeasurements()">
+                                                <option></option>
                                                 <?php foreach ($params[0] as $cat) {
                                                     echo '<option value="' .$cat->id . '">' . $cat->name . '</option>';
                                                 } ?>
@@ -146,15 +147,16 @@
 
                                 <!-- select Measurements -->
                                 <div class="">
-                                    <button type="button" onclick="getMeasurements()">Select Required Measurements</button><br>
+<!--                                    <button type="button" onclick="getMeasurements()">Select Required Measurements</button><br>-->
                                     <?php
                                     $arry = $params[1];
                                     ?>
+                                    <label id="lab" for="_wcv_store_country">Select Required Measurements</label>
                                     <div id="measurements" name="mesname">
                                         <a></a>
 
                                     </div>
-                                    <a name="m" style="display: none"></a>
+<!--                                    <a name="m" style="display: none"></a>-->
                                 </div>
                                 <br>
 
@@ -190,19 +192,22 @@
 
                                         function getMeasurements() {
                                             var cat_id = Number(document.getElementById("productCategory").value);
+                                            document.getElementById("measurements").innerHTML = "";
+
 
                                             var array = <?php echo json_encode($arry); ?>;
                                             var m = [];
                                             var i;
                                             for (i=0;i<array.length;i++){
-                                                // alert(typeof(array[i].category_id));
                                                 if(Number(array[i].category_id)===cat_id){
-                                                    var mes = document.getElementById("measurements").innerHTML;
-                                                    var mname = array[i].name;
-                                                    document.getElementById("measurements").innerHTML = mes+" "+mname+'<input type="checkbox" id="reqMes" name="m[]" >';
 
-                                                    // if(document.getElementById("reqMes").checked===true){
-                                                    //     document.getElementById("lab").innerHTML = "good";
+                                                    var mname = array[i].name;
+                                                    document.getElementById("measurements").innerHTML += " "+mname+'<input type="checkbox" name=mname >';
+
+
+                                                    // if(document.getElementById("reqMes").checked===true) {
+                                                    //     alert(mname);
+                                                    // }
                                                     //     m.push(mname);
                                                         // var s = JSON.stringify(m);
                                                         // document.getElementById("lab").innerHTML = s;
@@ -212,6 +217,13 @@
                                             }
 
 
+
+                                        }
+
+                                        function checkMeasurements(){
+                                            if(document.getElementById("reqMes").checked===true) {
+                                                alert(mname);
+                                            }
                                         }
 
                                         var count=1;
@@ -286,7 +298,7 @@
             </div>
             </main>
             <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
-                <?php include 'Categories.php'?>
+                <?php include ('Categories.php');?>
             </div>
         </div>
     </div>

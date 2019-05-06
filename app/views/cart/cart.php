@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Cart') ?>
+<?= $this->setSiteTitle('Cart'); ?>
 
 <?= $this->start('head'); ?>
 
@@ -8,10 +8,14 @@
 <!--    <link rel="profile" href="http://gmpg.org/xfn/11">-->
 <!--    <link rel="pingback" href="http://handy.themes.zone/xmlrpc.php">-->
     <link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
+
+
 
     <style>
         #shopping-cart {
-            margin: 40px 0px;
+            margin: 40px 180px;
         }
 
         #product-grid {
@@ -33,15 +37,15 @@
             overflow: auto;
         }
 
-        #btnEmpty {
-            background-color: #ffffff;
-            border: #d00000 1px solid;
-            padding: 5px 10px;
-            color: #d00000;
-            float: right;
-            text-decoration: none;
-            border-radius: 3px;
-            margin: 10px 0px;
+        .btn btn-1 {
+            /*background-color: #ffffff;*/
+            /*border: #d00000 1px solid;*/
+            /*padding: 5px 10px;*/
+            /*color: #d00000;*/
+            /*float: right;*/
+            /*text-decoration: none;*/
+            /*border-radius: 3px;*/
+            margin: 40px 480px;
         }
 
         .btnAddAction {
@@ -134,10 +138,43 @@
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
-<div id="shopping-cart">
-    <div class="txt-heading">Shopping Cart</div>
 
-    <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
+<?php
+//$fields = Cart::$cartItems;
+    $fields = [["quantity"=>2,"price"=>900,"name"=>"T shirt","code"=>124]];
+//    dnd($fields);
+    session_start();
+    $_SESSION["cart_item"] = $fields;
+
+?>
+
+<div id="shopping-cart">
+<!--    <div class="txt-heading">Shopping Cart</div>-->
+    <div class="wrap-breadcrumb bw-color">
+        <div id="breadcrumb" class="breadcrumb-holder container">
+
+            <div class="row">
+
+                <div class="col-lg-6 d-none d-lg-block">
+                    <div class="page-title">Shopping Cart</div>
+                </div>
+
+
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <ul class="breadcrumb">
+                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a itemprop="url" href="/">
+                                <span itemprop="title" class="d-none">Handy Store</span>Home
+                            </a>
+                        </li>
+                        <li class="active">Cart</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <a class="btn btn-1" href="index.php?action=empty">Empty Cart</a>
     <?php
     if(isset($_SESSION["cart_item"])){
         $total_quantity = 0;
@@ -146,7 +183,7 @@
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
             <tbody>
             <tr>
-                <th style="text-align:left;">Name</th>
+                <th style="text-align:left;">name</th>
                 <th style="text-align:left;">Code</th>
                 <th style="text-align:right;" width="5%">Quantity</th>
                 <th style="text-align:right;" width="10%">Unit Price</th>

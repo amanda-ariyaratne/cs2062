@@ -61,7 +61,8 @@
 
 
 
-        public function addProduct(){
+        public function addProduct()
+        {
 
 //		    dnd($_POST);
 
@@ -73,26 +74,27 @@
                 "sub_category_id" => $_POST["category"],
                 "material" => $_POST["material"]
             ];
-            
+
             $this->insert($fields);
             //add image
             $pr_id = $this->lastInsertedID();
-            $images=($_FILES['fileUpload']['name']);
+            $images = ($_FILES['fileUpload']['name']);
             //dnd($images);
 
-            for ($x=0; $x<sizeof($images); $x++){
-                
-                $image=new Image('tailor_product_image'); 
+            for ($x = 0; $x < sizeof($images); $x++) {
 
-                $im_id=count($image->find());
+                $image = new Image('tailor_product_image');
 
-                $image_name=date("Y-m-d-h-i-sa-").$this->_table.'-'.$im_id;
-                
-                $ext=pathinfo($images[$x])['extension'];
-                $image_path=$image_name.'.'.$ext;
+                $im_id = count($image->find());
 
-                $image->addImage($pr_id,$image_path,$x,'products');
+                $image_name = date("Y-m-d-h-i-sa-") . $this->_table . '-' . $im_id;
+
+                $ext = pathinfo($images[$x])['extension'];
+                $image_path = $image_name . '.' . $ext;
+
+                $image->addImage($pr_id, $image_path, $x, 'products');
             }
+        }
 
 //            $measurements = json_decode($_POST['mesname']);
 //            dnd($measurements);

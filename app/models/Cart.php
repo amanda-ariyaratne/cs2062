@@ -2,26 +2,36 @@
 
 	class Cart extends Model{
 
-		public function __construct($a=''){
-			$table = 'cart';
-			parent::__construct($table);
-		}
+	    public $cartItems = [];
 
-		public function getPaymenteDetails($o_id){
-			$payments = array();
+        public function __construct($a = ''){
+            $table = 'cart';
+            parent::__construct($table);
+        }
 
-			$details = $this->find(array('conditions' => 'order_id = ?' , 'bind' => [$o_id]));
+        public function getPaymenteDetails($o_id){
+            $payments = array();
 
-			if(count($details)!=0){
-				foreach ($details as $item) {
-					$field = [
-						'product_id' => $item->product_id,
-						'quantity'   => $item->quantity
-					];
-					array_push($payments, $field);
-				}
-			}
-			return $payments;
-		}
-	}
+            $details = $this->find(array('conditions' => 'order_id = ?', 'bind' => [$o_id]));
+
+            if (count($details) != 0) {
+                foreach ($details as $item) {
+                    $field = [
+                        'product_id' => $item->product_id,
+                        'quantity' => $item->quantity
+                    ];
+                    array_push($payments, $field);
+                }
+            }
+            return $payments;
+        }
+
+
+        public function addItem(){
+            $val = CartController::$values;
+            $this->cartItems.array_push($val);
+
+
+        }
+    }
 
