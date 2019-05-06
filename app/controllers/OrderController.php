@@ -16,7 +16,7 @@
 				//dnd($params);
 				$this->view->render('Order/CustomerInformation',$params);
 			}else{
-					Router::redirect('register/login');
+					Router::redirect('account/login');
 			}
 		}
 

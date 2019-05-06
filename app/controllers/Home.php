@@ -41,44 +41,13 @@
 
 
 		public function ProductListAction($a='0'){
-
 			$product=new Product('product');
-			$details=$product->getViewDetails($a);
 
+			$details=$product->getViewDetails($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
 			$params=array($param,$a,$noOfProducts);
-			// $db=DB::getInstance();
-			// $limit = array('limit'=>(3*$a-3).',3');
-			// $details = $db->find('product_features',$limit);
-			// //dnd($details);
-			// foreach ($details as $row){
-
-			// 	$pr_sub_id=$row->sub_category_id;
-			// 	$name=$row->name;
-				
-			// 	$condition=array('conditions'=> ['product_id = ?','pr_name = ?'],'bind'=>[$pr_sub_id,$name]);
-				
-
-			// 	$image_details = $db->find('images',$condition);
-
-			// 	//dnd ($image_details);
-				
-			// 	$imageList=array();
-				
-
-			// 	$images = array();
-			// 	$row->images = $images;
-
-			// 	if (is_array($image_details)) {
-			// 		foreach ($image_details as $imagePath){
-			// 			array_push($row->images,$imagePath->image_path);
-			// 		}
-			// 	}
-					
-			
-
 
 			$this->view->render('home/ProductList',$params);
 		}
@@ -338,6 +307,10 @@
 
 		public function frontPageAction(){
 			$this->view->renderFrontPage('home/frontPage');
+		}
+
+		public function newProductsAction(){
+			$this->view->render('home/newProducts');
 		}
 
 

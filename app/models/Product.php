@@ -25,7 +25,6 @@
             $a--;
             $limit = array('limit'=>$a++.',6');
             $details = $this->find($limit);
-
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row);

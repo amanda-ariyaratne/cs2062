@@ -52,7 +52,7 @@
                   <h2 class="heading">Login</h2>
 
 
-                  <form method="post" action="<?=PROOT?>register/login">
+                  <form method="post" action="<?=PROOT?>account/login">
 
                     <div class="bg-danger"><?=$this->displayErrors ?></div>
 
