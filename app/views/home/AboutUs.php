@@ -88,78 +88,120 @@
         						<div class="caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodot.</div>
       						</div>
 
+      						<style type="text/css">
+      							.col-lg-4{
+      								max-width: 50%;
+      								flex: 0 0 50%;
+      							}
+
+      							.item{
+      								max-width: 100%;
+      							}
+
+      							.row-table{
+      								padding: 10px 90px;
+      							}
+
+      						</style>
+
       						<div class="row-table">
 			        			<div class="row">
 			          
-						          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
-						            <div class="item">
-						              <div class="image">
-						                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-1.jpg" alt="Image" />
-						              </div>
-						              
-						              <span class="name">Andy Miles</span>
-						              <span class="major">Sales Manager</span>
-						              <div class="description">Nemo enim im voluptatem quia voluptas sit aspt odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</div>
+							          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
+							            <div class="item">
+							              <div class="image">
+							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-1.jpg" alt="Image" />
+							              </div>
+							              
+							              <span class="name">Aari</span>
+							              <span class="major">Sales Manager</span>
+							              <div class="description">Born in 1997. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
 
-						              <div class="contact-btns">
-						                <a href="https://www.facebook.com/"><i class="demo-icon icon-facebook"></i></a>
-						                <a href="https://twitter.com/"><i class="demo-icon icon-twitter"></i></a>
-						                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
-						              </div>
-						            </div>
-						          </div>
-						          
-						           
+							              <div class="contact-btns">
+							                <a href="https://www.facebook.com/profile.php?id=100009710077953"><i class="demo-icon icon-facebook"></i></a>
+							                <a href="https://twitter.com/"><i class="demo-icon icon-twitter"></i></a>
+							                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
+							              </div>
+							            </div>
+							          </div>
+							          
+							           
 
 
 
-						          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
-						            <div class="item">
-						              <div class="image">
-						                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-3.jpg" alt="Image" />
-						              </div>
-						              
-						              <span class="name">Andy Miles</span>
-						              <span class="major">Sales Manager</span>
-						              <div class="description">Nemo enim im voluptatem quia voluptas sit aspt odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</div>
+							          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
+							            <div class="item">
+							              <div class="image">
+							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-3.jpg" alt="Image" />
+							              </div>
+							              
+							              <span class="name">Loku akka</span>
+							              <span class="major">Sales Manager</span>
+							              <div class="description">Born in 1997. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
 
-						              <div class="contact-btns">
-						                <a href="https://www.facebook.com/"><i class="demo-icon icon-facebook"></i></a>
-						                <a href="https://twitter.com"><i class="demo-icon icon-twitter"></i></a>
-						                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
-						              </div>
-						            </div>
-						          </div>
-						          
-						          
-
-						          
-
-						          
-
-						          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
-						            <div class="item">
-						              <div class="image">
-						                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-4.jpg" alt="Image" />
-						              </div>
-						             
-						              <span class="name">Andy Miles</span>
-						              <span class="major">Sales Manager</span>
-						              <div class="description">Nemo enim im voluptatem quia voluptas sit aspt odit aut fugit, sed quia consequuntur magni dolores eos qui ratione.</div>
-
-						              <div class="contact-btns">
-						                <a href="https://www.facebook.com/"><i class="demo-icon icon-facebook"></i></a>
-						                <a href="https://twitter.com"><i class="demo-icon icon-twitter"></i></a>
-						                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
-						              </div>
-						            </div>
-						          </div>
-          
-          
-
+							              <div class="contact-btns">
+							                <a href="https://www.facebook.com/madhavi.gayathri.716"><i class="demo-icon icon-facebook"></i></a>
+							                <a href="https://twitter.com"><i class="demo-icon icon-twitter"></i></a>
+							                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
+							              </div>
+							            </div>
+							          </div>
           
 						        </div>
 						      </div>
+
+
+
+
+      						<div class="row-table">
+			        			<div class="row">			         
+
+							          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
+							            <div class="item">
+							              <div class="image">
+							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-4.jpg" alt="Image" />
+							              </div>
+							             
+							              <span class="name">Akka</span>
+							              <span class="major">Sales Manager</span>
+							              <div class="description">Born in 1996. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
+
+							              <div class="contact-btns">
+							                <a href="https://www.facebook.com/chamodi.madhushani.9"><i class="demo-icon icon-facebook"></i></a>
+							                <a href="https://twitter.com"><i class="demo-icon icon-twitter"></i></a>
+							                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
+							              </div>
+							            </div>
+							          </div>
+          
+          
+
+							          <div class="wrap-item col-lg-4 col-md-4 col-sm-12 col-12">
+							            <div class="item">
+							              <div class="image">
+							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-2.png" alt="Image" />
+							              </div>
+							              
+							              <span class="name">WEB</span>
+							              <span class="major">Sales Manager</span>
+							              <div class="description">Born in 1997. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
+
+							              <div class="contact-btns">
+							                <a href="https://www.facebook.com/WageeshaEB"><i class="demo-icon icon-facebook"></i></a>
+							                <a href="https://twitter.com/wageesha_erangi"><i class="demo-icon icon-twitter"></i></a>
+							                <a href="https://plus.google.com/"><i class="demo-icon icon-google"></i></a>
+							              </div>
+							            </div>
+							          </div>
+          
+						        </div>
+						      </div>
+
+
+
+
+
+
 
 						    </div>
 						  </div>

@@ -223,6 +223,10 @@
 			$color = new Color();
 			$params['colors'] = $color->getColorByproductID($p_id);
 
+			//load product measurements 
+			$measurement = new Measurement();
+			$params['measurements'] = $measurement->getMeasurementByID($p_id);
+
 			//dnd($params);
 
 			$this->view->render('home/productView',$params);

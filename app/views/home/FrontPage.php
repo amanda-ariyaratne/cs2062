@@ -47,18 +47,18 @@
 				<h2>TAILOR MATE</h2>
 			</div>
 			<ul class="nav-area">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
-				<li><a href="#">Services</a></li>
-				<li><a href="#">Contact</a></li>
-				<li><a href="#">Help</a></li>
+				<li><a href="<?=PROOT?>home/ProductList">Home</a></li>
+				<li><a href="<?=PROOT?>home/AboutUs">About</a></li>
+				<li><a href="<?=PROOT?>home/ContactUs">Contact</a></li>
+				<li><a href="<?=PROOT?>register/login">Login</a></li>
+				<li><a href="<?=PROOT?>register/register">Register</a></li>
 			</ul>
 		</div>
 
 
 		<div class="welcome-text">
 			<h1>you can find your own Tailor</h1>
-			<a href="#">Contact Us</a>
+			<a href="<?=PROOT?>home/ContactUs">Contact Us</a>
 		</div>
 	</header>
 
