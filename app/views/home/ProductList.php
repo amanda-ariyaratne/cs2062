@@ -66,22 +66,19 @@
 
   
 
-        <div class="sb-widget">
-          <div class="sb-banner">
+          <div class="sb-widget">
+            <div class="sb-banner">         
+              <a href="/collections/birthday-gifts" >
+                <img class="lazyload" src = "<?=PROOT?>assets/images/products/front2.jpg" alt="" /> 
+              </a>
 
-              
-                <a href="/collections/birthday-gifts" >
-                  <img class="lazyload" src = "<?=PROOT?>assets/images/products/front2.jpg" alt="" /> 
-                </a>
-            
-              
-              
               <div class="block-text">
                 <span class="text" style="color: #fff;">Let clothes color your life!</span>
                 <a class="btn btn-1" href="#pagination-holder">shop now</a>
               </div>
+              
+            </div>
           </div>
-        </div>
 
       <?php include 'Categories.php'?>
 

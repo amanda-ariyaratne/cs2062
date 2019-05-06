@@ -214,7 +214,7 @@
 
 			if(count($cart_details)!=0){
 				//load product table and get item prices
-				$product = new Product();
+				$product = new Product('product');
 				$product_details = $product->getProductPriceByID($cart_details);
 				
 				//calculate price 

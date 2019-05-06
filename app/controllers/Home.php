@@ -133,7 +133,7 @@
 
 
 			//load product table
-			$product = new Product();
+			$product = new Product('product');
 			$product_obj = $product->findById($p_id);
 
 			//load sub categories table and instert sub category name into product
