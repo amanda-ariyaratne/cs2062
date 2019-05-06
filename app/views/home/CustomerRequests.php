@@ -9,66 +9,55 @@
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
-
 <div id="body-content" class="layout-boxed" style="background: #fff !important;">
   <div id="main-content"> 
     <div class="main-content">
       <div id="shopify-section-collection-template" class="shopify-section">
 
+
+
         <div class="wrap-breadcrumb bw-color">
           <div id="breadcrumb" class="breadcrumb-holder container">
 
             <div class="row">
-              
-                <div class="col-lg-6 d-none d-lg-block">
-                  <div class="page-title">Products</div>
-                </div>
-              
+
+               <?php 
+                      echo '
+                        <div class="col-lg-8 d-none d-lg-block">
+                          <div class="page-title">'.
+                             end($params).'
+                          </div>
+                        </div>
+                      ';
+                 ?> 
+
+                               
       
-      <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-        <ul class="breadcrumb">
-          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop="url" href="/">
-              <span itemprop="title" class="d-none">Handy Store</span>Home
-            </a>
-          </li>
+                <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <ul class="breadcrumb">
 
-          
-            
-              <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-                <a href="" itemprop="url">
-                  <span itemprop="title">Products</span>
-                </a>
-              </li>
-              <li class="active">Products</li>
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                      <a itemprop="url" href="#home">
+                        Home
+                      </a>
+                    </li>
 
-            
+                    <li class="active">
+                      <?= end($params)?>
+                      
+                    </li>
+                    
+                  </ul>
+                </div>
+              </div>
 
-          
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-
+            </div>
+          </div>
 
 <div class="page-cata" data-logic="true">
   <div class="container">
   
     <div class="row">
-
-      
-
-
-
-
-
-
-
-
-
 
         <div id="sidebar" class="left-column-container col-lg-3  d-none d-lg-block">
 
@@ -312,10 +301,11 @@
 </div>
   
 </div>
-</div>
 
-<div id="country-target" class="d-none"></div>
-</div>
-</div>
+      </div>
+    </div>
+
+  
+  </div>
 </div>
 <?= $this->end(); ?>

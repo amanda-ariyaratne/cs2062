@@ -19,7 +19,11 @@
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
-  <link type="text/css" rel="stylesheet" charset="UTF-8" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/jquery.plugin.css?0" rel="stylesheet" type="text/css" media="all" />
+  
+  <link href="<?=PROOT?>assets/css/noti.css" rel="stylesheet" type="text/css" media="all" />
 
   <style type="text/css">
     .header-container.bg-imagee{
@@ -48,6 +52,123 @@
         background-image: url(<?=PROOT?>assets/images/back-5.jpg);
       }
     }
+
+    .noti {  
+      text-decoration: none;
+      padding: 15px 26px;
+      position: relative;
+      font-size: 45px;
+      display: inline-block;
+      color:#c1939e;
+    }
+
+    .a {
+      color:#c1939e;
+    }
+
+    .noti .badge {
+      position: absolute;
+      top: 20px;
+      right: 18px;
+      padding: 2px 4px;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+    }
+        .noti_Container ul {
+            border-style: solid;
+            border-width: 0px 0px 1px 0px;
+            border-color: #F7E4EA;
+            display:block;
+            list-style:none;
+            margin:0;
+            padding:12px 10px;
+            height: 50px;
+            /*border: 0 0 3px 0 ;*/
+            /*border:solid 2px rgba(100, 100, 100, .20);*/
+            
+        }
+
+        .noti_Container ul:hover {
+          background-color: #F7E4EA;
+        }
+        .noti_Container ul li{
+            float:left;
+            font:13px helvetica;
+            font-weight:bold;
+        }
+        .noti_Container ul li a {
+            text-decoration:none;
+            color: black;
+        }
+
+        .noti_Container ul li a:hover {  
+            color:           
+            text-decoration:none;
+            cursor:pointer;
+        }
+        
+        .noti_Container {
+            position:relative;
+        }
+
+        #notifications {
+            display:none;
+            width:430px;
+            position:absolute;
+            top: 95px;
+            left: 374px;
+            background:#FFF;
+            border:solid 1px rgba(100, 100, 100, .20);
+            -webkit-box-shadow:0 3px 8px rgba(0, 0, 0, .20);
+            z-index: 50;
+        }
+        /* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
+        #notifications:before { 
+            position: absolute; 
+            right:70px;       
+            content: '';
+            display:block;
+            width:0;
+            height:0;
+            color:transparent;
+            border:10px solid #CCC;
+            border-color:transparent transparent #FFF;
+            margin-top:-20px;
+            margin-left:10px;
+        }
+        
+        .HeadingNoti {
+            display:block;
+            background:#FFF;
+            font-weight:bold;
+            font-size:15px;    
+            padding:8px;
+            margin:0;
+            border-bottom:solid 1px rgba(100, 100, 100, .30);
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
+        
+        .seeAll {
+            background:#F6F7F8;
+            padding:8px;
+            font-size:12px;
+            font-weight:bold;
+            border-top:solid 1px rgba(100, 100, 100, .30);
+            text-align:center;
+        }
+        .seeAll a {
+            color:#3b5998;
+        }
+        .seeAll a:hover {
+            background:#F6F7F8;
+            color:#3b5998;
+            text-decoration:underline;
+        }
 
     input[type="text"], input[type="password"] {
       padding-left: 7px;
@@ -83,7 +204,9 @@
 
     <div id="page-body" class="breadcrumb-color">      
       <div id="shopify-section-header" class="shopify-section">
-        <header class="header-content" data-stick="true" data-stickymobile="false">
+
+
+<header class="header-content" data-stick="true" data-stickymobile="false">
 
   <div class="header-container layout-boxed bg-image">
 
@@ -95,10 +218,10 @@
 
             
               <ul class="top-bar-list" style="">
-
-                  <li><a href="/" title="Customer Request" >Customer Request</a></li>
                 
                   <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
+
+                  <li><a href="<?=PROOT?>home/AllVendors/1" title="Customer Request" >All Tailors</a></li>
 
                   <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
                 
@@ -119,12 +242,10 @@
           <div class="row">
 
             
-              <div class="top-bar-left col-lg-6">
+              <div class="top-bar-left col-lg-3">
                 <ul class="list-inline">
 
                     <li class="customer-account lazyload waiting">
-
-                        
 
                         <?php if ($user->first_name!='') {
                         echo '<a href="'.PROOT.'account/myAccount" ><i class="demo-icon icon-user"></i>' . $user->first_name . '</a>';
@@ -161,9 +282,11 @@
                 </ul>
               </div>
             
+            <div class="top-bar-left col-lg-3"></div>
 
+            <div class="top-bar-right col-lg-3"></div>
 
-            <div class="top-bar-right col-lg-6">
+            <div class="top-bar-right col-lg-3">
               <ul class="list-inline">
 
                 
@@ -185,6 +308,7 @@
               </ul>
             </div>
 
+
           </div>
       </div>
     </div>
@@ -195,7 +319,8 @@
         <div class="table-row">
           <div class="row">
 
-            <div class="header-logo col-lg-3 col-md-12">
+
+            <div class="header-logo col-lg-2 col-md-12">
               
               
               <a href="#" title="Tailor Mate" class="logo-site lazyload waiting">
@@ -203,10 +328,9 @@
               </a>
             </div>
 
-            <div class="header-right col-lg-9 col-md-12">
-              <div class="col-md-1">
-              </div>
-              <div class="col-md-6">
+            <div class="header-right col-lg-10 col-md-12">
+              <div class="col-md-2"></div>
+              <div class="col-md-5">
                 <div class="searchbox">
 
                   <form id="search" class="navbar-form search" action="/search" method="get">
@@ -230,53 +354,116 @@
                   </div>
 
                 </div>
-                </div>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-1">
+                <a href="#" title="Sales"> 
+                  <i class="fas fa-comments-dollar" style="font-size: 45px; color: #c1939e;"></i>
+                </a>
+              </div>
 
-               <div class="col-md-4">
+              <div class="col-md-1">
+
+                  <?php 
+                      if ($user->role==0){
+                        echo '
+                          <a href="#" class="noti" style="color:#c1939e;" title="cart">
+                            
+                            <i class="demo-icon icon-handy-cart" style="font-size:40px;"></i>
+
+                            <span class="badge">
+                              1
+                            </span>
+                          </a>
+
+                      ';
+                      }
+
+                      elseif ($user->role==1){
+
+                        echo '
+
+                        
+                          <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
+                              <span>
+                                <i class="fas fa-bell"></i>
+                              </span>
+                              <span class="badge" id=#noti_Counter>
+                                 3
+                              </span>
+                          </a>
+                        ';
+                      }
+
+
+
+                   ?>
+
+                
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1">
                 <div class="header-phone-widget d-none d-lg-block">
-                  
-                  
+                  <?php 
+                    if ($user->role==0 || $user->role==1){
+                      $sentence='';
+                      $LinkPath='';
+                      if ($user->role==0){
+                        $sentence="Add-our-Designs";
+                        $LinkPath="CustomerRequestView/1";
+
+                      }                          
+                      elseif ($user->role==1){
+                        $sentence="Custom-Requests";
+                        $LinkPath="ProductRequest/1";
+                      }
+
+                    echo '
+                    
                     <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
-                      <i class="demo-icon icon-phone"></i>                    
-                    </div>
+                      <a href="'.PROOT.'home/'.$LinkPath.'">
+                      
+                      <i class="fas fa-tshirt" title='.$sentence.'></i>
+                      </a>
+                    </div>                  
                   
-                  
-                    <div class="text">
-                      <span class="text-1">Call us</span>
-                      <span class="text-2">(+94) 123 456 789</span>
-                    </div>
-                  
+                    ';
+
+                    }
+                   ?>
 
                 </div>
               </div>
               
-                <div class="col-md-1">
-              <div class="header-icons d-none d-lg-block">
-                <ul class="list-inline"> 
+                
 
-                     
-                  <li class="top-cart-holder">
-                    <div class="cart-target">   
+                  <div id="notifications">
+                        <div class="HeadingNoti" style="color:black; margin:0; padding: 2px 10px;">
+                          Notifications
+                        </div>
+                   
+                        <div class="noti_Container" style="height:300px;">
+                            <ul>
+                                <li>
+                                  <a href="#" >
+                                        sdfgcvhj
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                  <a href="#" >
+                                        sdfgcvhj
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
 
-                      
-                      <a href="javascript:void(0)" class="basket cart-toggle lazyload waiting" title="cart">
-                        
-                        <i class="demo-icon icon-handy-cart"></i>
+                        <div class="seeAll">
+                          <a href="#">See All</a>
+                        </div>
+                </div>
 
-                        
-
-                        <span class="number"><span class="n-item">0</span></span>
-                      </a>
-
-                      
-
-                    </div>
-                  </li>            
-                  
-
-                </ul>
-              </div>
-            </div>
 
             </div>
 
@@ -509,18 +696,17 @@
     <li class="navbar navbar-responsive-menu">
       <div class="responsive-menu">
         Menu
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
+        <span class="bar">ddddd</span>
+        <span class="bar">jjjjj</span>
+        <span class="bar">fffff</span>
       </div>
     </li>
     
     
     <li class="m-customer-account">
-      <a href="/account" title="Account" class="lazyload waiting">
+      <a href="<?=PROOT?>register/login" title="Account" class="lazyload waiting">
         
           <i class="demo-icon icon-user"></i>
-        
         
       </a>
     </li>
@@ -528,8 +714,38 @@
   </ul>
 </div>
 </div>
+
+        <!-- <div class="wrap-breadcrumb bw-color">
+          <div id="breadcrumb" class="breadcrumb-holder container">
+
+            <div class="row">
+              
+                <div class="col-lg-6 d-none d-lg-block">
+                  <div class="page-title">Products</div>
+                </div>
+              
+      
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                  <ul class="breadcrumb">
+                    
+                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                      <a itemprop="url" href="/">
+                        Home
+                      </a>
+                    </li>
+
+                    <li class="active">Products</li>
+                    
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+ -->
   
 </header>
+
 
 </div>
 
@@ -537,9 +753,6 @@
 
 <div id="shopify-section-bottom" class="shopify-section">
 
-
-
-</div>
 
 <footer id="footer-content">
   <div id="shopify-section-footer" class="shopify-section">
@@ -1096,6 +1309,9 @@
 </div>
       </footer>
 
+
+</div>
+
     </div>
     
 <!--       <div id="scroll-to-top" title="Back To Top">
@@ -1215,8 +1431,32 @@
     </div>
   </div>
 </div>
-    
-      <!-- <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-    -->
+
+<script>
+$(document).ready(function () {
+
+        $('#noti_Button').click(function () {
+            $('#notifications').fadeToggle('fast', 'linear');
+
+            $('#noti_Counter').fadeOut('slow'); 
+            return false;
+        });
+
+        $(document).click(function () {
+            $('#notifications').hide();
+
+            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+            // if ($('#noti_Counter').is(':hidden')) {
+            //     // CHANGE BACKGROUND COLOR OF THE BUTTON.
+            //     $('#noti_Button').css('background-color', '#F3C7DD');
+            // }
+        });
+
+        $('#notifications').click(function () {
+            return false; 
+        });
+    });
+</script>
+
 </body>
 </html>

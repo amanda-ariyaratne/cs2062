@@ -16,8 +16,9 @@
     <div id="main-content">
         <div class="main-content">
 
-            <div class="wrap-breadcrumb bw-color">
-                <div id="breadcrumb" class="breadcrumb-holder container">
+            <div class="breadcrumbs-wrapper col-md-12 col-sm-12 col-xs-12">
+        <!-- Breadcrumbs-wrapper -->
+    <div class="container">
 
                     <div class="row">
 
@@ -30,7 +31,9 @@
                             <ul class="breadcrumb">
                                 <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                                     <a itemprop="url" href="/">
-                                        <span itemprop="title" class="d-none">Handy Store</span>Home
+                                        <span itemprop="title" class="d-none">
+                                            Handy Store
+                                        </span>Home
                                     </a>
                                 </li>
 

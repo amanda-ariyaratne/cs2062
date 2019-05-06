@@ -12,6 +12,16 @@
  -->	<style id="shopify-dynamic-checkout">
 	</style>
 
+  <style>
+    .bg-danger{
+      background-color:#e8a0a7!important;
+    }
+    .bg-danger ul li {
+      list-style-type: square !important;
+      padding: 1px;
+    }
+  </style>
+
 <?= $this->end(); ?>
 
 
@@ -28,7 +38,7 @@
     
     <div class="new-loading"></div>
     <div class="cart-sb">
-      <form action="/cart" method="post">
+<!--       <form action="/cart" method="post">
         <div class="cart-sb-title">
           <span class="c-title">Your Cart</span>
           <span class="c-close">
@@ -41,7 +51,7 @@
             <div class="cart-loading"></div>
           </div>
         </div>
-      </form>
+      </form> -->
     </div>
     
     <div id="page-body" class="breadcrumb-color">
@@ -123,13 +133,13 @@
 
         
         
-        <div class="col-lg-9 col-md-12">
+        <div class="col-lg-9 col-md-12" style="width: 1100px">
 
 
 
 
 
-          <div id="col-main" class="page-product layout-normal">
+          <div id="col-main" class="page-product layout-normal" style="width: 1200px">
 
             <div class="product">
               
@@ -150,7 +160,7 @@
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
 
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px">
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
 
                                     </div>
                                     <div class="slick-item slick-zoom">
@@ -173,7 +183,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                  <div class="col-lg-6 col-md-6 col-sm-6 col-12" style="position: relative; right: 1px;">
                     <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 
                     <div id="product-info" class="product-info">
@@ -228,16 +238,6 @@
                         
                           <link itemprop="availability" href="http://schema.org/InStock" />
                         
-                        	
-                            
-
-
-
-                          
-                          
-                          
-
-                        
                           
                           <?php echo '
                           
@@ -255,219 +255,188 @@
 
                             	
                               <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="donkix-product-sample" title="Add to wishlist">Add to wishlist</a>
-                            
-                            
-                            
-                              
-                              
-
-                              
-
-                            
-                            
                           </div>
                         
 
-                        <meta itemprop="priceCurrency" content="USD" />
-
-                        
-
-                          
-
-                          
+                        <meta itemprop="priceCurrency" content="USD" /> 
 
                           <div class="group-cw clearfix">
                             
-                            <form method="post" action="/cart/add" id="product_form_1588808155195" accept-charset="UTF-8" class="product-form product-action variants" enctype="multipart/form-data">
-                              <input type="hidden" name="form_type" value="product" />
-                              <input type="hidden" name="utf8" value="✓" />
-
-                              <div id="product-action-1588808155195"  class="options">
-
-                                 
-                                
-                                
-
-                                
-
-                                <div class="variants-wrapper show-swatches-color show-swatches-size clearfix"> 
-                                  <select id="product-select-1588808155195" name="id" style="display:none;">
-                                    
-
-                                      
-                                        <option  selected="selected"  value="14880170180667">M / Red / 1 Year</option>
-
-                                      
-
-                                    
-
-                                      
-                                        <option  value="14880170213435">L / Red / 2 Years</option>
-
-                                      
-
-                                    
-                                  </select>
-                                </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <form method="post" action="<?=PROOT?>CartController/addToCart" id="product_form"  class="product-form product-action variants" >
+<!--                               <input type="hidden" name="form_type" value="product" />
+                              <input type="hidden" name="utf8" value="✓" /> -->
+
+                              <div id="product-action"  class="options">
                           
                               <style>
                                 label[for="product-select-option-1"] { display: none; }
                                 #product-select-option-1 { display: none; }
                                 #product-select-option-1 + .custom-style-select-box { display: none !important; }
                               </style>
+
+                              
+
+                              <div class="swatch color clearfix" data-option-index="1">
+                                <div class="header">Color</div>
+                                
+                                  <?php
+                                    foreach($params['colors'] as $key=>$color){
+                                      echo '
+
+                                        <div data-value="'.$color.'" class="swatch-element">
+                                          
+                                            <div class="tooltip" style="">'.$color.'</div>
+                                            <input id="swatch-1-'.$color.'" type="radio" name="color" value="'.$color.'" style="display:none; cursor:pointer;"/>
+                                            <label for="swatch-1-'.$color.'" style="background-color: '.$color.' ; cursor:pointer; "></label>
+                                          
+                                        </div>
+                                      ';
+                                    }
+                                  ?>
+                                  
+                              </div>
+
+                              <style>
+                                label[for="product-select-option-0"] { display: none; }
+                                #product-select-option-0 { display: none; }
+                                #product-select-option-0 + .custom-style-select-box { display: none !important; }
+                              </style>
                           
 
-                        <div class="swatch color clearfix" data-option-index="1">
-                          <div class="header">Color</div>
-                          
-                            <?php
-                              foreach($params['colors'] as $color){
-                                echo '
+                      
+                              <div class="swatch size clearfix" data-option-index="0">
+                                <div class="header" style="float: none;">Size</div>
 
-                                  <div data-value="'.$color.'" class="swatch-element">
-                                    
-                                      <div class="tooltip" style="">'.$color.'</div>
-                                      <input id="swatch-1-'.$color.'" type="radio" name="option-color" value="'.$color.'" style="display:none; cursor:pointer;"/>
-                                      <label for="swatch-1-'.$color.'" style="background-color: '.$color.' ; cursor:pointer; "></label>
-                                    
-                                  </div>
-                                ';
-                              }
-                            ?>
-                            
+                                  <?php
+                                    foreach($params['measurements'] as $key=>$measurement){
+                                      echo '
+
+                                        <div class="spr-form" style="padding-bottom:10px;" >
+                                          <label class="spr-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
+                                          <input placeholder=" ##"  class="spr-form-input spr-form-input-text"  style="position:absolute; right:250px; height:25px; width:100px; padding:5px 10px;" type="text" name="measuremnt'.$key.'" aria-required="true" />
+                                          
+                                        </div>
+                                      ';
+                                    }
+                                  ?> 
+                                
+                              </div>
                             </div>
 
-                      
+                            <div class="bg-danger" ><?=$this->displayErrors ?></div>
 
-                          
-                          <style>
-                            label[for="product-select-option-0"] { display: none; }
-                            #product-select-option-0 { display: none; }
-                            #product-select-option-0 + .custom-style-select-box { display: none !important; }
-                          </style>
-                          
+                            <div class="qty-add-cart">
+                              <div class="quantity-product">
+                                <div class="quantity">
+                                  <script type="text/javascript">
+                                    function incrementValue(){
+                                      var value = parseInt(document.getElementById('quantity').value, 10);
+                                      value = isNaN(value) ? 0 : value;
+                                      value++;
+                                      document.getElementById('quantity').value = value;
+                                    }
+                                    function decreaseValue() {
+                                      var value = parseInt(document.getElementById('quantity').value, 10);
+                                      value = isNaN(value) ? 0 : value;
+                                      value < 2 ? value = 2 : '';
+                                      value--;
+                                      document.getElementById('quantity').value = value;
+                                    }
+                                  </script>
+                                  <input type="number" id="quantity" class="item-quantity" name="quantity" value="1" />
+                                  <span class="qty-inner qty-wrapper">
 
-                      
-                        <div class="swatch size clearfix" data-option-index="0">
-                          <div class="header">Size</div>
+                                    <span class="qty-up" title="Increase" data-src="#quantity" onclick="incrementValue()">
+                                      <i class="demo-icon icon-plus"></i>
+                                    </span>
 
-                              <div data-value="XS" class="swatch-element xs available">
-                                <input id="swatch-0-xs" type="radio" name="option-0" value="XS" style="display:none;"/>
-                                <label for="swatch-0-xs">
-                                    XS
-                                    <!-- <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" /> -->
-                                  </label>
-                              </div>   
-                          
-                              <div data-value="S" class="swatch-element s available">
-                                <input id="swatch-0-s" type="radio" name="option-0" value="S" style="display:none;"/>
-                                <label for="swatch-0-s">
-                                    S
-                                    <!-- <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" /> -->
-                                  </label>
-                              </div>    
-                       
+                                    <span class="qty-down" title="Decrease" data-src="#quantity" onclick="decreaseValue()">
+                                      <i class="demo-icon icon-minus"></i>
+                                    </span>
+
+                                  </span>
+                                </div>
+                              </div>
+
+                              <div class="action-button">
+                                <button id="add-to-cart" type="submit" value="Submit" class="add-to-cart btn btn-1" >Add to cart</button> 
+                              </div>
+
+
+                              <input type='hidden' name='measurements' value="<?php echo htmlentities(serialize($params['measurements'])); ?>" />
+                              <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?> 
                               
-                              <div data-value="M" class="swatch-element m available">
-                                <input id="swatch-0-m" type="radio" name="option-0" value="M" style="display:none;"/>
-                                <label for="swatch-0-m">
-                                    M
-                                    <!-- <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" /> -->
-                                  </label>
-                              </div>
-                            
+                              
+      <!--                           <div class="pre-order hide">
+                                  <a href="#pre-order-popup" class="btn-pre-order btn btn-1">Pre-order</a>
+                                </div>
+                              
+                                <div class="pre-order-success hide">Successful pre-order.Thanks for contacting us!</div> 
+                              
+                              
+                              
+                                <div data-shopify="payment-button" class="shopify-payment-button">
+                                  <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
+                                  <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
+                                </div> -->
+                              
+                              
+                            </div>
                           
-                            
-                      <!--         <script>
-                                jQuery('.swatch[data-option-index="0"] .m').removeClass('soldout').addClass('available').find(':radio').removeAttr('disabled');
-                              </script> -->
-                            
-                          
-                              <div data-value="L" class="swatch-element l available">
-                                <input id="swatch-0-l" type="radio" name="option-0" value="L" style="display:none;"/>
-                                <label for="swatch-0-l">
-                                    L
-
-                                  </label>
-                              </div>
-                            
-
-                            
-                              <div data-value="XL" class="swatch-element xl available">
-                                <input id="swatch-0-xl" type="radio" name="option-0" value="XL" style="display:none;"/>
-                                <label for="swatch-0-xl">
-                                    XL
-                    <!--                 <img class="crossed-out" src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/soldout.png?11279787887484496450" alt="" />
-                     -->              </label>
-                              </div>   
-                          
-                        </div>
-
-                      
+                          </form>  
+                                         
 
 
-                                                      
 
-                                                    
-                                                  
 
-                                                </div>
 
-                                                <div class="qty-add-cart">
-                                                  <div class="quantity-product">
-                                                    <div class="quantity">
-                                                      <script type="text/javascript">
-                                                        function incrementValue(){
-                                                          var value = parseInt(document.getElementById('quantity').value, 10);
-                                                          value = isNaN(value) ? 0 : value;
-                                                          value++;
-                                                          document.getElementById('quantity').value = value;
-                                                        }
-                                                        function decreaseValue() {
-                                                          var value = parseInt(document.getElementById('quantity').value, 10);
-                                                          value = isNaN(value) ? 0 : value;
-                                                          value < 2 ? value = 2 : '';
-                                                          value--;
-                                                          document.getElementById('quantity').value = value;
-                                                        }
-                                                      </script>
-                                                      <input type="number" id="quantity" class="item-quantity" name="quantity" value="1" />
-                                                      <span class="qty-inner qty-wrapper">
 
-                                                        <span class="qty-up" title="Increase" data-src="#quantity" onclick="incrementValue()">
-                                                          <i class="demo-icon icon-plus"></i>
-                                                        </span>
 
-                                                        <span class="qty-down" title="Decrease" data-src="#quantity" onclick="decreaseValue()">
-                                                          <i class="demo-icon icon-minus"></i>
-                                                        </span>
 
-                                                      </span>
-                                                    </div>
-                                                  </div>
 
-                                                  <div class="action-button">
-                                                    <button id="add-to-cart" class="add-to-cart btn btn-1" type="button">Add to cart</button> 
-                                                  </div>
-                                                  
-                                                  
-                                                    <div class="pre-order hide">
-                                                      <a href="#pre-order-popup" class="btn-pre-order btn btn-1">Pre-order</a>
-                                                    </div>
-                                                  
-                                                    <div class="pre-order-success hide">Successful pre-order.Thanks for contacting us!</div> 
-                                                  
-                                                  
-                                                  
-                                                    <div data-shopify="payment-button" class="shopify-payment-button"><button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button><button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button></div>
-                                                  
-                                                  
-                                                </div>
-                                              
-                                              </form>  
-                                              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                  </div>             
 
 
@@ -499,7 +468,7 @@
                                           
                                           	
                                             <div id="pre-order-popup" style="display: none;">
-                                              <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form"><input type="hidden" name="form_type" value="contact" /><input type="hidden" name="utf8" value="✓" />
+<!--                                               <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form"><input type="hidden" name="form_type" value="contact" /><input type="hidden" name="utf8" value="✓" />
 
                                               <span class="alert-pre-order"></span>
 
@@ -535,7 +504,7 @@
                                                 </div>
                                               </div>
 
-                                              </form>
+                                              </form> -->
                                             </div>
 
                                           
@@ -875,7 +844,7 @@
                                       </div>
 
                                       <div class="product-add-cart">
-                                        <form action="/cart/add" method="post" enctype="multipart/form-data">
+<!--                                         <form action="/cart/add" method="post" enctype="multipart/form-data">
                                           <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
                                             <span class="demo-icon icon-basket"></span>
                                           </a>
@@ -883,7 +852,7 @@
                                           <select class="d-none" name="id">
                                             <option value="14880160612411"> Default Title</option>
                                           </select>
-                                        </form>
+                                        </form> -->
                                       </div>
                                     </div>
 

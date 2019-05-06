@@ -1,9 +1,11 @@
 <?php
 
-	class User extends Model{
+	class User extends Model implements observer{
 		private $_isLoggedIn, $_sessionName, $_cookieName;
 		public static $currentLoggedInUser = null;
-
+		// customer = 0 ; default value
+		// vendor = 1 :
+		// admin  =2 ; 
 		public function __construct($user=''){
 			$table = 'user';
 			parent::__construct($table);
@@ -25,12 +27,19 @@
 		}
 
 
+		public function acceptProduct(){
+			// by admin- accpet products
+			// by tailor- take order 
+		}
+
+		public function updateClass($obj) {
+			//implement the thing that user do after an object gets updated.
+			//custmer and tailor
+    	}
 
 		public function findByEmail($email){
 			return $this->findFirst(['conditions'=>"email = ?" , 'bind'=>[$email]]);
 		}
-
-
 
 		public static function currentLoggedInUser(){
 			if(!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)){

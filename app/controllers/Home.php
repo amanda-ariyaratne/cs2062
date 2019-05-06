@@ -1,5 +1,4 @@
 <?php
-
 	class Home extends Controller {
         public $image;
 
@@ -11,6 +10,11 @@
 			$this->view->render('home/index');
 		}
 
+		public function testAction(){
+			$this->view->render('home/test');
+		}
+
+
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
@@ -18,27 +22,35 @@
 			$details = $tailorshop->getShops((6*$no-6),6);			
 			$noOfProducts = $tailorshop->noOfShops();
 
-			$params=array($details,$no,$noOfProducts);
+			$params=array($details,$no,$noOfProducts,'Tailor shops');
 
 			$this->view->render('home/AllVendors',$params);
 		}
 
-		public function VendorPageAction($a){
+		public function NewRequestPageAction($a){
 			$product=new Product('product');
-			$details=$product->getViewDetailsOfId($a);
+			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
-			$params=array($param,$a,$noOfProducts);
+			$params=array($param,$a,$noOfProducts,'New Requests');
+			$this->view->render('home/NewRequestPage',$params);
+		}
+
+		public function VendorPageAction($a){
+			$product=new Product('product');
+			$details=$product->getPageVendor($a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+
+			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
+
+
+			//get vendor name 
 		}
-
-		public function VendorPage2Action(){
-			$this->view->render('home/VendorPage2');
-		}
-
-
 
 		public function ProductListAction($a='0'){
 			$product=new Product('product');
@@ -47,7 +59,7 @@
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
-			$params=array($param,$a,$noOfProducts);
+			$params=array($param,$a,$noOfProducts,'All Products');
 
 			$this->view->render('home/ProductList',$params);
 		}
@@ -57,24 +69,24 @@
 
 			$viewRequest = new CustomRequest('custom_request');
 
-			$details= $viewRequest-> getViewRequestDetails($a);
+			$details= $viewRequest-> getViewDetails($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];
 			
 
-			$params=array($param,$a,$noOfProducts);
+			$params=array($param,$a,$noOfProducts,'Custome Requests');
 
 			$this->view->render('home/CustomerRequests',$params);
 		}
 
 
-
-
 		public function ProductRequestAction(){
 
+			$params=array('Product Request');
 			if($_POST){
 				$customRequest=new CustomRequest('custom_request');
 				$customRequest-> createRequest();
+
 			
 				$_SESSION['alert']='
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
@@ -85,30 +97,31 @@
 				  	</div>
 				</div>';	
 
-
-				Router::redirect('home/ProductRequest');				
+				Router::redirect('home/ProductRequest',$params);
 			}
 
-        	$this->view->render('home/ProductRequest');
+        	$this->view->render('home/ProductRequest',$params);
 
         }
 
 
-    //     public function addProductAction(){
+// chamodi akka's edited page
 
-    //     	$db = DB::getInstance();
-    //     	$categories = $db->find('sub_category');
-    //     	$params = [$categories];
-    //     	if ($_POST) {
-				// $product=new Product('product');
-				// $product-> addProduct();
+        public function addProductAction(){
 
-				// //redirect to some page\\
-				// Router::redirect('home/addProduct');	
-    //         }
-    //         $this->view->render('home/addProduct', $params);
+        	$db = DB::getInstance();
+        	$categories = $db->find('sub_category');
+        	$params = [$categories,'AddProduct'];
+        	if ($_POST) {
+				$product=new Product('product');
+				$product-> addProduct();
 
-    //     }
+				//redirect to some page\\
+				Router::redirect('home/addProduct');	
+            }
+            $this->view->render('home/addProduct', $params);
+
+        }
 
 
 
@@ -194,6 +207,10 @@
 			$color = new Color();
 			$params['colors'] = $color->getColorByproductID($p_id);
 
+			//load product measurements 
+			$measurement = new Measurement();
+			$params['measurements'] = $measurement->getMeasurementByID($p_id);
+
 			//dnd($params);
 
 			$this->view->render('home/productView',$params);
@@ -202,6 +219,7 @@
 
 
 		public function CategoryItemAction($id){
+
 			$db=DB::getInstance();
 			$condition=array('conditions'=> 'sub_category = ?','bind'=>[$id]);
 			$limit = array('limit'=>$id.',3');
@@ -212,88 +230,69 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
+//         public function addProductAction(){
 
+//         	$db = DB::getInstance();
+//         	$categories = $db->find('sub_categories');
+//         	$params = [$categories];
 
-		// public function ProductListAction($a='1'){
+//         	if ($_POST) {
+// 				$db = DB::getInstance();
 
-		// 	$db=DB::getInstance();
-		// 	$limit = array('limit'=>$a.',6');
-		// 	$details = $db->find('products',$limit);
-			
-		// 	$temp= array($db->find('products'));
-		// 	$noOfProducts = count($temp[0]);
+// //				dnd($_POST);
 
-		// 	$params=array($details,$a,$noOfProducts);
+//                 $measurement1=0;$measurement2=0;$measurement3=0;
+//                 if(strlen($_POST["measurement1"])>0) {
+//                     $measurement1 = 1;
+//                 }
+//                 if(strlen($_POST["measurement2"])>0) {
+//                     $measurement2 = 1;
+//                 }
+//                 if(strlen($_POST["measurement3"])>0) {
+//                     $measurement3 = 1;
+//                 }
 
-		// 	$this->view->render('home/ProductList',$params);
-		// }
+//                 $fields = [
+//                     "name" => $_POST["Product_Name"],
+//                     "description" => $_POST["Product_Description"],
+//                     "price" => $_POST["product_price"],
+//                     "sale_price" => $_POST["sale_price"],
+//                     "sub_category_id" => $_POST["category"],
+//                     "material" => $_POST["material"],
+//                     "measurement_1_al" => $measurement1,
+//                     "measurement_2_al" => $measurement2,
+//                     "measurement_3_al" => $measurement3
+//                 ];
+//                 $db->insert('product_features', $fields);
 
+// //                $sql = "SELECT * FROM products";
+// //                $db->query($sql);
+// //                dnd($detail);
+//                 $product_id = $db->lastID();
 
+//                 $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images';
+//                 $images=$_FILES["imagesUpload"];
+// //                dnd($images);
+//                 $i=0;
+//         		foreach ($images["name"] as $path) {
+//                     $target_file = $target_dir . '/' . basename($path);
+//                     $target_file = ltrim($target_file,"/");
+//                     move_uploaded_file($images["tmp_name"][$i], $target_file);
 
+//         			$values = [
+//         				"product_id" => $product_id,
+//         				"image_path" => $path,
+//         			];
+//                     $i++;
+//         		    $db->insert('images', $values);
+//         	}
 
-        public function addProductAction(){
+//         		//insert to colors table
 
-        	$db = DB::getInstance();
-        	$categories = $db->find('sub_categories');
-        	$params = [$categories];
+//             }
+//             $this->view->render('home/addProduct', $params);
 
-        	if ($_POST) {
-				$db = DB::getInstance();
-
-//				dnd($_POST);
-
-                $measurement1=0;$measurement2=0;$measurement3=0;
-                if(strlen($_POST["measurement1"])>0) {
-                    $measurement1 = 1;
-                }
-                if(strlen($_POST["measurement2"])>0) {
-                    $measurement2 = 1;
-                }
-                if(strlen($_POST["measurement3"])>0) {
-                    $measurement3 = 1;
-                }
-
-                $fields = [
-                    "name" => $_POST["Product_Name"],
-                    "description" => $_POST["Product_Description"],
-                    "price" => $_POST["product_price"],
-                    "sale_price" => $_POST["sale_price"],
-                    "sub_category_id" => $_POST["category"],
-                    "material" => $_POST["material"],
-                    "measurement_1_al" => $measurement1,
-                    "measurement_2_al" => $measurement2,
-                    "measurement_3_al" => $measurement3
-                ];
-                $db->insert('product_features', $fields);
-
-//                $sql = "SELECT * FROM products";
-//                $db->query($sql);
-//                dnd($detail);
-                $product_id = $db->lastID();
-
-                $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images';
-                $images=$_FILES["imagesUpload"];
-//                dnd($images);
-                $i=0;
-        		foreach ($images["name"] as $path) {
-                    $target_file = $target_dir . '/' . basename($path);
-                    $target_file = ltrim($target_file,"/");
-                    move_uploaded_file($images["tmp_name"][$i], $target_file);
-
-        			$values = [
-        				"product_id" => $product_id,
-        				"image_path" => $path,
-        			];
-                    $i++;
-        		    $db->insert('images', $values);
-        	}
-
-        		//insert to colors table
-
-            }
-            $this->view->render('home/addProduct', $params);
-
-        }
+//         }
 
 
 

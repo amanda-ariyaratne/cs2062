@@ -1,25 +1,38 @@
 <?php
 
+    class Product extends Model implements Observable{
 
-	class Product extends Model {
-
-        protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];
-
+        protected $_table, $_modelName, $_softDelete = false;
+        private $observers=array();
         public $id;
 
-        public function __construct($products="product"){
-            $table = $products;
-            parent::__construct($table);
 
+		public function __construct($products){
+			$table = $products;
+			parent::__construct($table);
+		}
 
+        public function getAcceptedRequest(){
+
+            //end of the function
+            setChanged();
+            notifyObservers();
         }
 
-        public function get_db(){
-            return $this->_db;
+
+        public function setChanged(){
+            //implement changing functions
         }
 
+        public function notifyObservers(){
+            foreach($observers as $observer){
+                $observer->update();
+            }
+        }
 
-
+        public function addObserver($obj){
+            array_push($observers, $obj);
+        } 
 
         public function getViewDetails($a){
             $a--;
@@ -37,7 +50,7 @@
         }
 
 
-        public function getViewDetailsOfId($id){
+        public function getPageVendor($id){
             
             $conditions = array('conditions'=>'vendor_id =?','bind'=> [$id]);
             $details = $this->find($conditions);
@@ -51,7 +64,7 @@
 
             //get vendor's name
             $con=array('conditions'=>'id =?','bind'=> [$row->vendor_id]); 
-            $user=new User('user');
+            $user=new User();
             $user_info=$user->getDetails($con);
             $name=$user_info->first_name.$user_info->last_name;
             if ($details) {
@@ -150,8 +163,6 @@
             }
             return $new_item_array;
         }
-
-
     }
 
 
