@@ -1,6 +1,6 @@
 <?php
 
-	class Design extends Model {
+	class TailorDesign extends Model {
 		protected $_db, $_table;
 
 

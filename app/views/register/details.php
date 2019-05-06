@@ -58,7 +58,7 @@
 
     <div class="row">
       <div class="new-address col-12">
-        <a href="<?=PROOT?>register/editDetails"><button id="new-address" class="btn btn-1" onclick="window.location.href = 'editDetails'"></a>Edit Your Info</button>
+        <a href="<?=PROOT?>register/editDetails"><button id="new-address" class="btn btn-1" onclick="window.location.href = 'editMyAccount'"></a>Edit Your Info</button>
         <!-- <a href="/account">Return to Account Detail</a> -->
       </div>
 
@@ -101,7 +101,7 @@
             </div>
             <div class="control-wrapper">
               <label>&nbsp</label>
-              <input type="text" id="city" class="col-md-6 col-sm-12" name="city" placeholder="City" value="" disabled/>
+              <input type="text" id="city" class="col-md-6 col-sm-12" name="city" placeholder="City" value="<?php if(isset($user)){echo $user->city;}?>" disabled/>
             </div>            
             <div class="control-wrapper">
               <label>Postal Code</label>

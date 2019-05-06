@@ -1,223 +1,191 @@
-<div id="sidebar" class="left-column-container col-lg-3  d-none d-lg-block">
-
-  
-
-        <div class="sb-widget">
-          <div class="sb-banner">
-
-              
-                <a href="/collections/birthday-gifts" >
-                  <img class="lazyload" src = "<?=PROOT?>assets/images/products/front2.jpg" alt="" /> 
-                </a>
-            
-              
-              
-              <div class="block-text">
-                <span class="text" style="color: #fff;">Let clothes color your life!</span>
-                <a class="btn btn-1" href="#pagination-holder">shop now</a>
-              </div>
-          </div>
-        </div>
-  
-        <div class="sb-widget">
-          <div class="sb-caterogies">
-            
-            
-            
-            <h4 class="sb-title">Categories</h4>
-            
-            <ul class="caterogies-list">
-              
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/birthday-gifts.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/birthday-gifts">Birthday Gifts</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="dropdown">
-  
-    
-      <span class="icon lazyload waiting">
+<?= $this->setSiteTitle('Home') ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js">
+</script>-
+<style type="text/css">
+    ul {
+        display:block;
+        background:#45619D;
+        list-style:none;
+        margin:0;
+        padding:12px 10px;
+        height:21px;
+    }
+    ul li {
+        float:left;
+        font:13px helvetica;
+        font-weight:bold;
+        margin:3px 0;
+    }
+    ul li a {
+        color:#FFF;
+        text-decoration:none;
+        padding:6px 15px;
+        cursor:pointer;
+    }
+    ul li a:hover {
+        background:#425B90;
+        text-decoration:none;
+        cursor:pointer;
+    }
         
-          <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/decor-art.svg?13873283579714053224" alt="" />
+    #noti_Container {
+        position:relative;
+    }
+       
+    /* A CIRCLE LIKE BUTTON IN THE TOP MENU. */
+    #noti_Button {
+        width:22px;
+        height:22px;
+        line-height:22px;
+        border-radius:50%;
+        -moz-border-radius:50%; 
+        -webkit-border-radius:50%;
+        background:#FFF;
+        margin:-3px 10px 0 10px;
+        cursor:pointer;
+    }
         
-      </span>
-    
-  
-  
-  <a href="/collections/decor-art" class="dropdown-link"><span>Decor Art</span></a>
-  <span class="expand"></span>
-
-  <ul class="dropdown-menu">
-    
-      
-
-  <li><a href="/collections/personal"><span>Personal</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/romantic"><span>Romantic</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/special-goods"><span>Special Goods</span></a></li>
-
-
-    
-  </ul>
-</li>
-              
-                  
-
-                
-                  
-
-                  
-<li class="dropdown">
-  
-    
-<span class="icon lazyload waiting">
-  
-    <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/every-day.svg?13873283579714053224" alt="" />
-  
-</span>
-
-  
-  
-  <a href="/collections/every-day" class="dropdown-link"><span>Every Day</span></a>
-  <span class="expand"></span>
-
-  <ul class="dropdown-menu">
-    
-      
-
-  <li><a href="/collections/toys"><span>Toys</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/variables"><span>Variables</span></a></li>
-
-
-    
-      
-
-  <li><a href="/collections/vintage"><span>Vintage</span></a></li>
-
-
-    
-  </ul>
-</li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/furniture.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/furniture">Furniture</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/kitchen-things.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/kitchen-things">Kitchen Things</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/illumination.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/illumination">Illumination</a>
-                    </li>
-              
-                  
-
-                
-                  
-
-                  
-                    <li class="">
-                      
-                        <span class="icon lazyload waiting">
-                          
-                            <img class="lazyload" data-src = "//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/party.svg?13873283579714053224" alt="" />
-                          
-                        </span>
-                      
-                      <a href="/collections/party">Party</a>
-                    </li>
-              
-                  
-
-                
-
-              
-            </ul>
-            
-          </div>
-        </div>
-  
+    /* THE POPULAR RED NOTIFICATIONS COUNTER. */
+    #noti_Counter {
+        display:block;
+        position:absolute;
+        background:#E1141E;
+        color:#FFF;
+        font-size:12px;
+        font-weight:normal;
+        padding:1px 3px;
+        margin:-8px 0 0 25px;
+        border-radius:2px;
+        -moz-border-radius:2px; 
+        -webkit-border-radius:2px;
+        z-index:1;
+    }
         
+    /* THE NOTIFICAIONS WINDOW. THIS REMAINS HIDDEN WHEN THE PAGE LOADS. */
+    #notifications {
+        display:none;
+        width:430px;
+        position:absolute;
+        top:30px;
+        left:0;
+        background:#FFF;
+        border:solid 1px rgba(100, 100, 100, .20);
+        -webkit-box-shadow:0 3px 8px rgba(0, 0, 0, .20);
+        z-index: 0;
+    }
+    /* AN ARROW LIKE STRUCTURE JUST OVER THE NOTIFICATIONS WINDOW */
+    #notifications:before {         
+        content: '';
+        display:block;
+        width:0;
+        height:0;
+        color:transparent;
+        border:10px solid #CCC;
+        border-color:transparent transparent #FFF;
+        margin-top:-20px;
+        margin-left:10px;
+    }
+        
+    h3 {
+        display:block;
+        color:#333; 
+        background:#FFF;
+        font-weight:bold;
+        font-size:13px;    
+        padding:8px;
+        margin:0;
+        border-bottom:solid 1px rgba(100, 100, 100, .30);
+    }
+        
+    .seeAll {
+        background:#F6F7F8;
+        padding:8px;
+        font-size:12px;
+        font-weight:bold;
+        border-top:solid 1px rgba(100, 100, 100, .30);
+        text-align:center;
+    }
+    .seeAll a {
+        color:#3b5998;
+    }
+    .seeAll a:hover {
+        background:#F6F7F8;
+        color:#3b5998;
+        text-decoration:underline;
+    }
+    .body{
+      margin:0;
+      padding:0;
+    }
+</style>
+<?= $this->start('head'); ?>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 
-          <div class="sb-widget widget-recently-viewed hide">
-            <div class="sb-product sb-recently-viewed">
-              
-              <h4 class="sb-title">Recently viewed</h4>
-              
-              <div id="recently-viewed-products" class="collection clearfix"></div>
+    <div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Find Friends</a></li>
+            <li id="noti_Container">
+                <div id="noti_Counter"></div>   <!--SHOW NOTIFICATIONS COUNT.-->
+                
+                <!--A CIRCLE LIKE BUTTON TO DISPLAY NOTIFICATION DROPDOWN.-->
+                <div id="noti_Button"></div>    
 
-            </div>
-          </div>
-
+                <!--THE NOTIFICAIONS DROPDOWN BOX.-->
+                <div id="notifications">
+                    <h3>Notifications</h3>
+                    <div style="height:300px;"></div>
+                    <div class="seeAll"><a href="#">See All</a></div>
+                </div>
+            </li>
+            <li><a href="#">Messages</a></li>
+        </ul>
     </div>
+    <script>
+    $(document).ready(function () {
 
-    <div class="col-lg-9 col-md-12">
-        
-        dfgvhb
-    </div>
+        // ANIMATEDLY DISPLAY THE NOTIFICATION COUNTER.
+        $('#noti_Counter')
+            .css({ opacity: 0 })
+            .text('7')  // ADD DYNAMIC VALUE (YOU CAN EXTRACT DATA FROM DATABASE OR XML).
+            .css({ top: '-10px' })
+            .animate({ top: '-2px', opacity: 1 }, 500);
+
+        $('#noti_Button').click(function () {
+
+            // TOGGLE (SHOW OR HIDE) NOTIFICATION WINDOW.
+            $('#notifications').fadeToggle('fast', 'linear', function () {
+                if ($('#notifications').is(':hidden')) {
+                    $('#noti_Button').css('background-color', '#2E467C');
+                }
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                else $('#noti_Button').css('background-color', '#FFF');
+            });
+
+            $('#noti_Counter').fadeOut('slow');     // HIDE THE COUNTER.
+
+            return false;
+        });
+
+        // HIDE NOTIFICATIONS WHEN CLICKED ANYWHERE ON THE PAGE.
+        $(document).click(function () {
+            $('#notifications').hide();
+
+            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
+            if ($('#noti_Counter').is(':hidden')) {
+                // CHANGE BACKGROUND COLOR OF THE BUTTON.
+                $('#noti_Button').css('background-color', '#2E467C');
+            }
+        });
+
+        $('#notifications').click(function () {
+            return false;       // DO NOTHING WHEN CONTAINER IS CLICKED.
+        });
+    });
+</script>
+<?= $this->end(); ?>
+
+<?= $this->start('body'); ?>
+
+<?= $this->end(); ?>

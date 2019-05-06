@@ -1,10 +1,9 @@
 <?php 
 	class TailorShop extends Model{
-		private $table;
 
-		public function __construct($_table){
-			$this->table=$_table;
-			parent::__construct($_table);	
+		public function __construct(){
+			$table='tailor_shop';
+			parent::__construct($table);	
 		}
 
 		public function getShops($offset,$range){
@@ -14,6 +13,10 @@
 
 		public function noOfShops(){
 			return count($this->find());
+		}
+
+		public function getStoreByVendor($id){
+			return $this->findFirst(['conditions'=>"vendor_id = ?" , 'bind'=>[$id]]);
 		}
 	}
  ?>

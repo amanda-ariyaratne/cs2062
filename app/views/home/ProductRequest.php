@@ -23,11 +23,16 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="page-title">
-	Pro Dashboard		</div>
-					</div>
-				<div class="col-md-8 col-sm-6 col-xs-12">
-					<p id="breadcrumbs" class="breadcrumbs"><span xmlns:v="http://rdf.data-vocabulary.org/#"><span typeof="v:Breadcrumb"><a href="http://handy.themes.zone/" rel="v:url" property="v:title">Home</a> / <span class="breadcrumb_last">Pro Dashboard</span></span></span></p>						</div>
-	</div></div></div><!-- end of Breadcrumbs -->
+							Custom Request	
+						</div>
+			</div>
+			<div class="col-md-8 col-sm-6 col-xs-12">
+				<p id="breadcrumbs" class="breadcrumbs"><span xmlns:v="http://rdf.data-vocabulary.org/#"><span typeof="v:Breadcrumb"><a href="http://handy.themes.zone/" rel="v:url" property="v:title">Home</a> / <span class="breadcrumb_last">Custom Request</span></span></span></p>						
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end of Breadcrumbs -->
 			
 	<main class="site-content col-xs-12 col-md-9 col-sm-8 col-md-push-3 col-sm-push-4" itemscope="itemscope" itemprop="mainContentOfPage">
 
@@ -221,12 +226,14 @@
 	    
 			
 	<div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+		<br><br>
 			<?php include 'Categories.php'?>					
 	</div>
 				
 			
 
 </div>
+<br><br><br>
 </div><!-- end of Content wrapper -->
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
