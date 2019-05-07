@@ -1,22 +1,35 @@
 <?php 
 
-	class CustomRequest extends Model {
+	class CustomRequest extends Model implements Observable{
 
-		public $table;
-		// private $name;
-		// private $description;
-		// private $color;
-		// private $location;
-		// private $due_date;
-		// private $status;
-		
+		private $table;
+		private $observers=array();
 
 		public function __construct($_table){
 			$this->table=$_table;
 			parent::__construct($_table);			
 		}
 
-		public function getViewRequestDetails($a){
+		public function getAcceptedRequest(){
+			setChanged();
+			notifyObservers();
+		}
+
+		public function setChanged(){
+            //implement changing functions
+        }
+
+        public function notifyObservers(){
+            foreach($observers as $observer){
+                $observer->update();
+            }
+        }
+
+        public function addObserver($obj){
+            array_push($observers, $obj);
+        } 
+
+		public function getViewDetails($a){
 			$a--;
 			$limit = array('limit'=>$a++.',6');
 			$details = $this->find($limit);
@@ -61,8 +74,6 @@
     		}
 		}
 
-
-
 		public function addRequest(){
 
 		}
@@ -76,10 +87,6 @@
 		}
 
 		public function acceptRequest(){
-
-		}
-
-		public function getAcceptedRequest(){
 
 		}
 

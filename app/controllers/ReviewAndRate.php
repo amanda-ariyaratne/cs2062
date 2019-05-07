@@ -42,7 +42,7 @@
 					Router::redirect('home/productView/'.$p_id);
 				}
 				else{
-					Router::redirect('register/login');
+					Router::redirect('account/login');
 				}
 
 			} else {

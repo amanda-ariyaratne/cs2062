@@ -2,6 +2,7 @@
 
 <?= $this->start('head'); ?>
   <link href="<?=PROOT?>assets/css/order.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
 
   <style>
     .bg-danger{
@@ -270,7 +271,7 @@
               <input type="submit" class="button button-primary btn-primary" value="Continue to payment method" style="background-color: #c1939e; cursor: pointer; border-color: black; border-radius: 4px; border:2px solid #c1939e;padding: 10px; float:right;">
             </div>
             <input type='hidden' name='payment_summary' value="<?php echo htmlentities(serialize($params[1])); ?>" />
-            <?php echo'<input type="hidden" name="order_id" value='.$params['order_id'].'>';?> 
+            <?php echo'<input type="hidden" name="user_id" value='.$params['user_id'].'>';?> 
         </div>
 
     </form>
@@ -348,8 +349,7 @@
           </tr>
         </thead>
         <tbody class="total-line-table__tbody">
-          <h2 style="padding: 20px 100px; background-color: #c1939e; border-style: solid; border-width: 5px; border-color: white;">PAYMENT SUMMARY</h2>
-
+          <h2 id="paymentsummery" style="width: 380px ;padding: 20px 100px; background-color: #c1939e; border-style: solid; border-width: 5px; border-color: white;font-size: 1.2857em;line-height: 1.3em;font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,sans-serif;background-image: linear-gradient(#c1939e,#f7d2da);">PAYMENT SUMMARY</h2>
           <?php
             foreach($params[1][0] as $item){
               echo '

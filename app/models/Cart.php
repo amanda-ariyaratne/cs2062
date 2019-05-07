@@ -2,17 +2,14 @@
 
 	class Cart extends Model{
 
-	    public $cartItems = [];
+		public function __construct($table='cart'){
+			parent::__construct($table);
+		}
 
-        public function __construct($a = ''){
-            $table = 'cart';
-            parent::__construct($table);
-        }
+		public function getPaymenteDetails($o_id){
+			$payments = array();
 
-        public function getPaymenteDetails($o_id){
-            $payments = array();
-
-            $details = $this->find(array('conditions' => 'order_id = ?', 'bind' => [$o_id]));
+			$details = $this->find(array('conditions' => 'customer_id = ?' , 'bind' => [$o_id]));
 
             if (count($details) != 0) {
                 foreach ($details as $item) {

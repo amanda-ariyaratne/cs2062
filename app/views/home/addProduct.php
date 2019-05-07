@@ -4,8 +4,10 @@
 		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
         <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
         <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
-<!--        <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/style.css' type='text/css' media='all' />-->
-<!--        <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
+        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style-1.css' type='text/css' media='all' />
+        <link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
+        <link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
+
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
@@ -60,9 +62,6 @@
 
             <h2 class="heading">Product Details</h2>
 
-			<!-- <input type="hidden" id="_wcv-save_store_settings" name="Product Details" value="92d9c35492" /><input type="hidden" name="Product Details" value="/dashboard/?terms=1" /></label><input type="hidden" class="" style="" name="Product Details" id="_wcv_vendor_application_id" value="5181" placeholder=""  />
-			<h3>Product Details</h3> -->
-
 			<div class="wcv-signupnotice">
 			</div>
 
@@ -83,6 +82,7 @@
 
                                     </label><div class="control"><input type="text" class="box" style="" name="Product_Name" id="productName" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> -->
                                     </div>
+
                                     <small id="error-msg-name"></small>
                                     <br>
 
@@ -95,16 +95,16 @@
                                         <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
 
                                         </div>
-                                    </div>
+                                </div>
                                     <br/>
 
                                     <!-- Add image -->
-                                    <form action="" method="post" enctype="multipart/form-data">
-                                        <label for="_wcv_store_phone" class="">Select image</label>
-                                        <span class="require">*</span>
-                                        <input type="file" name="imagesUpload[]" id="productImage" multiple >
-<!--                                        <input type="submit" name="upload" value="UPLOAD">-->
-                                    </form>
+                                <form action="" method="post" enctype="multipart/form-data">
+                                    <label for="_wcv_store_phone" class="">Select image</label>
+                                    <span class="require">*</span>
+                                    <div>
+                                    <input type="file" name="fileUpload[]" id="productImage" multiple >
+                                    </div>
                                     <small id="error-msg-image"></small>
                                     <br/>
                                      <br/>
@@ -160,7 +160,6 @@
                                 </div>
                                 <br>
 
-
                                 <!-- Product Material -->
                                 <div class="control-group">
                                     <label for="_wcv_store_phone" class="">Product Material</label>
@@ -171,18 +170,19 @@
                                 <br>
 
                                 <!-- select colors -->
+
                                 <div class="control-group">
                                     <label>Select Availabe colors</label>
                                     <span class="require">*</span>
-
+                                    
                                     <div id="colorsAdd">
                                         <input type="color" name="color[]">
                                     </div>
                                     <small id="warning" style="font-color:red; font-size:12px;"> </small>
                                     <br>
-
-                                    <button  type="button" onclick="addMoreColorNow()">+</button>
-
+                                    
+                                    <button  onclick="addMoreColorNow()">+</button>                               
+                                    
                                 </div>
                                 <br><br>
 
@@ -243,42 +243,50 @@
 
                                         }
 
-                                        function validateData(){
-                                            document.getElementById("error-msg-name").innerHTML="";
-                                            document.getElementById("error-msg-image").innerHTML="";
-                                            document.getElementById("error-msg-price").innerHTML="";
-                                            document.getElementById("error-msg-category").innerHTML="";
-                                            var name=document.getElementById("productName").value;
-                                            var price=document.getElementById("productPrice").value;
-                                            var category=document.getElementById("productCategory").value;
-                                            var image=document.getElementById("productImage").files;
-                                            var error;
-                                            var msg = "fill requirerd fields";
-                                            if (name==""){
-                                                error=document.getElementById("error-msg-name");
-                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
-                                                return false;
-                                            }
-                                            else if (image.length==0){
-                                                error=document.getElementById("error-msg-image");
-                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
-                                                return false;
-                                            }
-                                            else if (price==""){
-                                                error=document.getElementById("error-msg-price");
-                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
-                                                return false;
-                                            }
-                                            else if (category==""){
-                                                error=document.getElementById("error-msg-category");
-                                                error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
-                                                return false;
-                                            }
-                                            else{
-                                                var msg = "";
-                                                return true;
-                                            }
+                                    function validateData(){
+
+                                        document.getElementById("error-msg-name").innerHTML="";
+                                        document.getElementById("error-msg-image").innerHTML="";
+                                        document.getElementById("error-msg-price").innerHTML="";
+                                        document.getElementById("error-msg-category").innerHTML="";
+
+                                        var name=document.getElementById("productName").value;
+                                        var price=document.getElementById("productPrice").value;
+                                        var category=document.getElementById("productCategory").value;
+                                        var image=document.getElementById("productImage").files;
+                                        var error;
+
+
+                                        var msg = "fill requirerd fields";
+                                        if (name==""){
+                                            error=document.getElementById("error-msg-name");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
+                                            return false;
                                         }
+
+                                        else if (image.length==0){
+                                            error=document.getElementById("error-msg-image");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
+                                            return false;
+                                        }
+
+                                        else if (price==""){
+                                            error=document.getElementById("error-msg-price");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
+                                            return false;
+                                        }
+
+                                        else if (category==""){
+                                            error=document.getElementById("error-msg-category");
+                                            error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
+                                            return false;
+                                        }
+
+                                        else{
+                                            var msg = "";
+                                            return true;
+                                        }
+                                    }
 
                                     </script>
 

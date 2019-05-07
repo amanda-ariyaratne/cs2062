@@ -12,6 +12,8 @@
 		}
 
 		public function calculateCheckoutPrice($item_array){
+			$usd = 177;
+			
 			$updated_items = array();
 			$new_array = array();
 
@@ -23,6 +25,7 @@
 			}
 			array_push($updated_items, $new_array);
 			$updated_items['total'] = $total;
+			$updated_items['total_in_USD'] = round($total/$usd , 3);
 			return $updated_items;
 		}
 
