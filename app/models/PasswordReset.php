@@ -28,7 +28,15 @@
 		}
 
 		public function isValid(){
-			return false;
+			$created_at = new DateTime($this->created_at, new DateTimeZone('Asia/Colombo'));
+			date_default_timezone_set('Asia/Colombo');
+			$now = new DateTime();
+			$created_at->modify('+1 day');
+			if ($created_at < $now) {
+				return false;
+			} else {
+				return true;
+			}
 		}
 
 	}
