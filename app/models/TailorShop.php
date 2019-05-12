@@ -20,7 +20,6 @@
 		}
 
 		public function updateStoreDetails($id, $fields){
-			//dnd($fields);
 			$this->update($id, $fields);
 			Router::redirect('account/storeDetails');
 		}

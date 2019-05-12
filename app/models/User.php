@@ -3,6 +3,7 @@
 	class User extends Model implements observer{
 		private $_isLoggedIn, $_sessionName, $_cookieName;
 		public static $currentLoggedInUser = null;
+
 		// customer = 0 ; default value
 		// vendor = 1 :
 		// admin  =2 ; 
@@ -25,7 +26,6 @@
 				}
 			}
 		}
-
 
 		public function acceptProduct(){
 			// by admin- accpet products
@@ -103,5 +103,45 @@
 
 		public function findByUserID($p_id){
 			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		}
+
+		public function sendPasswordResetEmail($email){
+
+			//store token in database
+			$this->removeOldToken($email);
+			$password_reset = new PasswordReset();
+			$token = $token = bin2hex(random_bytes(32));
+			$fields = [
+				'email' =>$email,
+				'token' => $token
+			];
+			$password_reset->insertNewToken($fields);
+
+			//send email
+			$to = $email;
+			$subject = "Password Recovery Mail - TailorMate.com";
+
+			// Message
+			$message = '<p>We recieved a password reset request. The link to reset your password is below. ';
+			$message .= 'If you did not make this request, you can ignore this email</p>';
+			$message .= '<p>Here is your password reset link:</br>';
+			$message .= '<a href="localhost/cs2062/account/resetPassword?token=' . $token . '"><?=PROOT?>account/resetPassword?token='.$token.'</a>';
+			$meesage .= '<p>Please note that the above link will be valid only for a time period of 24 hours.</p>';
+			$message .= '<p>Thanks!</p>';
+
+			$headers =  'MIME-Version: 1.0' . "\r\n"; 
+			$headers .= 'From: TailorMate <admin@tailormate.com>' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+
+			if(mail($to, $subject, $message, $headers)){
+				echo "Your Password has been sent to your email id";
+			}else{
+				echo "Failed to Recover your password, try again";
+			}
+		}
+
+		public function removeOldToken($email){
+			$password_reset = new PasswordReset();
+			$password_reset->removeOldToken($email);
 		}
 	}

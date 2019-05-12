@@ -170,6 +170,32 @@
 
 		}
 
+		public function forgotPasswordAction(){
+			$this->view->render('account/forgotPassword');
+		}
+
+		public function sendPasswordResetEmailAction(){
+			$email = $_POST["email"];
+			$_SESSION['email'] = $_POST['email'];
+			$user = new User();
+			if ($user->findByEmail($email) != null){
+			  	$user = $user->findByEmail($email);
+			  	$user->sendPasswordResetEmail($email);
+			  	Router::redirect('account/forgotPasswordMailSent');
+			} else {
+			   	$_SESSION['error_email'] = "<div style='color: red;'>This user doesn't exist.</div>";
+			  	Router::redirect('account/forgotPassword');
+			}
+		}
+
+		public function forgotPasswordMailSentAction(){
+			$this->view->render('account/forgotPasswordMailSent');
+		}
+
+		public function resetPasswordAction(){
+			dnd($_GET['token']);
+		}
+
 
 		public function storeDetailsAction(){
 			$vendor = currentUser();
