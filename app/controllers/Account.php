@@ -193,7 +193,18 @@
 		}
 
 		public function resetPasswordAction(){
-			dnd($_GET['token']);
+			$token = $_GET['token'];
+			$pr = new PasswordReset();
+			$pr = $pr->getPRByToken($token);
+			if ($pr->isValid()){
+
+			} else {
+				Router::redirect('account/passwordRecoveryExpired');
+			}
+		}
+
+		public function passwordRecoveryExpiredAction(){
+			$this->view->render('account/passwordRecoveryExpired');
 		}
 
 

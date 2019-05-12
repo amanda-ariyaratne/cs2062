@@ -23,5 +23,13 @@
 			return $this->findFirst(['conditions'=>"email = ?" , 'bind'=>[$email]]);
 		}
 
+		public function getPRByToken($token){
+			return $this->findFirst(['conditions'=>"token = ?" , 'bind'=>[$token]]);
+		}
+
+		public function isValid(){
+			return false;
+		}
+
 	}
 
