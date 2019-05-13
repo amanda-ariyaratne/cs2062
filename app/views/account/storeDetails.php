@@ -108,7 +108,7 @@
 
           <div class="row">
             <div class="new-address col-12">
-              <a href="<?=PROOT?>register/editStoreDetails">
+              <a href="<?=PROOT?>account/editStoreDetails">
                 <button type="button" id="new-address" class="btn btn-1" onclick="window.location.href = 'editStoreDetails'">Edit Store Info
                 </button>
               </a>
@@ -131,6 +131,11 @@
                     </div>
 
                     <div class="control-wrapper">
+                      <label>Paypal Email</label>
+                      <input type="text" id="paypal_email" class="col-md-6 col-sm-12" name="paypal_email" placeholder="Paypal Email" value="<?php if(isset($store)){echo $store->paypal_email;}?>" disabled/>
+                    </div>
+                    
+                    <div class="control-wrapper">
                       <label>Address</label>
                       <input type="text" id="apartmentNo" class="col-md-6 col-sm-12" name="apartmentNo" placeholder="Apartment No" value="<?php if(isset($store)){echo $store->apartmentNo;}?>" disabled/>
                     </div>
@@ -152,12 +157,12 @@
       
                     <div class="control-wrapper">
                       <label>Postal Code</label>
-                      <input type="text" id="postalCode" class="col-md-6 col-sm-12" name="postalCode" placeholder="Postal Code" value="<?php if(isset($store)){echo $store->postalCode;}?>" disabled/>
+                      <input type="text" id="postalCode" class="col-md-6 col-sm-12" name="postalCode" placeholder="Postal Code" value="<?php if(isset($store)){echo $store->postal_code;}?>" disabled/>
                     </div>
    
                     <div class="control-wrapper">
                       <label>Contact Number</label>
-                      <input type="text" id="contactNo" class="col-md-6 col-sm-12" name="contactNo" placeholder="Contact No eg. 11 xxx xxxx" value="<?php if(isset($store)){echo $store->contactNo;}?>" disabled/>
+                      <input type="text" id="contactNo" class="col-md-6 col-sm-12" name="contactNo" placeholder="Contact No eg. 11 xxx xxxx" value="<?php if(isset($store)){echo $store->contactNumber;}?>" disabled/>
                     </div>   
 
                     <div class="control-wrapper">

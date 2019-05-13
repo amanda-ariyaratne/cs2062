@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Login') ?>
+<?= $this->setSiteTitle('Forgot Password') ?>
 
 <?= $this->start('head'); ?>
 
@@ -49,20 +49,27 @@
             <div class="col-sm-6 col-xs-12">
               <div class="form-wrapper">
                 <div id="customer-login" class="content">
-                  <h2 class="heading">Login</h2>
+                  <h2 class="heading">Forgot Password</h2>
 
 
-                  <form method="post" action="<?=PROOT?>account/login">
+                  <form method="post" action="<?=PROOT?>account/sendPasswordResetEmail">
 
                     <div class="bg-danger"><?=$this->displayErrors ?></div>
 
                     <div class="control-wrapper">
+                      <div class="row"><span id="error_email" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;">
+                        <?php if (isset($_SESSION['error_email'])) {
+                          echo $_SESSION['error_email'];
+                          $_SESSION['error_email'] = '';
+                        }  ?>
+                      </span></div>
                       <label for="email">Email<span class="req">*</span></label>
-                      <input type="text" name="email" id="email" />
+                      <input type="text" name="email" id="email" value="<?php if(isset($_SESSION['email']))
+    echo $_SESSION['email'];$_SESSION['email']='';?>" required/>
                     </div>
 
-                    
-                    <div class="control-wrapper">
+                    <p class="note">We will send you an email to reset your password.</p>
+                    <!--<div class="control-wrapper">
                       <label for="password">Password<span class="req">*</span></label>
                       <input type="password" name="password" id="password" class="password" />
                     </div>
@@ -70,15 +77,10 @@
 
                     <div class="control-wrapper">
                       <label for="remember_me">Remember Me?<input type="checkbox" id="remember_me" name="remember_me" value="on" ></label>
-                    </div>
-                    
-
-                    <div class="control-wrapper last">
-                      <div class="action">
-                        <a class="forgot-pass" href="<?=PROOT?>account/forgotPassword">Lost your password?</a>
-                        <!--<a class="return-store" href="https://arena-handy.myshopify.com">Return to Store</a>-->
-                      </div>
-                      <input class="btn btn-1" type="submit" value="Login"><!-- Login</button> -->
+                    </div>-->
+                    <div class="control-wrapper">
+                      <button class="btn btn-1" type="submit">Reset Password</button>
+                      <a class="cancel btn btn-2" href="<?=PROOT?>account/login">Cancel</a>
                     </div>
                   </form>
                 </div>
@@ -89,7 +91,7 @@
                   <p class="note">We will send you an email to reset your password.</p>
 
 
- <!--                 <form method="post" action="/account/recover" accept-charset="UTF-8">
+                  <form method="post" action="/account/recover" accept-charset="UTF-8">
                     <input type="hidden" name="form_type" value="recover_customer_password" />
                     <input type="hidden" name="utf8" value="✓" />
                     <div class="control-wrapper">
@@ -101,7 +103,7 @@
                       <a class="cancel btn btn-2" href="javascript:;" onclick="hideRecoverPasswordForm();">Cancel</a>
                     </div>
 
-                  </form> -->
+                  </form>
 
 
                 </div>

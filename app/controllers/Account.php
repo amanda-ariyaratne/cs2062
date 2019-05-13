@@ -170,6 +170,43 @@
 
 		}
 
+		public function forgotPasswordAction(){
+			$this->view->render('account/forgotPassword');
+		}
+
+		public function sendPasswordResetEmailAction(){
+			$email = $_POST["email"];
+			$_SESSION['email'] = $_POST['email'];
+			$user = new User();
+			if ($user->findByEmail($email) != null){
+			  	$user = $user->findByEmail($email);
+			  	$user->sendPasswordResetEmail($email);
+			  	Router::redirect('account/forgotPasswordMailSent');
+			} else {
+			   	$_SESSION['error_email'] = "<div style='color: red;'>This user doesn't exist.</div>";
+			  	Router::redirect('account/forgotPassword');
+			}
+		}
+
+		public function forgotPasswordMailSentAction(){
+			$this->view->render('account/forgotPasswordMailSent');
+		}
+
+		public function resetPasswordAction(){
+			$token = $_GET['token'];
+			$pr = new PasswordReset();
+			$pr = $pr->getPRByToken($token);
+			if ($pr->isValid()){
+
+			} else {
+				Router::redirect('account/passwordRecoveryExpired');
+			}
+		}
+
+		public function passwordRecoveryExpiredAction(){
+			$this->view->render('account/passwordRecoveryExpired');
+		}
+
 
 		public function storeDetailsAction(){
 			$vendor = currentUser();
@@ -187,6 +224,65 @@
 			$params['vendor'] = $vendor;
 			$params['store'] = $store;
 			$this->view->render('account/editStoreDetails', $params);
+		}
+
+		public function updateStoreDetailsAction(){
+			$user = currentUser();
+			$store = new TailorShop();
+			$store = $store->getStoreByVendor($user->id);
+
+			$image = ($_FILES['logo']['name']);
+			$file_name = 'logo-' . date("Y-m-d-h-i-sa") . '-' . $store->id;
+			$file_ext = pathinfo($image)['extension'];
+			if ($file_ext != null) {
+				$file_path = $file_name . '.' . $file_ext;
+				$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/store_logo';
+				move_uploaded_file($_FILES["logo"]["tmp_name"], $target_dir.'/'.$file_path);
+			} else {
+				$file_path = '';
+			}
+            
+
+			$fields = [];
+			if ($_POST['store_name'] != null) {
+				$fields['name'] = $_POST['store_name'];
+			} else {
+				$fields['name'] = "";
+			}
+			if ($_POST['apartmentNo'] != null) {
+				$fields['apartmentNo'] = $_POST['apartmentNo'];
+			} else {
+				$fields['apartmentNo'] = "";
+			}
+			if ($_POST['streetName1'] != null) {
+				$fields['streetName1'] = $_POST['streetName1'];
+			} else {
+				$fields['streetName1'] = "";
+			}
+			if ($_POST['streetName2'] != null) {
+				$fields['streetName2'] = $_POST['streetName2'];
+			} else {
+				$fields['streetName2'] = "";
+			}
+			if ($_POST['city'] != null) {
+				$fields['city'] = $_POST['city'];
+			} else {
+				$fields['city'] = "";
+			}
+			if ($_POST['postalCode'] != null) {
+				$fields['postal_code'] = $_POST['postalCode'];
+			} else {
+				$fields['postal_code'] = "";
+			}
+			if ($_POST['contactNo'] != null) {
+				$fields['contactNumber'] = $_POST['contactNo'];
+			} else {
+				$fields['contactNumber'] = "";
+			}
+			if ($file_path != null) {
+				$fields['logo'] = $file_path;
+			}
+			$store->updateStoreDetails($store->id, $fields);
 		}
 
 	}

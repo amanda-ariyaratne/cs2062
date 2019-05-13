@@ -107,17 +107,17 @@
         <div class="page-address">
 
           <div class="row">
-            <div class="new-address col-12">
+            <!--<div class="new-address col-12">
               <a href="<?=PROOT?>register/editStoreDetails">
                 <button type="button" id="new-address" class="btn btn-1" onclick="window.location.href = 'editStoreDetails'">Edit Store Info
                 </button>
               </a>
-            </div>
+            </div>-->
 
             <div id="col-main" class="col-12">
 
               <div id="add_address" class="customer_address edit_address">
-                <form method="post" action="" id="address_form_new" accept-charset="UTF-8" enctype="multipart/form-data">
+                <form method="post" id="address_form_new" accept-charset="UTF-8" enctype="multipart/form-data" action="updateStoreDetails">
                   <div class="customer_address_table">
 
                     <div class="control-wrapper">
@@ -125,6 +125,11 @@
                       <input type="text" id="store_name" class="col-md-6 col-sm-12" name="store_name" placeholder="Store Name" value="<?php if(isset($store)){echo $store->name;}?>" />
                     </div>
 
+                    <div class="control-wrapper">
+                      <label>Paypal Email</label>
+                      <input type="text" id="paypal_email" class="col-md-6 col-sm-12" name="paypal_email" placeholder="Paypal Email" value="<?php if(isset($store)){echo $store->paypal_email;}?>" />
+                    </div>
+                    
                     <div class="control-wrapper">
                       <label>Address</label>
                       <input type="text" id="apartmentNo" class="col-md-6 col-sm-12" name="apartmentNo" placeholder="Apartment No" value="<?php if(isset($store)){echo $store->apartmentNo;}?>" />
@@ -147,12 +152,12 @@
       
                     <div class="control-wrapper">
                       <label>Postal Code</label>
-                      <input type="text" id="postalCode" class="col-md-6 col-sm-12" name="postalCode" placeholder="Postal Code" value="<?php if(isset($store)){echo $store->postalCode;}?>" />
+                      <input type="text" id="postalCode" class="col-md-6 col-sm-12" name="postalCode" placeholder="Postal Code" value="<?php if(isset($store)){echo $store->postal_code;}?>" />
                     </div>
    
                     <div class="control-wrapper">
                       <label>Contact Number</label>
-                      <input type="text" id="contactNo" class="col-md-6 col-sm-12" name="contactNo" placeholder="Contact No eg. 11 xxx xxxx" value="<?php if(isset($store)){echo $store->contactNo;}?>" />
+                      <input type="text" id="contactNo" class="col-md-6 col-sm-12" name="contactNo" placeholder="Contact No eg. 11 xxx xxxx" value="<?php if(isset($store)){echo $store->contactNumber;}?>" />
                     </div>   
 
                     <div class="control-wrapper">
@@ -186,13 +191,24 @@
                               removeTitle: 'Cancel or reset changes',
                               elErrorContainer: '#kv-avatar-errors-1',
                               msgErrorClass: 'alert alert-block alert-danger',
-                              defaultPreviewContent: '<img src="/samples/default-avatar-male.png" alt="Your Avatar">',
+                              defaultPreviewContent: ['<img src="<?php if (isset($store->logo)) {
+                                echo PROOT . 'assets/images/store_logo/' . $store->logo ;
+                              } else {
+                                echo PROOT . 'assets/images/defaultPreview.png' ;
+                              } ?> ">'],
+                              initialPreviewAsData : false,
+                              initialPreviewConfig: [
+                                  {previewAsData: false}
+                              ],
                               layoutTemplates: {main2: '{preview} {remove} {browse}'},
                               allowedFileExtensions: ["jpg", "png", "gif"]
                           });
                         });
                       </script>
-                    </div> 
+                    </div>
+                    <div class="control-wrapper">
+                      <button class="btn btn-1" type="submit">Save</button>
+                    </div>  
                   </div>        
                 </form>
               </div> 
