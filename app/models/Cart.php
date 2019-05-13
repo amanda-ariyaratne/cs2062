@@ -6,10 +6,10 @@
 			parent::__construct($table);
 		}
 
-		public function getPaymenteDetails($o_id){
+		public function getPaymenteDetails($u_id){
 			$payments = array();
 
-			$details = $this->find(array('conditions' => 'customer_id = ?' , 'bind' => [$o_id]));
+			$details = $this->find(array('conditions' => 'customer_id = ?' , 'bind' => [$u_id]));
 
 			if(count($details)!=0){
 				foreach ($details as $item) {

@@ -56,7 +56,7 @@
         <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle__dropdown" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z" /></svg>
       </span> -->
       <span class="order-summary-toggle__total-recap total-recap" data-order-summary-section="toggle-total-recap">
-        <span class="total-recap__final-price" data-checkout-payment-due-target="1300">Rs.<?=$params[1]['total']?>.00</span>
+        <span class="total-recap__final-price" data-checkout-payment-due-target="1300">$<?=$params[1]['total']?></span>
       </span>
     </span>
   </span>
@@ -300,97 +300,98 @@
           </div>
           </div>
         </div>
+
+
+
+   
         <div class="sidebar" role="complementary">
           <div class="sidebar__header">
-              
-<a class="logo logo--center" href="https://store...com">
-    <img alt="Tailor Mate Online Store" class="logo__image logo__image--small" src="" />
-</a>
-<h1 class="visually-hidden">
-  Customer information
-</h1>
-
-
+            <a class="logo logo--center" href="https://store...com">
+                <img alt="Tailor Mate Online Store" class="logo__image logo__image--small" src="" />
+            </a>
+            <h1 class="visually-hidden">
+              Customer information
+            </h1>
           </div>
           <div class="sidebar__content">
-                <div id="order-summary" class="order-summary order-summary--is-collapsed" data-order-summary>
-  <h2 class="visually-hidden-if-js">Order summary</h2>
+            <div id="order-summary" class="order-summary order-summary--is-collapsed" data-order-summary>
+              <h2 class="visually-hidden-if-js">Order summary</h2>
 
-  <div class="order-summary__sections">
+              <div class="order-summary__sections">
 
-    <div class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
-      <table class="total-line-table">
-        <caption class="visually-hidden">Cost summary</caption>
-        <style type="text/css">
-          tbody{
-            display: table-row-group;
-            vertical-align: middle;
-            border-color: inherit;
-          }
-          table{
-            border-collapse: collapse;
-            border-spacing: 0;
-          }
-          tr{
-            display: table-row;
-            vertical-align: inherit;
-            border-color: inherit;
-          }
-          table thead th{
-            color: white;
-            background-color: white;
-            border-color: white;
-          }
-        </style>
-        <thead>
-          <tr>
-            <th scope="col"><span class="visually-hidden" >Description</span></th>
-            <th scope="col"><span class="visually-hidden">Price</span></th>
-          </tr>
-        </thead>
-        <tbody class="total-line-table__tbody">
-          <h2 id="paymentsummery" style="width: 380px ;padding: 20px 100px; background-color: #c1939e; border-style: solid; border-width: 5px; border-color: white;font-size: 1.2857em;line-height: 1.3em;font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,sans-serif;background-image: linear-gradient(#c1939e,#f7d2da);">PAYMENT SUMMARY</h2>
-          <?php
-            foreach($params[1][0] as $item){
-              echo '
+                <div class="order-summary__section order-summary__section--total-lines" data-order-summary-section="payment-lines">
+                  <table class="total-line-table">
+                    <caption class="visually-hidden">Cost summary</caption>
+                    <style type="text/css">
+                      tbody{
+                        display: table-row-group;
+                        vertical-align: middle;
+                        border-color: inherit;
+                      }
+                      table{
+                        border-collapse: collapse;
+                        border-spacing: 0;
+                      }
+                      tr{
+                        display: table-row;
+                        vertical-align: inherit;
+                        border-color: inherit;
+                      }
+                      table thead th{
+                        color: white;
+                        background-color: white;
+                        border-color: white;
+                      }
+                    </style>
+                    <thead>
+                      <tr>
+                        <th scope="col"><span class="visually-hidden" >Description</span></th>
+                        <th scope="col"><span class="visually-hidden">Price</span></th>
+                      </tr>
+                    </thead>
+                    <tbody class="total-line-table__tbody">
+                      <h2 id="paymentsummery" style="width: 380px ;padding: 20px 100px; background-color: #c1939e; border-style: solid; border-width: 5px; border-color: white;font-size: 1.2857em;line-height: 1.3em;font-family:-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,sans-serif;background-image: linear-gradient(#c1939e,#f7d2da);">PAYMENT SUMMARY</h2>
+                      <?php
+                        foreach($params[1][0] as $item){
+                          echo '
 
-                <tr class="total-line total-line--subtotal">
-                  <th class="total-line__name" scope="row" style="padding: 12px;">'.$item['name'].'   x'.$item['quantity'].'</th>
-                  <td class="total-line__price" style="border-color:white; padding: 12px;">
-                    <span class="order-summary__emphasis" data-checkout-subtotal-price-target="1300">
-                      '.$item['item_total'].'.00
+                            <tr class="total-line total-line--subtotal">
+                              <th class="total-line__name" scope="row" style="padding: 12px;">'.$item['name'].'   x'.$item['quantity'].'</th>
+                              <td class="total-line__price" style="border-color:white; padding: 12px;">
+                                <span class="order-summary__emphasis" >$ 
+                                  '.$item['item_total'].'
+                                </span>
+                              </td>
+                            </tr>
+
+                          ';}
+                      ?>
+                    </tbody>
+                    <tfoot class="total-line-table__footer">
+                      <tr class="total-line">
+                        <th class="total-line__name payment-due-label" scope="row" style="padding:50px 10px;">
+                          <i class="demo-icon icon-handy-cart" style="font-size: 15px; padding: 0px 20px 0 0;"></i>
+                          <span class="payment-due-label__total">Total</span>
+                        </th>
+                        <td class="total-line__price payment-due" style="border-color: white; padding:50px 0px;">
+                            <span class="payment-due__currency">USD</span>
+                          <span class="payment-due__price" data-checkout-payment-due-target="1300">
+                            <?=$params[1]['total']?>
+                          </span>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+
+                  <div class="visually-hidden" aria-live="polite" aria-atomic="true" role="status">
+                    Updated total price:
+                    <span data-checkout-payment-due-target="1300">
                     </span>
-                  </td>
-                </tr>
+                  </div>
 
-              ';}
-          ?>
-        </tbody>
-        <tfoot class="total-line-table__footer">
-          <tr class="total-line">
-            <th class="total-line__name payment-due-label" scope="row" style="padding:50px 10px;">
-              <span class="payment-due-label__total">Total</span>
-            </th>
-            <td class="total-line__price payment-due" style="border-color: white; padding:50px 0px;">
-                <span class="payment-due__currency">LKR</span>
-              <span class="payment-due__price" data-checkout-payment-due-target="1300">
-                <?=$params[1]['total']?>.00
-              </span>
-            </td>
-          </tr>
-        </tfoot>
-      </table>
-
-<div class="visually-hidden" aria-live="polite" aria-atomic="true" role="status">
-  Updated total price:
-  <span data-checkout-payment-due-target="1300">
-    $13.00
-  </span>
-</div>
-
-    </div>
-  </div>
-</div>
+                </div>
+              </div>
+            </div>
 
 
   <div id="partial-icon-symbols" class="icon-symbols" data-tg-refresh="partial-icon-symbols" data-tg-refresh-always="true"><svg xmlns="http://www.w3.org/2000/svg"><symbol id="caret-down"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"><path d="M0 3h10L5 8"/></svg></symbol>

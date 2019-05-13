@@ -61,7 +61,7 @@
 		}
 
 		public function findById($id){
-			return $this->findFirst(['conditions'=>'$id = ?', 'bind'=>[$id]]);
+			return $this->findFirst(['conditions'=>'id = ?', 'bind'=>[$id]]);
 		}
 
 		public function insert($fields){
