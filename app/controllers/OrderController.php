@@ -2,7 +2,7 @@
 	
 	class OrderController extends Controller{
 
-		public function customerInformationAction($user_id = '1'){
+		public function customerInformationAction(){
 			//load user email
 			$user = new User();
 			$user = $user->currentLoggedInUser();
@@ -11,7 +11,7 @@
 				$params = array();
 				array_push($params,$user);
 
-				$params = $this->addToParams($params, $user_id);
+				$params = $this->addToParams($params, $user->id);
 				//dnd($params);
 				$this->view->render('Order/CustomerInformation',$params);
 			}else{
@@ -52,8 +52,16 @@
 				//get order status
 				$order = new OrderStatus();
 				$order_status = $order->getOrderStatusByID($o_id);
-				//add to params
 				$params = ['order_status' => $order_status];
+
+				//add total 
+				$params = $this->addToParams($params, $user->id);
+
+				$customerOrder = new CustomerOrder();
+				$order_details = $customerOrder->getOrderDetails($o_id);
+				$params['order_details'] = $order_details;
+				
+				//dnd($params);
 				$this->view->render('Order/OrderStatus', $params);
 			}else{
 					Router::redirect('account/login');

@@ -27,6 +27,9 @@
 			return $this->find(array('conditions'=>'user_id = ?' , 'bind' => [$id]));
 		}
 
+		public function getOrderDetails($o_id){
+			return $this->findFirst(array('conditions'=>'id = ?' , 'bind' => [$o_id]));
+		}
 
 		//state behavioral pattern
 		public function setState($state,$_state_obj){

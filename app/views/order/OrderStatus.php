@@ -65,17 +65,44 @@
 
                 <div class="content-box" data-order-updates="true">
                   <div class="content-box__row">
-                    <h2 class="os-step__title" style="font-size:23px; ">Order updates</h2>
+                    <h2 class="os-step__title" style="font-size:23px; ">Order Details</h2>
+
                     <div class="">
-                      <i class="demo-icon icon-handy-cart" style="font-size: 15px; padding: 0px 5px 0 0;"></i>
-                      <span style="padding-right: 50px;">Total : </span>
-                      <span>$ 550.17</span>
+                      <i class="demo-icon icon-handy-cart" style="font-size: 15px; padding: 5px 12px;"></i>
+                      <span style="padding-right: 15px;">Total : </span>
+                      <span>$ <?=$params[0]['total']?></span>
                     </div>
+
                     <div class="">
-                      <i class="far fa-calendar-check" style="font-size: 15px; padding: 0px 5px 0 0;"></i>
-                      <span style="padding-right: 15px;">Order date : </span>
-                      <span>25-04-2019</span>
+                      <i class="far fa-calendar-check" style="font-size: 15px; padding: 5px 12px;"></i>
+                      <span style="padding-right: 15px;">Date : </span>
+                      <span><?=$params['order_details']->created_at?></span>
                     </div>
+
+                    <table>
+                      <h2 class="os-step__title" style="font-size:23px; padding-top: 20px;">Ordered Items</h2>
+                      <tbody class="total-line-table__tbody">
+                        
+                        <?php
+                          foreach($params[0][0] as $item){
+                            echo '
+
+                              <tr class="total-line total-line--subtotal">
+                                <th class="total-line__name" scope="row" style="padding: 5px 12px;">'.$item['name'].'   x'.$item['quantity'].'</th>
+                                <td class="total-line__price" style="border-color:white; padding:5px 12px;">
+                                  <span class="order-summary__emphasis" >$ 
+                                    '.$item['item_total'].'
+                                  </span>
+                                </td>
+                              </tr>
+
+                            ';}
+                        ?>
+                        
+                      </tbody>
+                    </table>
+
+
                   </div>
                 </div>
 
@@ -85,16 +112,22 @@
                   </div>
                   <div class="content-box__row">
                     <div class="section__content">
+                      <style type="text/css">
+                        .order-details{
+                          padding: 0px 12px;
+                        }
+                      </style>
                       <div class="section__content__column section__content__column--half">
                       	<h3>Shipping address</h3>
-                      	<p class="visually-hidden">Log in to view all customer information.</p>
-                      	<div class=""><p>43b</p></div>
-                  		  <div class=""><p>wattegedara road</p></div>
-                  		  <div class=""><p>maharagama</p></div>
+                      	<div class="order-details"><p><?= $params['order_details']->address ?></p></div>
+                  		  <div class="order-details"><p><?= $params['order_details']->apartment_suite ?></p></div>
+                  		  <div class="order-details"><p><?= $params['order_details']->city ?></p></div>
+                        <div class="order-details"><p><?= $params['order_details']->postal_code ?></p></div>
                       </div>
                       <div class="section__content__column section__content__column--half">
-                        <h3>Shipping method</h3>
-                        <div class=""><p>on foot</p></div>
+                        <h3>Contact details</h3>
+                        <div class="order-details"><p><?= $params['order_details']->email ?></p></div>
+                        <div class="order-details"><p><?= $params['order_details']->phone ?></p></div>
                       </div>
                     </div>
                   </div>
