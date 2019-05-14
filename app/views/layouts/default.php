@@ -327,7 +327,7 @@
             <div class="header-logo col-lg-2 col-md-12">
               
               
-              <a href="#" title="Tailor Mate" class="logo-site lazyload waiting">
+              <a href="<?=PROOT?>home" title="Tailor Mate" class="logo-site lazyload waiting">
                 <img class=" lazyloaded" data-srcset="<?=PROOT?>assets/images/icon-main.jpg 1x, <?=PROOT?>assets/images/icon-main.jpg 2x" alt="Tailor Mate" style="max-width: 150px; border-radius: 50%;" srcset="<?=PROOT?>assets/images/icon-main.jpg 1x, <?=PROOT?>assets/images/icon-main.jpg 2x">
               </a>
             </div>
@@ -1149,15 +1149,15 @@
 
                         <ul class="f-list">
                           
-                          <li><a href="/account/login" ><span>Login</span></a></li>
+                          <li><a href="<?=PROOT?>register/login" ><span>Login</span></a></li>
                           
-                          <li><a href="/account/register"><span>Register</span></a></li>
+                          <li><a href="<?=PROOT?>register/register"><span>Register</span></a></li>
                           
-                          <li><a href="/pages/about-us"><span>About Us</span></a></li>
+                          <li><a href="<?=PROOT?>home/aboutUs"><span>About Us</span></a></li>
                           
-                          <li><a href="/pages/contact-us"><span>Contact us</span></a></li>
+                          <li><a href="<?=PROOT?>home/contactUs"><span>Contact us</span></a></li>
                           
-                          <li><a href="/pages/shipping-returns"><span>Shipping and Refund</span></a></li>
+                          <li><a href="<?=PROOT?>orderController/orderList"><span>Orders</span></a></li>
                           
                         </ul>
 

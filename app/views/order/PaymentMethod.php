@@ -34,7 +34,7 @@
             <svg width="11" height="7" xmlns="http://www.w3.org/2000/svg" class="order-summary-toggle__dropdown" fill="#000"><path d="M6.138.876L5.642.438l-.496.438L.504 4.972l.992 1.124L6.138 2l-.496.436 3.862 3.408.992-1.122L6.138.876z" /></svg>
           </span> -->
           <span class="order-summary-toggle__total-recap total-recap" data-order-summary-section="toggle-total-recap">
-            <span class="total-recap__final-price" data-checkout-payment-due-target="4157">Rs.<?=$params[1]['total']?>.00</span>
+            <span class="total-recap__final-price" >$ <?=$params[1]['total']?></span>
           </span>
         </span>
       </span>
@@ -245,7 +245,7 @@
                               <th class="total-line__name" scope="row" style="padding: 12px;">'.$item['name'].'   x'.$item['quantity'].'</th>
                               <td class="total-line__price" style="border-color:white; padding: 12px;">
                                 <span class="order-summary__emphasis" data-checkout-subtotal-price-target="1300">
-                                  '.$item['item_total'].'.00
+                                  $ '.$item['item_total'].'
                                 </span>
                               </td>
                             </tr>
@@ -256,26 +256,19 @@
                     <tfoot class="total-line-table__footer">
                       <tr class="total-line">
                         <th class="total-line__name payment-due-label" scope="row" style="padding:50px 10px;">
+                          <i class="demo-icon icon-handy-cart" style="font-size: 15px; padding: 0px 20px 0 0;"></i>
                           <span class="payment-due-label__total">Total</span>
                         </th>
                         <td class="total-line__price payment-due" style="border-color: white; padding:50px 0px;">
-                            <span class="payment-due__currency">LKR</span>
-                          <span class="payment-due__price" data-checkout-payment-due-target="1300">
-                            <?=$params[1]['total']?>.00
+                            <span class="payment-due__currency">USD</span>
+                          <span class="payment-due__price" >
+                            <?=$params[1]['total']?>
                           </span>
                         </td>
                       </tr>
                     </tfoot>
 
                   </table>
-
-                  <div class="total-in-USD" style="padding-top: 60px;">
-                    <i class="demo-icon icon-handy-cart" style="font-size: 30px; padding: 0px 20px 0 15px;"></i>
-                    <span style="font-size: 30px;" >
-                      $<?=$params[1]['total_in_USD']?>
-                    </span>
-                    <span style="font-size: 25px;">USD</span>
-                  </div>
 
                 </div>
               </div>
