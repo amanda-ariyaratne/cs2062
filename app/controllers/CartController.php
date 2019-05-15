@@ -2,13 +2,9 @@
 
 class CartController extends Controller{
 
-    public $values = [];
-
-
-
     public function addToCartAction(){
         $validation = new Validate();
-        if($_POST){
+        if ($_POST) {
 
             //check validation of the entered data
             $to_check['color'] = [
@@ -17,36 +13,43 @@ class CartController extends Controller{
             ];
             $measurements = unserialize($_POST['measurements']);
             foreach ($measurements as $key => $mes) {
-                $to_check["measuremnt".$key] = [
+                $to_check["measuremnt" . $key] = [
                     'display' => $mes,
                     'is_numeric' => true,
                     'required' => true
                 ];
             }
-            $validation->check($_POST,$to_check);
+            $validation->check($_POST, $to_check);
 
             //check if the user is logged in
             $user = new User();
             $user = $user->currentLoggedInUser();
 
-            if ($user!=null) {
+            if ($user != null) {
 
-                if($validation->passed()){
+                if ($validation->passed()) {
                     $fields = [
+                        "name" => $_POST["name"],
+                        "price" => $_POST["price"],
                         "product_id" => $_POST["product_id"],
-                        "user_id"	 => $user->id,
-                        "color"		 => $_POST["color"],
-                        "quantity"	 => $_POST["quantity"],
+                        "user_id" => $user->id,
+                        "color" => $_POST["color"],
+                        "quantity" => $_POST["quantity"],
                     ];
+
+                    $cart = new Cart();
+                    $cart->addItem($fields);
 
                     $measurements = unserialize($_POST['measurements']);
                     foreach ($measurements as $key => $mes) {
-                        $fields[$mes] = $_POST["measuremnt".$key];
+                        $fields[$mes] = $_POST["measuremnt" . $key];
                     }
-                    $this->values = $fields;
-//                    dnd($fields);
+
+                    $this->view->render('home/productView');
+                    
+
                 }
-                else{
+                else {
                     ////////////////////////////////////////////////load product details
                     $p_id = $_POST["product_id"];
                     $params = array();
@@ -61,19 +64,20 @@ class CartController extends Controller{
                     $category_obj = new Category();
                     $category_details = $category_obj->findByID($sub_category_details->main_id);
                     $product_obj->main_category_name = $category_details->category_name;
-                    array_push($params,$product_obj);
+                    array_push($params, $product_obj);
                     //add product images array - inster to params
                     $img = new Image('image');
-                    array_push($params,$img->getImage($p_id));
+                    array_push($params, $img->getImage($p_id));
                     //load review table
                     $review_object = new Review();
                     $review_details = $review_object->findByProductID($p_id);
                     //load rates table
                     $rate_obj = new Rate();
-                    if(count($review_details)!=0){
+                    if (count($review_details) != 0) {
                         $starAvg = $rate_obj->calculateAvg($p_id);
                         $product_obj->starRating = $starAvg;
-                    }if(!empty($review_details)){
+                    }
+                    if (!empty($review_details)) {
                         $rate_details = $rate_obj->findByProductID($p_id);
                     }//new user object
                     $user_obj = new User();
@@ -82,25 +86,27 @@ class CartController extends Controller{
                     //add rete and user detail
                     $reverse_reviews = array();
                     $reverse_rates = array();
-                    if(!empty($review_details)){
+                    if (!empty($review_details)) {
                         $reverse_reviews = array_reverse($review_details);
                         $reverse_rates = array_reverse($rate_details);
                         //load user table
                         $i = 0;
-                        foreach($reverse_reviews as $review){
+                        foreach ($reverse_reviews as $review) {
                             $user = $user_obj->findByUserID($review->user_id);
                             $review->user_fname = $user->first_name;
                             $review->user_lname = $user->last_name;
                             //add rating to review
                             $review->rate = $reverse_rates[$i]->rate;
-                            $i ++;
+                            $i++;
                         }
-                    }array_push($params,$reverse_reviews);
+                    }
+                    array_push($params, $reverse_reviews);
                     //add more products by vendor
-                    $related_products = $product->findBy_vendorId($product_obj->vendor_id , 4 , $p_id);
-                    if(is_array($related_products)){
+                    $related_products = $product->findBy_vendorId($product_obj->vendor_id, 4, $p_id);
+                    if (is_array($related_products)) {
                         $image_array = $img->getMoreImagesByVendor($related_products);
-                    }array_push($params, $image_array);
+                    }
+                    array_push($params, $image_array);
                     //load product colors
                     $color = new Color();
                     $params['colors'] = $color->getColorByproductID($p_id);
@@ -109,21 +115,52 @@ class CartController extends Controller{
                     $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
                     $this->view->displayErrors = $validation->displayErrors();
-                    $this->view->render('home/productView',$params);
+                    $this->view->render('home/productView', $params);
                 }
-            }
-            else{
-                Router::redirect('register/login');
+            } else {
+                Router::redirect('account/login');
             }
         }
     }
 
     public function cartAction(){
-        $this->view->render('cart/cart');
+        $user = new User();
+        $user = $user->currentLoggedInUser();
+        $userId = $user->id;
+
+        if ($user != null) {
+            $cart = new Cart();
+            $cartItems = $cart->getCartItems($userId);
+            $params = [$cartItems];
+            $this->view->render('cart/cart',$params);
+        }
+        else {
+            Router::redirect('account/login');
+        }
 
     }
 
+    public function removeAction($i){
+        $user = new User();
+        $user = $user->currentLoggedInUser();
+        $userId = $user->id;
 
+        $cart = new Cart();
+        $cart->remove($i,$userId);
 
+        $this->view->render('cart/cart');
+    }
+
+    public function emptyCartAction(){
+        $user = new User();
+        $user = $user->currentLoggedInUser();
+        $userId = $user->id;
+
+        $cart = new Cart();
+        $cart->emptyCart($userId);
+
+        $this->view->render('cart/cart');
+
+    }
 
 }

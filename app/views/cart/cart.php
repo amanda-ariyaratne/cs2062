@@ -1,15 +1,10 @@
-<?= $this->setSiteTitle('Cart'); ?>
+<?= $this->setSiteTitle('Shopping Cart') ?>
 
 <?= $this->start('head'); ?>
 
-<!--    <meta charset="UTF-8">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--    <link rel="profile" href="http://gmpg.org/xfn/11">-->
-<!--    <link rel="pingback" href="http://handy.themes.zone/xmlrpc.php">-->
-    <link rel='stylesheet'  href='<?=PROOT?>assets/css/style.css' type='text/css' media='all' />
-    <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
-    <link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
+<!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/style.css' type='text/css' media='all' />-->
+<!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/woo-styles.css' type='text/css' media='all' />-->
+<!--    <link rel='stylesheet' id='pt-grid-css'  href='--><?//=PROOT?><!--assets/css/pt-grid.css' type='text/css' media='all' />-->
 
 
 
@@ -132,49 +127,51 @@
             clear: both;
             margin: 38px 0px;
         }
-
     </style>
+
 
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
 
-<?php
-//$fields = Cart::$cartItems;
-    $fields = [["quantity"=>2,"price"=>900,"name"=>"T shirt","code"=>124]];
-//    dnd($fields);
+    <div id="body-content" class="layout-boxed">
+    <div id="main-content">
+    <div class="main-content">
+
+        <div class="wrap-breadcrumb bw-color">
+            <div id="breadcrumb" class="breadcrumb-holder container">
+
+                <div class="row">
+
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <div class="page-title">Shopping Cart</div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                        <ul class="breadcrumb">
+                            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a itemprop="url" href="/">
+                                    <span itemprop="title" class="d-none">Handy Store</span>Home
+                                </a>
+                            </li>
+                            <li class="active">Cart</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    <?php
+    $fields = $params[0];
     session_start();
     $_SESSION["cart_item"] = $fields;
 
-?>
+    ?>
+        <main class="site-content col-xs-9 col-md-9 col-sm-9" style="margin-left: 160px" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
 
-<div id="shopping-cart">
-<!--    <div class="txt-heading">Shopping Cart</div>-->
-    <div class="wrap-breadcrumb bw-color">
-        <div id="breadcrumb" class="breadcrumb-holder container">
-
-            <div class="row">
-
-                <div class="col-lg-6 d-none d-lg-block">
-                    <div class="page-title">Shopping Cart</div>
-                </div>
-
-
-                <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <ul class="breadcrumb">
-                        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a itemprop="url" href="/">
-                                <span itemprop="title" class="d-none">Handy Store</span>Home
-                            </a>
-                        </li>
-                        <li class="active">Cart</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <a class="btn btn-1" href="index.php?action=empty">Empty Cart</a>
+    <a class="btn btn-1" style="margin-left: 980px" href="<?=PROOT?>CartController/emptyCart">Empty Cart</a><br>
     <?php
     if(isset($_SESSION["cart_item"])){
         $total_quantity = 0;
@@ -183,24 +180,25 @@
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
             <tbody>
             <tr>
-                <th style="text-align:left;">name</th>
-                <th style="text-align:left;">Code</th>
-                <th style="text-align:right;" width="5%">Quantity</th>
-                <th style="text-align:right;" width="10%">Unit Price</th>
-                <th style="text-align:right;" width="10%">Price</th>
+                <th style="text-align:center;">name</th>
+                <th style="text-align:center;" width="8%">id</th>
+                <th style="text-align:center;" width="10%">Quantity</th>
+                <th style="text-align:center;" width="15%">Unit Price</th>
+                <th style="text-align:center;" width="20%">Price</th>
                 <th style="text-align:center;" width="5%">Remove</th>
             </tr>
             <?php
             foreach ($_SESSION["cart_item"] as $item){
                 $item_price = $item["quantity"]*$item["price"];
+
                 ?>
                 <tr>
                     <td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
-                    <td><?php echo $item["code"]; ?></td>
-                    <td style="text-align:right;"><?php echo $item["quantity"]; ?></td>
-                    <td  style="text-align:right;"><?php echo "$ ".$item["price"]; ?></td>
-                    <td  style="text-align:right;"><?php echo "$ ". number_format($item_price,2); ?></td>
-                    <td style="text-align:center;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
+                    <td><?php echo $item["product_id"]; ?></td>
+                    <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
+                    <td  style="text-align:center;"><?php echo "$ ".$item["price"]; ?></td>
+                    <td  style="text-align:center;"><?php echo "$ ". number_format($item_price,2); ?></td>
+                    <td style="text-align:center;"><a href="<?=PROOT?>CartController/remove/<?php echo $item["product_id"]; ?>" class="btnRemoveAction"><img src="<?=PROOT?>assets/images/icon-delete.png" alt="Remove Item" /></td>
                 </tr>
                 <?php
                 $total_quantity += $item["quantity"];
@@ -216,6 +214,12 @@
             </tr>
             </tbody>
         </table>
+        <br>
+        <div class="wc-proceed-to-checkout">
+
+            <a href="" class="btn btn-1" style="margin-left: 930px" >
+                Proceed to checkout</a>
+        </div>
         <?php
     } else {
         ?>
@@ -223,5 +227,9 @@
         <?php
     }
     ?>
+
+        </main>
+    </div>
 </div>
+    </div>
 <?= $this->end(); ?>

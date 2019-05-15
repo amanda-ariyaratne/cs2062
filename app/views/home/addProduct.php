@@ -1,52 +1,46 @@
-<?= $this->setSiteTitle('Add Product'); ?>
+<?= $this->setSiteTitle('Add Product') ?>
 
 <?= $this->start('head'); ?>
-		<link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
-        <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/woo-styles.css' type='text/css' media='all' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/style-1.css' type='text/css' media='all' />
-        <link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
-        <link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
+    <link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
+<!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/woo-styles.css' type='text/css' media='all' />-->
+<!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
 
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
 
-<div id="body-content" class="layout-boxed">
-    <div id="main-content">
-        <div class="main-content">
+    <div id="body-content" class="layout-boxed">
+        <div id="main-content">
+            <div class="main-content">
 
-            <div class="wrap-breadcrumb bw-color">
-                <div id="breadcrumb" class="breadcrumb-holder container">
+                <div class="wrap-breadcrumb bw-color">
+                    <div id="breadcrumb" class="breadcrumb-holder container">
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="col-lg-6 d-none d-lg-block">
-                            <div class="page-title">Add Product</div>
+                            <div class="col-lg-6 d-none d-lg-block">
+                                <div class="page-title">Add Product</div>
+                            </div>
+
+
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                                <ul class="breadcrumb">
+                                    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                                        <a itemprop="url" href="/">
+                                            <span itemprop="title" class="d-none">Handy Store</span>Home
+                                        </a>
+                                    </li>
+                                    <li class="active">Add Product</li>
+                                </ul>
+                            </div>
                         </div>
 
-
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                            <ul class="breadcrumb">
-                                <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                                    <a itemprop="url" href="/">
-                                        <span itemprop="title" class="d-none">Handy Store</span>Home
-                                    </a>
-                                </li>
-
-
-                                <li class="active">Add Product</li>
-
-
-                            </ul>
-                        </div>
                     </div>
-
                 </div>
-            </div>
+<div class="col-md-1"></div>
 
-
-            <main class="site-content col-xs-12 col-md-9 col-sm-8 col-md-push-3 col-sm-push-4" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
+            <main class="site-content col-xs-12 col-md-8 col-sm-8 col-md-push-3 col-sm-push-4" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
 
 
 			<div class="page-content entry-content"><!-- Page content -->
@@ -68,9 +62,6 @@
 			<br />
 
 
-
-
-
                             <div class="wcv-tabs top" data-prevent-url-change="true">
 
                                 <div class="tabs-content" id="store">
@@ -80,7 +71,7 @@
                                         <label for="_wcv_store_name" class="">Product Name 
                                         <span class="require">*</span>
 
-                                    </label><div class="control"><input type="text" class="box" style="" name="Product_Name" id="productName" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div><!--< p class="tip">Your shop name is public and must be unique.</p> -->
+                                    </label><div class="control"><input type="text" class="box" style="" name="Product_Name" id="productName" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div>
                                     </div>
 
                                     <small id="error-msg-name"></small>
@@ -91,8 +82,8 @@
                                     <div id="wp-pv_shop_description-wrap" class="wp-core-ui wp-editor-wrap tmce-active"><link rel='stylesheet' id='editor-buttons-css'  href='handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
                                         </div>
 
-                                        <div id="wp-pv_shop_description-editor-container" class="wp-editor-container"><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                        <textarea class="wp-editor-area" style="height: 200px" autocomplete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
+                                        <div id="wp-pv_shop_description-editor-container" class="wp-editor-container" ><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
+                                        <textarea class="wp-editor-area" style="height: 180px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
 
                                         </div>
                                 </div>
@@ -114,7 +105,7 @@
                                         <label for="_wcv_store_phone" class="">Product Price</label>
                                         <span class="require">*</span>
                                         <div class="control">
-                                            <input type="number" class="box" style="" name="product_price" id="productPrice" value="" placeholder="require value"  />
+                                            <input type="number" class="box" style="padding-left: 7px" name="product_price" id="productPrice" value="" placeholder="require value"  />
                                         </div>
                                     </div>
                                     <small id="error-msg-price"></small>
@@ -124,7 +115,7 @@
                                     <div class="control-group">
                                         <label for="_wcv_store_phone" class="">Sale Price</label>
                                         <div class="control">
-                                            <input type="number" class="box" style="" name="sale_price" id="salePrice" value="" placeholder="require value"  />
+                                            <input type="number" class="box" style="padding-left: 7px" name="sale_price" id="salePrice" value="" placeholder="require value"  />
                                         </div>
                                     </div>
                                     <br>
@@ -147,16 +138,18 @@
 
                                 <!-- select Measurements -->
                                 <div class="">
-<!--                                    <button type="button" onclick="getMeasurements()">Select Required Measurements</button><br>-->
+
                                     <?php
                                     $arry = $params[1];
+                                    $mes = [];
                                     ?>
                                     <label id="lab" for="_wcv_store_country">Select Required Measurements</label>
                                     <div id="measurements" name="mesname">
                                         <a></a>
 
                                     </div>
-<!--                                    <a name="m" style="display: none"></a>-->
+                                    <input style="display: none" name="mes" id="mesId">
+
                                 </div>
                                 <br>
 
@@ -172,7 +165,7 @@
                                 <!-- select colors -->
 
                                 <div class="control-group">
-                                    <label>Select Availabe colors</label>
+                                    <label>Select Available Colors</label>
                                     <span class="require">*</span>
                                     
                                     <div id="colorsAdd">
@@ -187,13 +180,12 @@
                                 <br><br>
 
 
-
                                     <script type="text/javascript">
 
                                         function getMeasurements() {
                                             var cat_id = Number(document.getElementById("productCategory").value);
                                             document.getElementById("measurements").innerHTML = "";
-
+                                            document.getElementById("mesId").value = "";
 
                                             var array = <?php echo json_encode($arry); ?>;
                                             var m = [];
@@ -202,7 +194,9 @@
                                                 if(Number(array[i].category_id)===cat_id){
 
                                                     var mname = array[i].name;
-                                                    document.getElementById("measurements").innerHTML += " "+mname+'<input type="checkbox" name=mname >';
+
+                                                    document.getElementById("measurements").innerHTML += " "+"  -"+mname;
+                                                    document.getElementById("mesId").value = mname;
 
 
                                                     // if(document.getElementById("reqMes").checked===true) {
@@ -215,16 +209,8 @@
                                                 }
 
                                             }
-
-
-
                                         }
 
-                                        function checkMeasurements(){
-                                            if(document.getElementById("reqMes").checked===true) {
-                                                alert(mname);
-                                            }
-                                        }
 
                                         var count=1;
                                         function addMoreColorNow(){
@@ -305,9 +291,10 @@
                 </div>
             </div>
             </main>
-            <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
-                <?php include ('Categories.php');?>
-            </div>
+                <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+                    <?php include ('Categories.php');?>
+                </div>
+
         </div>
     </div>
 </div>
