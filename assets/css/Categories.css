@@ -1,7 +1,7 @@
 .categories-title{
     font-style: normal;
-    font-family: -webkit-body;
-    font-size: large;
+    /*font-family: -webkit-body;*/
+    font-size: x-large;
 }
 
 .categories {
@@ -15,6 +15,13 @@
     width: 300px;
     margin-bottom: 100px;
 }
+
+.subName{
+    font-size: large;
+}
+
+
+
 
 ul {
     padding: 0;
