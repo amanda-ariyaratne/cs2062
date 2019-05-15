@@ -8,7 +8,7 @@
 		}
 
 		public function indexAction(){
-			$this->view->render('home/index');
+			$this->view->renderFrontPage('home/index');
 		}
 
 		public function testAction(){
@@ -146,8 +146,8 @@
 			array_push($params,$product_obj);
 
 			//add product images array - inster to params
-			$img = new Image('image');
-			array_push($params,$img->getImage($p_id));
+			$img = new Image('tailor_product_image');
+			array_push($params,$img->getImage($product_obj));
 			
 			//load review table
 			$review_object = new Review();

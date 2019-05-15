@@ -7,7 +7,7 @@
         public $id;
 
 
-		public function __construct($products){
+		public function __construct($products='product'){
 			$table = $products;
 			parent::__construct($table);
 		}

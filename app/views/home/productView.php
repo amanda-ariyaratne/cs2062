@@ -229,8 +229,8 @@
                           <div class="detail-price" itemprop="price" content="0.0">
                             
                             <?php echo '
-                              <span class="price-sale"><span class=money>Rs. '.$params[0]->sale_price.'</span></span>
-                              <del class="price-compare"> <span class=money>Rs. '.$params[0]->price.'</span></del>
+                              <span class="price-sale"><span class=money>$ '.$params[0]->sale_price.'</span></span>
+                              <del class="price-compare"> <span class=money>$ '.$params[0]->price.'</span></del>
                             ';?>
 
                           </div>
@@ -324,16 +324,16 @@
                           
 
                       
-                              <div class="swatch size clearfix" data-option-index="0">
+                              <div class="measurements-main" data-option-index="0">
                                 <div class="header" style="float: none;">Size</div>
 
                                   <?php
                                     foreach($params['measurements'] as $key=>$measurement){
                                       echo '
 
-                                        <div class="spr-form" style="padding-bottom:10px;" >
-                                          <label class="spr-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
-                                          <input placeholder=" ##"  class="spr-form-input spr-form-input-text"  style="position:absolute; right:250px; height:25px; width:100px; padding:5px 10px;" type="text" name="measuremnt'.$key.'" aria-required="true" />
+                                        <div class="spr-form-for-measurements" style="padding-bottom:10px;" >
+                                          <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
+                                          <input placeholder=" # of inches"  class="spr-form-input spr-form-input-text"  style="position:absolute; right:250px; height:25px; width:100px; padding:5px 10px;" type="text" name="measuremnt'.$key.'" aria-required="true" />
                                           
                                         </div>
                                       ';
@@ -839,10 +839,10 @@
                                     <div class="price-cart-wrapper">
                                       <div class="product-price">
                                         <span class="price-compare">
-                                          <span class="money" data-currency-lkr="Rs. '.$product['price'].'" data-currency="LKR">Rs. '.$product['price'].'</span>
+                                          <span class="money" data-currency-lkr="$ '.$product['price'].'" data-currency="LKR">$ '.$product['price'].'</span>
                                         </span>
                                         <span class="price-sale">
-                                          <span class="money" data-currency-lkr="Rs. '.$product['sale_price'].'" data-currency="LKR">Rs. '.$product['sale_price'].'</span>
+                                          <span class="money" data-currency-lkr="$ '.$product['sale_price'].'" data-currency="LKR">$ '.$product['sale_price'].'</span>
                                         </span>
                                       </div>
 
