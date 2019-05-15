@@ -173,13 +173,15 @@
     input[type="text"], input[type="password"] {
       padding-left: 7px;
       padding-right: 7px;
+      padding-top: 5px;
+      padding-bottom: 5px;
     }
     .footer-heading{
       font-size: 18px;
     }
   </style>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <?= $this->content('head'); ?>
   
 </head>

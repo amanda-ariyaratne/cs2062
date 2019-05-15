@@ -18,5 +18,12 @@
 		public function getStoreByVendor($id){
 			return $this->findFirst(['conditions'=>"vendor_id = ?" , 'bind'=>[$id]]);
 		}
+
+		public function updateStoreDetails($id, $fields){
+			//dnd($fields);
+			$this->update($id, $fields);
+			Router::redirect('account/storeDetails');
+		}
+
 	}
  ?>
