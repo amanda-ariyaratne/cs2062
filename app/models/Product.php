@@ -151,6 +151,52 @@
             }
             return $new_item_array;
         }
+
+        // public function search($keywords){
+        //     $products = [];
+        //     $keys = [];
+        //     foreach ($keywords as $key) {
+        //         $key = '%' . $key . '%';
+        //         array_push($keys, $key);
+        //     }
+
+        //     $params = [
+        //         'column' => 'name',
+        //         'keys' => $keys
+        //     ];
+            
+        //     $products = $this->_db->search('product', $params);
+
+        //     return $products;
+        // }
+
+        public function getViewDetailsForSearch($keywords, $a){
+            $products = [];
+            $keys = [];
+            foreach ($keywords as $key) {
+                $key = '%' . $key . '%';
+                array_push($keys, $key);
+            }
+
+            
+            $params = [
+                'column' => 'name',
+                'keys' => $keys,
+                'limit' => $a . ',6'
+            ];
+            
+            $details = $this->_db->search('product', $params);
+            
+            foreach ($details as $row){
+                $image=new Image('tailor_product_image');
+                $images=$image->getImage($row);
+                $row->images = $images;         
+            }   
+
+            $noOfRows=count($details);
+            
+            return [$details,$noOfRows];
+        }
     }
 
 

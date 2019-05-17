@@ -44,7 +44,7 @@
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];		
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
@@ -249,7 +249,20 @@
             $this->view->render('home/newProducts');
         }
 
+        public function searchAction($a='0'){
+        	$keywords = explode(" ", $_GET["keywords"]);
+        	$product=new Product('product');
+        	//$products = $product->search($keywords);
+        	$a = $_GET['page'];
+        	dnd($keywords);
+			$details = $product->getViewDetailsForSearch($keywords, $a);
+			$param=$details[0];
+			$noOfProducts =$details[1];			
 
+			$params=array($param,$a,$noOfProducts,'All Products');
+
+			$this->view->render('home/ProductList',$params);
+        }
 
 
     }
