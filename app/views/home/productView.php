@@ -178,6 +178,7 @@
                              
                              ';
                             }
+                            echo '<input type="hidden" name="image" value='.$params[1][0].'>';
                           ?>         
 
                       </div>
@@ -200,7 +201,7 @@
                           echo '
 
                         <h1 itemprop="name" content="'.$params[0]->name.'" class="page-heading">'.$params[0]->name.'</h1>
-                        
+
                         ';
                         ?>
                           <div class="rating-links">
@@ -263,11 +264,6 @@
 
                           <div class="group-cw clearfix">
                             
-
-
-
-
-
 
 
 
@@ -389,21 +385,28 @@
 
 
                               <input type='hidden' name='measurements' value="<?php echo htmlentities(serialize($params['measurements'])); ?>" />
-                              <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?> 
-                              
-                              
-      <!--                           <div class="pre-order hide">
-                                  <a href="#pre-order-popup" class="btn-pre-order btn btn-1">Pre-order</a>
-                                </div>
-                              
-                                <div class="pre-order-success hide">Successful pre-order.Thanks for contacting us!</div> 
-                              
-                              
-                              
-                                <div data-shopify="payment-button" class="shopify-payment-button">
-                                  <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
-                                  <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
-                                </div> -->
+                              <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?>
+                                <?php echo'<input type="hidden" name="price" value='.$params[0]->sale_price.'>';?>
+                                <?php echo'<input type="hidden" name="name" value='.$params[0]->name.'>';?>
+
+
+
+
+
+
+
+                                <!--                           <div class="pre-order hide">
+                                                            <a href="#pre-order-popup" class="btn-pre-order btn btn-1">Pre-order</a>
+                                                          </div>
+
+                                                          <div class="pre-order-success hide">Successful pre-order.Thanks for contacting us!</div>
+
+
+
+                                                          <div data-shopify="payment-button" class="shopify-payment-button">
+                                                            <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
+                                                            <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
+                                                          </div> -->
                               
                               
                             </div>

@@ -144,4 +144,8 @@
 			$password_reset = new PasswordReset();
 			$password_reset->removeOldToken($email);
 		}
+
+		public function updatePassword($fields){
+			return $this->update($this->id, $fields);
+		}
 	}
