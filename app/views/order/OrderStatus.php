@@ -3,6 +3,7 @@
 <?= $this->start('head'); ?>
   <link href="<?=PROOT?>assets/css/order.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
@@ -182,7 +183,7 @@
         		.order-icons span{
         			font-size: 20px;
         		}
-        		.fas{
+        		.fas.orderstatus{
         			font-size: 30px;
         			position: absolute;
         			right: 10px;
@@ -200,10 +201,10 @@
                     <?php
                       if ($params['order_status']['state_confirmed'] == '0') {
                         echo '<span>Confirmed</span>
-                              <i class="fas fa-check-circle"></i>';
+                              <i class="fas orderstatus fa-check-circle"></i>';
                       } else {
                         echo '<span style="color: #7f4956">Confirmed</span>
-                              <i class="fas fa-check-circle" style="color: #7f4956"></i> ';
+                              <i class="fas orderstatus fa-check-circle" style="color: #7f4956"></i> ';
                       }
                     ?>
 						    	</div>
@@ -212,10 +213,10 @@
                     <?php
                       if ($params['order_status']['state_manufacturing'] == '0') {
                         echo '<span>Manufacturing</span>
-                              <i class="fas fa-history"></i>';
+                              <i class="fas orderstatus fa-history"></i>';
                       } else {
                         echo '<span style="color: #7f4956">Manufacturing</span>
-                              <i class="fas fa-history" style="color: #7f4956"></i> ';
+                              <i class="fas orderstatus fa-history" style="color: #7f4956"></i> ';
                       }
                     ?>
                   </div>
@@ -224,10 +225,10 @@
                     <?php
                       if ($params['order_status']['state_delivering'] == '0') {
                         echo '<span>On it`s way</span>
-                              <i class="fas fa-truck"></i>';
+                              <i class="fas orderstatus fa-truck"></i>';
                       } else {
                         echo '<span style="color: #7f4956">On it`s way</span>
-                              <i class="fas fa-truck" style="color: #7f4956"></i> ';
+                              <i class="fas orderstatus fa-truck" style="color: #7f4956"></i> ';
                       }
                     ?>
                   </div>
@@ -236,10 +237,10 @@
                     <?php
                       if ($params['order_status']['state_delivered'] == '0') {
                         echo '<span>Delivered</span>
-                              <i class="fas fa-home"></i>';
+                              <i class="fas orderstatus fa-home"></i>';
                       } else {
                         echo '<span style="color: #7f4956">Delivered</span>
-                              <i class="fas fa-home" style="color: #7f4956"></i> ';
+                              <i class="fas orderstatus fa-home" style="color: #7f4956"></i> ';
                       }
                     ?>
                   </div>
