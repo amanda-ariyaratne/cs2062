@@ -179,6 +179,7 @@
     .footer-heading{
       font-size: 18px;
     }
+
   </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -362,18 +363,18 @@
               <div class="col-md-1"></div>
               <div class="col-md-1">
                 <a href="#" title="Sales"> 
-                  <i class="fas fa-comments-dollar" style="font-size: 45px; color: #c1939e;"></i>
+                  <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
                 </a>
               </div>
 
-              <div class="col-md-1">
+              <div class="col-md-1" >
 
                   <?php 
                       if ($user->role==0){
                         echo '
                           <a href="#" class="noti" style="color:#c1939e;" title="cart">
                             
-                            <i class="demo-icon icon-handy-cart" style="font-size:40px;"></i>
+                            <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
 
                             <span class="badge">
                               1
@@ -390,7 +391,7 @@
                         
                           <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
                               <span>
-                                <i class="fas fa-bell"></i>
+                                <i class="fas fa-bell noti-icon-style" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 7px; border-radius:3px; position:absolute; top:0px; "></i>
                               </span>
                               <span class="badge" id=#noti_Counter>
                                  3
@@ -427,7 +428,7 @@
                     <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
                       <a href="'.PROOT.'home/'.$LinkPath.'">
                       
-                      <i class="fas fa-tshirt" title='.$sentence.'></i>
+                      <i class="fas fa-tshirt" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 4px; border-radius:3px; position:absolute; top:7px; right:40px;" title='.$sentence.'></i>
                       </a>
                     </div>                  
                   

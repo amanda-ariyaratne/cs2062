@@ -50,8 +50,8 @@
 				<li><a href="<?=PROOT?>home/ProductList/1">Products</a></li>
 				<li><a href="<?=PROOT?>home/AboutUs">About</a></li>
 				<li><a href="<?=PROOT?>home/ContactUs">Contact</a></li>
-				<li><a href="<?=PROOT?>register/login">Login</a></li>
-				<li><a href="<?=PROOT?>register/register">Register</a></li>
+				<li><a href="<?=PROOT?>account/login">Login</a></li>
+				<li><a href="<?=PROOT?>account/register">Register</a></li>
 			</ul>
 		</div>
 

@@ -123,7 +123,7 @@
 						'region'  => $_POST['province'],
 						'postal code'       => $_POST['zip'],
 						'night_phone_a'     => '+94',
-						'night_phone_b'     => substr($_POST['phone'], -9)
+						'night_phone_b'     => substr($_POST['phone'], -10)
 					];
 					array_push($params, $fields);
 
@@ -149,12 +149,56 @@
 		}
 
 
+		private function addToParams($params , $user_id){
+			//load cart table and get item details
+			$cart = new Cart();
+			$cart_details = $cart->getPaymenteDetails($user_id);
 
-		public function viewOrderAction(){
-			dnd($_POST);
+			if(count($cart_details)!=0){
+				//load product table and get item prices
+				$product = new Product('product');
+				$product_details = $product->getProductPriceByID($cart_details);
+				
+				//calculate price 
+				$order = new CustomerOrder();
+				$order_details = $order->calculateCheckoutPrice($product_details);
+				array_push($params, $order_details);
+			}
+			else{
+				array_push($params, []);
+			}
+
+			$params['user_id'] = $user_id;
+			//dnd($params);
+			return $params;
 		}
 
 
+		public function updateStatusAction(){
+			$this->view->render('Order/updateStatus');
+		}
+		public function inputStatusAction(){
+			$order = new OrderStatus();
+			$order->updateStatus($_POST);
+			dnd('done');
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////// paypal
 
 		public function completeOrderAction(){
 			//dnd($_POST);
@@ -288,43 +332,6 @@
 
 
 
-
-
-
-
-
-
-		private function addToParams($params , $user_id){
-			//load cart table and get item details
-			$cart = new Cart();
-			$cart_details = $cart->getPaymenteDetails($user_id);
-
-			if(count($cart_details)!=0){
-				//load product table and get item prices
-				$product = new Product('product');
-				$product_details = $product->getProductPriceByID($cart_details);
-				
-				//calculate price 
-				$order = new CustomerOrder();
-				$order_details = $order->calculateCheckoutPrice($product_details);
-				array_push($params, $order_details);
-			}
-			else{
-				array_push($params, []);
-			}
-
-			$params['user_id'] = $user_id;
-			//dnd($params);
-			return $params;
-		}
-
-
-
-
-
-
-
-
        ////////////////////////////////////////////////// code from git
 
 		function verifyTransaction($data) {
@@ -402,14 +409,5 @@
 		}
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
 
-		public function updateStatusAction(){
-			$this->view->render('Order/updateStatus');
-		}
-		public function inputStatusAction(){
-			$order = new OrderStatus();
-			$order->updateStatus($_POST);
-			dnd('done');
-		}
 	}
