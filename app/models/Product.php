@@ -32,7 +32,7 @@
 
         public function addObserver($obj){
             array_push($observers, $obj);
-        } 
+        }
 
         public function getViewDetails($a){
             $a--;
@@ -68,9 +68,9 @@
             $user_info=$user->getDetails($con);
             $name=$user_info->first_name.$user_info->last_name;
             if ($details) {
-                $details[0]->vendorName = $name; 
+                $details[0]->vendorName = $name;
             }
-            
+
 
             //dnd($details);
             $noOfRows=count($this->find());
@@ -79,20 +79,11 @@
         }
 
 
-        public function addProduct(){
-            $measurement1 = 0;
-            $measurement2 = 0;
-            $measurement3 = 0;
-            if (strlen($_POST["measurement1"]) > 0) {
-                $measurement1 = 1;
-            }
-            if (strlen($_POST["measurement2"]) > 0) {
-                $measurement2 = 1;
-            }
-            if (strlen($_POST["measurement3"]) > 0) {
-                $measurement3 = 1;
-            }
 
+        public function addProduct()
+        {
+
+//		    dnd($_POST);
 
             $fields = [
                 "name" => $_POST["Product_Name"],
@@ -100,10 +91,7 @@
                 "price" => $_POST["product_price"],
                 "sale_price" => $_POST["sale_price"],
                 "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"],
-                "measurement_1_al" => $measurement1,
-                "measurement_2_al" => $measurement2,
-                "measurement_3_al" => $measurement3
+                "material" => $_POST["material"]
             ];
             
             $this->insert($fields);
