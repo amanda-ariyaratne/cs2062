@@ -25,7 +25,7 @@ class CartController extends Controller{
             $user = new User();
             $user = $user->currentLoggedInUser();
 
-//            if ($user != null) {
+            if ($user != null) {
 
                 if ($validation->passed()) {
                     $fields = [
@@ -118,26 +118,26 @@ class CartController extends Controller{
                     $this->view->displayErrors = $validation->displayErrors();
                     $this->view->render('home/productView', $params);
                 }
-//            } else {
-//                Router::redirect('account/login');
-//            }
+            } else {
+                Router::redirect('account/login');
+            }
         }
     }
 
-    public function cartAction($userId){
-//        $user = new User();
-//        $user = $user->currentLoggedInUser();
-//        $userId = $user->id;
-//
-//        if ($user != null) {
+    public function cartAction(){
+        $user = new User();
+        $user = $user->currentLoggedInUser();
+        $userId = $user->id;
+
+        if ($user != null) {
             $cart = new Cart();
             $cartItems = $cart->getCartItems($userId);
             $params = [$cartItems];
             $this->view->render('cart/cart',$params);
-//        }
-//        else {
-//            Router::redirect('account/login');
-//        }
+        }
+        else {
+            Router::redirect('account/login');
+        }
 
     }
 
