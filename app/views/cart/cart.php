@@ -14,7 +14,7 @@
         }
         table th{
             color: #575757;
-            font-weight: lighter;
+            font-weight: 100;
             font-size: 14px;
             background-color: #efefef;
             border-top: 1px solid #e1e1e1;
