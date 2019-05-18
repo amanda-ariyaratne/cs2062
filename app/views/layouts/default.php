@@ -419,10 +419,10 @@
 
                 <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
                     <span>
-                      <i class="fas fa-bell"></i>
+                      <i class="fas fa-bell noti-icon-style" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 7px; border-radius:3px; position:absolute; top:0px; "></i>
                     </span>
                     <span class="badge" id=#noti_Counter>
-                       <?=count($new)?>
+                       3
                     </span>
                 </a>
                 
@@ -435,10 +435,13 @@
                   <?php 
                       if ($user->role==3){
                         echo '
+                          <a href=# title="Your cart">
                             <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
+
                             <span class="badge">
                               100
                             </span>
+                          </a>
 
                       ';
                       }
@@ -447,7 +450,7 @@
 
                         echo '
                          <a href="#" title="Sales"> 
-                          <i class="fas fa-comments-dollar" style="font-size: 45px; color: #c1939e;"></i>
+                          <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
                         </a>
                         ';
                       }
