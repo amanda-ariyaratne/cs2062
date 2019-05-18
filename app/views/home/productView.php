@@ -177,7 +177,7 @@
                              
                              ';
                             }
-                            echo '<input type="hidden" name="image" value='.$params[1][0].'>';
+                            $image_path = $params[1][0];
                           ?>         
 
                       </div>
@@ -386,6 +386,7 @@
                               <input type='hidden' name='measurements' value="<?php echo htmlentities(serialize($params['measurements'])); ?>" />
                               <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?>
                                 <?php echo'<input type="hidden" name="price" value='.$params[0]->sale_price.'>';?>
+                                <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
                                 <?php echo'<input type="hidden" name="name" value='.$params[0]->name.'>';?>
 
 
@@ -445,7 +446,7 @@
 
                                       <div class="people-in-cart">
                                           <div class="img-user">
-                                            <img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image" />
+                                              <a href="<?=PROOT?>CartController/cart/0"><img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image"/>
                                           </div>
                                           <div class="people-block-text"></div>
                                       </div>
