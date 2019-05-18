@@ -6,7 +6,8 @@
 
 <link href="<?=PROOT?>assets/css/productView.css" rel="stylesheet" type="text/css" media="all" />
 <script src="<?=PROOT?>assets/js/productView.js"></script>
-<!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
+<!-- <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
+ --><!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
  --><!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  --><!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  -->	<style id="shopify-dynamic-checkout">
@@ -682,21 +683,20 @@
                               }
                               .rating label::before{
                                 content: '\f005';
-                                font-family: fontAwesome;
+                                font-family: 'Font Awesome 5 Free';
                                 position: relative;
                                 display: block;
                                 color: #f7d2da;
                               }
                               .rating label::after{
                                 content: '\f005';
-                                font-family: fontAwesome;
+                                font-family: 'Font Awesome 5 Free';
                                 position: absolute;
                                 display: block;
                                 color: #7f4956;
                                 top: 260px;
                                 opacity: 0;
                                 transition: .5s;
-                                text-shadow: 0 2px 5px rgba(0,0,0,.5);
                               }
                               .rating label:hover:after,
                               .rating label:hover ~ label:after,
@@ -715,7 +715,7 @@
                           </div>
 
                           <div class="yes-no-selector">
-                            <label class="spr-form-label" style="font-weight: 600">Did the product recived before deadline?</label>
+                            <label class="spr-form-label" style="font-weight: 600">Have the products recived before deadline?</label>
                             <div class="spr-form-input">
                               <input type="radio" name="yes-no" checked value="Yes">Yes</input>
                               <input type="radio" name="yes-no" value="No">No</input>
