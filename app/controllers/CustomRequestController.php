@@ -2,12 +2,13 @@
 	
 	class CustomRequestController extends Controller{
 
+		public function __construct($controller,$action){
+			parent::__construct($controller,$action);
+		}
 		
 		public function CustomerRequestViewAction($a){
-
-			$viewRequest = new CustomRequest('custom_request');
-
-			$details= $viewRequest-> getViewDetails($a);
+			$customRequest = new CustomRequest('custom_request');
+			$details= $customRequest->getViewDetails($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];
 			
@@ -18,10 +19,9 @@
 		}
 
 		public function ProductRequestAction(){
-
+			$customRequest = new CustomRequest('custom_request');
 			$params=array('Product Request');
 			if($_POST){
-				$customRequest=new CustomRequest('custom_request');
 				$customRequest-> createRequest();
 
 			
@@ -42,11 +42,11 @@
         }
 
         public function acceptAction(){
+        	$customRequest = new CustomRequest('custom_request');
 			//get value
 			$id=json_decode($_POST['id'])->id;	
-			
-			$customRequest=new CustomRequest('custom_request');
-			$value=$customRequest->acceptRequest($id);
+
+			$customRequest->acceptRequest($id);
 
 			//pass value
 			echo json_encode(array('status'=> $id));
@@ -54,10 +54,10 @@
 		}
 
 		public function removeAction(){
+			$customRequest = new CustomRequest('custom_request');
 			//get id
 			$id=json_decode($_POST['id'])->id;	
 			
-			$customRequest=new CustomRequest('custom_request');
 			$customRequest->rejectRequest($id);
 
 			//pass value

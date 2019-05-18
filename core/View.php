@@ -24,7 +24,7 @@
 			$old=$notification->getSeenNoti($user->id);
 			//get new notification
 			$new=$notification->getNewNoti($user->id);
-			// dnd($new[1]->id);
+			// dnd($new);
 			$viewArray = explode('/', $viewName);
 			$viewString = implode(DS, $viewArray);
 			if (file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $viewString . '.php')) {

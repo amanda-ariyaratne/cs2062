@@ -9,16 +9,15 @@
 		}
 		public function getNewNoti( $id ){
 			//unseen notifications
-			$condition = array('conditions'=>['seen = ?','_to = ?'],'bind'=> [ 0 , $id]);
-			
+			$condition = array('conditions'=>['seen = ?','_to = ?'],'bind'=> [ '0' , $id]);	
 			return $this->find($condition);			
 		}
 
 		
 		public function getSeenNoti( $id ){			
 			//seen notifications
-			$condition =['seen'=>'0'];
-			$this->update($id, $condition);
+			$condition =array('conditions'=>['seen = ?','_to = ?'],'bind'=> [ '1' , $id]);
+			return $this->find($condition);
 		}
 
 		public function remove($id){
@@ -26,8 +25,8 @@
 		}
 
 		public function updateAsSeen($id){
-			$condition=['seen'=>'1'];
-			$this->update($id, $condition);
+			$field=['seen'=>'1'];
+			$this->update($id, $field);
 		}
 	}
  ?>

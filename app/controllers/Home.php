@@ -2,7 +2,6 @@
 	class Home extends Controller {
         public $image;
         private $_user;
-        private $pin=30013003172516;
 
 		public function __construct($controller, $action){
 			parent::__construct($controller, $action);

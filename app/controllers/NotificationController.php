@@ -1,16 +1,15 @@
 <?php 
 	class NotificationController extends Controller{
-		protected $id,$noti;
 		
+			
 		public function __construct($controller, $action){
 			parent::__construct($controller, $action);
-			$id=currentUser()->id;
-			$noti=new Notification('notification');
-
 		}
 
 		public function oldNotificationAction(){
-			
+			$id=currentUser()->id;
+			$noti=new Notification('notification');
+
 			$old=$noti->getSeenNoti($id);
 
 			if (count($old)>0){
@@ -23,6 +22,8 @@
 		}
 
 		public function newNotificationAction(){
+			$id=currentUser()->id;
+			$noti=new Notification('notification');
 
 			$new=$noti->getNewNoti($id);
 
@@ -36,20 +37,26 @@
 		}
 
 		public function removeNotificationAction($id_not){	
+			$id=currentUser()->id;
+			$noti=new Notification('notification');
+
 			//give the id of the notification not the user//
 			/////////fix this/////////////
 			$noti->remove($id);
 		}
 
 		public function updateSeenNotificationAction(){	
-
 			$data=json_decode($_POST["new"]);
 
+			$id=currentUser()->id;
+			$noti=new Notification('notification');
+
 			foreach ($data as $element){
-				$noti->updateAsSeen($element->id);
+				$noti->updateAsSeen($element->id);				
 			}
 
-			echo json_encode(array('status'=> $data[1]->id));
+			echo json_encode(array('status'=> '1'));
+			
 		}
 
 	}
