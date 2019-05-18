@@ -9,11 +9,7 @@
     </head>
     <body>
 
-
-
         <div class="page">
-
-
             <div class="sb-widget">
                 <div class="sb-caterogies">
                     <h4 class="sb-title">Categories</h4>
@@ -23,11 +19,9 @@
                             <span class="list-icon">
                                 <img src="<?=PROOT?>assets/images/categories_icons/2049-512.png">
                             </span>
-                            <a href="#" class="line">Men's</a>
+                            <a href="#" class="line" class="subName">Men's</a>
                             <!--<span class="count">(12)</span>-->
-                            <a data-toggle="collapse" class="collapsed" href="#collapse1">
-                                <i class="far"></i>
-                            </a>
+                            <a data-toggle="collapse" class="collapsed" href="#collapse1"><i class="far"></i></a>
                             <div id="collapse1" class="panel-collapse collapse">
                                 <ul id="children-of-70" class="children collapse in">
 
@@ -47,7 +41,7 @@
                                     	<span class="list-icon">
 
                                              </span>
-                                        <a href="#" class="line">Sweater Shirts & Hoodies</a>
+                                        <a href="#">Sweater Shirts & Hoodies</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -67,10 +61,8 @@
                                         </span>
                                         <a href="#">Sarongs</a>                        
                                     </li>
-
                                 </ul>
                             </div>
-
                         </li>
 
 
@@ -79,7 +71,7 @@
                             <span class="list-icon">
                                 <img src="<?=PROOT?>assets/images/categories_icons/dress_s13-512.png">
                             </span>
-                            <a href="#" class="line">Women's</a>
+                            <a href="#" class="line" class="subName">Women's</a>
                             <!--<span class="count">(12)</span>-->
                             <a data-toggle="collapse" class="collapsed" href="#collapse2">
                                 <i class="far"></i>
@@ -116,7 +108,7 @@
                                         <span class="list-icon">
 
                                         </span>
-                                        <a href="#" class="line">Mini-skirts</a>
+                                        <a href="#">Mini-skirts</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -138,10 +130,8 @@
                             <span class="list-icon">
                                 <img src="<?=PROOT?>assets/images/categories_icons/106020.png">
                             </span>
-                            <a href="#" class="line">Kids</a>
-                            <a data-toggle="collapse" class="collapsed" href="#collapse3">
-                                <i class="far"></i>
-                            </a>
+                            <a href="#" class="line" class="">Kids</a>
+                            <a data-toggle="collapse" class="collapsed" href="#collapse3"><i class="far"></i></a>
                             <div id="collapse3" class="panel-collapse collapse">
                                 <ul id="children-of-90" class="children collapse in">
 
@@ -174,7 +164,7 @@
                                         <span class="list-icon">
 
                                         </span>
-                                        <a href="#" class="line">Baby Skirts</a>
+                                        <a href="#">Baby Skirts</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -192,24 +182,26 @@
                             </div>
                         </li>
 
-                        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
+                        <li class="cat-item cat-item-100 cat-parent current-cat-parent">
                             <span class="list-icon">
                                 <img src="https://cdn4.iconfinder.com/data/icons/accessories-1/100/saree-512.png">
                             </span>
-                            <a href="#" class="line">Sarees</a>
-                            <a data-toggle="collapse" class="collapsed" href="#collapse4">
-                                <i class="far"></i>
-                            </a>
+                            <a href="#" class="line" class="subName">Sarees</a>
+                            <a data-toggle="collapse" class="collapsed" href="#collapse4"><i class="far"></i></a>
                             <div id="collapse4" class="panel-collapse collapse">
-                                <ul id="children-of-80" class="children collapse in">
+                                <ul id="children-of-100" class="children collapse in">
 
                                     <li>
-                                        <span class="list-icon"></span>
+                                        <span class="list-icon">
+
+                                        </span>
                                         <a href="#">Kandian</a>
                                         <!--<span class="count">(2)</span>-->
                                     </li>
                                     <li>
-                                        <span class="list-icon"></span>
+                                        <span class="list-icon">
+
+                                        </span>
                                         <a href="#">Indian</a>                        
                                     </li>
                                     <li>
@@ -228,7 +220,7 @@
                                         <span class="list-icon">
 
                                         </span>
-                                        <a href="#" class="line">Cotton</a>
+                                        <a href="#">Cotton</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -252,14 +244,14 @@
                             </div>
                         </li>
 
-                        <li class="cat-item cat-item-80 cat-parent current-cat-parent">
+                        <li class="cat-item cat-item-110 cat-parent current-cat-parent">
                             <span class="list-icon">
                                 <img src="https://cdn0.iconfinder.com/data/icons/interior-and-decoration-1/64/21-512.png">
                             </span>
                             <a href="#" class="line">Home Decor</a>
                             <a data-toggle="collapse" class="collapsed" href="#collapse5"><i class="far"></i></a>
                             <div id="collapse5" class="panel-collapse collapse">
-                                <ul id="children-of-80" class="children collapse in">
+                                <ul id="children-of-110" class="children collapse in">
 
                                     <li>
                                         <span class="list-icon">
@@ -290,11 +282,12 @@
                             </div>
                         </li>
 
+
                         <li class="cat-item cat-item-80 cat-parent current-cat-parent">
                             <span class="list-icon">
                                 <img src="https://image.flaticon.com/icons/png/512/16/16929.png">
                             </span>
-                            <a href="#" class="line">Bags</a>
+                            <a href="#" class="line">Bags</a><span style="visibility: hidden;"></span>
                             <a data-toggle="collapse" class="collapsed" href="#collapse6"><i class="far"></i></a>
                             <div id="collapse6" class="panel-collapse collapse">
                                 <ul id="children-of-80" class="children collapse in">

@@ -178,7 +178,7 @@
 
 		public function sendPasswordResetEmailAction(){
 			$email = $_POST["email"];
-			$_SESSION['email'] = $_POST['email'];
+			//$_SESSION['email'] = $_POST['email'];
 			$user = new User();
 			if ($user->findByEmail($email) != null){
 			  	$user = $user->findByEmail($email);
@@ -198,15 +198,35 @@
 			$token = $_GET['token'];
 			$pr = new PasswordReset();
 			$pr = $pr->getPRByToken($token);
+			$_SESSION['recovery_email'] = $pr->email;
 			if ($pr->isValid()){
-
+				Router::redirect('account/recoverPassword');
 			} else {
 				Router::redirect('account/passwordRecoveryExpired');
 			}
 		}
 
+		public function recoverPasswordAction(){
+			$this->view->render('account/recoverPassword');
+		}
+
 		public function passwordRecoveryExpiredAction(){
 			$this->view->render('account/passwordRecoveryExpired');
+		}
+
+		public function updateNewPWAction(){
+			$password = $_POST['password'];
+			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+			$hash = md5(rand(0,1000));
+			$fields = [
+				'password' => $password
+			];
+			$user = new User();
+			$user = $user->findByEmail($_SESSION['recovery_email']);
+			//dnd($_SESSION['recovery_email']);
+			//dnd($user);
+			$user->updatePassword($fields);
+			Router::redirect('account/login');
 		}
 
 

@@ -179,6 +179,7 @@
     .footer-heading{
       font-size: 18px;
     }
+
   </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -434,9 +435,7 @@
                   <?php 
                       if ($user->role==3){
                         echo '
-                            
-                            <i class="demo-icon icon-handy-cart" style="font-size:40px; color:#c1939e;"></i>
-
+                            <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
                             <span class="badge">
                               100
                             </span>
@@ -450,8 +449,6 @@
                          <a href="#" title="Sales"> 
                           <i class="fas fa-comments-dollar" style="font-size: 45px; color: #c1939e;"></i>
                         </a>
-                        
-                          
                         ';
                       }
 
@@ -483,7 +480,7 @@
                     <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
                       <a href="'.PROOT.'home/'.$LinkPath.'">
                       
-                      <i class="fas fa-tshirt" title='.$sentence.'></i>
+                      <i class="fas fa-tshirt" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 4px; border-radius:3px; position:absolute; top:7px; right:40px;" title='.$sentence.'></i>
                       </a>
                     </div>                  
                   
@@ -537,200 +534,35 @@
               <div class="collapse navbar-collapse">
                 <ul class="menu-list">
 
-                  <li>
-                    <a href="<?=PROOT?>home/ProductList/1" class="dropdown-link">
-                    <span>All Products</span>
-                    </a>
-                  </li>
                   
-              
-                  <li class="dropdown">
+                  <?php 
+                    foreach($categories as $cat=>$subCat){
+
+                      echo '
+                      <li class="dropdown">
                       <a href="0" class="dropdown-link">
-                      <span>Men</span>
+                      <span>'.$cat.'</span>
                       </a>
                       <span class="expand"></span>
 
-                      <ul class="dropdown-menu">
+                      <ul class="dropdown-menu">';
 
-                          <li><a tabindex="-1" href="2"><span>T-Shirts</span></a></li>
+                        foreach ($subCat as $sc){
+                            echo '<li>
+                              <a tabindex="-1" href="#">
+                                <span>'.$sc.'</span>
+                              </a>
+                            </li>';
 
-                          <li><a tabindex="-1" href="1"><span>Shirts</span></a></li>
+                            
+                        }
 
-                          <li><a tabindex="-1" href="3"><span>Sweate Shirts & Hoodies</span></a></li>
-
-                          <li><a tabindex="-1" href="4"><span>Tank Tops</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Trousers</span></a></li>
-                         
-                          <li><a tabindex="-1" href="#"><span>Sarongs</span></a></li>
-
-                      </ul>
+                      echo '</ul>
                   </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Women</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>T-shirts and Tops</span></a></li>                          
-
-                          <li><a tabindex="-1" href="#"><span>Tank Tops</span></a></li>
-                         
-                          <li><a tabindex="-1" href="#"><span>Sweater and Hoodies</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Dresses</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Mini-Skirts</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Leggings</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Scraves</span></a></li>
-
-                      </ul>
-                  </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Kids</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Kids T-shirtd</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby T-shirts</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby one piece</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby dresses</span></a></li>
-                          
-                          <li><a tabindex="-1" href="#"><span>Baby skirts</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby leggings</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby trousers</span></a></li>
-
-                      </ul>
-                  </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Sarees</span>
-                  </a>
-                  <span class="expand"></span>
-
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Kandian Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Indian Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Western Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Bathik Saree</span></a></li>
-                          
-                          <li><a tabindex="-1" href="#"><span>Cotton Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Wedding Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Silk Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Saree Jackets</span></a></li>
-                          
-                      </ul>
-                  </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Home Decor</span>
-                  </a>
-                  <span class="expand"></span>
-
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Pillows and Cushions</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Duvel Covers</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Wall Taperstries</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Curtains</span></a></li>
-                          
-                      </ul>
-                  </li>
-
-
-                  
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Uniforms</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu" >
-
-                        <li class="dropdown dropdown-submenu">
-                          <a href="#" class="dropdown-link">
-                            <span>Girl's</span>    
-                          </a>    
-                          <span class="expand"></span>    
-                          <ul class="dropdown-menu">
-
-                                <li><a tabindex="-1" href="#"><span>Sirimavo B. Vidyalaya</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>SPM</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Musaeus College</span></a></li>
-                          </ul>
-                        </li>
-
-
-                         <li class="dropdown dropdown-submenu">
-                          <a href="/collections/birthday-gifts" class="dropdown-link">
-                            <span>Boy's</span>    
-                          </a>    
-                          <span class="expand"></span>    
-                          <ul class="dropdown-menu">
-
-                                <li><a tabindex="-1" href="#"><span>St.Peter's College</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Common</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Lyceum I. School</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Royal Institute</span></a></li>
-                          </ul>
-                        </li>
-
-                          
-                      </ul>
-                  </li>
-
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Bags</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
-                          
-                      </ul>
-                  </li>
+                      ';
+                      
+                    }
+                  ?>
 
 
                 </ul>
