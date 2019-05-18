@@ -9,6 +9,29 @@
 
 
     <style>
+        table th:first-child {
+            border-left: 1px solid #e1e1e1;
+        }
+        table th{
+            color: #575757;
+            font-weight: lighter;
+            font-size: 14px;
+            background-color: #efefef;
+            border-top: 1px solid #e1e1e1;
+            border-right: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        table td:first-child {
+            border-left: 1px solid #e1e1e1;
+        }
+        table td{
+            color: #6a6a6a;
+            font-weight: 400;
+            font-size: 14px;
+            border-right: 1px solid #e1e1e1;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
         #shopping-cart {
             margin: 40px 180px;
         }
@@ -171,7 +194,7 @@
     ?>
         <main class="site-content col-xs-9 col-md-9 col-sm-9" style="margin-left: 160px" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
 
-    <a class="btn btn-1" style="margin-left: 980px" href="<?=PROOT?>CartController/emptyCart">Empty Cart</a><br>
+    <a class="btn btn-1" style="margin-left: 980px" href="<?=PROOT?>CartController/emptyCart/<?php echo $fields[0]["customer_id"]; ?>">Empty Cart</a><br><br>
     <?php
     if(isset($_SESSION["cart_item"])){
         $total_quantity = 0;
@@ -180,8 +203,8 @@
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
             <tbody>
             <tr>
-                <th style="text-align:center;">name</th>
-                <th style="text-align:center;" width="8%">id</th>
+                <th style="text-align:center;">Name</th>
+                <th style="text-align:center;" width="8%">Product id</th>
                 <th style="text-align:center;" width="10%">Quantity</th>
                 <th style="text-align:center;" width="15%">Unit Price</th>
                 <th style="text-align:center;" width="20%">Price</th>
@@ -190,7 +213,6 @@
             <?php
             foreach ($_SESSION["cart_item"] as $item){
                 $item_price = $item["quantity"]*$item["price"];
-
                 ?>
                 <tr>
                     <td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
@@ -198,11 +220,12 @@
                     <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ".$item["price"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ". number_format($item_price,2); ?></td>
-                    <td style="text-align:center;"><a href="<?=PROOT?>CartController/remove/<?php echo $item["product_id"]; ?>" class="btnRemoveAction"><img src="<?=PROOT?>assets/images/icon-delete.png" alt="Remove Item" /></td>
+                    <td style="text-align:center;"><a href="<?=PROOT?>CartController/remove/<?php echo $item["cart_id"]; ?>/<?php echo $item["customer_id"]; ?>" class="btnRemoveAction"><img src="<?=PROOT?>assets/images/icon-delete.png" alt="Remove Item" /></td>
                 </tr>
                 <?php
                 $total_quantity += $item["quantity"];
                 $total_price += ($item["price"]*$item["quantity"]);
+
             }
             ?>
 
@@ -217,8 +240,7 @@
         <br>
         <div class="wc-proceed-to-checkout">
 
-            <a href="" class="btn btn-1" style="margin-left: 930px" >
-                Proceed to checkout</a>
+            <a href="" class="btn btn-1" style="margin-left: 930px" >Proceed to checkout</a>
         </div>
         <?php
     } else {
