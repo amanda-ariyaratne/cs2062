@@ -1,6 +1,8 @@
 <?php
 	class Home extends Controller {
         public $image;
+        private $_user;
+        private $pin=30013003172516;
 
 		public function __construct($controller, $action){
 			parent::__construct($controller, $action);
@@ -11,10 +13,9 @@
 		}
 
 		public function testAction(){
-			$this->view->render('home/test');
+			echo json_encode(array('status'=>'true'));
 		}
-
-
+		
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
@@ -27,17 +28,7 @@
 			$this->view->render('home/AllVendors',$params);
 		}
 
-		public function NewRequestPageAction($a){
-			$product=new Product('product');
-			$details=$product->getPageVendor($a);
-
-			$param=$details[0];
-			$noOfProducts =$details[1];			
-
-			$params=array($param,$a,$noOfProducts,'New Requests');
-			$this->view->render('home/NewRequestPage',$params);
-		}
-
+		
 		public function VendorPageAction($a){
 			$product=new Product('product');
 			$details=$product->getPageVendor($a);
@@ -64,45 +55,6 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-
-		public function CustomerRequestViewAction($a){
-
-			$viewRequest = new CustomRequest('custom_request');
-
-			$details= $viewRequest-> getViewDetails($a);
-			$param=$details[0];
-			$noOfProducts =$details[1];
-			
-
-			$params=array($param,$a,$noOfProducts,'Custome Requests');
-
-			$this->view->render('home/CustomerRequests',$params);
-		}
-
-
-		public function ProductRequestAction(){
-
-			$params=array('Product Request');
-			if($_POST){
-				$customRequest=new CustomRequest('custom_request');
-				$customRequest-> createRequest();
-
-			
-				$_SESSION['alert']='
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
-				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-				<div class="container">
-					<div class="alert alert-success fade in">    
-				    	<strong>Success!</strong> You have successfully added a CUSTOM REQUEST!
-				  	</div>
-				</div>';	
-
-				Router::redirect('home/ProductRequest',$params);
-			}
-
-        	$this->view->render('home/ProductRequest',$params);
-
-        }
 
 
 // chamodi akka's edited page
@@ -146,8 +98,8 @@
 			array_push($params,$product_obj);
 
 			//add product images array - inster to params
-			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj));
+			$img = new Image('image');
+			array_push($params,$img->getImage($p_id));
 			
 			//load review table
 			$review_object = new Review();
@@ -311,7 +263,6 @@
 		public function newProductsAction(){
 			$this->view->render('home/newProducts');
 		}
-
-
+		
 
 	}

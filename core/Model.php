@@ -59,7 +59,7 @@
 		}
 
 		public function findFirst($params = []){
-			$params = $this->_softDeleteParams($params);
+			//$params = $this->_softDeleteParams($params);
 
 			$resultQuery = $this->_db->findFirst($this->_table, $params);
 			$result = new $this->_modelName($this->_table);
@@ -83,10 +83,12 @@
 		}
 
 		public function insert($fields){
+
 			if (empty($fields)) {
+				
 				return false;
 			} else {
-				$this->_db->insert($this->_table, $fields);
+				return $this->_db->insert($this->_table, $fields);
 			}
 		}
 

@@ -26,6 +26,7 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
+
 				    	$fields = [
 				    		"first_name" => $first_name,
 				    		"last_name" => $last_name,
@@ -34,7 +35,8 @@
 				    		"role" => $role
 				    	];
 				    	$user->insert($fields);
-				    	$user = $this->UserModel->findByEmail($email);
+				    	//$user = $this->UserModel->findByEmail($email);
+				    	$user = $user->findByEmail($email);
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {
@@ -92,7 +94,7 @@
 						} else if(currentUser()->role == 2){
 							Router::redirect('home/vendorPage/'.currentUser()->id);
 						} else if(currentUser()->role == 1){
-							Router::redirect('home/newProducts');
+							Router::redirect('home/ProductList/1');
 						}
 						
 					}
