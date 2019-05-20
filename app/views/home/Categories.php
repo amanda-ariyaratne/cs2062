@@ -248,7 +248,7 @@
                             <span class="list-icon">
                                 <img src="https://cdn0.iconfinder.com/data/icons/interior-and-decoration-1/64/21-512.png">
                             </span>
-                            <a href="#" class="line">Home Decor</a>
+                            <a href="#" class="line" >Home Decor</a>
                             <a data-toggle="collapse" class="collapsed" href="#collapse5"><i class="far"></i></a>
                             <div id="collapse5" class="panel-collapse collapse">
                                 <ul id="children-of-110" class="children collapse in">
