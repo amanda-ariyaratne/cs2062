@@ -41,7 +41,7 @@
                                     	<span class="list-icon">
 
                                              </span>
-                                        <a href="#" class="line">Sweater Shirts & Hoodies</a>
+                                        <a href="#">Sweater Shirts & Hoodies</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -108,7 +108,7 @@
                                         <span class="list-icon">
 
                                         </span>
-                                        <a href="#" class="line">Mini-skirts</a>
+                                        <a href="#">Mini-skirts</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -164,7 +164,7 @@
                                         <span class="list-icon">
 
                                         </span>
-                                        <a href="#" class="line">Baby Skirts</a>
+                                        <a href="#">Baby Skirts</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">
@@ -220,7 +220,7 @@
                                         <span class="list-icon">
 
                                         </span>
-                                        <a href="#" class="line">Cotton</a>
+                                        <a href="#">Cotton</a>
                                     </li>
                                     <li>
                                         <span class="list-icon">

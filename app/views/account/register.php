@@ -101,7 +101,7 @@
             <div class="row control-wrapper">
               <div class="row"><span id="error_role" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
               <label class="col-md-3" for="role">I want to be a <span class="req">*</span></label>
-              <input type="radio" name="role" id="role" value="2" style="display: inline;" class="col-md-1" <?php 
+              <input type="radio" name="role" value="2" style="display: inline;" class="col-md-1" <?php 
                 if(isset($_SESSION['role'])){
                   if($_SESSION['role'] == '2'){
                     echo("checked='checked'");
@@ -110,7 +110,7 @@
                   echo("checked='checked'");
                 }
               ?> /> Seller 
-              <input type="radio" name="role" id="role" value="3" style="display: inline;" class="col-md-1" <?php 
+              <input type="radio" name="role" value="3" style="display: inline;" class="col-md-1" <?php 
                 if(isset($_SESSION['role'])){
                   if($_SESSION['role'] == '3'){
                     echo("checked='checked'");

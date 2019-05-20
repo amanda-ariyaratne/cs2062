@@ -35,6 +35,14 @@
       animation: animateee 16s ease-in-out infinite;
     }
 
+    .change-bg-unseen{
+      background: rgba(230,255,230,0.5);
+    }
+
+    .change-bg-seen{
+      background: rgba(255,240,255,0.5);
+    }
+
     @keyframes animateee{
       0%,100%{
         background-image: url(<?=PROOT?>assets/images/back-1.jpg);
@@ -52,7 +60,21 @@
         background-image: url(<?=PROOT?>assets/images/back-5.jpg);
       }
     }
-
+    .badge-counter{
+            
+      padding: 2px 4px;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      display: inline-block;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      font-family: Roboto,sans-serif;
+    }
     .noti {  
       text-decoration: none;
       padding: 15px 26px;
@@ -66,7 +88,7 @@
       color:#c1939e;
     }
 
-    .noti .badge {
+    /*.noti .badge {
       position: absolute;
       top: 20px;
       right: 18px;
@@ -75,7 +97,7 @@
       background-color: red;
       color: white;
       font-size: 12px;
-    }
+    }*/
         .noti_Container ul {
             border-style: solid;
             border-width: 0px 0px 1px 0px;
@@ -191,20 +213,117 @@
   
   <div class="boxed-wrapper">
     
-    <div class="new-loading"></div>     
+
       <div class="cart-sb">
-        <form action="/cart" method="post">    
           <div class="cart-sb-title">
-            <span class="c-title">Your Cart</span>
-            <span class="c-close"><i class="demo-icon icon-close" aria-hidden="true"></i></span>
+            <span class="c-title">Notification</span>
+            <span class="c-close">
+              <i class="demo-icon icon-close" aria-hidden="true"></i>
+            </span>
           </div>
           
-          <div id="cart-info" class="shipping-true">
+          <div id="cart-info" class="shipping-true" style="height: 550px; max-height: 550px;">
             <div id="cart-content" class="cart-content">
-              <div class="cart-loading"></div>
+
+        <div class="items">
+          <?php 
+
+          if (count($new)>0 || count($old)>0){  
+
+            $all=array_merge($new,$old);
+
+            foreach($all as $noti){
+                $productName='<a style="font-weight: 400;"php href="'.PROOT.'home/productView/'.$noti->pr_id.'"><b>'.$noti->pr_name.'</b></a>';
+
+                if ($noti->status==1)
+                  {$approval='<b>accepted</b>';}
+                else
+                  {$approval= '<b>rejected</b>';}
+                
+                if ($noti->type==1){       //customRequest
+
+                    $tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->shop.'</b></a>';
+
+                    $sentence='Your custom request '.$productName.' has been '.$approval.' by '.$tailorName.'.';
+                }
+                elseif ($noti->type==2) {  //product display req
+
+                    $tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->shop.'</b></a>';
+
+                    $sentence=$tailorName.' requests for the '.$productName.' to be uploaded.';
+                }
+                elseif ($noti->type==3) {  //product display app
+
+                    $sentence='Your product '.$productName.' has been '.$approval.' to be uploaded.';
+                }
+                elseif ($noti->type==4) {  //product order
+                    
+                    $customerName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->from_name.'</b></a>';
+
+                    $sentence='You have a new order from '.$customerName.' for the product '.$productName;
+                }
+
+                echo '
+
+                <div class="items-inner animated-'.$noti->id.'" >
+                  <div class="cart-item-image">
+                    <a href=""><img src="'.PROOT.'assets/images/1x_420x.jpg"></a>
+                  </div>';     
+
+                  if ($noti->seen==0){
+                      echo '
+                      <div class="cart-item-info id-num-'.$noti->id.' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
+                  }
+                  else{
+                      echo '
+                      <div class="cart-item-info id-num-'.$noti->id.' change-bg-seen" style="width: 200px;padding-right: 0px;">';
+                  }
+                  
+
+                  echo '
+                    <div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;">
+
+                        '.$sentence.'
+                      
+                    </div>      
+
+                  </div>
+
+                </div>  
+                ';
+
+            }
+          }
+          else {
+            echo '
+            <div style="text-align: center; position: absolute; top: 50%;left: 50%; margin-right: -50%; transform: translate(-50%, -50%); font-style: italic;">
+              You do not have any new notifications yet!
+            </div>
+            ';
+          }
+
+
+              
+          ?>                
+                
+              </div>
+              <!-- <div class="cart-item-quantity">
+                      5
+                    </div>
+                    <div class="cart-item-price">
+                      $100
+                    </div> 
+
+                  <div data-id="'.$noti->id.'" class="cart-close" title="remove">
+                    <i class="demo-icon icon-close product-close" aria-hidden="true"></i>
+                  </div>  -->
             </div>
           </div>
-        </form>
+
+          <div class="cart-sb-title" style="position: absolute; bottom: 0px; width: 100%;">
+            <span class="c-title"><a href="" style="text-decoration: none; color: #fff;">See All</a></span>
+          </div>
+
       </div>
 
     <div id="page-body" class="breadcrumb-color">      
@@ -360,43 +479,44 @@
 
                 </div>
               </div>
-              <div class="col-md-1"></div>
               <div class="col-md-1">
-                <a href="#" title="Sales"> 
-                  <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
+
+                <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
+                    <span>
+                      <i class="fas fa-bell noti-icon-style" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 7px; border-radius:3px; position:absolute; top:0px; "></i>
+                    </span>
+                    <span class="badge-counter" style="position: absolute; top: 20px; left: 60px;">
+                       <?= count($new)?>
+                    </span>
                 </a>
+                
               </div>
 
-              <div class="col-md-1" >
+              <div class="col-md-1"></div>
+
+              <div class="col-md-1" style="height:36px;">
 
                   <?php 
-                      if ($user->role==0){
+                      if ($user->role==3){
                         echo '
-                          <a href="#" class="noti" style="color:#c1939e;" title="cart">
-                            
-                            <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
-
-                            <span class="badge">
-                              1
+                          <a href=# title="Your cart">
+                            <span>
+                              <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
+                            </span>
+                            <span class="badge-counter" style="position: absolute; top: 20px;right: 18px;">
+                              5
                             </span>
                           </a>
 
                       ';
                       }
 
-                      elseif ($user->role==1){
+                      elseif ($user->role==2){
 
                         echo '
-
-                        
-                          <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
-                              <span>
-                                <i class="fas fa-bell noti-icon-style" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 7px; border-radius:3px; position:absolute; top:0px; "></i>
-                              </span>
-                              <span class="badge" id=#noti_Counter>
-                                 3
-                              </span>
-                          </a>
+                         <a href="#" title="Sales"> 
+                          <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
+                        </a>
                         ';
                       }
 
@@ -410,15 +530,15 @@
             <div class="col-md-1">
                 <div class="header-phone-widget d-none d-lg-block">
                   <?php 
-                    if ($user->role==0 || $user->role==1){
+                    if ($user->role==2 || $user->role==3){
                       $sentence='';
                       $LinkPath='';
-                      if ($user->role==0){
+                      if ($user->role==3){
                         $sentence="Add-our-Designs";
                         $LinkPath="CustomerRequestView/1";
 
                       }                          
-                      elseif ($user->role==1){
+                      elseif ($user->role==2){
                         $sentence="Custom-Requests";
                         $LinkPath="ProductRequest/1";
                       }
@@ -442,7 +562,7 @@
               
                 
 
-                  <div id="notifications">
+                  <!-- <div id="notifications">
                         <div class="HeadingNoti" style="color:black; margin:0; padding: 2px 10px;">
                           Notifications
                         </div>
@@ -451,15 +571,8 @@
                             <ul>
                                 <li>
                                   <a href="#" >
-                                        sdfgcvhj
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                  <a href="#" >
-                                        sdfgcvhj
-                                    </a>
+                                        
+                                  </a>
                                 </li>
                             </ul>
                         </div>
@@ -467,7 +580,7 @@
                         <div class="seeAll">
                           <a href="#">See All</a>
                         </div>
-                </div>
+                </div> -->
 
 
             </div>
@@ -593,6 +706,7 @@
 
 <div id="shopify-section-bottom" class="shopify-section">
 
+    
 
 <footer id="footer-content">
   <div id="shopify-section-footer" class="shopify-section">
@@ -1275,27 +1389,100 @@
 <script>
 $(document).ready(function () {
 
-        $('#noti_Button').click(function () {
-            $('#notifications').fadeToggle('fast', 'linear');
+    //Notification window
+    $('.noti').on('click', function(){
+        var newArray=JSON.stringify(<?php echo json_encode($new); ?>);
+        var newArrayJs=<?php echo json_encode($new); ?>;
+        if (newArray.length>0){
+            icon=$(this);
+            
+            $(".cart-sb").addClass("opened");
 
-            $('#noti_Counter').fadeOut('slow'); 
-            return false;
-        });
+            //close the Notification window
+            $('.c-close').on('click', function(){
 
-        $(document).click(function () {
-            $('#notifications').hide();
+                $(".cart-sb").removeClass("opened");
 
-            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
-            // if ($('#noti_Counter').is(':hidden')) {
-            //     // CHANGE BACKGROUND COLOR OF THE BUTTON.
-            //     $('#noti_Button').css('background-color', '#F3C7DD');
-            // }
-        });
+                icon.children(".badge-counter").html('0'); 
+                console.log(newArrayJs);
+                for (var i = 0; i < newArrayJs.length; i++) {
 
-        $('#notifications').click(function () {
-            return false; 
-        });
+                  var cl='.id-num-'+newArrayJs[i].id;
+                  console.log(cl);
+                  $(cl).removeClass("change-bg-unseen");
+                  $(cl).addClass("change-bg-seen");
+                }
+            });   
+ 
+            // //hide elements in the list
+            // $('.cart-close').on('click', function(){
+            //     icon=$(this);
+            //     ele_1=icon.parent();
+            //     ele_1.hide();
+            // });     
+            // 
+
+
+            $.ajax({  
+
+                url:"<?=PROOT?>NotificationController/updateSeenNotification",
+                method: "POST",
+                data:{'new': newArray },
+                success: function(){
+
+                }
+            }); 
+      }
+
+
+    });                    
+      
+    // setTimeout(function(){  //setInterval();
+    //     $.ajax({   
+    //         url:"<?=PROOT?>NotificationController/newNotification",
+    //         method: "POST",
+    //         success: function(data){
+    //             var newNotofocation=JSON.parse(data); 
+    //             // console.log(newNotofocation);
+    //         }
+    //     });           
+    // },1000);
+
+    $('#noti_Button').click(function () { 
+        $('#notifications').fadeToggle('fast', 'linear');
+
+        $('#noti_Counter').fadeOut('slow');
+       
+        return false;
+        
     });
+
+    $(document).click(function () {
+        $('#notifications').hide();
+        //$('#noti_Counter').html()='0';
+    });
+
+    $('#notifications').click(function () {
+
+        return false; 
+    });
+});
+
+// function setSentence(){
+//     $productName='<a style="font-weight: 400;"php href="'+<?=PROOT?>+'home/productView/'+$noti.pr_id+'"><b>'+$noti.pr_name+'</b></a>';
+
+//     if ($noti.status==1)
+//       {$approval='<b>accepted</b>';}
+//     else
+//       {$approval= '<b>rejected</b>';}
+
+//     if ($noti->type==1){       //customRequest
+
+//         $tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+$noti._from+'"><b>'+$noti.shop+'</b></a>';
+
+//         $sentence='Your custom request '+$productName+' has been '+$approval+' by '+$tailorName+'.';
+//     }
+// }
 </script>
 
 </body>

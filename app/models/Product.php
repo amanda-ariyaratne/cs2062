@@ -7,8 +7,8 @@
         public $id;
 
 
-		public function __construct($products='product'){
-			$table = $products;
+		public function __construct($products=''){
+			$table='product';
 			parent::__construct($table);
 		}
 
@@ -48,7 +48,6 @@
             
             return [$details,$noOfRows];
         }
-
 
         public function getPageVendor($id){
             
