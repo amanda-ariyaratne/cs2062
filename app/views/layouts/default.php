@@ -608,17 +608,19 @@
 
                       echo '
                       <li class="dropdown">
-                      <a href="0" class="dropdown-link">
+                      <a href="" class="dropdown-link">
                       <span>'.$cat.'</span>
                       </a>
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">';
-
-                        foreach ($subCat as $sc){
+                        // dnd($subCat);
+                        foreach ($subCat as $sub){
+                            
                             echo '<li>
-                              <a tabindex="-1" href="#">
-                                <span>'.$sc.'</span>
+                              <a tabindex="-1" href="'.PROOT.'home/ProductCategory/1/'.$sub[1].'">
+
+                                <span>'.$sub[0].'</span>
                               </a>
                             </li>';
 
@@ -1442,8 +1444,11 @@ $(document).ready(function () {
     //         url:"<?=PROOT?>NotificationController/newNotification",
     //         method: "POST",
     //         success: function(data){
-    //             var newNotofocation=JSON.parse(data); 
-    //             // console.log(newNotofocation);
+    //             var newNotification=JSON.parse(data);
+    //             notificationList = newNotification.new; 
+    //             notificationList.forEach(function(item){
+    //               productName='<a style="font-weight: 400;"php href="'+PROOT+'home/productView/'+item.pr_id+'"><b>'+(item.pr_name)+'</b></a>';
+    //             });
     //         }
     //     });           
     // },1000);

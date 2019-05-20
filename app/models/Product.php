@@ -34,13 +34,32 @@
             array_push($observers, $obj);
         }
 
-        public function getViewDetails($a){
-            $a--;
-            $limit = array('limit'=>$a++.',6');
+        public function getViewDetails($a){            
+            $a=6*($a-1);
+            $limit = array('limit'=>$a.',6');
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
+                $row->images = $images;         
+            }   
+
+            $noOfRows=count($this->find());
+            
+            return [$details,$noOfRows];
+        }
+
+        public function getCategoryViewDetails($a,$sub_cat_id){
+            $a--;
+            $limit = array('limit'=>$a++.',6');
+            $conditions=array('conditions'=> 'sub_category_id = ?', 'bind'=> [$sub_cat_id]);
+            $tot=array_merge($conditions,$limit);
+            
+            $details = $this->find($tot);
+            // dnd($details);
+            foreach ($details as $row){
+                $image=new Image('tailor_product_image');
+                $images=$image->getImage($row->id);
                 $row->images = $images;         
             }   
 
