@@ -12,21 +12,15 @@
 			parent::__construct($table);
 		}
 
-        public function getAcceptedRequest(){
+        public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
 
             //end of the function
-            setChanged();
-            notifyObservers();
+            notifyObservers($product_id,$tailor_id,$customer_id);
         }
 
-
-        public function setChanged(){
-            //implement changing functions
-        }
-
-        public function notifyObservers(){
+        public function notifyObservers($product_id,$tailor_id,$customer_id){
             foreach($observers as $observer){
-                $observer->update();
+                $observer->update($product_id,$tailor_id,$customer_id);
             }
         }
 

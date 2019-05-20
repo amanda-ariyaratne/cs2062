@@ -1,6 +1,7 @@
 <!doctype html>
 <!--[if IE 8]><html lang="en" class="ie8 js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="js"> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js"> <!--<![endif]-->
 
 <head>
   <link rel="shortcut icon" href="<?=PROOT?>assets/images/icon-main.jpg" type="image/jpg" />
@@ -264,6 +265,7 @@
                 }
 
                 echo '
+                <div class="made-for-new"></div>
 
                 <div class="items-inner animated-'.$noti->id.'" >
                   <div class="cart-item-image">
@@ -1439,19 +1441,18 @@ $(document).ready(function () {
 
     });                    
       
-    // setTimeout(function(){  //setInterval();
-    //     $.ajax({   
-    //         url:"<?=PROOT?>NotificationController/newNotification",
-    //         method: "POST",
-    //         success: function(data){
-    //             var newNotification=JSON.parse(data);
-    //             notificationList = newNotification.new; 
-    //             notificationList.forEach(function(item){
-    //               productName='<a style="font-weight: 400;"php href="'+PROOT+'home/productView/'+item.pr_id+'"><b>'+(item.pr_name)+'</b></a>';
-    //             });
-    //         }
-    //     });           
-    // },1000);
+    setTimeout(function(){  //setInterval();
+        $.ajax({   
+            url:"<?=PROOT?>NotificationController/newNotification",
+            method: "POST",
+            success: function(data){
+                var newNotification=JSON.parse(data);
+                notificationList = newNotification.new; 
+                console.log(notificationList);
+                // notificationList.forEach(setSentence);
+            }
+        });           
+    },1000);
 
     $('#noti_Button').click(function () { 
         $('#notifications').fadeToggle('fast', 'linear');
@@ -1473,21 +1474,58 @@ $(document).ready(function () {
     });
 });
 
-// function setSentence(){
-//     $productName='<a style="font-weight: 400;"php href="'+<?=PROOT?>+'home/productView/'+$noti.pr_id+'"><b>'+$noti.pr_name+'</b></a>';
+function setSentence(noti){
+    console.log(noti);
+    productName='<a style="font-weight: 400;"php href="'+<?=PROOT?>+'home/productView/'+noti.pr_id+'"><b>'+noti.pr_name+'</b></a>';
 
-//     if ($noti.status==1)
-//       {$approval='<b>accepted</b>';}
-//     else
-//       {$approval= '<b>rejected</b>';}
+    if (noti.status==1)
+      {approval='<b>accepted</b>';}
+    else
+      {approval= '<b>rejected</b>';}
 
-//     if ($noti->type==1){       //customRequest
+    if (noti.type==1){ 
+        $tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.shop+'</b></a>';
 
-//         $tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+$noti._from+'"><b>'+$noti.shop+'</b></a>';
+        entence='Your custom request '+productName+' has been '+approval+' by '+tailorName+'.';
+    }
 
-//         $sentence='Your custom request '+$productName+' has been '+$approval+' by '+$tailorName+'.';
-//     }
-// }
+    else if (noti.type==2) {  
+
+        tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.shop+'</b></a>';
+
+        sentence=tailorName+' requests for the '+productName+' to be uploaded.';
+    }
+
+    else if (noti.type==3) {  
+
+        sentence='Your product '+productName+' has been '+approval+' to be uploaded.';
+    }
+    else if (noti.type==4) {  
+        
+        customerName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.from_name+'</b></a>';
+
+        sentence='You have a new order from '+customerName+' for the product '+productName;
+    }
+
+    line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>'
+
+    if (noti.seen==0){
+        line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
+    }
+    else{
+        line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-seen" style="width: 200px;padding-right: 0px;">';
+    }
+
+    line_3='<div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;"'+sentence+'</div></div>';
+
+    var newClass='items-inner animated-'+noti.id;
+
+    $('.made-for-new').addClass(newClass);
+    $('.'+newClass).removeClass("made-for-new");
+    $('.'+newClass).html(line_1+line_2+line_3);
+
+  }
+
 </script>
 
 </body>

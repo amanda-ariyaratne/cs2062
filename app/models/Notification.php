@@ -4,10 +4,31 @@
 	 */
 	class Notification extends Model
 	{
+		protected $to, $from, $state, $product, $shop;
 		public function __construct($table=''){
 			$table='notification';
 			parent::__construct($table);
 		}
+
+		public function createNotification($product_id,$tailor_id,$customer_id){
+
+			$fields=['_to'=>$tailor_id,
+					 '_from'=>$customer_id
+					 ,'pr_id'=>$product_id,
+					 'type'=>'',
+					 'status'=> '1',
+					 'seen'=> '0'
+					];
+
+			$this->insert($fields);			 
+		}
+
+
+
+		public function update($product_id,$tailor_id,$customer_id){
+			$this->createNotification($product_id,$tailor_id,$customer_id);
+		}
+
 		public function getNewNoti( $id ){
 			//unseen notifications
 			$condition = array('conditions'=>['seen = ?','_to = ?'],'bind'=> [ '0' , $id]);	
@@ -52,6 +73,7 @@
 						$product=new CustomRequest();
 						$row->pr_name=$product->findByID($row->pr_id)->pr_name;
 					}
+
 					else{
 						$product=new Product();
 						$row->pr_name=$product->findByID($row->pr_id)->name;
