@@ -5,8 +5,8 @@
 		private $table;
 		private $observers=array();
 
-		public function __construct($_table){
-			$this->table=$_table;
+		public function __construct($_table=''){
+			$_table='custom_request';
 			parent::__construct($_table);			
 		}
 
@@ -38,6 +38,10 @@
         public function addObserver($obj){
             array_push($observers, $obj);
         } 
+
+        public function findByID($p_id){
+			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		}
 
 		public function getViewDetails($a){
 			$a--;
