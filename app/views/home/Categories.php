@@ -14,7 +14,7 @@
         <div class="page">
 
 
-<div class="categories">
+<div class="sb-widget">
     <div class="sb-caterogies">
     <h4 class="categories-title">Categories</h4>
     <ul class="categories-list">
@@ -325,6 +325,7 @@
         </li>
 
     </ul>
+</div>
 </div>
 </div>
 </body>

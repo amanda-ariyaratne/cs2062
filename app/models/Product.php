@@ -84,15 +84,21 @@
         {
 
 //		    dnd($_POST);
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
 
-            $fields = [
-                "name" => $_POST["Product_Name"],
-                "description" => $_POST["Product_Description"],
-                "price" => $_POST["product_price"],
-                "sale_price" => $_POST["sale_price"],
-                "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"]
-            ];
+            if ($_POST["sale_price"] != '') {
+                $fields['sale_price'] = $_POST["sale_price"];
+            }
+
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
             
             $this->insert($fields);
             //add image
@@ -152,24 +158,6 @@
             return $new_item_array;
         }
 
-        // public function search($keywords){
-        //     $products = [];
-        //     $keys = [];
-        //     foreach ($keywords as $key) {
-        //         $key = '%' . $key . '%';
-        //         array_push($keys, $key);
-        //     }
-
-        //     $params = [
-        //         'column' => 'name',
-        //         'keys' => $keys
-        //     ];
-            
-        //     $products = $this->_db->search('product', $params);
-
-        //     return $products;
-        // }
-
         public function getViewDetailsForSearch($keywords, $a){
             $products = [];
             $keys = [];
@@ -177,8 +165,7 @@
                 $key = '%' . $key . '%';
                 array_push($keys, $key);
             }
-
-            
+       
             $params = [
                 'column' => 'name',
                 'keys' => $keys,
@@ -186,14 +173,17 @@
             ];
             
             $details = $this->_db->search('product', $params);
-            
-            foreach ($details as $row){
-                $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
-                $row->images = $images;         
-            }   
-
-            $noOfRows=count($details);
+            if ($details) {
+                foreach ($details as $row){
+                    $image=new Image('tailor_product_image');
+                    $images=$image->getImage($row);
+                    $row->images = $images;         
+                }
+                $noOfRows=count($details);
+            } else {
+                $details = [];
+                $noOfRows = 0;
+            }
             
             return [$details,$noOfRows];
         }

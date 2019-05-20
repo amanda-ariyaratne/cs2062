@@ -109,13 +109,12 @@
         public function addProductAction(){
 
             $db = DB::getInstance();
-            $categories = $db->find('sub_categories');
+            $categories = $db->find('sub_category');
             $measurements = $db->find('measurement_types');
             $params = [$categories,$measurements];
             if ($_POST) {
                 $product=new Product('product');
-                $product-> addProduct();
-
+                $product->addProduct();
                 //redirect to some page\\
                 Router::redirect('home/addProduct');
             }
@@ -251,17 +250,17 @@
 
         public function searchAction($a='0'){
         	$keywords = explode(" ", $_GET["keywords"]);
-        	$product=new Product('product');
-        	//$products = $product->search($keywords);
         	$a = $_GET['page'];
-        	dnd($keywords);
+
+        	$product=new Product('product');
 			$details = $product->getViewDetailsForSearch($keywords, $a);
+
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
-			$params=array($param,$a,$noOfProducts,'All Products');
+			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
 
-			$this->view->render('home/ProductList',$params);
+			$this->view->render('home/searchProductList',$params);
         }
 
 
