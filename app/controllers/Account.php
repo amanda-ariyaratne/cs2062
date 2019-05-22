@@ -71,6 +71,7 @@
 				$_SESSION['last_name'] = '';
 				$_SESSION['role'] = '';
 				$_SESSION['error_email'] = '';
+				$_SESSION['error_paypal_email'] = '';
 				$this->view->render('account/register');
 			}
 			
@@ -106,7 +107,7 @@
 						} else if(currentUser()->role == 2){
 							Router::redirect('home/vendorPage/'.currentUser()->id);
 						} else if(currentUser()->role == 1){
-							Router::redirect('home/newProducts');
+							Router::redirect('admin/newProducts');
 						}
 						
 					}

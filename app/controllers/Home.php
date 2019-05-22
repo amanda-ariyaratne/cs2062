@@ -107,18 +107,21 @@
         }
 
         public function addProductAction(){
-
-            $db = DB::getInstance();
-            $categories = $db->find('sub_category');
-            $measurements = $db->find('measurement_types');
-            $params = [$categories,$measurements];
-            if ($_POST) {
-                $product=new Product('product');
-                $product->addProduct();
-                //redirect to some page\\
-                Router::redirect('home/addProduct');
-            }
-            $this->view->render('home/addProduct', $params);
+        	if (currentUser()->role_id != 3) {
+        		$db = DB::getInstance();
+	            $categories = $db->find('sub_category');
+	            $measurements = $db->find('measurement_types');
+	            $params = [$categories,$measurements];
+	            if ($_POST) {
+	                $product=new Product('product');
+	                $product->addProduct();
+	                //redirect to some page\\
+	                Router::redirect('home/addProduct');
+	            }
+	            $this->view->render('home/addProduct', $params);
+        	} else {
+        		Router::redirect('home/ProductList/1');
+        	}   
 
         }
 
@@ -243,10 +246,6 @@
 		public function frontPageAction(){
 			$this->view->renderFrontPage('home/frontPage');
 		}
-
-        public function newProductsAction(){
-            $this->view->render('home/newProducts');
-        }
 
         public function searchAction($a='0'){
         	$keywords = explode(" ", $_GET["keywords"]);
