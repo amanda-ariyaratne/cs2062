@@ -191,15 +191,7 @@
         </span>
     </div>
 
-        <div class="get-order">                
-          <form action="/cart/add" method="post" enctype="multipart/form-data">
-              <a href="javascript:void(0)" class="btn-add-cart add-to-cart" title="Add to cart"><span class="demo-icon icon-basket"></span></a>
-              <select class="d-none" name="id">                
-                  <option value="14880188334139">Default Title</option>
-                
-              </select>
-          </form>
-        </div>
+    <a class="btn btn-1" data-id="'.$field->id.'">accept</a> 
 
 
     </div>
@@ -304,7 +296,53 @@
 
       </div>
     </div>
+<script type="text/javascript">
+    var classname="btn btn-1";
+    var pr_list=[];
+    $(document).ready(function(){
 
+        $('.btn-1').on('click',function(){
+
+            var icon=$(this);
+            var id=icon.data().id;            
+            var pr_id=JSON.stringify(icon.data());
+
+            if (!isExist(id)){ 
+                $.ajax({
+                    url:"<?=PROOT?>CustomRequestController/accept",
+                    method:"POST",
+                    data: {'id': pr_id},
+                    success: function(data){
+                        icon.html("reject");
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    url:"<?=PROOT?>CustomRequestController/reject",
+                    method:"POST",
+                    data: {'id': pr_id},
+                    success: function(data){
+                        icon.html("accept");
+                    }
+                });
+            }
+            console.log(pr_list);
+            
+        });
+    });
+
+    function isExist(id){
+        for (var i=0; i<pr_list.length; i++){
+          if (pr_list[i]==id){
+            pr_list.splice(i,1);
+            return true;
+          }
+        }
+        pr_list.push(id);  
+        return false;
+    }
+</script>
   
   </div>
 </div>

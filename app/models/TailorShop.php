@@ -1,7 +1,7 @@
 <?php 
 	class TailorShop extends Model{
 
-		public function __construct(){
+		public function __construct($table=''){
 			$table='tailor_shop';
 			parent::__construct($table);	
 		}

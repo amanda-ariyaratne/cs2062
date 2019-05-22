@@ -5,17 +5,27 @@
 		private $table;
 		private $observers=array();
 
-		public function __construct($_table){
-			$this->table=$_table;
+		public function __construct($_table=''){
+			$_table='custom_request';
 			parent::__construct($_table);			
 		}
 
-		public function getAcceptedRequest(){
-			setChanged();
-			notifyObservers();
+		public function acceptRequest($id){
+			$fields=['status'=> '1'];
+			$this->update($id, $fields);
+			// setChanged();
+			// notifyObservers();
+		}
+
+		public function rejectRequest($id){
+			$fields=['status'=> '0'];
+			$this->update($id, $fields);
+			// setChanged();
+			// notifyObservers();
 		}
 
 		public function setChanged(){
+			$id='dfgh';
             //implement changing functions
         }
 
@@ -29,6 +39,10 @@
             array_push($observers, $obj);
         } 
 
+        public function findByID($p_id){
+			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		}
+
 		public function getViewDetails($a){
 			$a--;
 			$limit = array('limit'=>$a++.',6');
@@ -36,7 +50,7 @@
 
 			foreach ($details as $row){
 				$image=new Image('custom_design_image');
-				$images=$image->getImage($row);
+				$images=$image->getImage($row->id);
 				$row->images = $images;			
 			}	
 
@@ -72,26 +86,6 @@
     			$image->addImage($_id,$image_path,$x,'custom_requests');
     			
     		}
-		}
-
-		public function addRequest(){
-
-		}
-
-		public function deleteRequest(){
-
-		}
-
-		public function getPendingRequest(){
-
-		}
-
-		public function acceptRequest(){
-
-		}
-
-		public function takeDeal(){
-
 		}
 	}
 

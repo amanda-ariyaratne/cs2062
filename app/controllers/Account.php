@@ -26,6 +26,7 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
+
 				    	$fields = [
 				    		"first_name" => $first_name,
 				    		"last_name" => $last_name,
@@ -36,6 +37,7 @@
 				    	$user->insert($fields);
 				    	//$user = $this->UserModel->findByEmail($email);
 				    	$user = $user->findByEmail($email);
+
 
 				    	// create new store
 				    	if ($role == 2) {

@@ -30,6 +30,7 @@ class CartController extends Controller{
                 if ($validation->passed()) {
                     $fields = [
                         "name" => $_POST["name"],
+                        "image"=> $_POST["image"],
                         "price" => $_POST["price"],
                         "product_id" => $_POST["product_id"],
                         "user_id" => $user->id,
@@ -140,26 +141,18 @@ class CartController extends Controller{
 
     }
 
-    public function removeAction($i){
-        $user = new User();
-        $user = $user->currentLoggedInUser();
-        $userId = $user->id;
-
+    public function removeAction($i,$u_id){
         $cart = new Cart();
-        $cart->remove($i,$userId);
+        $cart->remove($i);
 
-        $this->view->render('cart/cart');
+        $this->cartAction($u_id);
     }
 
-    public function emptyCartAction(){
-        $user = new User();
-        $user = $user->currentLoggedInUser();
-        $userId = $user->id;
-
+    public function emptyCartAction($u_id){
         $cart = new Cart();
-        $cart->emptyCart($userId);
+        $cart->emptyCart($u_id);
 
-        $this->view->render('cart/cart');
+        $this->cartAction($u_id);
 
     }
 

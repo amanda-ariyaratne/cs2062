@@ -57,9 +57,10 @@
 			$valueString = rtrim($valueString, ',');
 
 			$sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
+
 			if (!$this->query($sql, $values)->error()) {
 				return true;
-			}		
+			}	
 			return false;
 		}
 
@@ -164,7 +165,7 @@
 			}
 
 			$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
-			
+			//dnd($sql);
 			if ($this->query($sql, $bind)) {
 				if (!count($this->_result)) {
 					return false;
