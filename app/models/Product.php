@@ -80,25 +80,28 @@
 
 
 
-        public function addProduct()
-        {
-
-//		    dnd($_POST);
+        public function addProduct($u_id){
 
             $fields = [
+                "vendor_id" => $u_id,
                 "name" => $_POST["Product_Name"],
                 "description" => $_POST["Product_Description"],
                 "price" => $_POST["product_price"],
-                "sale_price" => $_POST["sale_price"],
                 "sub_category_id" => $_POST["category"],
                 "material" => $_POST["material"]
             ];
             
             $this->insert($fields);
-            //add image
             $pr_id = $this->lastInsertedID();
+
+            //add measurements
+            $mes = $_POST["mes"];
+            $measurement = explode(",",$mes);
+            $m = new Measurement();
+            $m->addMesurement($pr_id,$measurement);
+
+            //add image
             $images=($_FILES['fileUpload']['name']);
-            //dnd($images);
 
             for ($x=0; $x<sizeof($images); $x++){
                 

@@ -162,11 +162,9 @@ echo '
 
         <div class="featured-img lazyload">
           <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$params[0][0]->images[0].'">            
-            
-        <span class="product-label">
-    
-      
+            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$params[0][0]->images[0].'"> 
+                        
+        <span class="product-label">   
         <span class="label-sale">
           <span class="sale-text">Available</span>  
           </span>   
@@ -218,6 +216,11 @@ echo '
         </form>
 
       </div>
+      
+      <div>
+      <span style="color: #dc3545;">edit</span>
+      <span style="color: #dc3545;">remove </span>
+        </div>
 
     </div>
   </div>

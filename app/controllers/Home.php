@@ -107,20 +107,29 @@
         }
 
         public function addProductAction(){
+            $user = new User();
+            $user = $user->currentLoggedInUser();
+            $u_id = $user->id;
 
-            $db = DB::getInstance();
-            $categories = $db->find('sub_categories');
-            $measurements = $db->find('measurement_types');
-            $params = [$categories,$measurements];
-            if ($_POST) {
-                $product=new Product('product');
-                $product-> addProduct();
+            if ($user != null) {
+                $db = DB::getInstance();
+                $main_category = $db->find('category');
+                $categories = $db->find('sub_category');
+                $measurements = $db->find('measurement_types');
+                $params = [$categories, $measurements, $main_category];
+                if ($_POST) {
+//                    dnd($_POST);
+                    $product = new Product('product');
+                    $product->addProduct($u_id);
 
-                //redirect to some page\\
-                Router::redirect('home/addProduct');
+                    //redirect to some page\\
+                    Router::redirect('home/addProduct');
+                }
+                $this->view->render('home/addProduct', $params);
             }
-            $this->view->render('home/addProduct', $params);
-
+            else {
+                Router::redirect('account/login');
+            }
         }
 
 

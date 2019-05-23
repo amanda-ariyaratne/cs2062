@@ -34,7 +34,9 @@
 				    		"role" => $role
 				    	];
 				    	$user->insert($fields);
-				    	$user = $this->UserModel->findByEmail($email);
+				    	//$user = $this->UserModel->findByEmail($email);
+                        $user = $user->findByEmail($email);
+                        dnd($user);
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {

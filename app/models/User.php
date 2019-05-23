@@ -38,7 +38,8 @@
     	}
 
 		public function findByEmail($email){
-			return $this->findFirst(['conditions'=>"email = ?" , 'bind'=>[$email]]);
+			$user = $this->findFirst(['conditions'=>"email = ?" , 'bind'=>[$email]]);
+			return $user;
 		}
 
 		public static function currentLoggedInUser(){

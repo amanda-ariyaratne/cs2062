@@ -18,5 +18,16 @@
 			return $measurements;
 		}
 
+		public function addMesurement($p_id,$arry){
+		    foreach ($arry as $mes){
+		        $fields = [
+		           "product_id" => $p_id,
+                   "name" => $mes
+                ];
+		        $this->insert($fields);
+            }
+
+        }
+
 
 	}

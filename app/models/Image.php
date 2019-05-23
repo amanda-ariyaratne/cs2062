@@ -8,6 +8,8 @@
 
 		//add image to the table\\
 		public function addImage($pr_id,$image_path,$ind,$folder){
+//			dnd($image_path);
+//			dnd($pr_id);
     		$imageTable=[
     			'path'=>$image_path,
     			'product_id'=>$pr_id

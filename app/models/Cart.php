@@ -64,7 +64,8 @@
                         "name" => $item->product_name,
                         "quantity" => $item->quantity,
                         "price" => $item->price,
-                        "customer_id" => $o_id
+                        "customer_id" => $o_id,
+                        "image" => $item->image_path
                     ];
                     array_push($cartItems, $fields);
                 }
