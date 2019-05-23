@@ -26,6 +26,7 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
+
 				    	$fields = [
 				    		"first_name" => $first_name,
 				    		"last_name" => $last_name,
@@ -34,12 +35,27 @@
 				    		"role" => $role
 				    	];
 				    	$user->insert($fields);
-				    	$user = $this->UserModel->findByEmail($email);
+				    	//$user = $this->UserModel->findByEmail($email);
+				    	$user = $user->findByEmail($email);
+
+
+				    	// create new store
+				    	if ($role == 2) {
+				    		$tailorShop = new TailorShop();
+							$fields = [
+								'vendor_id' => $user->id,
+								'paypal_email' => $_POST['paypal_email']
+							];
+							
+							$tailorShop->addTailorShop($fields);
+				    	}
+	
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {
+
 							Router::redirect('home/vendorPage/'.$user->id);
-						} else if($user->role == 3){
+						} else if($user->role == 3) {
 							Router::redirect('account/orderHistory');
 						}
 						
@@ -57,6 +73,7 @@
 				$_SESSION['last_name'] = '';
 				$_SESSION['role'] = '';
 				$_SESSION['error_email'] = '';
+				$_SESSION['error_paypal_email'] = '';
 				$this->view->render('account/register');
 			}
 			
@@ -92,7 +109,7 @@
 						} else if(currentUser()->role == 2){
 							Router::redirect('home/vendorPage/'.currentUser()->id);
 						} else if(currentUser()->role == 1){
-							Router::redirect('home/newProducts');
+							Router::redirect('admin/newProducts');
 						}
 						
 					}
@@ -168,6 +185,62 @@
 			}
 			Router::redirect('account/login');
 
+		}
+
+		public function forgotPasswordAction(){
+			$this->view->render('account/forgotPassword');
+		}
+
+		public function sendPasswordResetEmailAction(){
+			$email = $_POST["email"];
+			//$_SESSION['email'] = $_POST['email'];
+			$user = new User();
+			if ($user->findByEmail($email) != null){
+			  	$user = $user->findByEmail($email);
+			  	$user->sendPasswordResetEmail($email);
+			  	Router::redirect('account/forgotPasswordMailSent');
+			} else {
+			   	$_SESSION['error_email'] = "<div style='color: red;'>This user doesn't exist.</div>";
+			  	Router::redirect('account/forgotPassword');
+			}
+		}
+
+		public function forgotPasswordMailSentAction(){
+			$this->view->render('account/forgotPasswordMailSent');
+		}
+
+		public function resetPasswordAction(){
+			$token = $_GET['token'];
+			$pr = new PasswordReset();
+			$pr = $pr->getPRByToken($token);
+			$_SESSION['recovery_email'] = $pr->email;
+			if ($pr->isValid()){
+				Router::redirect('account/recoverPassword');
+			} else {
+				Router::redirect('account/passwordRecoveryExpired');
+			}
+		}
+
+		public function recoverPasswordAction(){
+			$this->view->render('account/recoverPassword');
+		}
+
+		public function passwordRecoveryExpiredAction(){
+			$this->view->render('account/passwordRecoveryExpired');
+		}
+
+		public function updateNewPWAction(){
+			$password = $_POST['password'];
+			$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+			$hash = md5(rand(0,1000));
+			$fields = [
+				'password' => $password
+			];
+			$user = new User();
+			$user = $user->findByEmail($_SESSION['recovery_email']);
+
+			$user->updatePassword($fields);
+			Router::redirect('account/login');
 		}
 
 

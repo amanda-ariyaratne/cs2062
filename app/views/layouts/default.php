@@ -1,9 +1,10 @@
 <!doctype html>
 <!--[if IE 8]><html lang="en" class="ie8 js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html lang="en" class="js"> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en" class="js"> <!--<![endif]-->
 
 <head>
-  <link rel="shortcut icon" href="<?=PROOT?>assets/images/logo.jpg" type="image/png" />
+  <link rel="shortcut icon" href="<?=PROOT?>assets/images/icon-main.jpg" type="image/jpg" />
   
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -35,6 +36,14 @@
       animation: animateee 16s ease-in-out infinite;
     }
 
+    .change-bg-unseen{
+      background: rgba(230,255,230,0.5);
+    }
+
+    .change-bg-seen{
+      background: rgba(255,240,255,0.5);
+    }
+
     @keyframes animateee{
       0%,100%{
         background-image: url(<?=PROOT?>assets/images/back-1.jpg);
@@ -52,7 +61,21 @@
         background-image: url(<?=PROOT?>assets/images/back-5.jpg);
       }
     }
-
+    .badge-counter{
+            
+      padding: 2px 4px;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      display: inline-block;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      font-family: Roboto,sans-serif;
+    }
     .noti {  
       text-decoration: none;
       padding: 15px 26px;
@@ -66,7 +89,7 @@
       color:#c1939e;
     }
 
-    .noti .badge {
+    /*.noti .badge {
       position: absolute;
       top: 20px;
       right: 18px;
@@ -75,7 +98,7 @@
       background-color: red;
       color: white;
       font-size: 12px;
-    }
+    }*/
         .noti_Container ul {
             border-style: solid;
             border-width: 0px 0px 1px 0px;
@@ -179,6 +202,7 @@
     .footer-heading{
       font-size: 18px;
     }
+
   </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -190,20 +214,118 @@
   
   <div class="boxed-wrapper">
     
-    <div class="new-loading"></div>     
+
       <div class="cart-sb">
-        <form action="/cart" method="post">    
           <div class="cart-sb-title">
-            <span class="c-title">Your Cart</span>
-            <span class="c-close"><i class="demo-icon icon-close" aria-hidden="true"></i></span>
+            <span class="c-title">Notification</span>
+            <span class="c-close">
+              <i class="demo-icon icon-close" aria-hidden="true"></i>
+            </span>
           </div>
           
-          <div id="cart-info" class="shipping-true">
+          <div id="cart-info" class="shipping-true" style="height: 550px; max-height: 550px;">
             <div id="cart-content" class="cart-content">
-              <div class="cart-loading"></div>
+
+        <div class="items">
+          <?php 
+
+          if (count($new)>0 || count($old)>0){  
+
+            $all=array_merge($new,$old);
+
+            foreach($all as $noti){
+                $productName='<a style="font-weight: 400;"php href="'.PROOT.'home/productView/'.$noti->pr_id.'"><b>'.$noti->pr_name.'</b></a>';
+
+                if ($noti->status==1)
+                  {$approval='<b>accepted</b>';}
+                else
+                  {$approval= '<b>rejected</b>';}
+                
+                if ($noti->type==1){       //customRequest
+
+                    $tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->shop.'</b></a>';
+
+                    $sentence='Your custom request '.$productName.' has been '.$approval.' by '.$tailorName.'.';
+                }
+                elseif ($noti->type==2) {  //product display req
+
+                    $tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->shop.'</b></a>';
+
+                    $sentence=$tailorName.' requests for the '.$productName.' to be uploaded.';
+                }
+                elseif ($noti->type==3) {  //product display app
+
+                    $sentence='Your product '.$productName.' has been '.$approval.' to be uploaded.';
+                }
+                elseif ($noti->type==4) {  //product order
+                    
+                    $customerName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->from_name.'</b></a>';
+
+                    $sentence='You have a new order from '.$customerName.' for the product '.$productName;
+                }
+
+                echo '
+                <div class="made-for-new"></div>
+
+                <div class="items-inner animated-'.$noti->id.'" >
+                  <div class="cart-item-image">
+                    <a href=""><img src="'.PROOT.'assets/images/1x_420x.jpg"></a>
+                  </div>';     
+
+                  if ($noti->seen==0){
+                      echo '
+                      <div class="cart-item-info id-num-'.$noti->id.' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
+                  }
+                  else{
+                      echo '
+                      <div class="cart-item-info id-num-'.$noti->id.' change-bg-seen" style="width: 200px;padding-right: 0px;">';
+                  }
+                  
+
+                  echo '
+                    <div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;">
+
+                        '.$sentence.'
+                      
+                    </div>      
+
+                  </div>
+
+                </div>  
+                ';
+
+            }
+          }
+          else {
+            echo '
+            <div style="text-align: center; position: absolute; top: 50%;left: 50%; margin-right: -50%; transform: translate(-50%, -50%); font-style: italic;">
+              You do not have any new notifications yet!
+            </div>
+            ';
+          }
+
+
+              
+          ?>                
+                
+              </div>
+              <!-- <div class="cart-item-quantity">
+                      5
+                    </div>
+                    <div class="cart-item-price">
+                      $100
+                    </div> 
+
+                  <div data-id="'.$noti->id.'" class="cart-close" title="remove">
+                    <i class="demo-icon icon-close product-close" aria-hidden="true"></i>
+                  </div>  -->
             </div>
           </div>
-        </form>
+
+          <div class="cart-sb-title" style="position: absolute; bottom: 0px; width: 100%;">
+            <span class="c-title"><a href="" style="text-decoration: none; color: #fff;">See All</a></span>
+          </div>
+
       </div>
 
     <div id="page-body" class="breadcrumb-color">      
@@ -327,7 +449,7 @@
             <div class="header-logo col-lg-2 col-md-12">
               
               
-              <a href="#" title="Tailor Mate" class="logo-site lazyload waiting">
+              <a href="<?=PROOT?>home" title="Tailor Mate" class="logo-site lazyload waiting">
                 <img class=" lazyloaded" data-srcset="<?=PROOT?>assets/images/icon-main.jpg 1x, <?=PROOT?>assets/images/icon-main.jpg 2x" alt="Tailor Mate" style="max-width: 150px; border-radius: 50%;" srcset="<?=PROOT?>assets/images/icon-main.jpg 1x, <?=PROOT?>assets/images/icon-main.jpg 2x">
               </a>
             </div>
@@ -337,10 +459,10 @@
               <div class="col-md-5">
                 <div class="searchbox">
 
-                  <form id="search" class="navbar-form search" action="/search" method="get">
-                    <input type="hidden" name="type" value="product" />
-                    <input id="bc-product-search" type="text" name="q" class="form-control"  placeholder="Search" autocomplete="off" />
-
+                  <form id="search" class="navbar-form search" action="<?=PROOT?>home/search" method="get">
+                    <!-- <input type="hidden" name="type" value="product" /> -->
+                    <input type="text" name="keywords" class="form-control"  placeholder="Search" autocomplete="off" />
+                    <input type="hidden" name="page" value="0">
                     <button type="submit" class="search-icon">
                       <span class="lazyload waiting">
 
@@ -359,43 +481,44 @@
 
                 </div>
               </div>
-              <div class="col-md-1"></div>
               <div class="col-md-1">
-                <a href="#" title="Sales"> 
-                  <i class="fas fa-comments-dollar" style="font-size: 45px; color: #c1939e;"></i>
+
+                <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
+                    <span>
+                      <i class="fas fa-bell noti-icon-style" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 7px; border-radius:3px; position:absolute; top:0px; "></i>
+                    </span>
+                    <span class="badge-counter" style="position: absolute; top: 20px; left: 60px;">
+                       <?= count($new)?>
+                    </span>
                 </a>
+                
               </div>
 
-              <div class="col-md-1">
+              <div class="col-md-1"></div>
+
+              <div class="col-md-1" style="height:36px;">
 
                   <?php 
-                      if ($user->role==0){
+                      if ($user->role==3){
                         echo '
-                          <a href="#" class="noti" style="color:#c1939e;" title="cart">
-                            
-                            <i class="demo-icon icon-handy-cart" style="font-size:40px;"></i>
-
-                            <span class="badge">
-                              1
+                          <a href=# title="Your cart">
+                            <span>
+                              <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
+                            </span>
+                            <span class="badge-counter" style="position: absolute; top: 20px;right: 18px;">
+                              5
                             </span>
                           </a>
 
                       ';
                       }
 
-                      elseif ($user->role==1){
+                      elseif ($user->role==2){
 
                         echo '
-
-                        
-                          <a href="#" class="noti" id="noti_Button" style="color:#c1939e;" title="notification">
-                              <span>
-                                <i class="fas fa-bell"></i>
-                              </span>
-                              <span class="badge" id=#noti_Counter>
-                                 3
-                              </span>
-                          </a>
+                         <a href="#" title="Sales"> 
+                          <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
+                        </a>
                         ';
                       }
 
@@ -409,15 +532,15 @@
             <div class="col-md-1">
                 <div class="header-phone-widget d-none d-lg-block">
                   <?php 
-                    if ($user->role==0 || $user->role==1){
+                    if ($user->role==2 || $user->role==3){
                       $sentence='';
                       $LinkPath='';
-                      if ($user->role==0){
+                      if ($user->role==3){
                         $sentence="Add-our-Designs";
                         $LinkPath="CustomerRequestView/1";
 
                       }                          
-                      elseif ($user->role==1){
+                      elseif ($user->role==2){
                         $sentence="Custom-Requests";
                         $LinkPath="ProductRequest/1";
                       }
@@ -427,7 +550,7 @@
                     <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
                       <a href="'.PROOT.'home/'.$LinkPath.'">
                       
-                      <i class="fas fa-tshirt" title='.$sentence.'></i>
+                      <i class="fas fa-tshirt" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 4px; border-radius:3px; position:absolute; top:7px; right:40px;" title='.$sentence.'></i>
                       </a>
                     </div>                  
                   
@@ -441,7 +564,7 @@
               
                 
 
-                  <div id="notifications">
+                  <!-- <div id="notifications">
                         <div class="HeadingNoti" style="color:black; margin:0; padding: 2px 10px;">
                           Notifications
                         </div>
@@ -450,15 +573,8 @@
                             <ul>
                                 <li>
                                   <a href="#" >
-                                        sdfgcvhj
-                                    </a>
-                                </li>
-                            </ul>
-                            <ul>
-                                <li>
-                                  <a href="#" >
-                                        sdfgcvhj
-                                    </a>
+                                        
+                                  </a>
                                 </li>
                             </ul>
                         </div>
@@ -466,7 +582,7 @@
                         <div class="seeAll">
                           <a href="#">See All</a>
                         </div>
-                </div>
+                </div> -->
 
 
             </div>
@@ -488,200 +604,37 @@
               <div class="collapse navbar-collapse">
                 <ul class="menu-list">
 
-                  <li>
-                    <a href="<?=PROOT?>home/ProductList/1" class="dropdown-link">
-                    <span>All Products</span>
-                    </a>
-                  </li>
                   
-              
-                  <li class="dropdown">
-                      <a href="0" class="dropdown-link">
-                      <span>Men</span>
+                  <?php 
+                    foreach($categories as $cat=>$subCat){
+
+                      echo '
+                      <li class="dropdown">
+                      <a href="" class="dropdown-link">
+                      <span>'.$cat.'</span>
                       </a>
                       <span class="expand"></span>
 
-                      <ul class="dropdown-menu">
+                      <ul class="dropdown-menu">';
 
-                          <li><a tabindex="-1" href="2"><span>T-Shirts</span></a></li>
+                        foreach ($subCat as $sub){
+                            
+                            echo '<li>
+                              <a tabindex="-1" href="'.PROOT.'home/ProductCategory/1/'.$sub[1].'">
 
-                          <li><a tabindex="-1" href="1"><span>Shirts</span></a></li>
+                                <span>'.$sub[0].'</span>
+                              </a>
+                            </li>';
 
-                          <li><a tabindex="-1" href="3"><span>Sweate Shirts & Hoodies</span></a></li>
+                            
+                        }
 
-                          <li><a tabindex="-1" href="4"><span>Tank Tops</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Trousers</span></a></li>
-                         
-                          <li><a tabindex="-1" href="#"><span>Sarongs</span></a></li>
-
-                      </ul>
+                      echo '</ul>
                   </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Women</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>T-shirts and Tops</span></a></li>                          
-
-                          <li><a tabindex="-1" href="#"><span>Tank Tops</span></a></li>
-                         
-                          <li><a tabindex="-1" href="#"><span>Sweater and Hoodies</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Dresses</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Mini-Skirts</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Leggings</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Scraves</span></a></li>
-
-                      </ul>
-                  </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Kids</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Kids T-shirtd</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby T-shirts</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby one piece</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby dresses</span></a></li>
-                          
-                          <li><a tabindex="-1" href="#"><span>Baby skirts</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby leggings</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Baby trousers</span></a></li>
-
-                      </ul>
-                  </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Sarees</span>
-                  </a>
-                  <span class="expand"></span>
-
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Kandian Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Indian Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Western Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Bathik Saree</span></a></li>
-                          
-                          <li><a tabindex="-1" href="#"><span>Cotton Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Wedding Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Silk Saree</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Saree Jackets</span></a></li>
-                          
-                      </ul>
-                  </li>
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Home Decor</span>
-                  </a>
-                  <span class="expand"></span>
-
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Pillows and Cushions</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Duvel Covers</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Wall Taperstries</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Curtains</span></a></li>
-                          
-                      </ul>
-                  </li>
-
-
-                  
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Uniforms</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu" >
-
-                        <li class="dropdown dropdown-submenu">
-                          <a href="#" class="dropdown-link">
-                            <span>Girl's</span>    
-                          </a>    
-                          <span class="expand"></span>    
-                          <ul class="dropdown-menu">
-
-                                <li><a tabindex="-1" href="#"><span>Sirimavo B. Vidyalaya</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>SPM</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Musaeus College</span></a></li>
-                          </ul>
-                        </li>
-
-
-                         <li class="dropdown dropdown-submenu">
-                          <a href="/collections/birthday-gifts" class="dropdown-link">
-                            <span>Boy's</span>    
-                          </a>    
-                          <span class="expand"></span>    
-                          <ul class="dropdown-menu">
-
-                                <li><a tabindex="-1" href="#"><span>St.Peter's College</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Common</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Lyceum I. School</span></a></li>
-
-                                <li><a tabindex="-1" href="#"><span>Royal Institute</span></a></li>
-                          </ul>
-                        </li>
-
-                          
-                      </ul>
-                  </li>
-
-
-                  <li class="dropdown">
-                  <a href="#" class="dropdown-link">
-                  <span>Bags</span>
-                  </a>
-                  <span class="expand"></span>
-
-                  <ul class="dropdown-menu">
-
-                          <li><a tabindex="-1" href="#"><span>Tote Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Studio Pouches</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Drowstring Bags</span></a></li>
-
-                          <li><a tabindex="-1" href="#"><span>Laptop Sleeves</span></a></li>
-                          
-                      </ul>
-                  </li>
+                      ';
+                      
+                    }
+                  ?>
 
 
                 </ul>
@@ -757,6 +710,7 @@
 
 <div id="shopify-section-bottom" class="shopify-section">
 
+    
 
 <footer id="footer-content">
   <div id="shopify-section-footer" class="shopify-section">
@@ -1149,15 +1103,15 @@
 
                         <ul class="f-list">
                           
-                          <li><a href="/account/login" ><span>Login</span></a></li>
+                          <li><a href="<?=PROOT?>register/login" ><span>Login</span></a></li>
                           
-                          <li><a href="/account/register"><span>Register</span></a></li>
+                          <li><a href="<?=PROOT?>register/register"><span>Register</span></a></li>
                           
-                          <li><a href="/pages/about-us"><span>About Us</span></a></li>
+                          <li><a href="<?=PROOT?>home/aboutUs"><span>About Us</span></a></li>
                           
-                          <li><a href="/pages/contact-us"><span>Contact us</span></a></li>
+                          <li><a href="<?=PROOT?>home/contactUs"><span>Contact us</span></a></li>
                           
-                          <li><a href="/pages/shipping-returns"><span>Shipping and Refund</span></a></li>
+                          <li><a href="<?=PROOT?>orderController/orderList"><span>Orders</span></a></li>
                           
                         </ul>
 
@@ -1439,27 +1393,139 @@
 <script>
 $(document).ready(function () {
 
-        $('#noti_Button').click(function () {
-            $('#notifications').fadeToggle('fast', 'linear');
+    //Notification window
+    $('.noti').on('click', function(){
+        var newArray=JSON.stringify(<?php echo json_encode($new); ?>);
+        var newArrayJs=<?php echo json_encode($new); ?>;
+        if (newArray.length>0){
+            icon=$(this);
+            
+            $(".cart-sb").addClass("opened");
 
-            $('#noti_Counter').fadeOut('slow'); 
-            return false;
-        });
+            //close the Notification window
+            $('.c-close').on('click', function(){
 
-        $(document).click(function () {
-            $('#notifications').hide();
+                $(".cart-sb").removeClass("opened");
 
-            // CHECK IF NOTIFICATION COUNTER IS HIDDEN.
-            // if ($('#noti_Counter').is(':hidden')) {
-            //     // CHANGE BACKGROUND COLOR OF THE BUTTON.
-            //     $('#noti_Button').css('background-color', '#F3C7DD');
-            // }
-        });
+                icon.children(".badge-counter").html('0'); 
+                console.log(newArrayJs);
+                for (var i = 0; i < newArrayJs.length; i++) {
 
-        $('#notifications').click(function () {
-            return false; 
-        });
+                  var cl='.id-num-'+newArrayJs[i].id;
+                  console.log(cl);
+                  $(cl).removeClass("change-bg-unseen");
+                  $(cl).addClass("change-bg-seen");
+                }
+            });   
+ 
+            // //hide elements in the list
+            // $('.cart-close').on('click', function(){
+            //     icon=$(this);
+            //     ele_1=icon.parent();
+            //     ele_1.hide();
+            // });     
+            // 
+
+
+            $.ajax({  
+
+                url:"<?=PROOT?>NotificationController/updateSeenNotification",
+                method: "POST",
+                data:{'new': newArray },
+                success: function(){
+
+                }
+            }); 
+      }
+
+
+    });                    
+      
+    setTimeout(function(){  //setInterval();
+        $.ajax({   
+            url:"<?=PROOT?>NotificationController/newNotification",
+            method: "POST",
+            success: function(data){
+                var newNotification=JSON.parse(data);
+                notificationList = newNotification.new; 
+                console.log(notificationList);
+                // notificationList.forEach(setSentence);
+            }
+        });           
+    },1000);
+
+    $('#noti_Button').click(function () { 
+        $('#notifications').fadeToggle('fast', 'linear');
+
+        $('#noti_Counter').fadeOut('slow');
+       
+        return false;
+        
     });
+
+    $(document).click(function () {
+        $('#notifications').hide();
+        //$('#noti_Counter').html()='0';
+    });
+
+    $('#notifications').click(function () {
+
+        return false; 
+    });
+});
+
+function setSentence(noti){
+    console.log(noti);
+    productName='<a style="font-weight: 400;"php href="'+<?=PROOT?>+'home/productView/'+noti.pr_id+'"><b>'+noti.pr_name+'</b></a>';
+
+    if (noti.status==1)
+      {approval='<b>accepted</b>';}
+    else
+      {approval= '<b>rejected</b>';}
+
+    if (noti.type==1){ 
+        $tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.shop+'</b></a>';
+
+        entence='Your custom request '+productName+' has been '+approval+' by '+tailorName+'.';
+    }
+
+    else if (noti.type==2) {  
+
+        tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.shop+'</b></a>';
+
+        sentence=tailorName+' requests for the '+productName+' to be uploaded.';
+    }
+
+    else if (noti.type==3) {  
+
+        sentence='Your product '+productName+' has been '+approval+' to be uploaded.';
+    }
+    else if (noti.type==4) {  
+        
+        customerName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.from_name+'</b></a>';
+
+        sentence='You have a new order from '+customerName+' for the product '+productName;
+    }
+
+    line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>'
+
+    if (noti.seen==0){
+        line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
+    }
+    else{
+        line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-seen" style="width: 200px;padding-right: 0px;">';
+    }
+
+    line_3='<div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;"'+sentence+'</div></div>';
+
+    var newClass='items-inner animated-'+noti.id;
+
+    $('.made-for-new').addClass(newClass);
+    $('.'+newClass).removeClass("made-for-new");
+    $('.'+newClass).html(line_1+line_2+line_3);
+
+  }
+
 </script>
 
 </body>

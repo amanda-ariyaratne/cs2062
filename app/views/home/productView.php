@@ -6,7 +6,8 @@
 
 <link href="<?=PROOT?>assets/css/productView.css" rel="stylesheet" type="text/css" media="all" />
 <script src="<?=PROOT?>assets/js/productView.js"></script>
-<!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
+<!-- <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
+ --><!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
  --><!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  --><!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  -->	<style id="shopify-dynamic-checkout">
@@ -177,6 +178,7 @@
                              
                              ';
                             }
+                            $image_path = $params[1][0];
                           ?>         
 
                       </div>
@@ -199,7 +201,7 @@
                           echo '
 
                         <h1 itemprop="name" content="'.$params[0]->name.'" class="page-heading">'.$params[0]->name.'</h1>
-                        
+
                         ';
                         ?>
                           <div class="rating-links">
@@ -228,8 +230,8 @@
                           <div class="detail-price" itemprop="price" content="0.0">
                             
                             <?php echo '
-                              <span class="price-sale"><span class=money>Rs. '.$params[0]->sale_price.'</span></span>
-                              <del class="price-compare"> <span class=money>Rs. '.$params[0]->price.'</span></del>
+                              <span class="price-sale"><span class=money>$ '.$params[0]->sale_price.'</span></span>
+                              <del class="price-compare"> <span class=money>$ '.$params[0]->price.'</span></del>
                             ';?>
 
                           </div>
@@ -262,11 +264,6 @@
 
                           <div class="group-cw clearfix">
                             
-
-
-
-
-
 
 
 
@@ -328,16 +325,16 @@
                           
 
                       
-                              <div class="swatch size clearfix" data-option-index="0">
+                              <div class="measurements-main" data-option-index="0">
                                 <div class="header" style="float: none;">Size</div>
 
                                   <?php
                                     foreach($params['measurements'] as $key=>$measurement){
                                       echo '
 
-                                        <div class="spr-form" style="padding-bottom:10px;" >
-                                          <label class="spr-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
-                                          <input placeholder=" ##"  class="spr-form-input spr-form-input-text"  style="position:absolute; right:250px; height:25px; width:100px; padding:5px 10px;" type="text" name="measuremnt'.$key.'" aria-required="true" />
+                                        <div class="spr-form-for-measurements" style="padding-bottom:10px;" >
+                                          <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
+                                          <input placeholder=" # of inches"  class="spr-form-input spr-form-input-text"  style="position:absolute; right:250px; height:25px; width:100px; padding:5px 10px;" type="text" name="measuremnt'.$key.'" aria-required="true" />
                                           
                                         </div>
                                       ';
@@ -388,21 +385,29 @@
 
 
                               <input type='hidden' name='measurements' value="<?php echo htmlentities(serialize($params['measurements'])); ?>" />
-                              <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?> 
-                              
-                              
-      <!--                           <div class="pre-order hide">
-                                  <a href="#pre-order-popup" class="btn-pre-order btn btn-1">Pre-order</a>
-                                </div>
-                              
-                                <div class="pre-order-success hide">Successful pre-order.Thanks for contacting us!</div> 
-                              
-                              
-                              
-                                <div data-shopify="payment-button" class="shopify-payment-button">
-                                  <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
-                                  <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
-                                </div> -->
+                              <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?>
+                                <?php echo'<input type="hidden" name="price" value='.$params[0]->sale_price.'>';?>
+                                <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
+                                <?php echo'<input type="hidden" name="name" value='.$params[0]->name.'>';?>
+
+
+
+
+
+
+
+                                <!--                           <div class="pre-order hide">
+                                                            <a href="#pre-order-popup" class="btn-pre-order btn btn-1">Pre-order</a>
+                                                          </div>
+
+                                                          <div class="pre-order-success hide">Successful pre-order.Thanks for contacting us!</div>
+
+
+
+                                                          <div data-shopify="payment-button" class="shopify-payment-button">
+                                                            <button class="shopify-payment-button__button shopify-payment-button__button--unbranded shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
+                                                            <button class="shopify-payment-button__more-options shopify-payment-button__button--hidden" disabled="disabled" aria-hidden="true"> </button>
+                                                          </div> -->
                               
                               
                             </div>
@@ -442,7 +447,7 @@
 
                                       <div class="people-in-cart">
                                           <div class="img-user">
-                                            <img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image" />
+                                              <a href="<?=PROOT?>CartController/cart/0"><img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image"/>
                                           </div>
                                           <div class="people-block-text"></div>
                                       </div>
@@ -678,21 +683,20 @@
                               }
                               .rating label::before{
                                 content: '\f005';
-                                font-family: fontAwesome;
+                                font-family: 'Font Awesome 5 Free';
                                 position: relative;
                                 display: block;
                                 color: #f7d2da;
                               }
                               .rating label::after{
                                 content: '\f005';
-                                font-family: fontAwesome;
+                                font-family: 'Font Awesome 5 Free';
                                 position: absolute;
                                 display: block;
                                 color: #7f4956;
                                 top: 260px;
                                 opacity: 0;
                                 transition: .5s;
-                                text-shadow: 0 2px 5px rgba(0,0,0,.5);
                               }
                               .rating label:hover:after,
                               .rating label:hover ~ label:after,
@@ -711,7 +715,7 @@
                           </div>
 
                           <div class="yes-no-selector">
-                            <label class="spr-form-label" style="font-weight: 600">Did the product recived before deadline?</label>
+                            <label class="spr-form-label" style="font-weight: 600">Have the products recived before deadline?</label>
                             <div class="spr-form-input">
                               <input type="radio" name="yes-no" checked value="Yes">Yes</input>
                               <input type="radio" name="yes-no" value="No">No</input>
@@ -836,10 +840,10 @@
                                     <div class="price-cart-wrapper">
                                       <div class="product-price">
                                         <span class="price-compare">
-                                          <span class="money" data-currency-lkr="Rs. '.$product['price'].'" data-currency="LKR">Rs. '.$product['price'].'</span>
+                                          <span class="money" data-currency-lkr="$ '.$product['price'].'" data-currency="LKR">$ '.$product['price'].'</span>
                                         </span>
                                         <span class="price-sale">
-                                          <span class="money" data-currency-lkr="Rs. '.$product['sale_price'].'" data-currency="LKR">Rs. '.$product['sale_price'].'</span>
+                                          <span class="money" data-currency-lkr="$ '.$product['sale_price'].'" data-currency="LKR">$ '.$product['sale_price'].'</span>
                                         </span>
                                       </div>
 

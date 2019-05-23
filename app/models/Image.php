@@ -36,9 +36,8 @@
 
 		// get details of a particular image\\
 
-		public function getImage($detail){
+		public function getImage($pr_id){
 
-			$pr_id=$detail->id;
 			$condition=array('conditions'=> 'product_id = ?','bind'=>[$pr_id]);
 			$image_details = $this->find($condition);
 			$images = array();

@@ -74,10 +74,10 @@
                     
 
                     <div class="control-wrapper last">
-                      <!-- <div class="action">
-                        <a class="forgot-pass" href="javascript:;" onclick="showRecoverPasswordForm()">Lost your password?</a>
-                        <a class="return-store" href="https://arena-handy.myshopify.com">Return to Store</a>
-                      </div> -->
+                      <div class="action">
+                        <a class="forgot-pass" href="<?=PROOT?>account/forgotPassword">Lost your password?</a>
+                        <!--<a class="return-store" href="https://arena-handy.myshopify.com">Return to Store</a>-->
+                      </div>
                       <input class="btn btn-1" type="submit" value="Login"><!-- Login</button> -->
                     </div>
                   </form>
@@ -89,7 +89,7 @@
                   <p class="note">We will send you an email to reset your password.</p>
 
 
-<!--                   <form method="post" action="/account/recover" accept-charset="UTF-8">
+ <!--                 <form method="post" action="/account/recover" accept-charset="UTF-8">
                     <input type="hidden" name="form_type" value="recover_customer_password" />
                     <input type="hidden" name="utf8" value="✓" />
                     <div class="control-wrapper">

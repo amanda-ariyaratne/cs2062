@@ -2,7 +2,7 @@
 
 	class Model { 
 
-		protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];///////////
+		protected $_db, $_table, $_modelName, $_softDelete = false, $_columnNames = [];
 
 		public $id;
 
@@ -28,7 +28,23 @@
 			return $this->_db->get_columns($this->_table);
 		}
 
+		protected function _softDeleteParams($params){
+			if ($this->_softDelete) {
+				if (array_key_exists('conditions', $params)) {
+					if (is_array($params['conditions'])) {
+						$params['conditions'][] = "deleted_at IS NOT NULL";
+					} else {
+						$params['conditions'] .= " AND deleted_at IS NOT NULL";
+					}
+				} else {
+					$params['conditions'] = "deleted_at IS NOT NULL";
+				}
+			}
+			return $params;
+		}
+
 		public function find($params = []){
+			$params = $this->_softDeleteParams($params);
 			$results = [];
 			$resultsQuery = $this->_db->find($this->_table, $params);
 			if($resultsQuery!=false){
@@ -43,9 +59,11 @@
 		}
 
 		public function findFirst($params = []){
+			//$params = $this->_softDeleteParams($params);
 			$resultQuery = $this->_db->findFirst($this->_table, $params);
 			$result = new $this->_modelName($this->_table);
 			if($resultQuery){
+				
 				$result->populateObjectData($resultQuery);
 				return $result;
 			} else {
@@ -61,14 +79,16 @@
 		}
 
 		public function findById($id){
-			return $this->findFirst(['conditions'=>'$id = ?', 'bind'=>[$id]]);
+			return $this->findFirst(['conditions'=>'id = ?', 'bind'=>[$id]]);
 		}
 
 		public function insert($fields){
+
 			if (empty($fields)) {
+				
 				return false;
 			} else {
-				$this->_db->insert($this->_table, $fields);
+				return $this->_db->insert($this->_table, $fields);
 			}
 		}
 
@@ -86,7 +106,9 @@
 			}
 			$id = ($id == '') ? $this->id : $id;
 			if ($this->_softDelete) {
-				$this->update($id, ['deleted_at' => 1]);
+				date_default_timezone_set('Asia/Colombo');
+				$date = date("Y-m-d H:i:s"); 
+				return $this->update($id, ['deleted_at' => $date]);
 			}
 			return $this->_db->delete($this->_table, $id);
 		}

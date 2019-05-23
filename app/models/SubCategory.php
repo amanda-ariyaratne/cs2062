@@ -2,8 +2,8 @@
 	class SubCategory extends Model{
 		private $table;
 
-		public function __construct($_table = 'subCategory'){
-			$this->table=$_table;
+		public function __construct($_table = ''){
+			$_table='sub_category';
 			parent::__construct($_table);
 		}
 		public function getDetails(){

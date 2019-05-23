@@ -101,7 +101,7 @@
             <div class="row control-wrapper">
               <div class="row"><span id="error_role" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
               <label class="col-md-3" for="role">I want to be a <span class="req">*</span></label>
-              <input type="radio" name="role" id="role" value="2" style="display: inline;" class="col-md-1" <?php 
+              <input type="radio" name="role" value="2" style="display: inline;" class="col-md-1" <?php 
                 if(isset($_SESSION['role'])){
                   if($_SESSION['role'] == '2'){
                     echo("checked='checked'");
@@ -110,7 +110,7 @@
                   echo("checked='checked'");
                 }
               ?> /> Seller 
-              <input type="radio" name="role" id="role" value="3" style="display: inline;" class="col-md-1" <?php 
+              <input type="radio" name="role" value="3" style="display: inline;" class="col-md-1" <?php 
                 if(isset($_SESSION['role'])){
                   if($_SESSION['role'] == '3'){
                     echo("checked='checked'");
@@ -118,6 +118,19 @@
                 }
               ?> /> Buyer 
               <label class="col-md-1" id="first_name_error"></label>
+            </div>
+
+            <div class="row control-wrapper">
+              <div class="row"><span id="error_paypal_email" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;">
+                <?php if (isset($_SESSION['error_paypal_email'])) {
+                  echo $_SESSION['error_paypal_email'];
+                  $_SESSION['error_paypal_email'] = '';
+                }  ?>
+              </span></div>
+              <label class="col-md-3" for="paypal_email">Paypal Email<span class="req">*</span></label>
+              <input type="text" name="paypal_email" id="paypal_email"  value="<?php if(isset($_SESSION['paypal_email']))
+    echo $_SESSION['paypal_email'];$_SESSION['paypal_email']='';?>"/>
+              <label class="col-md-1" id="paypal_email_error"></label>
             </div>
 
             <div class="row control-wrapper last">
@@ -174,12 +187,14 @@ function validateRegistration(){
     document.getElementById('error_email').innerHTML = "";
     document.getElementById('error_confirm_password').innerHTML = "";
     document.getElementById('error_password').innerHTML = "";
+    document.getElementById('error_paypal_email').innerHTML = "";
     
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var confirm_password = document.getElementById("confirm_password").value;
+    var paypal_email = document.getElementById("paypal_email").value;
     var el;
     var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 

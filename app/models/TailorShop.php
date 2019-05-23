@@ -1,7 +1,7 @@
 <?php 
 	class TailorShop extends Model{
 
-		public function __construct(){
+		public function __construct($table=''){
 			$table='tailor_shop';
 			parent::__construct($table);	
 		}
@@ -20,9 +20,12 @@
 		}
 
 		public function updateStoreDetails($id, $fields){
-			//dnd($fields);
 			$this->update($id, $fields);
 			Router::redirect('account/storeDetails');
+		}
+
+		public function addTailorShop($fields){
+			$this->insert($fields);
 		}
 
 	}

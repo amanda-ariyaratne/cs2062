@@ -1,20 +1,21 @@
 <?php
+
 	class Home extends Controller {
         public $image;
+        private $_user;
 
 		public function __construct($controller, $action){
 			parent::__construct($controller, $action);
 		}
 
 		public function indexAction(){
-			$this->view->render('home/index');
+			$this->view->renderFrontPage('home/index');
 		}
 
 		public function testAction(){
-			$this->view->render('home/test');
+			echo json_encode(array('status'=>'true'));
 		}
-
-
+		
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
@@ -27,35 +28,25 @@
 			$this->view->render('home/AllVendors',$params);
 		}
 
-		public function NewRequestPageAction($a){
-			$product=new Product('product');
-			$details=$product->getPageVendor($a);
-
-			$param=$details[0];
-			$noOfProducts =$details[1];			
-
-			$params=array($param,$a,$noOfProducts,'New Requests');
-			$this->view->render('home/NewRequestPage',$params);
-		}
-
 		public function VendorPageAction($a){
 			$product=new Product('product');
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];		
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
 
 
-			//get vendor name 
+			//get vendor name
 		}
 
 		public function ProductListAction($a='0'){
-			$product=new Product('product');
+			$product=new Product();
 
 			$details=$product->getViewDetails($a);
+
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
@@ -64,62 +55,43 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
+		public function ProductCategoryAction($a,$sub_cat_id){
 
-		public function CustomerRequestViewAction($a){
+			$product=new Product();
 
-			$viewRequest = new CustomRequest('custom_request');
+			$details=$product->getCategoryViewDetails($a,$sub_cat_id);
 
-			$details= $viewRequest-> getViewDetails($a);
 			$param=$details[0];
-			$noOfProducts =$details[1];
-			
+			$noOfProducts =$details[1];		
 
-			$params=array($param,$a,$noOfProducts,'Custome Requests');
 
-			$this->view->render('home/CustomerRequests',$params);
+
+			$sub=new SubCategory();
+			$name=$sub->findByID($sub_cat_id)->name;
+
+			$params=array($param,$a,$noOfProducts,$name);
+
+			$this->view->render('home/ProductCategoryView',$params);
 		}
-
-
-		public function ProductRequestAction(){
-
-			$params=array('Product Request');
-			if($_POST){
-				$customRequest=new CustomRequest('custom_request');
-				$customRequest-> createRequest();
-
-			
-				$_SESSION['alert']='
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
-				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-				<div class="container">
-					<div class="alert alert-success fade in">    
-				    	<strong>Success!</strong> You have successfully added a CUSTOM REQUEST!
-				  	</div>
-				</div>';	
-
-				Router::redirect('home/ProductRequest',$params);
-			}
-
-        	$this->view->render('home/ProductRequest',$params);
-
-        }
-
 
 // chamodi akka's edited page
 
         public function addProductAction(){
-
-        	$db = DB::getInstance();
-        	$categories = $db->find('sub_category');
-        	$params = [$categories,'AddProduct'];
-        	if ($_POST) {
-				$product=new Product('product');
-				$product-> addProduct();
-
-				//redirect to some page\\
-				Router::redirect('home/addProduct');	
-            }
-            $this->view->render('home/addProduct', $params);
+        	if (currentUser()->role_id != 3) {
+        		$db = DB::getInstance();
+	            $categories = $db->find('sub_category');
+	            $measurements = $db->find('measurement_types');
+	            $params = [$categories,$measurements];
+	            if ($_POST) {
+	                $product=new Product('product');
+	                $product->addProduct();
+	                //redirect to some page\\
+	                Router::redirect('home/addProduct');
+	            }
+	            $this->view->render('home/addProduct', $params);
+        	} else {
+        		Router::redirect('home/ProductList/1');
+        	}   
 
         }
 
@@ -192,7 +164,6 @@
 
 				}
 			}
-
 			array_push($params,$reverse_reviews);
 
 
@@ -207,11 +178,10 @@
 			$color = new Color();
 			$params['colors'] = $color->getColorByproductID($p_id);
 
-			//load product measurements 
+			//load product measurements
 			$measurement = new Measurement();
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
 
-			//dnd($params);
 
 			$this->view->render('home/productView',$params);
 		}
@@ -230,69 +200,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-//         public function addProductAction(){
 
-//         	$db = DB::getInstance();
-//         	$categories = $db->find('sub_categories');
-//         	$params = [$categories];
-
-//         	if ($_POST) {
-// 				$db = DB::getInstance();
-
-// //				dnd($_POST);
-
-//                 $measurement1=0;$measurement2=0;$measurement3=0;
-//                 if(strlen($_POST["measurement1"])>0) {
-//                     $measurement1 = 1;
-//                 }
-//                 if(strlen($_POST["measurement2"])>0) {
-//                     $measurement2 = 1;
-//                 }
-//                 if(strlen($_POST["measurement3"])>0) {
-//                     $measurement3 = 1;
-//                 }
-
-//                 $fields = [
-//                     "name" => $_POST["Product_Name"],
-//                     "description" => $_POST["Product_Description"],
-//                     "price" => $_POST["product_price"],
-//                     "sale_price" => $_POST["sale_price"],
-//                     "sub_category_id" => $_POST["category"],
-//                     "material" => $_POST["material"],
-//                     "measurement_1_al" => $measurement1,
-//                     "measurement_2_al" => $measurement2,
-//                     "measurement_3_al" => $measurement3
-//                 ];
-//                 $db->insert('product_features', $fields);
-
-// //                $sql = "SELECT * FROM products";
-// //                $db->query($sql);
-// //                dnd($detail);
-//                 $product_id = $db->lastID();
-
-//                 $target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images';
-//                 $images=$_FILES["imagesUpload"];
-// //                dnd($images);
-//                 $i=0;
-//         		foreach ($images["name"] as $path) {
-//                     $target_file = $target_dir . '/' . basename($path);
-//                     $target_file = ltrim($target_file,"/");
-//                     move_uploaded_file($images["tmp_name"][$i], $target_file);
-
-//         			$values = [
-//         				"product_id" => $product_id,
-//         				"image_path" => $path,
-//         			];
-//                     $i++;
-//         		    $db->insert('images', $values);
-//         	}
-
-//         		//insert to colors table
-
-//             }
-//             $this->view->render('home/addProduct', $params);
-
-//         }
 
 
 
@@ -308,10 +216,19 @@
 			$this->view->renderFrontPage('home/frontPage');
 		}
 
-		public function newProductsAction(){
-			$this->view->render('home/newProducts');
-		}
+        public function searchAction($a='0'){
+        	$keywords = explode(" ", $_GET["keywords"]);
+        	$a = $_GET['page'];
 
+        	$product=new Product('product');
+			$details = $product->getViewDetailsForSearch($keywords, $a);
 
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+
+			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
+
+			$this->view->render('home/searchProductList',$params);
+        }
 
 	}

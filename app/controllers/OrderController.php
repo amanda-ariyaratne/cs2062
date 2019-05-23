@@ -2,7 +2,7 @@
 	
 	class OrderController extends Controller{
 
-		public function customerInformationAction($user_id = '1'){
+		public function customerInformationAction(){
 			//load user email
 			$user = new User();
 			$user = $user->currentLoggedInUser();
@@ -11,8 +11,8 @@
 				$params = array();
 				array_push($params,$user);
 
-				$params = $this->addToParams($params, $user_id);
-				//dnd($params);
+				$params = $this->addToParams($params, $user->id);
+
 				$this->view->render('Order/CustomerInformation',$params);
 			}else{
 					Router::redirect('account/login');
@@ -21,12 +21,60 @@
 
 
 
+		public function orderSuccessAction(){
+			$this->view->render('Order/OrderSuccess');
+		}
+
+		public function orderListAction(){
+			$user = new User();
+			$user = $user->currentLoggedInUser();
+
+			if($user!=null){
+				$params = array();
+				$params['user_id'] = $user->id;
+
+				$order = new CustomerOrder();
+				$status_details = $order->getOrderList($user->id);
+				$params['orders'] = $status_details;
+
+				$this->view->render('Order/OrderList', $params);
+			}else{
+					Router::redirect('account/login');
+			}
+			
+		}
+
+		public function orderStatusAction(){
+			$o_id = $_POST['order_id'];
+			$user = new User();
+			$user = $user->currentLoggedInUser();
+			if($user!=null){
+				//get order status
+				$order = new OrderStatus();
+				$order_status = $order->getOrderStatusByID($o_id);
+				$params = ['order_status' => $order_status];
+
+				//add total 
+				$params = $this->addToParams($params, $user->id);
+
+				$customerOrder = new CustomerOrder();
+				$order_details = $customerOrder->getOrderDetails($o_id);
+				$params['order_details'] = $order_details;
+				
+
+				$this->view->render('Order/OrderStatus', $params);
+			}else{
+					Router::redirect('account/login');
+			}
+			
+		}
+
 
 
 		public function addCustomerInfoAction(){
 			$validation = new Validate();
 			if($_POST){
-				//dnd($_POST);
+
 				$params = array();
 				$validation->check($_POST,[
 					'email' => [
@@ -75,14 +123,13 @@
 						'region'  => $_POST['province'],
 						'postal code'       => $_POST['zip'],
 						'night_phone_a'     => '+94',
-						'night_phone_b'     => substr($_POST['phone'], -9)
+						'night_phone_b'     => substr($_POST['phone'], -10)
 					];
 					array_push($params, $fields);
 
 					$payment_summary = unserialize($_POST['payment_summary']);
 					array_push($params, $payment_summary);
 
-					//dnd($params);
 					$this->view->render('Order/PaymentMethod',$params);
 				}else{
 					$user = new User();
@@ -101,13 +148,58 @@
 		}
 
 
+		private function addToParams($params , $user_id){
+			//load cart table and get item details
+			$cart = new Cart();
+			$cart_details = $cart->getPaymenteDetails($user_id);
+
+			if(count($cart_details)!=0){
+				//load product table and get item prices
+				$product = new Product('product');
+				$product_details = $product->getProductPriceByID($cart_details);
+				
+				//calculate price 
+				$order = new CustomerOrder();
+				$order_details = $order->calculateCheckoutPrice($product_details);
+				array_push($params, $order_details);
+			}
+			else{
+				array_push($params, []);
+			}
+
+			$params['user_id'] = $user_id;
+
+			return $params;
+		}
+
+
+		public function updateStatusAction(){
+			$this->view->render('Order/updateStatus');
+		}
+		public function inputStatusAction(){
+			$order = new OrderStatus();
+			$order->updateStatus($_POST);
+			dnd('done');
+		}
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+		/////////////////////////////////////////////////////////////////////////////////////////////// paypal
 
 		public function completeOrderAction(){
-			//dnd($_POST);
 
 			// For test payments we want to enable the sandbox mode. If you want to put live
 			// payments through then this setting needs changing to `false`.
@@ -124,7 +216,7 @@
 			// PayPal settings. Change these to your account details and the relevant URLs
 			// for your site.
 			$paypalConfig = [
-			    'email' => 'selleraccount2062@gmail.com',
+			    // 'email' => 'selleraccount2062@gmail.com',
 			    'return_url' => 'http://localhost/cs2062/OrderController/orderSuccess',
 			    'cancel_url' => 'http://localhost/cs2062/OrderController/CustomerInformation',
 			    'notify_url' => 'http://localhost/cs2062/OrderController/CustomerInformation'
@@ -139,13 +231,50 @@
 			    // Grab the post data so that we can set up the query string for PayPal.
 			    // Ideally we'd use a whitelist here to check nothing is being injected into
 			    // our post data.
-			    $data = [];
-			    foreach ($_POST as $key => $value) {
-			        $data[$key] = stripslashes($value);
-			    }
+			    // $data = [];
+			    // foreach ($_POST as $key => $value) {
+			    //     $data[$key] = stripslashes($value);
+			    // }
+
+
+			    
+
+			    $data = [
+			    	'payer_email' => 'buyeraccount@gmail.com',
+			    	'lc' => 'en-LK',
+			    	'cmd' => '_xclick',
+			    	'currency_code' => 'USD',
+			    	'submit_x' => '32',
+			    	'submit_y' => '13',
+					"items" => [
+					    array(
+					      "recipient_type"=> "EMAIL",
+					      "amount"=> array(
+					        "value"=> "0.12",
+					        "currency"=> "USD"
+					      ),
+					      "sender_item_id"=> "201403140001",
+					      "receiver"=> "seller2062@gmail.com"
+					    ),
+					    array(
+					      "recipient_type"=> "EMAIL",
+					      "amount"=> array(
+					        "value"=> "0.12",
+					        "currency"=> "USD"
+					      ),
+					      "sender_item_id"=> "201403140001",
+					      "receiver"=> "selleraccount2062@gmail.com"
+					    )
+					  ]
+
+
+			    ];
+
+
+
 			   
 			    // Set the PayPal account.
-			    $data['business'] = $paypalConfig['email'];
+			    // $data['business'] = $paypalConfig['email'];
 
 			    // Set the PayPal return addresses.
 			    $data['return'] = stripslashes($paypalConfig['return_url']);
@@ -156,11 +285,9 @@
 			    // Add any custom fields for the query string.
 			    //$data['custom'] = USERID;
 
-			    //dnd($data);
 			    
 			    // Build the query string from the data.
 			    $queryString = http_build_query($data);
-
 			    // Redirect to paypal IPN
 			    header('location:' . $paypalUrl . '?' . $queryString);
 			    exit();
@@ -198,38 +325,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-		private function addToParams($params , $user_id){
-			//load cart table and get item details
-			$cart = new Cart();
-			$cart_details = $cart->getPaymenteDetails($user_id);
-
-			if(count($cart_details)!=0){
-				//load product table and get item prices
-				$product = new Product('product');
-				$product_details = $product->getProductPriceByID($cart_details);
-				
-				//calculate price 
-				$order = new Customer_Order();
-				$order_details = $order->calculateCheckoutPrice($product_details);
-				array_push($params, $order_details);
-			}
-			else{
-				array_push($params, []);
-			}
-
-			$params['user_id'] = $user_id;
-			//dnd($params);
-			return $params;
-		}
 
 
 
@@ -278,12 +373,7 @@
 			return $res === 'VERIFIED';
 		}
 
-		/**
-		 * Check we've not already processed a transaction
-		 *
-		 * @param string $txnid Transaction ID
-		 * @return bool True if the transaction ID has not been seen before, false if already processed
-		 */
+
 		function checkTxnid($txnid) {
 			global $db;
 
@@ -293,15 +383,8 @@
 			return ! $results->num_rows;
 		}
 
-		/**
-		 * Add payment to database
-		 *
-		 * @param array $data Payment data
-		 * @return int|bool ID of new payment or false if failed
-		 */
-		function addPayment($data) {
-			global $db;
 
+		function addPayment($data) {
 			if (is_array($data)) {
 				$stmt = $db->prepare('INSERT INTO `payments` (txnid, payment_amount, payment_status, itemid, createdtime) VALUES(?, ?, ?, ?, ?)');
 				$stmt->bind_param(
@@ -321,10 +404,6 @@
 			return false;
 		}
 
-
-		public function orderSuccessAction(){
-			$this->view->render('Order/OrderSuccess');
-		}
 
 
 	}
