@@ -1,0 +1,11 @@
+<?php
+
+	class OrderedItem extends Model{
+
+		public function __construct($table='ordered_item'){
+			$table = $table;
+			parent::__construct($table);
+		}
+
+		
+	}

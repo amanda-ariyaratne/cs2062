@@ -13,9 +13,10 @@
 		}
 
 		public function testAction(){
-			echo json_encode(array('status'=>'true'));
+			$product=new Product();
+			$product->getAcceptedRequest('2','1','2');
 		}
-
+		
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
@@ -62,7 +63,7 @@
 			$details=$product->getCategoryViewDetails($a,$sub_cat_id);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];
+			$noOfProducts =$details[1];		
 
 
 
@@ -77,22 +78,21 @@
 // chamodi akka's edited page
 
         public function addProductAction(){
-            if (currentUser()->role_id != 3) {
-                $db = DB::getInstance();
-                $main_category = $db->find('category');
-                $categories = $db->find('sub_category');
-                $measurements = $db->find('measurement_types');
-                $params = [$categories, $measurements, $main_category];
-                if ($_POST) {
-                    $product = new Product('product');
-                    $product->addProduct();
-                    //redirect to some page\\
-                    Router::redirect('home/addProduct');
-                }
-                $this->view->render('home/addProduct', $params);
-            }else {
-                Router::redirect('home/ProductList/1');
-            }
+        	if (currentUser()->role_id != 3) {
+        		$db = DB::getInstance();
+	            $categories = $db->find('sub_category');
+	            $measurements = $db->find('measurement_types');
+	            $params = [$categories,$measurements];
+	            if ($_POST) {
+	                $product=new Product('product');
+	                $product->addProduct();
+	                //redirect to some page\\
+	                Router::redirect('home/addProduct');
+	            }
+	            $this->view->render('home/addProduct', $params);
+        	} else {
+        		Router::redirect('home/ProductList/1');
+        	}   
 
         }
 
@@ -115,12 +115,12 @@
 			//load categories table and instert main category name -> product_obj
 			$category_obj = new Category();
 			$category_details = $category_obj->findByID($sub_category_details->main_id);
-			$product_obj->main_category_name = $category_details->category_name;
+			$product_obj->main_category_name = $category_details->name;
 			array_push($params,$product_obj);
 
 			//add product images array - inster to params
-			$img = new Image('image');
-			array_push($params,$img->getImage($p_id));
+			$img = new Image('tailor_product_image');
+			array_push($params,$img->getImage($product_obj));
 			
 			//load review table
 			$review_object = new Review();
@@ -225,7 +225,7 @@
 			$details = $product->getViewDetailsForSearch($keywords, $a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];
+			$noOfProducts =$details[1];			
 
 			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
 

@@ -1,8 +1,8 @@
 <?= $this->setSiteTitle('Add Product') ?>
 
 <?= $this->start('head'); ?>
-    <link rel='stylesheet' id='pt-grid-css' href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all'
-          xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>
+    <link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
+<!--    xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>-->
     <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
 <!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/woo-styles.css' type='text/css' media='all' />-->
 <!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
@@ -42,9 +42,9 @@
 
 
 
-                <div class="col-md-2"></div>
+                <div class="col-md-1"></div>
 
-            <main class="site-content col-xs-12 col-md-7 col-sm-8 col-md-push-3 col-sm-push-4" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
+            <main class="site-content col-xs-12 col-md-8 col-sm-8 col-md-push-3 col-sm-push-4" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
 
 
 			<div class="page-content entry-content"><!-- Page content -->
@@ -102,27 +102,7 @@
                                     </div>
                                     <small id="error-msg-image"></small>
                                     <br/>
-
-
-
-<!--                                    <table class="variations" cellspacing="0">-->
-<!--                                        <tbody>-->
-<!--                                        <tr>-->
-<!--                                            <td class="label"><label style="font-family: sans-serif">Product Price</label><span class="require">*</span></td>-->
-<!--                                            <td class="value">-->
-<!--                                                <div class="control">-->
-<!--                                                    <input type="number" class="box" style="padding-left: 7px;width: 100px" name="product_price" id="productPrice" value="" placeholder="require value"  />-->
-<!--                                                </div>-->
-<!--                                                <small id="error-msg-price"></small></td>-->
-<!--                                        </tr>-->
-<!--                                        </tbody>-->
-<!---->
-<!--                                    </table>-->
-
-
-
-
-
+                                     <br/>
 
                                     <!-- Product Price -->
                                     <div class="control-group">
@@ -354,7 +334,8 @@
                 </div>
             </div>
             </main>
-                <div id="sidebar-pages" style="right: 65%" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+                <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">
+<!--                    style="right: 65%"-->
                     <?php include ('Categories.php');?>
                 </div>
 

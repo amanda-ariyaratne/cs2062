@@ -80,7 +80,7 @@
 
                   <ul class="breadcrumbb breadcrumbb--center" >
       <li class="breadcrumbb__item breadcrumbb__item--completed">
-        <a class="breadcrumbb__link" data-trekkie-id="breadcrumbb_cart_link" style="font-size: 15px"  href="">Cart</a>
+        <a class="breadcrumbb__link" data-trekkie-id="breadcrumbb_cart_link" style="font-size: 15px"  href="<?=PROOT?>cartController/cart">Cart</a>
         <svg class="icon-svg icon-svg--color-adaptive-light icon-svg--size-10 breadcrumbb__chevron-icon" aria-hidden="true" focusable="false"> <use xlink:href="#chevron-right" /> </svg>
       </li>
 
@@ -277,7 +277,7 @@
     </form>
 
 
-          <a class="step__footer__previous-link" data-trekkie-id="previous_step_link" href="#">
+          <a class="step__footer__previous-link" data-trekkie-id="previous_step_link" href="<?=PROOT?>cartController/cart">
             <svg focusable="false" aria-hidden="true" class="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
               <path d="M8 1L7 0 3 4 2 5l1 1 4 4 1-1-4-4"/>
             </svg>

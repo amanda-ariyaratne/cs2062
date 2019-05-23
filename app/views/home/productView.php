@@ -161,7 +161,7 @@
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
 
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
 
                                     </div>
                                     <div class="slick-item slick-zoom">
@@ -230,11 +230,11 @@
                           <div class="detail-price" itemprop="price" content="0.0">
                             
                             <?php echo '
-                              <span class="price-sale"><span class=money>$ '.$params[0]->sale_price.'</span></span>
-                              <del class="price-compare"> <span class=money>$ '.$params[0]->price.'</span></del>
+                              <span class="price-sale"><span class=money>$ '.$params[0]->price.'</span></span>
+                              
                             ';?>
-
-                          </div>
+<!--                             <del class="price-compare"> <span class=money>$ '.$params[0]->price.'</span></del>
+ -->                          </div>
                         </div>   
                         
                         
@@ -386,7 +386,7 @@
 
                               <input type='hidden' name='measurements' value="<?php echo htmlentities(serialize($params['measurements'])); ?>" />
                               <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?>
-                                <?php echo'<input type="hidden" name="price" value='.$params[0]->sale_price.'>';?>
+                                <?php echo'<input type="hidden" name="price" value='.$params[0]->price.'>';?>
                                 <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
                                 <?php echo'<input type="hidden" name="name" value="'.$params[0]->name.'">';?>
 
@@ -805,7 +805,7 @@
 
                                     <div class="featured-img">
                                       <a href="/">
-                                        <img class="featured-image front" style="height:200px;" src="'.PROOT.'assets/images/'.$product['path'].'" alt="'.$product['name'].'"></img>
+                                        <img class="featured-image front" style="height:200px;" src="'.PROOT.'assets/images/products/'.$product['path'].'" alt="'.$product['name'].'"></img>
                                       </a>
                                     </div>
 

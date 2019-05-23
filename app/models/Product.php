@@ -7,7 +7,7 @@
         public $id;
 
 
-		public function __construct($products=''){
+		public function __construct($table=''){
 			$table='product';
 			parent::__construct($table);
 		}
@@ -15,31 +15,39 @@
         public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
 
             //end of the function
-            notifyObservers($product_id,$tailor_id,$customer_id);
+            $this->addObserver(new Notification());
+            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='1', $type='4');
         }
 
-        public function notifyObservers($product_id,$tailor_id,$customer_id){
-            foreach($observers as $observer){
-                $observer->update($product_id,$tailor_id,$customer_id);
+        public function rejectRequest($product_id,$tailor_id,$customer_id){
+
+            //end of the function
+            $this->addObserver(new Notification());
+            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='0', $type='4');
+        }
+
+        public function notifyObservers($product_id,$tailor_id,$customer_id,$status ,$type){
+            foreach ($this->observers as $observer){
+                $observer->updateClass($product_id,$tailor_id,$customer_id,$status, $type);
             }
         }
 
         public function addObserver($obj){
-            array_push($observers, $obj);
+            array_push($this->observers, $obj);
         }
 
-        public function getViewDetails($a){
+        public function getViewDetails($a){            
             $a=6*($a-1);
             $limit = array('limit'=>$a.',6');
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
-                $row->images = $images;
-            }
+                $row->images = $images;         
+            }   
 
             $noOfRows=count($this->find());
-
+            
             return [$details,$noOfRows];
         }
 
@@ -48,7 +56,7 @@
             $limit = array('limit'=>$a++.',6');
             $conditions=array('conditions'=> 'sub_category_id = ?', 'bind'=> [$sub_cat_id]);
             $tot=array_merge($conditions,$limit);
-
+            
             $details = $this->find($tot);
 
             foreach ($details as $row){
@@ -70,7 +78,8 @@
             foreach ($details as $row){
                 //get Image details
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
+//                $images=$image->getImage($row);
                 $row->images = $images;     
             }
 
@@ -92,7 +101,9 @@
 
 
 
-        public function addProduct(){
+        public function addProduct()
+        {
+
 
             $fields['name'] = $_POST["Product_Name"];
             $fields['price'] = $_POST["product_price"];
@@ -107,6 +118,7 @@
             }
             
             $this->insert($fields);
+            //add image
             $pr_id = $this->lastInsertedID();
 
             //add measurements
@@ -177,26 +189,26 @@
                 $key = '%' . $key . '%';
                 array_push($keys, $key);
             }
-
+       
             $params = [
                 'column' => 'name',
                 'keys' => $keys,
                 'limit' => $a . ',6'
             ];
-
+            
             $details = $this->_db->search('product', $params);
             if ($details) {
                 foreach ($details as $row){
                     $image=new Image('tailor_product_image');
                     $images=$image->getImage($row);
-                    $row->images = $images;
+                    $row->images = $images;         
                 }
                 $noOfRows=count($details);
             } else {
                 $details = [];
                 $noOfRows = 0;
             }
-
+            
             return [$details,$noOfRows];
         }
     }
