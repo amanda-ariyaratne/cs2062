@@ -28,7 +28,7 @@
 		}
 
 		public function getRateCount($product_id){
-			$ratingArray = $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
+			$ratingArray = $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$product_id]));
 			return count($ratingArray);
 		}
 

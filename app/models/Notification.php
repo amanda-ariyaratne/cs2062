@@ -15,7 +15,6 @@
 
 			if (count($list)){
 				foreach($list as $row){
-					// dnd($row->pr_id);
 					if ($row->type==1){
 						$product=new CustomRequest();
 						$row->pr_name=$product->findByID($row->pr_id)->pr_name;
@@ -47,7 +46,6 @@
 
 			if (count($list)){
 				foreach($list as $row){
-					// dnd($row->pr_id);
 					if ($row->type==1){
 						$product=new CustomRequest();
 						$row->pr_name=$product->findByID($row->pr_id)->pr_name;

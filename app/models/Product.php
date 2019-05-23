@@ -56,7 +56,7 @@
             $tot=array_merge($conditions,$limit);
             
             $details = $this->find($tot);
-            // dnd($details);
+
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
@@ -90,7 +90,7 @@
             }
 
 
-            //dnd($details);
+
             $noOfRows=count($this->find());
             
             return [$details,$noOfRows];
@@ -101,7 +101,7 @@
         public function addProduct()
         {
 
-//		    dnd($_POST);
+
             $fields['name'] = $_POST["Product_Name"];
             $fields['price'] = $_POST["product_price"];
             $fields['sub_category_id'] = $_POST["category"];
@@ -122,7 +122,7 @@
             //add image
             $pr_id = $this->lastInsertedID();
             $images=($_FILES['fileUpload']['name']);
-            //dnd($images);
+
 
             for ($x=0; $x<sizeof($images); $x++){
                 
@@ -210,7 +210,6 @@
 
 
         //     //add colors
-        //     dnd($_POST["color"]);
         //     for ($x=1; $x<= 10; $x++){
         //         $color='color'.$x;
 

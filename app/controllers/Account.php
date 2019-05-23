@@ -238,8 +238,7 @@
 			];
 			$user = new User();
 			$user = $user->findByEmail($_SESSION['recovery_email']);
-			//dnd($_SESSION['recovery_email']);
-			//dnd($user);
+
 			$user->updatePassword($fields);
 			Router::redirect('account/login');
 		}

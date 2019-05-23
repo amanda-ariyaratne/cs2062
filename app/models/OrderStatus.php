@@ -43,22 +43,22 @@
 			// if($data['status']==1){
 			// 	$order->changeState();
 			// 	$a = $this->update($o_id,['state_confirmed'=>'1']);
-			// 	dnd($a);
+		
 			// }			
 			// else if($data['status']==2){
 			// 	$order->changeState();
 			// 	$a = $this->update($o_id,['state_confirmed'=>'1','state_manufacturing'=>'1']);
-			// 	dnd($a);
+		
 			// }			
 			// else if($data['status']==3){
 			// 	$order->changeState();
 			// 	$a = $this->update($o_id,['state_confirmed'=>'1' , 'state_manufacturing'=>'1' , 'state_delivering'=>'1']);
-			// 	dnd($a);
+		
 			// }			
 			// else if($data['status']==4){
 			// 	$order->changeState();
 			// 	$a = $this->update($o_id,['state_confirmed'=>'1' , 'state_manufacturing'=>'1' , 'state_delivering'=>'1' , 'state_delivered'=>'1']);
-			// 	dnd($a);
+		
 			// }
 		}
 	}

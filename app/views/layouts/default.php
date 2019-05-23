@@ -614,7 +614,7 @@
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">';
-                        // dnd($subCat);
+
                         foreach ($subCat as $sub){
                             
                             echo '<li>
