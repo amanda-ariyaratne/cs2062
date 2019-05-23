@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Product List - TailorMate') ?>
+<?= $this->setSiteTitle(end($params).' - TailorMate') ?>
 
 <?= $this->start('head'); ?>
 
@@ -100,7 +100,7 @@
           <?php                       
             $pageNo=$params[1];
             $noOfPages = ceil(($params[2]/6));           
-            echo 'Showing  page '. $pageNo.' of  '.$noOfPages.'  pages';
+            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
           ?>        
       </div>
     </div>

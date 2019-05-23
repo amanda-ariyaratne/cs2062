@@ -19,7 +19,7 @@
 				$user = null;
 			}
 
-			$notification=new Notification('notification');
+			$notification=new Notification();
 			//get old notifications
 			$old=$notification->getSeenNoti($user->id);
 			//get new notification

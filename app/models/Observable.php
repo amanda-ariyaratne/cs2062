@@ -1,7 +1,6 @@
 <?php 
 interface Observable{
-	public function setChanged();
-        public function notifyObservers();  
+        public function notifyObservers($product_id,$to,$from,$status, $type);  
         public function addObserver($obj); 
 }
 

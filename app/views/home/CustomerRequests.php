@@ -297,37 +297,64 @@
       </div>
     </div>
 <script type="text/javascript">
-    var classname="btn btn-1";
+    var classname="btn-1";
+
     var pr_list=[];
     $(document).ready(function(){
 
-        $('.btn-1').on('click',function(){
+        var user_id= JSON.stringify(<?php echo $user->id; ?>);
 
+        console.log(user_id);
+
+        $('.btn-1').on('click',function(){
             var icon=$(this);
-            var id=icon.data().id;            
-            var pr_id=JSON.stringify(icon.data());
+            var id=icon.data().id;
+            var pr_id=JSON.stringify(id);
 
             if (!isExist(id)){ 
+                pr_list.push(id);
+
                 $.ajax({
                     url:"<?=PROOT?>CustomRequestController/accept",
                     method:"POST",
-                    data: {'id': pr_id},
+                    data: {'id': pr_id, 'user_id': user_id, 'status':'1'},
                     success: function(data){
-                        icon.html("reject");
+                        icon.css('opacity', '0.5');
+                        icon.css('cursor','not-allowed');
+
+                        console.log(data);
                     }
                 });
             }
-            else{
-                $.ajax({
-                    url:"<?=PROOT?>CustomRequestController/reject",
-                    method:"POST",
-                    data: {'id': pr_id},
-                    success: function(data){
-                        icon.html("accept");
-                    }
-                });
-            }
-            console.log(pr_list);
+
+
+            // var pr_list=[];
+            // if (!isExist(id)){ 
+            //     pr_list.push(id);
+            //     $.ajax({
+            //         url:"<?=PROOT?>CustomRequestController/accept",
+            //         method:"POST",
+            //         data: {'id': pr_id},
+            //         success: function(data){
+            //             icon.css('opacity', '0.5');
+            //             icon.css('cursor','not-allowed');
+            //         }
+            //     });
+            // }
+            // else{
+            //     //remove item from the list
+            //     var index=pr_list.indexOf(id);
+            //     pr_list.splice(index, 1);
+            //     $.ajax({
+            //         url:"<?=PROOT?>CustomRequestController/reject",
+            //         method:"POST",
+            //         data: {'id': pr_id},
+            //         success: function(data){
+            //             icon.css('opacity', '0.5');
+            //             icon.css('cursor','not-allowed');
+            //         }
+            //     });
+            // }
             
         });
     });

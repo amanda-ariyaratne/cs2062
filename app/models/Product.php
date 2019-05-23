@@ -7,40 +7,61 @@
         public $id;
 
 
-		public function __construct($products=''){
+		public function __construct($table=''){
 			$table='product';
 			parent::__construct($table);
 		}
 
-        public function getAcceptedRequest(){
+        public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
+            
+            //end of the function
+            $this->addObserver(new Notification());
+            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='1', $type='4');
+        }
+
+        public function rejectRequest($product_id,$tailor_id,$customer_id){
 
             //end of the function
-            setChanged();
-            notifyObservers();
+            $this->addObserver(new Notification());
+            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='0', $type='4');
         }
 
-
-        public function setChanged(){
-            //implement changing functions
-        }
-
-        public function notifyObservers(){
-            foreach($observers as $observer){
-                $observer->update();
+        public function notifyObservers($product_id,$tailor_id,$customer_id,$status ,$type){
+            foreach ($this->observers as $observer){
+                $observer->updateClass($product_id,$tailor_id,$customer_id,$status, $type);
             }
         }
 
         public function addObserver($obj){
-            array_push($observers, $obj);
+            array_push($this->observers, $obj);
         }
 
-        public function getViewDetails($a){
-            $a--;
-            $limit = array('limit'=>$a++.',6');
+        public function getViewDetails($a){            
+            $a=6*($a-1);
+            $limit = array('limit'=>$a.',6');
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
+                $row->images = $images;         
+            }   
+
+            $noOfRows=count($this->find());
+            
+            return [$details,$noOfRows];
+        }
+
+        public function getCategoryViewDetails($a,$sub_cat_id){
+            $a--;
+            $limit = array('limit'=>$a++.',6');
+            $conditions=array('conditions'=> 'sub_category_id = ?', 'bind'=> [$sub_cat_id]);
+            $tot=array_merge($conditions,$limit);
+            
+            $details = $this->find($tot);
+            // dnd($details);
+            foreach ($details as $row){
+                $image=new Image('tailor_product_image');
+                $images=$image->getImage($row->id);
                 $row->images = $images;         
             }   
 
@@ -57,7 +78,7 @@
             foreach ($details as $row){
                 //get Image details
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
                 $row->images = $images;     
             }
 

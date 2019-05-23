@@ -13,7 +13,8 @@
 		}
 
 		public function testAction(){
-			echo json_encode(array('status'=>'true'));
+			$product=new Product();
+			$product->getAcceptedRequest('2','1','2');
 		}
 		
 		public function AllVendorsAction($no){
@@ -42,8 +43,8 @@
 			//get vendor name
 		}
 
-		public function ProductListAction($a='0'){
-			$product=new Product('product');
+		public function ProductListAction($a){
+			$product=new Product();
 
 			$details=$product->getViewDetails($a);
 
@@ -55,7 +56,25 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
+		public function ProductCategoryAction($a,$sub_cat_id){
+			// dnd($sub_cat_id);
+			$product=new Product();
 
+			$details=$product->getCategoryViewDetails($a,$sub_cat_id);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];		
+
+			// dnd(count($param));	
+
+			$sub=new SubCategory();
+			$name=$sub->findByID($sub_cat_id)->name;
+			// dnd($name);
+
+			$params=array($param,$a,$noOfProducts,$name);
+
+			$this->view->render('home/ProductCategoryView',$params);
+		}
 
 // chamodi akka's edited page
 
