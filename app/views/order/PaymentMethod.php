@@ -188,8 +188,8 @@
                       </a>
                     </div>
 
-            <!--         <input type='hidden' name='payment_summary' value="<?php echo htmlentities(serialize($params)); ?>" />
-             -->
+<!--                     <input type='hidden' name='payment_summary' value="<?php echo htmlentities(serialize($params)); ?>" />
+ -->            
                   </form>
                 </div>
               </div>

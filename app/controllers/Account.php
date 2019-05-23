@@ -122,7 +122,15 @@
 
 		public function orderHistoryAction(){
 			if (currentUser()->role == 3) {
-				$this->view->render('account/orderHistory');
+				$params = array();
+				$params['user_id'] = currentUser()->id;
+
+				$order = new CustomerOrder();
+				$status_details = $order->getOrderList(currentUser()->id);
+				$params['orders'] = $status_details;
+				//dnd($params);
+
+				$this->view->render('account/orderHistory', $params);
 			}
 			else {
 				$this->view->render('home/index');

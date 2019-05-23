@@ -46,7 +46,7 @@
                     "image_path" => $val["image"]
 
                 ];
-                $this->insert($fields);
+            $this->insert($fields);
 //            }
         }
 

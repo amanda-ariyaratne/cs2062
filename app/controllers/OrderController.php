@@ -21,9 +21,7 @@
 
 
 
-		public function orderSuccessAction(){
-			$this->view->render('Order/OrderSuccess');
-		}
+
 
 		public function orderListAction(){
 			$user = new User();
@@ -191,8 +189,17 @@
 
 
 
+		public function orderSuccessAction(){
+			dnd($_GET);
+			dnd('return url');
+			$this->view->render('Order/OrderSuccess');
+		}
+
+		public function notifyAction(){
 
 
+			dnd('notify url');
+		}
 
 
 
@@ -218,10 +225,10 @@
 			// PayPal settings. Change these to your account details and the relevant URLs
 			// for your site.
 			$paypalConfig = [
-			    // 'email' => 'selleraccount2062@gmail.com',
+			    'email' => 'selleraccount2062@gmail.com',
 			    'return_url' => 'http://localhost/cs2062/OrderController/orderSuccess',
 			    'cancel_url' => 'http://localhost/cs2062/OrderController/CustomerInformation',
-			    'notify_url' => 'http://localhost/cs2062/OrderController/CustomerInformation'
+			    'notify_url' => 'http://localhost/cs2062/OrderController/notify'
 			];
 
 			$paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
@@ -233,50 +240,15 @@
 			    // Grab the post data so that we can set up the query string for PayPal.
 			    // Ideally we'd use a whitelist here to check nothing is being injected into
 			    // our post data.
-			    // $data = [];
-			    // foreach ($_POST as $key => $value) {
-			    //     $data[$key] = stripslashes($value);
-			    // }
+			    $data = [];
+			    foreach ($_POST as $key => $value) {
+			        $data[$key] = stripslashes($value);
+			    }
 
-
-			    
-
-			    $data = [
-			    	'payer_email' => 'buyeraccount@gmail.com',
-			    	'lc' => 'en-LK',
-			    	'cmd' => '_xclick',
-			    	'currency_code' => 'USD',
-			    	'submit_x' => '32',
-			    	'submit_y' => '13',
-					"items" => [
-					    array(
-					      "recipient_type"=> "EMAIL",
-					      "amount"=> array(
-					        "value"=> "0.12",
-					        "currency"=> "USD"
-					      ),
-					      "sender_item_id"=> "201403140001",
-					      "receiver"=> "seller2062@gmail.com"
-					    ),
-					    array(
-					      "recipient_type"=> "EMAIL",
-					      "amount"=> array(
-					        "value"=> "0.12",
-					        "currency"=> "USD"
-					      ),
-					      "sender_item_id"=> "201403140001",
-					      "receiver"=> "selleraccount2062@gmail.com"
-					    )
-					  ]
-
-
-			    ];
-
-
-
+			    $data['payer_email'] =  'buyeraccount@gmail.com';
 			   
 			    // Set the PayPal account.
-			    // $data['business'] = $paypalConfig['email'];
+			    $data['business'] = $paypalConfig['email'];
 
 			    // Set the PayPal return addresses.
 			    $data['return'] = stripslashes($paypalConfig['return_url']);
@@ -301,7 +273,6 @@
 
 				// Create a connection to the database.
 				// $db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
-				dnd('wrong output in payment method');
 				// Assign posted variables to local data array.
 				$data = [
 				    'item_name' => $_POST['item_name'],
@@ -314,7 +285,7 @@
 				    'payer_email' => $_POST['payer_email'],
 				    'custom' => $_POST['custom'],
 				];
-
+				dnd($data);
 				// We need to verify the transaction comes from PayPal and check we've not
 				// already processed the transaction before adding the payment to our
 				// database.

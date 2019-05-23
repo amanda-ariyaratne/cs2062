@@ -95,12 +95,12 @@
 			//load categories table and instert main category name -> product_obj
 			$category_obj = new Category();
 			$category_details = $category_obj->findByID($sub_category_details->main_id);
-			$product_obj->main_category_name = $category_details->category_name;
+			$product_obj->main_category_name = $category_details->name;
 			array_push($params,$product_obj);
 
 			//add product images array - inster to params
-			$img = new Image('image');
-			array_push($params,$img->getImage($p_id));
+			$img = new Image('tailor_product_image');
+			array_push($params,$img->getImage($product_obj));
 			
 			//load review table
 			$review_object = new Review();

@@ -31,6 +31,14 @@
 			return $this->findFirst(array('conditions'=>'id = ?' , 'bind' => [$o_id]));
 		}
 
+		public function check_order_for_user_id($user_id){
+			$orders = $this->find(array('conditions'=>'user_id = ?' , 'bind' => [$user_id]));
+			if($orders==null){return false;}
+			else{return true;}
+		}
+
+
+
 		//state behavioral pattern
 		public function setState($state,$_state_obj){
 			$this->_state_obj = $_state_obj;
