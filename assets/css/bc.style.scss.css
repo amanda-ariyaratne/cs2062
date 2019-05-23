@@ -1295,7 +1295,7 @@ div.jGrowl div.jGrowl-notification{background-color:#fff;border:none;-webkit-box
 
 .cart-sb #cart-info{border:0;padding:10px 0;overflow-y:auto;max-height:calc(100% - 220px)}
 
-.cart-sb #cart-info.shipping-true{max-height:calc(100% - 286px)}
+/*.cart-sb #cart-info.shipping-true{max-height:calc(100% - 286px)}*/
 
 .cart-sb #cart-info .items-inner{-webkit-transform:translate(0, 100px);-ms-transform:translate(0, 100px);-o-transform:translate(0, 100px);transform:translate(0, 100px);opacity:0}
 

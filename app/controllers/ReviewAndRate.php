@@ -12,6 +12,7 @@
 		public function addReviewAction(){
 
 			if ($_POST) {
+				//dnd($_POST);
 				$user = new User();
 				$user = $user->currentLoggedInUser();
 

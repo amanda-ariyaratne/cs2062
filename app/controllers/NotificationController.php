@@ -48,12 +48,12 @@
 		public function updateSeenNotificationAction(){	
 			$data=json_decode($_POST["new"]);
 
-			// $id=currentUser()->id;
-			// $noti=new Notification('notification');
+			$id=currentUser()->id;
+			$noti=new Notification('notification');
 
-			// foreach ($data as $element){
-			// 	$noti->updateAsSeen($element->id);				
-			// }
+			foreach ($data as $element){
+				$noti->updateAsSeen($element->id);				
+			}
 
 			echo json_encode(array('status'=> '1'));
 			

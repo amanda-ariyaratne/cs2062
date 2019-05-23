@@ -24,9 +24,5 @@
 			Router::redirect('account/storeDetails');
 		}
 
-		public function addTailorShop($fields){
-			$this->insert($fields);
-		}
-
 	}
  ?>

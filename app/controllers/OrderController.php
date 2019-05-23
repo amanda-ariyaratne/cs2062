@@ -12,7 +12,7 @@
 				array_push($params,$user);
 
 				$params = $this->addToParams($params, $user->id);
-
+				//dnd($params);
 				$this->view->render('Order/CustomerInformation',$params);
 			}else{
 					Router::redirect('account/login');
@@ -36,7 +36,7 @@
 				$order = new CustomerOrder();
 				$status_details = $order->getOrderList($user->id);
 				$params['orders'] = $status_details;
-
+				//dnd($params);
 				$this->view->render('Order/OrderList', $params);
 			}else{
 					Router::redirect('account/login');
@@ -61,7 +61,7 @@
 				$order_details = $customerOrder->getOrderDetails($o_id);
 				$params['order_details'] = $order_details;
 				
-
+				//dnd($params);
 				$this->view->render('Order/OrderStatus', $params);
 			}else{
 					Router::redirect('account/login');
@@ -74,7 +74,7 @@
 		public function addCustomerInfoAction(){
 			$validation = new Validate();
 			if($_POST){
-
+				//dnd($_POST);
 				$params = array();
 				$validation->check($_POST,[
 					'email' => [
@@ -130,6 +130,7 @@
 					$payment_summary = unserialize($_POST['payment_summary']);
 					array_push($params, $payment_summary);
 
+					//dnd($params);
 					$this->view->render('Order/PaymentMethod',$params);
 				}else{
 					$user = new User();
@@ -168,7 +169,7 @@
 			}
 
 			$params['user_id'] = $user_id;
-
+			//dnd($params);
 			return $params;
 		}
 
@@ -200,6 +201,7 @@
 		/////////////////////////////////////////////////////////////////////////////////////////////// paypal
 
 		public function completeOrderAction(){
+			//dnd($_POST);
 
 			// For test payments we want to enable the sandbox mode. If you want to put live
 			// payments through then this setting needs changing to `false`.
@@ -285,9 +287,11 @@
 			    // Add any custom fields for the query string.
 			    //$data['custom'] = USERID;
 
+			    //dnd($data);
 			    
 			    // Build the query string from the data.
 			    $queryString = http_build_query($data);
+			    //dnd($queryString);
 			    // Redirect to paypal IPN
 			    header('location:' . $paypalUrl . '?' . $queryString);
 			    exit();

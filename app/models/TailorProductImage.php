@@ -1,8 +1,7 @@
 <?php 
-	class TailorProductImage extends Model{
-		public function __construct(){
-			$table = 'tailor_product_image';
-			parent::__construct($table);
+	class TailorProductImage extends Image{
+		public function __construct($table){
+			parent::__construct($this->table);
 		}
 	}
  ?>
