@@ -22,6 +22,5 @@
 	session_start();
 
 	$url = isset($_SERVER['PATH_INFO']) ? explode('/', ltrim($_SERVER['PATH_INFO'], '/')) : [];
-	//dnd(DB::getInstance());
-	//route the request
+
 	Router::route($url);

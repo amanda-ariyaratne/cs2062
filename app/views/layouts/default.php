@@ -459,10 +459,10 @@
               <div class="col-md-5">
                 <div class="searchbox">
 
-                  <form id="search" class="navbar-form search" action="/search" method="get">
-                    <input type="hidden" name="type" value="product" />
-                    <input id="bc-product-search" type="text" name="q" class="form-control"  placeholder="Search" autocomplete="off" />
-
+                  <form id="search" class="navbar-form search" action="<?=PROOT?>home/search" method="get">
+                    <!-- <input type="hidden" name="type" value="product" /> -->
+                    <input type="text" name="keywords" class="form-control"  placeholder="Search" autocomplete="off" />
+                    <input type="hidden" name="page" value="0">
                     <button type="submit" class="search-icon">
                       <span class="lazyload waiting">
 
@@ -616,7 +616,7 @@
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">';
-                        // dnd($subCat);
+
                         foreach ($subCat as $sub){
                             
                             echo '<li>

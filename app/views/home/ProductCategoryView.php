@@ -126,7 +126,6 @@
               <?php 
                
                 foreach($params[0]as $value){
-                      //dnd($value);
 
                       $pid=$value->id;
 

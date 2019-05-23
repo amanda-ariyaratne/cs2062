@@ -44,7 +44,6 @@
 
 		public static function currentLoggedInUser(){
 			if(!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)){
-				//dnd(Session::get(CURRENT_USER_SESSION_NAME));
 				$u = new User((int)Session::get(CURRENT_USER_SESSION_NAME));
 				self::$currentLoggedInUser = $u;
 			}

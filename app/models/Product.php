@@ -50,7 +50,7 @@
             $tot=array_merge($conditions,$limit);
             
             $details = $this->find($tot);
-            // dnd($details);
+
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
@@ -84,7 +84,7 @@
             }
 
 
-            //dnd($details);
+
             $noOfRows=count($this->find());
             
             return [$details,$noOfRows];
@@ -95,22 +95,28 @@
         public function addProduct()
         {
 
-//		    dnd($_POST);
 
-            $fields = [
-                "name" => $_POST["Product_Name"],
-                "description" => $_POST["Product_Description"],
-                "price" => $_POST["product_price"],
-                "sale_price" => $_POST["sale_price"],
-                "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"]
-            ];
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
+
+            if ($_POST["sale_price"] != '') {
+                $fields['sale_price'] = $_POST["sale_price"];
+            }
+
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
             
             $this->insert($fields);
             //add image
             $pr_id = $this->lastInsertedID();
             $images=($_FILES['fileUpload']['name']);
-            //dnd($images);
+
 
             for ($x=0; $x<sizeof($images); $x++){
                 
@@ -163,12 +169,41 @@
             }
             return $new_item_array;
         }
+
+        public function getViewDetailsForSearch($keywords, $a){
+            $products = [];
+            $keys = [];
+            foreach ($keywords as $key) {
+                $key = '%' . $key . '%';
+                array_push($keys, $key);
+            }
+       
+            $params = [
+                'column' => 'name',
+                'keys' => $keys,
+                'limit' => $a . ',6'
+            ];
+            
+            $details = $this->_db->search('product', $params);
+            if ($details) {
+                foreach ($details as $row){
+                    $image=new Image('tailor_product_image');
+                    $images=$image->getImage($row);
+                    $row->images = $images;         
+                }
+                $noOfRows=count($details);
+            } else {
+                $details = [];
+                $noOfRows = 0;
+            }
+            
+            return [$details,$noOfRows];
+        }
     }
 
 
 
         //     //add colors
-        //     dnd($_POST["color"]);
         //     for ($x=1; $x<= 10; $x++){
         //         $color='color'.$x;
 

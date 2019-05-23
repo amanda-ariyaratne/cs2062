@@ -33,7 +33,7 @@
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];		
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
@@ -56,7 +56,7 @@
 		}
 
 		public function ProductCategoryAction($a,$sub_cat_id){
-			// dnd($sub_cat_id);
+
 			$product=new Product();
 
 			$details=$product->getCategoryViewDetails($a,$sub_cat_id);
@@ -64,11 +64,10 @@
 			$param=$details[0];
 			$noOfProducts =$details[1];		
 
-			// dnd(count($param));	
+
 
 			$sub=new SubCategory();
 			$name=$sub->findByID($sub_cat_id)->name;
-			// dnd($name);
 
 			$params=array($param,$a,$noOfProducts,$name);
 
@@ -78,19 +77,21 @@
 // chamodi akka's edited page
 
         public function addProductAction(){
-
-            $db = DB::getInstance();
-            $categories = $db->find('sub_categories');
-            $measurements = $db->find('measurement_types');
-            $params = [$categories,$measurements];
-            if ($_POST) {
-                $product=new Product('product');
-                $product-> addProduct();
-
-                //redirect to some page\\
-                Router::redirect('home/addProduct');
-            }
-            $this->view->render('home/addProduct', $params);
+        	if (currentUser()->role_id != 3) {
+        		$db = DB::getInstance();
+	            $categories = $db->find('sub_category');
+	            $measurements = $db->find('measurement_types');
+	            $params = [$categories,$measurements];
+	            if ($_POST) {
+	                $product=new Product('product');
+	                $product->addProduct();
+	                //redirect to some page\\
+	                Router::redirect('home/addProduct');
+	            }
+	            $this->view->render('home/addProduct', $params);
+        	} else {
+        		Router::redirect('home/ProductList/1');
+        	}   
 
         }
 
@@ -181,7 +182,6 @@
 			$measurement = new Measurement();
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
 
-			//dnd($params);
 
 			$this->view->render('home/productView',$params);
 		}
@@ -216,9 +216,19 @@
 			$this->view->renderFrontPage('home/frontPage');
 		}
 
-		public function newProductsAction(){
-			$this->view->render('home/newProducts');
-		}
-		
+        public function searchAction($a='0'){
+        	$keywords = explode(" ", $_GET["keywords"]);
+        	$a = $_GET['page'];
+
+        	$product=new Product('product');
+			$details = $product->getViewDetailsForSearch($keywords, $a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+
+			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
+
+			$this->view->render('home/searchProductList',$params);
+        }
 
 	}

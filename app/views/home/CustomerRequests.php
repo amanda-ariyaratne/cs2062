@@ -120,7 +120,6 @@
     <!-- product view -->
 <?php 
     foreach ($params[0] as $field){
-      //dnd($field);
 
       echo '
   <div class="product-grid-item mode-view-item">

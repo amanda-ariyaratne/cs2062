@@ -40,7 +40,7 @@
 				$result[$cat->name]=$subList;
 
 			}
-			// dnd($result);
+
 			return $result;
 		}
 

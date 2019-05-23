@@ -118,7 +118,7 @@
                                     <div class="control-group">
                                         <label for="_wcv_store_phone" class="">Sale Price</label>
                                         <div class="control">
-                                            <input type="number" class="box" style="padding-left: 7px" name="sale_price" id="salePrice" value="" placeholder="require value"  />
+                                            <input type="number" class="box" style="padding-left: 7px" name="sale_price" id="salePrice" placeholder="require value"  />
                                         </div>
                                     </div>
                                     <br>

@@ -99,6 +99,14 @@
               </h2>
             </div>
           </div>
+          <?php if (currentUser()->role == 2) {
+            echo '<div class="col-lg-3 col-md-12">
+              <div class="pull-right">
+                <a href=""><button class="btn btn-1">Add Product</button></a>
+              </div>
+            </div>';
+          }
+          ?>
 
           <div class="col-lg-3 col-md-12 row" style="float:right; padding-right: 0px; padding-left: 8%;">
             
