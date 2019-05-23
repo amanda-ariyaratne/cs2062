@@ -7,26 +7,20 @@
         public $id;
 
 
-		public function __construct($products='product'){
-			$table = $products;
+		public function __construct($products=''){
+			$table='product';
 			parent::__construct($table);
 		}
 
-        public function getAcceptedRequest(){
+        public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
 
             //end of the function
-            setChanged();
-            notifyObservers();
+            notifyObservers($product_id,$tailor_id,$customer_id);
         }
 
-
-        public function setChanged(){
-            //implement changing functions
-        }
-
-        public function notifyObservers(){
+        public function notifyObservers($product_id,$tailor_id,$customer_id){
             foreach($observers as $observer){
-                $observer->update();
+                $observer->update($product_id,$tailor_id,$customer_id);
             }
         }
 
@@ -35,12 +29,31 @@
         }
 
         public function getViewDetails($a){
-            $a--;
-            $limit = array('limit'=>$a++.',6');
+            $a=6*($a-1);
+            $limit = array('limit'=>$a.',6');
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
+                $row->images = $images;
+            }
+
+            $noOfRows=count($this->find());
+
+            return [$details,$noOfRows];
+        }
+
+        public function getCategoryViewDetails($a,$sub_cat_id){
+            $a--;
+            $limit = array('limit'=>$a++.',6');
+            $conditions=array('conditions'=> 'sub_category_id = ?', 'bind'=> [$sub_cat_id]);
+            $tot=array_merge($conditions,$limit);
+
+            $details = $this->find($tot);
+
+            foreach ($details as $row){
+                $image=new Image('tailor_product_image');
+                $images=$image->getImage($row->id);
                 $row->images = $images;         
             }   
 
@@ -48,7 +61,6 @@
             
             return [$details,$noOfRows];
         }
-
 
         public function getPageVendor($id){
             
@@ -72,7 +84,7 @@
             }
 
 
-            //dnd($details);
+
             $noOfRows=count($this->find());
             
             return [$details,$noOfRows];
@@ -80,16 +92,19 @@
 
 
 
-        public function addProduct($u_id){
+        public function addProduct(){
 
-            $fields = [
-                "vendor_id" => $u_id,
-                "name" => $_POST["Product_Name"],
-                "description" => $_POST["Product_Description"],
-                "price" => $_POST["product_price"],
-                "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"]
-            ];
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
+
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
             
             $this->insert($fields);
             $pr_id = $this->lastInsertedID();
@@ -154,12 +169,41 @@
             }
             return $new_item_array;
         }
+
+        public function getViewDetailsForSearch($keywords, $a){
+            $products = [];
+            $keys = [];
+            foreach ($keywords as $key) {
+                $key = '%' . $key . '%';
+                array_push($keys, $key);
+            }
+
+            $params = [
+                'column' => 'name',
+                'keys' => $keys,
+                'limit' => $a . ',6'
+            ];
+
+            $details = $this->_db->search('product', $params);
+            if ($details) {
+                foreach ($details as $row){
+                    $image=new Image('tailor_product_image');
+                    $images=$image->getImage($row);
+                    $row->images = $images;
+                }
+                $noOfRows=count($details);
+            } else {
+                $details = [];
+                $noOfRows = 0;
+            }
+
+            return [$details,$noOfRows];
+        }
     }
 
 
 
         //     //add colors
-        //     dnd($_POST["color"]);
         //     for ($x=1; $x<= 10; $x++){
         //         $color='color'.$x;
 

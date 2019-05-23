@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Product List - TailorMate') ?>
+<?= $this->setSiteTitle('Search Product List - TailorMate') ?>
 
 <?= $this->start('head'); ?>
 
@@ -207,7 +207,7 @@
           
           echo
           '<li>
-            <a href="'.$previousPage.'" title="Next" class="next">
+            <a href="<?=PROOT?>home/search?keywords='.$params[4].'&page='.$previousPage.'" title="Next" class="next">
               <i class="icon-demo icon-angle-left"></i>
             </a>
           </li>';
@@ -241,14 +241,14 @@
         }
 
         for($i=$start; $i<=$end; $i++) {
-          echo '<li><a href="'.$i.'">'.$i.'</a></li>';
+          echo '<li><a href="<?=PROOT?>home/search?keywords='.$params[4].'&page='.$i.'">'.$i.'</a></li>';
         }
           
         if ($pageNo+1<=$noOfPages){
           $nextPage=$pageNo+1;
           echo
           '<li>
-            <a href="'.$nextPage.'" title="Next" class="next">
+            <a href="<?=PROOT?>home/search?keywords='.$params[4].'&page='.$nextPage.'" title="Next" class="next">
               <i class="icon-demo icon-angle-right"></i>
             </a>
           </li>';

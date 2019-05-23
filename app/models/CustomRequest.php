@@ -5,29 +5,56 @@
 		private $table;
 		private $observers=array();
 
-		public function __construct($_table){
-			$this->table=$_table;
+		public function __construct($_table=''){
+			$_table='custom_request';
 			parent::__construct($_table);			
 		}
 
-		public function getAcceptedRequest(){
-			setChanged();
-			notifyObservers();
+		public function createNotification($product_id,$tailor_id,$customer_id){
+
+			$fields=['_to'=>$tailor_id,
+					 '_from'=>$customer_id
+					 ,'pr_id'=>$product_id,
+					 'type'=>'',
+					 'status'=> '1',
+					 'seen'=> '0'
+					];
+
+			$this->insert($fields);			 
 		}
 
-		public function setChanged(){
-            //implement changing functions
-        }
+
+		public function update($product_id,$tailor_id,$customer_id){
+			$this->createNotification($product_id,$tailor_id,$customer_id);
+		}
+
+		public function acceptRequest($id){
+			$fields=['status'=> '1'];
+			$this->update($id, $fields);
+			// setChanged();
+			// notifyObservers();
+		}
+
+		public function rejectRequest($id){
+			$fields=['status'=> '0'];
+			$this->update($product_id,$tailor_id,$customer_id);
+			// setChanged();
+			// notifyObservers();
+		}
 
         public function notifyObservers(){
             foreach($observers as $observer){
-                $observer->update();
+                $observer->update($product_id,$tailor_id,$customer_id);
             }
         }
 
         public function addObserver($obj){
             array_push($observers, $obj);
         } 
+
+        public function findByID($p_id){
+			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		}
 
 		public function getViewDetails($a){
 			$a--;
@@ -36,7 +63,7 @@
 
 			foreach ($details as $row){
 				$image=new Image('custom_design_image');
-				$images=$image->getImage($row);
+				$images=$image->getImage($row->id);
 				$row->images = $images;			
 			}	
 
@@ -72,26 +99,6 @@
     			$image->addImage($_id,$image_path,$x,'custom_requests');
     			
     		}
-		}
-
-		public function addRequest(){
-
-		}
-
-		public function deleteRequest(){
-
-		}
-
-		public function getPendingRequest(){
-
-		}
-
-		public function acceptRequest(){
-
-		}
-
-		public function takeDeal(){
-
 		}
 	}
 

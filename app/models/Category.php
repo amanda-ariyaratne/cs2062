@@ -31,13 +31,16 @@
 				$result[$cat->name]=array();
 
 				$subCats=$this->getSubCat($cat->id);
-				$subList=array();				
+
+				$subList=array();
 				foreach ($subCats as $sub) {
-					array_push($subList,$sub->name);		
+					array_push($subList,[$sub->name,$sub->id]);	
 				}
+
 				$result[$cat->name]=$subList;
 
 			}
+
 			return $result;
 		}
 

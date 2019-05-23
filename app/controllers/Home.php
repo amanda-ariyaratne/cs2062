@@ -2,6 +2,7 @@
 
 	class Home extends Controller {
         public $image;
+        private $_user;
 
 		public function __construct($controller, $action){
 			parent::__construct($controller, $action);
@@ -12,9 +13,8 @@
 		}
 
 		public function testAction(){
-			$this->view->render('home/test');
+			echo json_encode(array('status'=>'true'));
 		}
-
 
 		public function AllVendorsAction($no){
 
@@ -28,23 +28,12 @@
 			$this->view->render('home/AllVendors',$params);
 		}
 
-		public function NewRequestPageAction($a){
-			$product=new Product('product');
-			$details=$product->getPageVendor($a);
-
-			$param=$details[0];
-			$noOfProducts =$details[1];
-
-			$params=array($param,$a,$noOfProducts,'New Requests');
-			$this->view->render('home/NewRequestPage',$params);
-		}
-
 		public function VendorPageAction($a){
 			$product=new Product('product');
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
@@ -54,7 +43,7 @@
 		}
 
 		public function ProductListAction($a='0'){
-			$product=new Product('product');
+			$product=new Product();
 
 			$details=$product->getViewDetails($a);
 
@@ -66,70 +55,45 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
+		public function ProductCategoryAction($a,$sub_cat_id){
 
-		public function CustomerRequestViewAction($a){
+			$product=new Product();
 
-			$viewRequest = new CustomRequest('custom_request');
+			$details=$product->getCategoryViewDetails($a,$sub_cat_id);
 
-			$details= $viewRequest-> getViewDetails($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];
-			
 
-			$params=array($param,$a,$noOfProducts,'Custome Requests');
 
-			$this->view->render('home/CustomerRequests',$params);
+
+			$sub=new SubCategory();
+			$name=$sub->findByID($sub_cat_id)->name;
+
+			$params=array($param,$a,$noOfProducts,$name);
+
+			$this->view->render('home/ProductCategoryView',$params);
 		}
 
-
-		public function ProductRequestAction(){
-
-			$params=array('Product Request');
-			if($_POST){
-				$customRequest=new CustomRequest('custom_request');
-				$customRequest-> createRequest();
-
-
-				$_SESSION['alert']='
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
-				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-				<div class="container">
-					<div class="alert alert-success fade in">    
-				    	<strong>Success!</strong> You have successfully added a CUSTOM REQUEST!
-				  	</div>
-				</div>';	
-
-				Router::redirect('home/ProductRequest',$params);
-			}
-
-        	$this->view->render('home/ProductRequest');
-
-        }
+// chamodi akka's edited page
 
         public function addProductAction(){
-            $user = new User();
-            $user = $user->currentLoggedInUser();
-            $u_id = $user->id;
-
-            if ($user != null) {
+            if (currentUser()->role_id != 3) {
                 $db = DB::getInstance();
                 $main_category = $db->find('category');
                 $categories = $db->find('sub_category');
                 $measurements = $db->find('measurement_types');
                 $params = [$categories, $measurements, $main_category];
                 if ($_POST) {
-//                    dnd($_POST);
                     $product = new Product('product');
-                    $product->addProduct($u_id);
-
+                    $product->addProduct();
                     //redirect to some page\\
                     Router::redirect('home/addProduct');
                 }
                 $this->view->render('home/addProduct', $params);
+            }else {
+                Router::redirect('home/ProductList/1');
             }
-            else {
-                Router::redirect('account/login');
-            }
+
         }
 
 
@@ -155,8 +119,8 @@
 			array_push($params,$product_obj);
 
 			//add product images array - inster to params
-			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj));
+			$img = new Image('image');
+			array_push($params,$img->getImage($p_id));
 			
 			//load review table
 			$review_object = new Review();
@@ -219,7 +183,6 @@
 			$measurement = new Measurement();
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
 
-			//dnd($params);
 
 			$this->view->render('home/productView',$params);
 		}
@@ -254,11 +217,19 @@
 			$this->view->renderFrontPage('home/frontPage');
 		}
 
-        public function newProductsAction(){
-            $this->view->render('home/newProducts');
+        public function searchAction($a='0'){
+        	$keywords = explode(" ", $_GET["keywords"]);
+        	$a = $_GET['page'];
+
+        	$product=new Product('product');
+			$details = $product->getViewDetailsForSearch($keywords, $a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];
+
+			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
+
+			$this->view->render('home/searchProductList',$params);
         }
 
-
-
-
-    }
+	}

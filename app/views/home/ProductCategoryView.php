@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Product List - TailorMate') ?>
+<?= $this->setSiteTitle(end($params).' - TailorMate') ?>
 
 <?= $this->start('head'); ?>
 

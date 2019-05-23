@@ -95,7 +95,7 @@
           <div class="wrap-text">
             <span class="heading">Open your shop here</span>
             <p class="caption">Sell new unique products across 5500 categories.</p>
-            <a class="btn btn-1" href="#directToRegisterAsVendorPage">BECOME A TAILOR</a>               
+            <a class="btn btn-1" href="<?=PROOT?>account/register">BECOME A TAILOR</a>               
           </div>
             
           
