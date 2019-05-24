@@ -10,6 +10,24 @@
 			parent::__construct($_table);			
 		}
 
+		public function createNotification($product_id,$tailor_id,$customer_id){
+
+			$fields=['_to'=>$tailor_id,
+					 '_from'=>$customer_id
+					 ,'pr_id'=>$product_id,
+					 'type'=>'',
+					 'status'=> '1',
+					 'seen'=> '0'
+					];
+
+			$this->insert($fields);			 
+		}
+
+
+		public function update($product_id,$tailor_id,$customer_id){
+			$this->createNotification($product_id,$tailor_id,$customer_id);
+		}
+
 		public function acceptRequest($id){
 			$fields=['status'=> '1'];
 			$this->update($id, $fields);
@@ -19,19 +37,14 @@
 
 		public function rejectRequest($id){
 			$fields=['status'=> '0'];
-			$this->update($id, $fields);
+			$this->update($product_id,$tailor_id,$customer_id);
 			// setChanged();
 			// notifyObservers();
 		}
 
-		public function setChanged(){
-			$id='dfgh';
-            //implement changing functions
-        }
-
         public function notifyObservers(){
             foreach($observers as $observer){
-                $observer->update();
+                $observer->update($product_id,$tailor_id,$customer_id);
             }
         }
 
