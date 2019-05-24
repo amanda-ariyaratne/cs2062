@@ -264,4 +264,15 @@
             return [$details,$noOfRows];
         }
 
+        public function searchAction($a='0'){
+        	$keywords = explode(" ", $_GET["keywords"]);
+        	$a = $_GET['page'];
+        	$product=new Product('product');
+			$details = $product->getViewDetailsForSearch($keywords, $a);
+			$param=$details[0];
+			$noOfProducts =$details[1];			
+			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
+			$this->view->render('home/searchProductList',$params);
+        }
+
 	}
