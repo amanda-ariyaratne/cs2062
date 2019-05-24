@@ -6,7 +6,7 @@
 		}
 
 		public function newProductsAction(){
-			
+
 			$product = new Product();
         	$fields = [
         		'conditions' => 'permission = ?',
@@ -42,6 +42,7 @@
         	}
 
             $this->view->render('admin/newProducts', $params);
+
 		}
 
 

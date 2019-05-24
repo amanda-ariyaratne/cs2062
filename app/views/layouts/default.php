@@ -1,7 +1,6 @@
 <!doctype html>
-<!--[if IE 8]><html lang="en" class="ie8 js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="js"> <!--<![endif]-->
+
+<html lang="en" class="js"> 
 
 <head>
   <link rel="shortcut icon" href="<?=PROOT?>assets/images/icon-main.jpg" type="image/jpg" />
@@ -24,7 +23,7 @@
   <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
   <link href="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/jquery.plugin.css?0" rel="stylesheet" type="text/css" media="all" />
   
-  <link href="<?=PROOT?>assets/css/noti.css" rel="stylesheet" type="text/css" media="all" />
+  <!-- <link href="<?=PROOT?>assets/css/noti.css" rel="stylesheet" type="text/css" media="all" /> -->
 
   <style type="text/css">
     .header-container.bg-imagee{
@@ -61,6 +60,11 @@
         background-image: url(<?=PROOT?>assets/images/back-5.jpg);
       }
     }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+    
     .badge-counter{
             
       padding: 2px 4px;
@@ -235,37 +239,8 @@
           if (count($new)>0 || count($old)>0){  
 
             $all=array_merge($new,$old);
-
+            $a=0;
             foreach($all as $noti){
-                $productName='<a style="font-weight: 400;"php href="'.PROOT.'home/productView/'.$noti->pr_id.'"><b>'.$noti->pr_name.'</b></a>';
-
-                if ($noti->status==1)
-                  {$approval='<b>accepted</b>';}
-                else
-                  {$approval= '<b>rejected</b>';}
-                
-                if ($noti->type==1){       //customRequest
-
-                    $tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->shop.'</b></a>';
-
-                    $sentence='Your custom request '.$productName.' has been '.$approval.' by '.$tailorName.'.';
-                }
-                elseif ($noti->type==2) {  //product display req
-
-                    $tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->shop.'</b></a>';
-
-                    $sentence=$tailorName.' requests for the '.$productName.' to be uploaded.';
-                }
-                elseif ($noti->type==3) {  //product display app
-
-                    $sentence='Your product '.$productName.' has been '.$approval.' to be uploaded.';
-                }
-                elseif ($noti->type==4) {  //product order
-                    
-                    $customerName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$noti->_from.'"><b>'.$noti->from_name.'</b></a>';
-
-                    $sentence='You have a new order from '.$customerName.' for the product '.$productName;
-                }
 
                 echo '
                 <div class="made-for-new"></div>
@@ -279,16 +254,18 @@
                       echo '
                       <div class="cart-item-info id-num-'.$noti->id.' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
                   }
+
                   else{
                       echo '
-                      <div class="cart-item-info id-num-'.$noti->id.' change-bg-seen" style="width: 200px;padding-right: 0px;">';
+                    <div class="cart-item-info id-num-'.$noti->id.' change-bg-seen" style="width: 200px;padding-right: 0px;">';
+
                   }
                   
 
                   echo '
                     <div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;">
 
-                        '.$sentence.'
+                        '.$noti->message.'
                       
                     </div>      
 
@@ -298,7 +275,9 @@
                 ';
 
             }
+            
           }
+        
           else {
             echo '
             <div style="text-align: center; position: absolute; top: 50%;left: 50%; margin-right: -50%; transform: translate(-50%, -50%); font-style: italic;">
@@ -306,8 +285,6 @@
             </div>
             ';
           }
-
-
               
           ?>                
                 
@@ -325,7 +302,7 @@
             </div>
           </div>
 
-          <div class="cart-sb-title" style="position: absolute; bottom: 0px; width: 100%;">
+          <div class="cart-sb-title" style="position: absolute;bottom: 0px;width: 100%;margin-bottom: 0px;">
             <span class="c-title"><a href="" style="text-decoration: none; color: #fff;">See All</a></span>
           </div>
 
@@ -462,10 +439,10 @@
               <div class="col-md-5">
                 <div class="searchbox">
 
-                  <form id="search" class="navbar-form search" action="<?=PROOT?>home/search" method="get">
-                    <!-- <input type="hidden" name="type" value="product" /> -->
-                    <input type="text" name="keywords" class="form-control"  placeholder="Search" autocomplete="off" />
-                    <input type="hidden" name="page" value="0">
+                  <form id="search" class="navbar-form search" action="/search" method="get">
+                    <input type="hidden" name="type" value="product" />
+                    <input id="bc-product-search" type="text" name="q" class="form-control"  placeholder="Search" autocomplete="off" />
+
                     <button type="submit" class="search-icon">
                       <span class="lazyload waiting">
 
@@ -519,7 +496,7 @@
                       elseif ($user->role==2){
 
                         echo '
-                         <a href="#" title="Sales"> 
+                         <a href="'.PROOT.'home/test" title="Sales"> 
                           <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
                         </a>
                         ';
@@ -551,7 +528,7 @@
                     echo '
                     
                     <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
-                      <a href="'.PROOT.'home/'.$LinkPath.'">
+                      <a href="'.PROOT.'CustomRequestController/'.$LinkPath.'">
                       
                       <i class="fas fa-tshirt" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 4px; border-radius:3px; position:absolute; top:7px; right:40px;" title='.$sentence.'></i>
                       </a>
@@ -565,29 +542,6 @@
                 </div>
               </div>
               
-                
-
-                  <!-- <div id="notifications">
-                        <div class="HeadingNoti" style="color:black; margin:0; padding: 2px 10px;">
-                          Notifications
-                        </div>
-                   
-                        <div class="noti_Container" style="height:300px;">
-                            <ul>
-                                <li>
-                                  <a href="#" >
-                                        
-                                  </a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        <div class="seeAll">
-                          <a href="#">See All</a>
-                        </div>
-                </div> -->
-
-
             </div>
 
           </div>
@@ -619,7 +573,7 @@
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">';
-
+                        // dnd($subCat);
                         foreach ($subCat as $sub){
                             
                             echo '<li>
@@ -1280,7 +1234,7 @@
 
 <script>
 $(document).ready(function () {
-
+    console.log('vgbhnj');
     //Notification window
     $('.noti').on('click', function(){
         var newArray=JSON.stringify(<?php echo json_encode($new); ?>);
@@ -1305,14 +1259,6 @@ $(document).ready(function () {
                   $(cl).addClass("change-bg-seen");
                 }
             });   
- 
-            // //hide elements in the list
-            // $('.cart-close').on('click', function(){
-            //     icon=$(this);
-            //     ele_1=icon.parent();
-            //     ele_1.hide();
-            // });     
-            // 
 
 
             $.ajax({  
@@ -1329,18 +1275,19 @@ $(document).ready(function () {
 
     });                    
       
-    setTimeout(function(){  //setInterval();
+    setInterval(function(){  //setInterval();
         $.ajax({   
             url:"<?=PROOT?>NotificationController/newNotification",
             method: "POST",
             success: function(data){
                 var newNotification=JSON.parse(data);
                 notificationList = newNotification.new; 
-                console.log(notificationList);
-                // notificationList.forEach(setSentence);
+                displayNewNotification(notificationList);
+                $('.badge-counter').html(notificationList.length);
+                // console.log(notificationList);
             }
         });           
-    },1000);
+    },5000);
 
     $('#noti_Button').click(function () { 
         $('#notifications').fadeToggle('fast', 'linear');
@@ -1362,49 +1309,19 @@ $(document).ready(function () {
     });
 });
 
-function setSentence(noti){
-    console.log(noti);
-    productName='<a style="font-weight: 400;"php href="'+<?=PROOT?>+'home/productView/'+noti.pr_id+'"><b>'+noti.pr_name+'</b></a>';
-
-    if (noti.status==1)
-      {approval='<b>accepted</b>';}
-    else
-      {approval= '<b>rejected</b>';}
-
-    if (noti.type==1){ 
-        $tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.shop+'</b></a>';
-
-        entence='Your custom request '+productName+' has been '+approval+' by '+tailorName+'.';
-    }
-
-    else if (noti.type==2) {  
-
-        tailorName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.shop+'</b></a>';
-
-        sentence=tailorName+' requests for the '+productName+' to be uploaded.';
-    }
-
-    else if (noti.type==3) {  
-
-        sentence='Your product '+productName+' has been '+approval+' to be uploaded.';
-    }
-    else if (noti.type==4) {  
-        
-        customerName='<a style="font-weight: 400;" href="'+<?=PROOT?>+'home/VendorPage/'+noti._from+'"><b>'+noti.from_name+'</b></a>';
-
-        sentence='You have a new order from '+customerName+' for the product '+productName;
-    }
+function displayNewNotification(noti){
 
     line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>'
 
     if (noti.seen==0){
         line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
     }
+
     else{
         line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-seen" style="width: 200px;padding-right: 0px;">';
     }
 
-    line_3='<div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;"'+sentence+'</div></div>';
+    line_3='<div class="cart-item-title" style="text-align: left-align;position: absolute;top: 50%;left: 66%;margin-right: -50%;transform: translate(-50%, -50%);width: 185px;"'+noti.message+'</div></div>';
 
     var newClass='items-inner animated-'+noti.id;
 

@@ -163,32 +163,7 @@
                     <div class="control-wrapper">
                       <label>Contact Number</label>
                       <input type="text" id="contactNo" class="col-md-6 col-sm-12" name="contactNo" placeholder="Contact No eg. 11 xxx xxxx" value="<?php if(isset($store)){echo $store->contactNumber;}?>" disabled/>
-                    </div> 
-
-                    <div class="control-wrapper">
-                      <label>Facebook URL</label>
-                      <input type="text" id="facebook_url" class="col-md-6 col-sm-12" name="facebook_url" placeholder="Facebook URL" value="<?php if(isset($store)){echo $store->facebook_url;}?>" disabled/>
-                    </div>
-
-                    <div class="control-wrapper">
-                      <label>Google+ URL</label>
-                      <input type="text" id="google_plus_url" class="col-md-6 col-sm-12" name="google_plus_url" placeholder="Google+ URL" value="<?php if(isset($store)){echo $store->google_plus_url;}?>" disabled/>
-                    </div>
-
-                    <div class="control-wrapper">
-                      <label>Instagram URL</label>
-                      <input type="text" id="instagram_url" class="col-md-6 col-sm-12" name="instagram_url" placeholder="Instagram URL" value="<?php if(isset($store)){echo $store->instagram_url;}?>" disabled/>
-                    </div>
-
-                    <div class="control-wrapper">
-                      <label>Youtube URL</label>
-                      <input type="text" id="youtube_url" class="col-md-6 col-sm-12" name="youtube_url" placeholder="Youtube URL" value="<?php if(isset($store)){echo $store->youtube_url;}?>" disabled/>
-                    </div>
-
-                    <div class="control-wrapper">
-                      <label>LinkedIn URL</label>
-                      <input type="text" id="linkedin_url" class="col-md-6 col-sm-12" name="linkedin_url" placeholder="LinkedIn URL" value="<?php if(isset($store)){echo $store->linkedin_url;}?>" disabled/>
-                    </div>  
+                    </div>   
 
                     <div class="control-wrapper">
                       <label>Logo</label>

@@ -100,7 +100,7 @@
           <?php                       
             $pageNo=$params[1];
             $noOfPages = ceil(($params[2]/6));           
-            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
+            echo 'Showing  page '. $pageNo.' of  '.$noOfPages.'  pages';
           ?>        
       </div>
     </div>
@@ -126,6 +126,7 @@
               <?php 
                
                 foreach($params[0]as $value){
+                      //dnd($value);
 
                       $pid=$value->id;
 

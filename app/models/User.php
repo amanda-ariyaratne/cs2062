@@ -1,6 +1,6 @@
 <?php
 
-	class User extends Model implements observer{
+	class User extends Model {
 		private $_isLoggedIn, $_sessionName, $_cookieName;
 		public static $currentLoggedInUser = null;
 
@@ -27,16 +27,6 @@
 			}
 		}
 
-		public function acceptProduct(){
-			// by admin- accpet products
-			// by tailor- take order 
-		}
-
-		public function updateClass($obj) {
-			//implement the thing that user do after an object gets updated.
-			//custmer and tailor
-    	}
-
 		public function findByEmail($email){
 			$user =  $this->findFirst(['conditions'=>'email = ?' , 'bind'=>[$email]]);
 			return $user;
@@ -44,15 +34,13 @@
 
 		public static function currentLoggedInUser(){
 			if(!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)){
+				//dnd(Session::get(CURRENT_USER_SESSION_NAME));
 				$u = new User((int)Session::get(CURRENT_USER_SESSION_NAME));
 				self::$currentLoggedInUser = $u;
 			}
 
 			return self::$currentLoggedInUser;
 		}
-
-
-
 
 		public function login($rememberMe = false){
 			Session::set($this->_sessionName, $this->id);

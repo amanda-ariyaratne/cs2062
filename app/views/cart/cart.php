@@ -240,7 +240,7 @@
         <br>
         <div class="wc-proceed-to-checkout">
 
-            <a href="" class="btn btn-1" style="margin-left: 930px" >Proceed to checkout</a>
+            <a href="<?=PROOT?>orderController/customerInformation" class="btn btn-1" style="margin-left: 930px" >Proceed to checkout</a>
         </div>
         <?php
     } else {
