@@ -109,7 +109,7 @@
 
       $i=1;
       foreach ($products as $product){
-
+ 
 
         echo '
         

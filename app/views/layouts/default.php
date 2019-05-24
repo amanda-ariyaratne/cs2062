@@ -191,6 +191,9 @@
             color:#3b5998;
             text-decoration:underline;
         }
+        .footer-logo ul li i {
+          color: #c1939e;
+        }
 
     input[type="text"], input[type="password"] {
       padding-left: 7px;
@@ -1238,10 +1241,12 @@
                             <p>Subscribe to our newsletters. Be in touch with latest news, special offers, etc.</p>
                             
 
-                            <form action="//bitcode.us10.list-manage.com/subscribe/post?u=55ec8b9611a3d9c0ad6f3fc62&amp;id=1cbb85b057" method="post" class="form-inline form-subscribe" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
-                              <input class="form-control" type="email" required placeholder="Email" name="EMAIL" id="email-input" />
+                            <form action="<?=PROOT?>home/subscribeToNewsletter" method="post" class="form-inline form-subscribe" target="_blank" onsubmit="return validateSubscription();" >
+                              <input class="form-control" type="email" placeholder="Email" name="subscribe-mail" id="subscribe-mail" />
                               <button type="submit" title="Subscibe" class="btn btn-subscribe">Subscibe</button>
+                              <span id="error_subscribe-mail" style="padding-left: 20px; color: white;"></span>  
                             </form>
+                            
                           </div>
                           
 
@@ -1270,123 +1275,6 @@
 
     </div>
     
-<!--       <div id="scroll-to-top" title="Back To Top">
-        <a href="javascript:;"><i class="fa fa-angle-up"></i></a>
-      </div> -->
-
-
-  <div id="mailchimp-popup" class="leaves" style="display:none;" class="" data-expires="1" data-style="leaves">    
-    
-    
-      <div class="underlay"></div>
-      <div class="wrap-modal intent-exit-btn">
-        <a href="javascript:void(0);"><i class="demo-icon icon-close"></i></a>
-        <div class="modal-body">
-          <div class="mailchimp-popup-content">
-            
-            <h3 class="title">Join Our Newsletter</h3>
-            
-
-            
-            <div class="mailchimp-caption-1">Subscribe to the Handy newsletter to receive timely updates from your favorite products.</div>
-            
-
-            <form id="mc-form" action="//bitcode.us10.list-manage.com/subscribe/post?u=55ec8b9611a3d9c0ad6f3fc62&amp;id=1cbb85b057" method="post" name="mc-embedded-subscribe-form" target="_blank" rel="noopener">
-              <input id="mc-email" class="input-block-level" type="email" name="EMAIL" placeholder="Your email..." required />
-              <button class="btn btn-1" type="submit">Subscribe</button>
-            </form>
-          </div>   
-
-          
-            <div class="mailchimp-popup-img lazyload">
-              <img  class="lazyload" data-src="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/mailchip_popup_bg.jpg?14659776434252394535" alt="" />
-            </div>
-          
-        </div>        
-      </div>
-    
-
-  </div>
-
-    <div id="quick-shop-popup" class="modal fade" role="dialog" aria-hidden="true" tabindex="-1">
-  <div class="modal-dialog fadeIn animated">
-    <div class="modal-content">
-
-      <div class="modal-header">
-        <span class="close" title="Close" data-dismiss="modal" aria-hidden="true"></span>
-      </div>
-
-      <div class="modal-body">
-
-          <div class="product-image">
-            <div id="qs-product-image" class="product-image-inner"></div>
-          </div>
-
-          <div class="product-info">
-            
-            <h2 id="qs-product-title">Sample Product</h2>
-            
-            <div id="qs-rating"></div>
-            <div id="qs-product-price" class="detail-price"></div>
-
-            <div id="qs-action-wrapper">
-
-              <form action="/cart/add" method="post" class="variants" id="qs-product-action" enctype="multipart/form-data">
-
-                <div id="qs-product-variants" class="variants-wrapper"></div>
-                
-                <div id="qs-description"></div>
-                
-                <div class="quantity-product qs-quantity-product">                 
-                  <div class="quantity qs-quantity"></div>
-                </div>
-
-                <div class="qs-product-button">
-                  <div class="qs-action">
-                    <button id="qs-add-cart" class="btn btn-1 add-to-cart" type="submit" name="add">Add to cart</button>
-                  </div>
-                </div>
-
-              </form>
-
-            </div>
-            
-            <div class="share-links social-sharing" id="qs-social-share">
-              
-              
-
-              <ul class="list-inline">
-                <li>
-                  <a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=380,width=660');return false;" href="https://twitter.com/share?url=_bc_product_uri_" class="social twitter" title="Share this post on Twitter">
-                    <i class="fa fa-twitter"></i>
-                    <span>Twitter</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=380,width=660');return false;" href="http://www.facebook.com/sharer.php?u=_bc_product_uri_" class="social facebook" title="Share this post on Facebook">
-                    <i class="fa fa-facebook"></i>
-                    <span>Facebook</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=380,width=660');return false;" href="https://plus.google.com/share?url=_bc_product_uri_" class="social google-plus" title="Share this post on Google Plus">
-                    <i class="fa fa-google-plus"></i>
-                    <span>Google+</span>
-                  </a>
-                </li>
-              </ul>
-              
-            </div> 
-
-          </div>
-
-      </div>
-
-    </div>
-  </div>
-</div>
 
 <script>
 $(document).ready(function () {
@@ -1489,6 +1377,35 @@ $(document).ready(function () {
 //     }
 // }
 </script>
+<script type="text/javascript">
+  
+  function validateSubscription(){
+                  
+      document.getElementById('error_subscribe-mail').innerHTML = "";
+                                    
+      var email = document.getElementById("subscribe-mail").value;
+      var el;
 
+      var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+      if (email == "")
+      {
+          el = document.getElementById('error_subscribe-mail');
+          el.innerHTML = "Email field is required!";
+          return false;
+      }
+      else if (!email_regex.test(email))
+      {
+          el = document.getElementById('error_subscribe-mail');
+          el.innerHTML = "Please enter valid email!";
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+  }
+
+</script>
 </body>
 </html>

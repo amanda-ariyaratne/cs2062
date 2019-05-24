@@ -30,6 +30,7 @@
 
 		public function VendorPageAction($a){
 			$product=new Product('product');
+			dnd('da');
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
@@ -229,6 +230,21 @@
 			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
 
 			$this->view->render('home/searchProductList',$params);
+        }
+
+        public function subscribeToNewsletterAction(){
+        	$email = $_POST['subscribe-mail'];
+        	$fields = [
+        		'email' => $email
+        	];
+        	$subscriber = new Subscriber();
+        	$subscriber->addNewSubscriber($fields);
+        	Router::redirect('home/newsletterSubscription/'.$email);
+        }
+
+        public function newsletterSubscriptionAction($email=''){
+        	$params['email'] = $email;
+        	$this->view->render('home/newsletterSubscription', $params);
         }
 
 	}

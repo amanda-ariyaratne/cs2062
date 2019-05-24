@@ -131,6 +131,8 @@
 				$this->view->render('account/storeDetails');
 			} else if($user->role == 3){
 				$this->view->render('account/details');
+			} else if($user->role == 1){
+				$this->view->render('account/storeDetails');
 			}
 			dnd('The requested page cannot be found.');
 		}
@@ -315,9 +317,35 @@
 			} else {
 				$fields['contactNumber'] = "";
 			}
+			if ($_POST['facebook_url'] != null) {
+				$fields['facebook_url'] = $_POST['facebook_url'];
+			} else {
+				$fields['facebook_url'] = "";
+			}
+			if ($_POST['google_plus_url'] != null) {
+				$fields['google_plus_url'] = $_POST['google_plus_url'];
+			} else {
+				$fields['google_plus_url'] = "";
+			}
+			if ($_POST['instagram_url'] != null) {
+				$fields['instagram_url'] = $_POST['instagram_url'];
+			} else {
+				$fields['instagram_url'] = "";
+			}
+			if ($_POST['youtube_url'] != null) {
+				$fields['youtube_url'] = $_POST['youtube_url'];
+			} else {
+				$fields['youtube_url'] = "";
+			}
+			if ($_POST['linkedin_url'] != null) {
+				$fields['linkedin_url'] = $_POST['linkedin_url'];
+			} else {
+				$fields['linkedin_url'] = "";
+			}
 			if ($file_path != null) {
 				$fields['logo'] = $file_path;
 			}
+
 			$store->updateStoreDetails($store->id, $fields);
 		}
 
