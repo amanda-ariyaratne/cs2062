@@ -175,4 +175,38 @@
 
 			return false;
 		}
+
+		public function search($table, $params=[]){
+			if ($this->_search($table, $params)) {
+				return $this->results();
+			}
+			return false;
+		}
+		public function _search($table, $params=[]){
+			$like = ' WHERE ';
+			$bind = [];
+			$keywords = $params['keys'];
+			if (isset($params['column'])) {
+				foreach ($keywords as $key) {
+					$key = '"' . $key . '"';
+					$like .= $params['column'] . ' LIKE ' . $key . ' OR ';
+				}
+			}
+			if (substr($like, -4) == ' OR ') {
+				$like = rtrim($like, ' OR ');
+			}
+			//limit
+			$limit = '';
+			if (array_key_exists('limit', $params)) {
+				$limit = ' LIMIT ' . $params['limit'];
+			}
+			$sql = "SELECT * FROM {$table}{$like}{$limit}";
+			if ($this->query($sql, $bind)) {
+				if (!count($this->_result)) {
+					return false;
+				}
+				return true;
+			}
+			return false;
+		}
 	}
