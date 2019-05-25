@@ -1,8 +1,7 @@
-<?= $this->setSiteTitle('Add Product') ?>
+<?= $this->setSiteTitle('') ?>
 
 <?= $this->start('head'); ?>
     <link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
-    <!--    xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"/>-->
     <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
     <!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/woo-styles.css' type='text/css' media='all' />-->
     <!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
@@ -21,7 +20,7 @@
                         <div class="row">
 
                             <div class="col-lg-6 d-none d-lg-block">
-                                <div class="page-title" style="color: #6a6a6a">Add Product</div>
+                                <div class="page-title" style="color: #6a6a6a">Edit</div>
                             </div>
 
 
@@ -32,13 +31,14 @@
                                             <span itemprop="title" class="d-none">Handy Store</span>Home
                                         </a>
                                     </li>
-                                    <li class="active">Add Product</li>
+                                    <li class="active">Edit</li>
                                 </ul>
                             </div>
                         </div>
 
                     </div>
                 </div>
+
 
 
                 <div class="col-md-1"></div>
@@ -74,7 +74,7 @@
                                                 <label class="col-md-3" style="font-family: sans-serif">Product Name<span class="require">*</span></label>
 
 
-                                                </label><div class="control"><input type="text" class="col-md-4s" style="width: 400px" name="Product_Name" id="productName" value="" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div>
+                                                </label><div class="control"><input type="text" class="col-md-4s" style="width: 400px" name="Product_Name" id="productName" value="<?php echo $params[3]["name"];?>" placeholder="Your Product Name" data-rules="required" data-error="This field is required." /></div>
                                             </div>
 
                                             <small id="error-msg-name"></small>
@@ -86,7 +86,7 @@
                                             </div>
 
                                             <div id="wp-pv_shop_description-editor-container" class="col-md-4s"  ><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                                <textarea class="wp-editor-area" style="height: 180px; width: 400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
+                                                <textarea value="<?php echo $params[3]["description"]; ?>" class="wp-editor-area" style="height: 180px; width: 400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
 
                                             </div>
                                         </div>
@@ -94,12 +94,10 @@
 
                                         <!-- Add image -->
                                         <form action="" method="post" enctype="multipart/form-data">
-                                            <label class="col-md-3" style="font-family: sans-serif">Select image<span class="require">*</span><br><small>Add 10 images only</small></label>
-                                            <br>
+                                            <label class="col-md-3" style="font-family: sans-serif">Select image</label>
                                             <div class="col-md-4s">
                                                 <input type="file" style="line-height: normal" name="fileUpload[]" id="productImage" multiple >
                                             </div>
-                                            <small id="error-msg-image"></small>
                                             <br/>
                                             <br/>
 
@@ -107,7 +105,7 @@
                                             <div class="control-group">
                                                 <label class="col-md-3" style="font-family: sans-serif">Product Price<span class="require">*</span></label>
                                                 <div class="control">
-                                                    <input type="number" class="col-md-4s" style="padding-left: 7px;width: 400px" name="product_price" id="productPrice" value="" placeholder="require value"  />
+                                                    <input type="number" class="col-md-4s" style="padding-left: 7px;width: 400px" name="product_price" id="productPrice" value="<?php echo $params[3]["price"]; ?>" placeholder="require value"  />
                                                 </div>
                                             </div>
                                             <small id="error-msg-price"></small>
@@ -118,8 +116,8 @@
                                             <div class="control-group">
                                                 <label class="col-md-3" id="lab" style="font-family: sans-serif">Select Category<span class="require">*</span></label>
                                                 <div class="control select">
-                                                    <select id="productCategory" type="number" name="category" class="col-md-4s" style="width: 400px" onchange="getMeasurements()">
-                                                        <option></option>
+                                                    <select id="productCategory" type="number" name="category" class="col-md-4s" style="width: 400px" onchange="">
+                                                        <option><?php echo $params[0][$params[3]["sub_category_id"]-1]->name?></option>
                                                         <?php $main_id = 0;
                                                         $i = 0;
                                                         foreach ($params[0] as $cat) {
@@ -138,41 +136,44 @@
                                             <br>
 
                                             <!-- select Measurements -->
-                                            <div class="" id="big" style="display: none">
+                                            <div class="" id="big">
 
-                                                <?php
-                                                $arry = $params[1];
-                                                $mes = [];
-                                                ?>
 
-                                                <label class="col-md-3" style="font-family: sans-serif">Required Measurements</label>
+                                                <label style="font-family: sans-serif;margin-left: 15px">Measurements<button class="add_field_button" style="background-color: #f1f1f1;border-radius: 5px" >+</button></label>
 
-                                                <div class="col-md-4s" style="color: #6c757d;margin-left: 250px" id="measurements" name="mesname">
-                                                    <a></a>
+                                                <div class="old_mes" >
+                                                    <?php foreach ($params[1] as $mes){
+                                                        echo '<div style="margin-left: 250px"><input style="width: 400px" name="newMeasurements[]" type="text" value="'.$mes.'" ><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a></div>';
+                                                    }
+                                                    //                                                            ?>
                                                 </div>
-
                                                 <div id="addmes" class="input_fields_wrap">
                                                     <div class="col-md-3">
-                                                        <label style="font-family: sans-serif">Add More Measurements</label>
+<!--                                                        <label style="font-family: sans-serif">Add More Measurements<button class="add_field_button" style="background-color: #f1f1f1;border-radius: 5px" >+</button></label>-->
+
+
 
                                                     </div>
-                                                    <div style="margin-left: 250px"><input style="width: 400px" type="text" name="newMesurements[]"><button class="add_field_button" style="background-color: #f1f1f1;border-radius: 5px" >+</button></div><br>
                                                 </div>
                                                 <script>
                                                     $(document).ready(function() {
                                                         var max_fields      = 10; //maximum input boxes allowed
-                                                        var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+                                                        var wrapper   	= $(".input_fields_wrap"); //Fields wrapper
                                                         var add_button      = $(".add_field_button"); //Add button ID
+                                                        var wrapper2       = $(".old_mes");
 
                                                         var x = 1; //initlal text box count
                                                         $(add_button).click(function(e){ //on add input button click
                                                             e.preventDefault();
                                                             if(x < max_fields){ //max input box allowed
                                                                 x++; //text box increment
-                                                                $(wrapper).append('<div style="margin-left: 250px"><input style="width: 400px" type="text" name="newMesurements[]"/><a href="#" class="remove_field">Remove</a><br><br> </div> '); //add input box
+                                                                $(wrapper).append('<div style="margin-left: 250px"><input style="width: 400px" type="text" name="newMeasurements[]"/><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a><br> </div> '); //add input box
                                                             }
                                                         });
 
+                                                        $(wrapper2).on("click",".remove_field", function(e){ //user click on remove text
+                                                            e.preventDefault(); $(this).parent('div').remove(); x--;
+                                                        })
                                                         $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
                                                             e.preventDefault(); $(this).parent('div').remove(); x--;
                                                         })
@@ -183,31 +184,36 @@
 
 
                                             <!-- Product Material -->
+                                            <br>
                                             <div class="control-group">
                                                 <label class="col-md-3" style="font-family: sans-serif">Product Material</label>
                                                 <div class="control">
-                                                    <input type="text" class="col-md-4s" style="width: 400px" name="material" id="productMaterial" value="" placeholder=""  />
+                                                    <input type="text" class="col-md-4s" style="width: 400px" name="material" id="productMaterial" value="<?php echo $params[3]["material"]; ?>" placeholder=""  />
                                                 </div>
                                             </div>
                                             <br>
 
-                                            <!-- select colors -->
-
+<!--                                             select colors-->
                                             <div id="moreColors" class="input_fields_wrap_color">
-                                                <div>
-                                                    <label style="font-family: sans-serif;margin-left: 15px">Add Colors</label>
-                                                    <button class="add_field_button_color" style="background-color: #f1f1f1;border-radius: 5px" >+</button>
+                                            <div class="control-group">
+                                                <label  style="font-family: sans-serif;margin-left: 15px">Colors<button class="add_field_button_color" style="background-color: #f1f1f1;border-radius: 5px" >+</button></label>
+                                                <br><br>
+                                                <div class="control" style="display: inline-block">
+                                                    <?php foreach ($params[4] as $color){
+                                                        echo '<div style="display: inline-block"><input  name="colors[]" type="color" value='.$color.' ><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a></div>';
+                                                    }
+                                                    ?>
                                                 </div>
-                                                <br>
-<!--                                                <div style="margin-left: 250px"><input style="display: inline-block" type="color" name="colors[]"></div>-->
+                                            </div>
+
                                             </div>
                                             <script>
                                                 $(document).ready(function() {
-                                                    var max_fields      = 10; //maximum input boxes allowed
+                                                    var max_fields      = 5; //maximum input boxes allowed
                                                     var wrapper   		= $(".input_fields_wrap_color"); //Fields wrapper
                                                     var add_button      = $(".add_field_button_color"); //Add button ID
 
-                                                    var x = 1; //initlal text box count
+                                                    var x = 0; //initlal text box count
                                                     $(add_button).click(function(e){//on add input button click
                                                         e.preventDefault();
                                                         if(x < max_fields){ //max input box allowed
@@ -222,62 +228,14 @@
                                                 });
                                             </script>
                                             <br>
-                                    </div>
+
+
                                             <br>
 
                                             <input style="display: none" id="mes" name="mes"/>
 
 
                                             <script type="text/javascript">
-                                                function getMeasurements() {
-                                                    var cat_id = Number(document.getElementById("productCategory").value);
-                                                    document.getElementById("measurements").innerHTML = "";
-
-                                                    var array = <?php echo json_encode($arry); ?>;
-
-                                                    var k = document.getElementById("big");
-                                                    if(k.style.display==="block") {
-                                                        k.style.display = "none";
-                                                    }
-
-
-                                                    var m = [];
-                                                    var i;
-                                                    var T = 0;
-                                                    for (i = 0; i < array.length; i++) {
-                                                        if (Number(array[i].category_id) === cat_id) {
-
-                                                            if(T===0){
-                                                                var x = document.getElementById("big");
-                                                                if(x.style.display==="none"){
-                                                                    x.style.display = "block";
-                                                                }
-                                                                T = 1;
-                                                            }
-
-                                                            var mname = array[i].name;
-
-                                                            document.getElementById("measurements").innerHTML += mname+'<br>';
-                                                            m.push(mname);
-
-                                                            // if(document.getElementById("reqMes").checked===true) {
-                                                            //     alert(mname);
-                                                            // }
-                                                            //     m.push(mname);
-                                                            // var s = JSON.stringify(m);
-                                                            // document.getElementById("lab").innerHTML = s;
-                                                            // }
-                                                        }
-
-                                                    }
-                                                    document.getElementById("mes").value = m;
-                                                }
-
-                                                var i = 0;
-                                                var mesurements = ["mes1"];
-                                                function getFields() {
-                                                    document.getElementById(mesurements[i]).style.display = "block";
-                                                }
 
                                                 //Add colors
 
@@ -302,11 +260,11 @@
                                                         return false;
                                                     }
 
-                                                    else if (image.length==0){
-                                                        error=document.getElementById("error-msg-image");
-                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
-                                                        return false;
-                                                    }
+                                                    // else if (image.length==0){
+                                                    //     error=document.getElementById("error-msg-image");
+                                                    //     error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
+                                                    //     return false;
+                                                    // }
 
                                                     else if (price==""){
                                                         error=document.getElementById("error-msg-price");
@@ -330,7 +288,7 @@
 
 
                                             <div class="control-wrapper last">
-                                                <button class="btn btn-1" type="submit" name="submit">Submit Product</button>
+                                                <button class="btn btn-1" type="submit" name="submit">Update Details</button>
                                             </div>
 
                                         </form>
@@ -343,10 +301,10 @@
                             </div>
                         </div>
                 </main>
-                <!--                <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">-->
-                <!--                    style="right: 65%"-->
-                <!--                    --><?php //include ('Categories.php');?>
-                <!--                </div>-->
+<!--                <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">-->
+                    <!--                    style="right: 65%"-->
+<!--                    --><?php //include ('Categories.php');?>
+<!--                </div>-->
 
             </div>
         </div>

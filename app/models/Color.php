@@ -23,13 +23,33 @@
 
 
 
-		public function addColor($color,$pr_id,$type){
-			$fields = [
-                "color_code" => $_POST["color"],
-                "pr_id" => $_POST["product_price"],
-                "type" => $_POST["sale_price"]
-            ];
-			$this->insert($fields);
+		public function addColor($colors,$pr_id){
+		    for($i = 0;$i<count($colors);$i++){
+                $fields = [
+                    "color_code" => $colors[$i],
+                    "pr_id" => $pr_id
+//                "type" =>
+                ];
+                    $this->insert($fields);
+            }
 		}
+
+        public function editColor($colors,$pr_id){
+            $color_details =  $this->find(array('conditions' => 'pr_id = ?' , 'bind' => [$pr_id]));
+            if(count($color_details)!=null){
+                foreach ($color_details as $color) {
+                     $id = $color->id;
+                    $this->delete($id);
+                }
+            }
+            for($i = 0;$i<count($colors);$i++){
+                $fields = [
+                    "color_code" => $colors[$i],
+                    "pr_id" => $pr_id
+//                "type" =>
+                ];
+                $this->insert($fields);
+            }
+        }
 	}
 

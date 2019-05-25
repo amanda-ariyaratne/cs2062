@@ -1272,8 +1272,8 @@ $(document).ready(function () {
                 url:"<?=PROOT?>NotificationController/updateSeenNotification",
                 method: "POST",
                 data:{'new': newArray },
-                success: function(){
-
+                success: function(data){
+                    var array_new=JSON.parse(data);
                 }
             }); 
       }
