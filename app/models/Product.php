@@ -13,7 +13,7 @@
 		}
 
         public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
-
+            
             //end of the function
             $this->addObserver(new Notification());
             $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='1', $type='4');
@@ -58,7 +58,7 @@
             $tot=array_merge($conditions,$limit);
             
             $details = $this->find($tot);
-
+            // dnd($details);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
@@ -79,7 +79,6 @@
                 //get Image details
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
-//                $images=$image->getImage($row);
                 $row->images = $images;     
             }
 
@@ -93,7 +92,7 @@
             }
 
 
-
+            //dnd($details);
             $noOfRows=count($this->find());
             
             return [$details,$noOfRows];
@@ -193,26 +192,28 @@
                 $key = '%' . $key . '%';
                 array_push($keys, $key);
             }
-       
+
             $params = [
                 'column' => 'name',
                 'keys' => $keys,
                 'limit' => $a . ',6'
             ];
-            
+
             $details = $this->_db->search('product', $params);
             if ($details) {
                 foreach ($details as $row){
-                    $image=new Image('tailor_product_image');
-                    $images=$image->getImage($row);
-                    $row->images = $images;         
+                    $image=new Image();
+                    $images=$image->getImage($row->id);
+                    $row->images = $images;
+
                 }
+
                 $noOfRows=count($details);
             } else {
                 $details = [];
                 $noOfRows = 0;
             }
-            
+
             return [$details,$noOfRows];
         }
 
@@ -232,45 +233,19 @@
         }
 
         public function removeProduct($pr_id){
-		    $this->delete($pr_id);
+            $this->delete($pr_id);
         }
 
         public function changeActiveStatus($pr_id,$status){
-		    $details = $this->findById($pr_id);
-		    $fields = [
-		        "status" => $status
+            $details = $this->findById($pr_id);
+            $fields = [
+                "status" => $status
             ];
-		    $this->update($pr_id,$fields);
+            $this->update($pr_id,$fields);
         }
     }
 
 
-
-
-
-        //     //add colors
-        //     for ($x=1; $x<= 10; $x++){
-        //         $color='color'.$x;
-
-        //         if ($_POST[$color]!=''){
-        //             $color=new Color('color');
-        //             $cl_id=count($color->find());
-
-        //             $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
-        //             $color=new Color('color');
-        //             $color->addProduct($pr_id,);
-        //         }            
-        //     }
-
-        // }
-
-        // public function getDetails(){
-
-        // }
-
-
-
-	// }
 
 
 
