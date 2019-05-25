@@ -275,4 +275,31 @@
 			$this->view->render('home/searchProductList',$params);
         }
 
+        public function sendMessageAction(){
+        	$mediator = new messageMediator();
+        	$mediator->setSubscribers();
+
+        	$subject = 'Tailor Mate received a new message from a user';
+
+        	date_default_timezone_set('Asia/Colombo');
+        	$message = '<p>Tailor Mate received a new message from a user.</p>';
+			$message .= '<p>Following are the details</p>';
+			$message .= '<p> Date & Time: ' . date("Y-m-d H:i:s") . '</p>';
+			$message .= '<p> Name: ' . $_POST['name'] . '</p>';
+			$message .= '<p> Email: ' . $_POST['email'] . '</p>';
+			$message .= '<p> Phone Number: ' . $_POST['number'] . '</p>';
+			$message .= '<p> Message: ' . $_POST['message'] . '</p>';
+
+			$content = $message;
+
+        	$mediator->sendMessage($subject, $content);
+
+        	Router::redirect('home/contactUsSuccess');
+
+        }
+
+        public function contactUsSuccessAction(){
+        	$this->view->render('home/contactUsSuccess');
+        }
+
 	}

@@ -47,21 +47,25 @@
 
               <div id="contact-form">
                 <div class="row">
+                  <span id="error_name" style="padding-left: 20px; color: red;"></span>
                   <div class="form-group col-lg-12 col-md-12">
                     <input type="text" id="name" class="form-control" placeholder="Your Name" value="" name="name" />
                   </div>
 
+                  <span id="error_email" style="padding-left: 20px; color: red;"></span>
                   <div class="form-group col-lg-12 col-md-12">
                     <input type="email" id="email" class="form-control" placeholder="Your Email" value="" name="email" />
                   </div>
                 </div>
                 
+                <span id="error_number" style="padding-left: 20px; color: red;"></span>
                 <div class="form-group">
-                  <input type="text" id="phone" class="form-control" placeholder="Phone Number" value="" name="phone" />
+                  <input type="text" id="number" class="form-control" placeholder="Phone Number" value="" name="phone" />
                 </div>
 
+                <span id="error_message" style="padding-left: 20px; color: red;"></span>
                 <div class="form-group">
-                  <textarea required id="message" class="form-control" placeholder="Message" cols="40" rows="7" name="message"></textarea>
+                  <textarea id="message" class="form-control" placeholder="Message" cols="40" rows="7" name="message"></textarea>
                 </div>
 
                 <div class="form-actions">
@@ -79,6 +83,62 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function validateMessage(){
+
+      document.getElementById('error_name').innerHTML = "";
+      document.getElementById('error_email').innerHTML = "";
+      document.getElementById('error_number').innerHTML = "";
+      document.getElementById('error_message').innerHTML = "";
+                                    
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var number = document.getElementById("number").value;
+      var message = document.getElementById("message").value;
+      var el;
+
+      var email_regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      var number_regex = /^(?:0|94|\+94)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|912)(0|2|3|4|5|7|9)|7(0|1|2|5|6|7|8)\d)\d{6}$/;
+
+
+      if (name == "")
+      {
+          el = document.getElementById('error_name');
+          el.innerHTML = "Name field is required!";
+          return false;
+      }
+      else if (email == "")
+      {
+          el = document.getElementById('error_email');
+          el.innerHTML = "Email field is required!";
+          return false;
+      }
+      else if (!email_regex.test(email))
+      {
+          el = document.getElementById('error_email');
+          el.innerHTML = "Please enter valid email!";
+          return false;
+      }
+      else if (!number_regex.test(number))
+      {
+          el = document.getElementById('error_number');
+          el.innerHTML = "Please enter valid phone number!";
+          return false;
+      }
+      else if (message == "")
+      {
+          el = document.getElementById('error_message');
+          el.innerHTML = "Message is required!";
+          return false;
+      }
+      else
+      {
+          return true;
+      }
+
+  }
+</script>
 
 
 <?= $this->end(); ?>
