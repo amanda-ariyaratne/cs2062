@@ -101,10 +101,8 @@
 
 
 
-        public function addProduct()
-        {
-
-
+        public function addProduct(){
+//		    dnd($_POST);
             $fields['name'] = $_POST["Product_Name"];
             $fields['price'] = $_POST["product_price"];
             $fields['sub_category_id'] = $_POST["category"];
@@ -118,14 +116,20 @@
             }
             
             $this->insert($fields);
-            //add image
             $pr_id = $this->lastInsertedID();
 
             //add measurements
             $mes = $_POST["mes"];
-            $measurement = explode(",",$mes);
-            $m = new Measurement();
-            $m->addMesurement($pr_id,$measurement);
+            $mesArry = explode(",",$mes);
+            $newMesArry = $_POST["newMesurements"];
+            $mesurements_arry = array_merge($mesArry,$newMesArry);
+            $measurement = new Measurement("product_measurement");
+            $measurement->addMesurement($pr_id,$mesurements_arry);
+
+            //add colors
+            $colors = $_POST["colors"];
+            $color = new Color();
+            $color->addColor($colors,$pr_id);
 
             //add image
             $images=($_FILES['fileUpload']['name']);
@@ -211,7 +215,36 @@
             
             return [$details,$noOfRows];
         }
+
+        public function editProduct($pr_id){
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
+
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
+            $this->update($pr_id,$fields);
+        }
+
+        public function removeProduct($pr_id){
+		    $this->delete($pr_id);
+        }
+
+        public function changeActiveStatus($pr_id,$status){
+		    $details = $this->findById($pr_id);
+		    $fields = [
+		        "status" => $status
+            ];
+		    $this->update($pr_id,$fields);
+        }
     }
+
+
 
 
 

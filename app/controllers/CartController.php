@@ -26,9 +26,9 @@ class CartController extends Controller{
             $user = $user->currentLoggedInUser();
 
             if ($user != null) {
-
                 if ($validation->passed()) {
                     $fields = [
+                        "vendor_id" => $_POST["vendor_id"],
                         "name" => $_POST["name"],
                         "image"=> $_POST["image"],
                         "price" => $_POST["price"],
@@ -40,14 +40,17 @@ class CartController extends Controller{
 //                    dnd($fields);
 
                     $cart = new Cart();
-                    $cart->addItem($fields);
+                    $status = $cart->addItem($fields);
 
                     $measurements = unserialize($_POST['measurements']);
                     foreach ($measurements as $key => $mes) {
                         $fields[$mes] = $_POST["measuremnt" . $key];
+
                     }
+                    dnd($fields);
 
                     $params = $this->getProductViewParams();
+                    array_push($params,$status);
                     $this->view->render('home/productView' , $params);
                     
 
@@ -158,7 +161,7 @@ class CartController extends Controller{
         $color = new Color();
         $params['colors'] = $color->getColorByproductID($p_id);
         //load product measurements
-        $measurement = new Measurement();
+        $measurement = new Measurement("product_measurement");
         $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
         return $params;

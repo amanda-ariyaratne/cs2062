@@ -2,7 +2,7 @@
 
 	class Measurement extends Model{
 
-		public function __construct($table='measurement'){
+		public function __construct($table){
 			parent::__construct($table);
 		}
 
@@ -25,6 +25,33 @@
                    "name" => $mes
                 ];
 		        $this->insert($fields);
+            }
+
+        }
+
+        public function editMesurement($p_id,$arry){
+            $initial_measurements =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
+            if(count($initial_measurements)!=null){
+                foreach ($initial_measurements as $mes) {
+                    $id = $mes->id;
+                    $this->delete($id);
+                }
+            }
+
+
+//		    $initial_measurements = $this->getMeasurementByID($p_id);
+//            if(count($initial_measurements)!=null){
+//                foreach ($initial_measurements as $mes) {
+//                    $id = $mes->id;
+//                    $this->delete($id);
+//                }
+//            }
+            foreach ($arry as $mes){
+                $fields = [
+                    "product_id" => $p_id,
+                    "name" => $mes
+                ];
+                $this->insert($fields);
             }
 
         }

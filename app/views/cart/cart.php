@@ -214,9 +214,14 @@
             <?php
             foreach ($_SESSION["cart_item"] as $item){
                 $item_price = $item["quantity"]*$item["price"];
+
+                $color = $item["color"];
+
+
                 ?>
                 <tr>
-                    <td><?php echo '<img src="'.PROOT.'assets/images/'.$item["image"].'" class="cart-item-image" >';?><?php echo $item["name"]; ?></td>
+                    <td><?php echo '<img style="width:60px;height:70px;" src="'.PROOT.'assets/images/'.$item["image"].'"  >';?><?php echo $item["name"]; ?>
+                        <?php echo '<br><br><div style="text-align:center"><span style="height: 25px;width: 25px;background-color: '.$color.';border-radius: 50%;display: inline-block; margin: 2px" class="dot"></span>';?></td>
                     <td><?php echo $item["product_id"]; ?></td>
                     <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ".$item["price"]; ?></td>
