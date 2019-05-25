@@ -37,12 +37,26 @@
 				    	$user->insert($fields);
 				    	//$user = $this->UserModel->findByEmail($email);
 				    	$user = $user->findByEmail($email);
+
+				    	// create new store
+				    	if ($role == 2) {
+				    		$tailorShop = new TailorShop();
+							$fields = [
+								'vendor_id' => $user->id,
+								'paypal_email' => $_POST['paypal_email']
+							];
+							
+							$tailorShop->addTailorShop($fields);
+				    	}
+
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {
 							Router::redirect('home/vendorPage/'.$user->id);
 						} else if($user->role == 3){
 							Router::redirect('account/orderHistory');
+						} else if ($user->role == 1) {
+							Router::redirect('admin/newProducts');
 						}
 						
 
@@ -94,7 +108,7 @@
 						} else if(currentUser()->role == 2){
 							Router::redirect('home/vendorPage/'.currentUser()->id);
 						} else if(currentUser()->role == 1){
-							Router::redirect('home/ProductList/1');
+							Router::redirect('admin/newProducts');
 						}
 						
 					}
