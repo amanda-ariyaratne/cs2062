@@ -52,5 +52,18 @@
         }
 
 
+        public function newsletterAction(){
+            $this->view->render('admin/newsletter');
+        }
+
+        public function sendNewsletterAction(){
+            $admin = new SystemAdmin(currentUser()->id);
+            $admin->sendNewsletter($_POST['subject'], $_POST['content']);
+            Router::redirect('admin/newsletterSuccess');
+        }
+
+        public function newsletterSuccessAction(){
+            $this->view->render('admin/newsletterSuccess');
+        }
 
 	}

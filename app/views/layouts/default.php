@@ -1234,7 +1234,7 @@
 
 <script>
 $(document).ready(function () {
-    console.log('vgbhnj');
+
     //Notification window
     $('.noti').on('click', function(){
         var newArray=JSON.stringify(<?php echo json_encode($new); ?>);
@@ -1280,11 +1280,15 @@ $(document).ready(function () {
             url:"<?=PROOT?>NotificationController/newNotification",
             method: "POST",
             success: function(data){
+
+              if (data.status=="true"){
+
                 var newNotification=JSON.parse(data);
                 notificationList = newNotification.new; 
                 displayNewNotification(notificationList);
                 $('.badge-counter').html(notificationList.length);
                 // console.log(notificationList);
+              }
             }
         });           
     },5000);

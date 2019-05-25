@@ -104,13 +104,13 @@
 			$message .= '<p>Thanks!</p>';
 
 			$headers =  'MIME-Version: 1.0' . "\r\n"; 
-			$headers .= 'From: TailorMate <admin@tailormate.com>' . "\r\n";
+			$headers .= 'From: TailorMate <admin@tailormate.local>' . "\r\n";
 			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
 
 			if(mail($to, $subject, $message, $headers)){
-				echo "Your Password has been sent to your email id";
+				echo "Your Password has been sent to your email id" ;
 			}else{
-				echo "Failed to Recover your password, try again";
+				echo "Failed to Recover your password, try again" ;
 			}
 		}
 
