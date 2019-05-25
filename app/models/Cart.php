@@ -33,6 +33,7 @@
 //                    "price" => $val["price"]+$detail["price"],
 //                ];
 //                $this->update($detail["id"],$fields);
+////                dnd("yes");
 //            }
 //            else {
 
@@ -45,7 +46,7 @@
                     "image_path" => $val["image"]
 
                 ];
-                $this->insert($fields);
+            $this->insert($fields);
 //            }
         }
 

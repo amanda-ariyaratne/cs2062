@@ -2,7 +2,8 @@
 	class Image extends Model{
 		//  $product_id, $path, $table_name,$db;
 
-		public function __construct($table){
+		public function __construct($table=''){
+			$table = 'tailor_product_image';
 			parent::__construct($table);
 		}
 

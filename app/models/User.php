@@ -1,6 +1,6 @@
 <?php
 
-	class User extends Model implements observer{
+	class User extends Model {
 		private $_isLoggedIn, $_sessionName, $_cookieName;
 		public static $currentLoggedInUser = null;
 
@@ -27,16 +27,6 @@
 			}
 		}
 
-		public function acceptProduct(){
-			// by admin- accpet products
-			// by tailor- take order 
-		}
-
-		public function updateClass($obj) {
-			//implement the thing that user do after an object gets updated.
-			//custmer and tailor
-    	}
-
 		public function findByEmail($email){
 			$user =  $this->findFirst(['conditions'=>'email = ?' , 'bind'=>[$email]]);
 			return $user;
@@ -44,15 +34,13 @@
 
 		public static function currentLoggedInUser(){
 			if(!isset(self::$currentLoggedInUser) && Session::exists(CURRENT_USER_SESSION_NAME)){
+				//dnd(Session::get(CURRENT_USER_SESSION_NAME));
 				$u = new User((int)Session::get(CURRENT_USER_SESSION_NAME));
 				self::$currentLoggedInUser = $u;
 			}
 
 			return self::$currentLoggedInUser;
 		}
-
-
-
 
 		public function login($rememberMe = false){
 			Session::set($this->_sessionName, $this->id);
@@ -116,13 +104,13 @@
 			$message .= '<p>Thanks!</p>';
 
 			$headers =  'MIME-Version: 1.0' . "\r\n"; 
-			$headers .= 'From: TailorMate <admin@tailormate.com>' . "\r\n";
+			$headers .= 'From: TailorMate <admin@tailormate.local>' . "\r\n";
 			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
 
 			if(mail($to, $subject, $message, $headers)){
-				echo "Your Password has been sent to your email id";
+				echo "Your Password has been sent to your email id" ;
 			}else{
-				echo "Failed to Recover your password, try again";
+				echo "Failed to Recover your password, try again" ;
 			}
 		}
 

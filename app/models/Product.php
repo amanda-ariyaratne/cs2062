@@ -7,25 +7,33 @@
         public $id;
 
 
-		public function __construct($products=''){
+		public function __construct($table=''){
 			$table='product';
 			parent::__construct($table);
 		}
 
         public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
-
+            
             //end of the function
-            notifyObservers($product_id,$tailor_id,$customer_id);
+            $this->addObserver(new Notification());
+            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='1', $type='4');
         }
 
-        public function notifyObservers($product_id,$tailor_id,$customer_id){
-            foreach($observers as $observer){
-                $observer->update($product_id,$tailor_id,$customer_id);
+        public function rejectRequest($product_id,$tailor_id,$customer_id){
+
+            //end of the function
+            $this->addObserver(new Notification());
+            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='0', $type='4');
+        }
+
+        public function notifyObservers($product_id,$tailor_id,$customer_id,$status ,$type){
+            foreach ($this->observers as $observer){
+                $observer->updateClass($product_id,$tailor_id,$customer_id,$status, $type);
             }
         }
 
         public function addObserver($obj){
-            array_push($observers, $obj);
+            array_push($this->observers, $obj);
         }
 
         public function getViewDetails($a){            
@@ -50,7 +58,7 @@
             $tot=array_merge($conditions,$limit);
             
             $details = $this->find($tot);
-
+            // dnd($details);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
@@ -70,7 +78,7 @@
             foreach ($details as $row){
                 //get Image details
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
                 $row->images = $images;     
             }
 
@@ -84,7 +92,7 @@
             }
 
 
-
+            //dnd($details);
             $noOfRows=count($this->find());
             
             return [$details,$noOfRows];
@@ -95,28 +103,22 @@
         public function addProduct()
         {
 
+//		    dnd($_POST);
 
-            $fields['name'] = $_POST["Product_Name"];
-            $fields['price'] = $_POST["product_price"];
-            $fields['sub_category_id'] = $_POST["category"];
-            $fields['vendor_id'] = currentUser()->id;
-            if ($_POST["Product_Description"] != '') {
-                $fields['description'] = $_POST["Product_Description"];
-            }
-
-            if ($_POST["sale_price"] != '') {
-                $fields['sale_price'] = $_POST["sale_price"];
-            }
-
-            if ($_POST["material"] != '') {
-                $fields['material'] = $_POST["material"];
-            }
+            $fields = [
+                "name" => $_POST["Product_Name"],
+                "description" => $_POST["Product_Description"],
+                "price" => $_POST["product_price"],
+                "sale_price" => $_POST["sale_price"],
+                "sub_category_id" => $_POST["category"],
+                "material" => $_POST["material"]
+            ];
             
             $this->insert($fields);
             //add image
             $pr_id = $this->lastInsertedID();
             $images=($_FILES['fileUpload']['name']);
-
+            //dnd($images);
 
             for ($x=0; $x<sizeof($images); $x++){
                 
@@ -187,10 +189,12 @@
             $details = $this->_db->search('product', $params);
             if ($details) {
                 foreach ($details as $row){
-                    $image=new Image('tailor_product_image');
-                    $images=$image->getImage($row);
-                    $row->images = $images;         
+                    $image=new Image();
+                    $images=$image->getImage($row->id);
+                    $row->images = $images;  
+
                 }
+
                 $noOfRows=count($details);
             } else {
                 $details = [];
@@ -199,11 +203,13 @@
             
             return [$details,$noOfRows];
         }
+
     }
 
 
 
         //     //add colors
+        //     dnd($_POST["color"]);
         //     for ($x=1; $x<= 10; $x++){
         //         $color='color'.$x;
 

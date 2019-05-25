@@ -127,4 +127,11 @@ class Validate{
 		$html .='</ul>';
 		return $html;
 	}
+
+
+
+
+	public function displayErrorMsgs($error_msg){
+		$this->addError([$error_msg]);
+	}
 }

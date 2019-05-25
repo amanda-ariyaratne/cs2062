@@ -6,7 +6,7 @@
 		}
 
 		public function newProductsAction(){
-			
+
 			$product = new Product();
         	$fields = [
         		'conditions' => 'permission = ?',
@@ -34,7 +34,6 @@
         		$avgRating = $rating->calculateAvg($product->id);
         		$product->rating = $avgRating;
         		$product->ratingCount = $rating->getRateCount($product->id);
-                //var_dump($product->ratingCount);
 
         		//set location
         		$product->streetName = $store->streetName2;
@@ -42,10 +41,29 @@
 
         	}
 
-        	//dnd($params['products']);
             $this->view->render('admin/newProducts', $params);
+
 		}
 
 
+        public function approvePageAction($product_id){
+            var_dump("coming soon");
+            die();
+        }
+
+
+        public function newsletterAction(){
+            $this->view->render('admin/newsletter');
+        }
+
+        public function sendNewsletterAction(){
+            $admin = new SystemAdmin(currentUser()->id);
+            $admin->sendNewsletter($_POST['subject'], $_POST['content']);
+            Router::redirect('admin/newsletterSuccess');
+        }
+
+        public function newsletterSuccessAction(){
+            $this->view->render('admin/newsletterSuccess');
+        }
 
 	}

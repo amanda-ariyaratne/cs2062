@@ -2,7 +2,7 @@
 
 	class Rate extends Model{
 
-		public function __construct(){
+		public function __construct($a=''){
 			$table = 'rate';
 			parent::__construct($table);
 		}
@@ -15,11 +15,11 @@
 			$ratingArray = $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
 
 			$total = 0;
+
 			$numberOfRatings = count($ratingArray);
 			if ($numberOfRatings == 0) {
 				return 0;
 			}
-
 			foreach($ratingArray as $rate){
 				$total+=$rate->rate;
 			}

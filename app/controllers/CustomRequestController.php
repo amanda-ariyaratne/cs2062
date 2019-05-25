@@ -13,7 +13,8 @@
 			$noOfProducts =$details[1];
 			
 
-			$params=array($param,$a,$noOfProducts,'Custome Requests');
+
+			$params=array($param,$a,$noOfProducts,'Custom Requests');
 
 			$this->view->render('home/CustomerRequests',$params);
 		}
@@ -42,26 +43,25 @@
         }
 
         public function acceptAction(){
-        	$customRequest = new CustomRequest('custom_request');
+        	$customRequest = new CustomRequest();
 			//get value
-			$id=json_decode($_POST['id'])->id;	
+			$id=json_decode($_POST['id']);	
 
-			$customRequest->acceptRequest($id);
+			$user_id=json_decode($_POST['user_id']);
+
+			$status=json_decode($_POST['status']);
+
+			$conditions=['conditions'=>'id = ?', 'bind'=>[$id]];
+
+			$details=$customRequest->findFirst($conditions);
+			var_dump($id);
+			if ($status=='1')
+				$customRequest->acceptRequest($details->id, $user_id,$details->customer_id);
+			else
+				$customRequest->cancelRequest($details->id, $user_id,$details->customer_id);
 
 			//pass value
-			echo json_encode(array('status'=> $id));
-
-		}
-
-		public function removeAction(){
-			$customRequest = new CustomRequest('custom_request');
-			//get id
-			$id=json_decode($_POST['id'])->id;	
-			
-			$customRequest->rejectRequest($id);
-
-			//pass value
-			echo json_encode(array('status'=> '0'));
+			echo json_encode(array('status'=> $status));
 
 		}
 }

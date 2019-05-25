@@ -144,7 +144,7 @@
                             <div class="product-content">
                               <div class="pc-inner">          
                                 <div class="product-group-vendor-name"> 
-                                  <h5 class="product-name"><a href="/products/consectetur-nibh-eget">'. $value->name.'</a></h5>  
+                                  <h5 class="product-name"><a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a></h5>  
 
                                   <!-- <div class="product-des-list"><ul>
 

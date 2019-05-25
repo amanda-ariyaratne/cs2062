@@ -2,7 +2,6 @@
 
 	class CustomRequest extends Model implements Observable{
 
-		private $table;
 		private $observers=array();
 
 		public function __construct($_table=''){
@@ -10,56 +9,45 @@
 			parent::__construct($_table);			
 		}
 
-		public function createNotification($product_id,$tailor_id,$customer_id){
-
-			$fields=['_to'=>$tailor_id,
-					 '_from'=>$customer_id
-					 ,'pr_id'=>$product_id,
-					 'type'=>'',
-					 'status'=> '1',
-					 'seen'=> '0'
-					];
-
-			$this->insert($fields);			 
-		}
-
-
-		public function update($product_id,$tailor_id,$customer_id){
-			$this->createNotification($product_id,$tailor_id,$customer_id);
-		}
-
-		public function acceptRequest($id){
-			$fields=['status'=> '1'];
-			$this->update($id, $fields);
-			// setChanged();
-			// notifyObservers();
-		}
-
-		public function rejectRequest($id){
-			$fields=['status'=> '0'];
-			$this->update($product_id,$tailor_id,$customer_id);
-			// setChanged();
-			// notifyObservers();
-		}
-
-        public function notifyObservers(){
-            foreach($observers as $observer){
-                $observer->update($product_id,$tailor_id,$customer_id);
+        public function notifyObservers($product_id,$to,$from,$status,$type){
+            foreach ($this->observers as $observer){
+                $observer->updateClass($product_id, $to, $from, $status, $type);
             }
         }
 
-        public function addObserver($obj){
-            array_push($observers, $obj);
-        } 
+		public function addObserver($obj){
+            array_push($this->observers, $obj);
+        }
 
+        // tailor confirms order
+		public function acceptRequest($product_id,$tailor_id,$customer_id){
+			$fields=['status'=> '1', 'tailor_id'=>$tailor_id];
+			$this->update($product_id, $fields);
+
+			//set Notification
+			$this->addObserver(new Notification());
+			$this->notifyObservers($product_id,$customer_id,$tailor_id,$status='1',$type='1');
+		}
+
+		public function cancelRequest($product_id,$tailor_id,$customer_id){
+			$fields=['status'=> '0','tailor_id'=>'0'];
+			$this->update($product_id,$fields);
+
+			//set notification
+			addObserver(new Notification());
+			notifyObservers($product_id,$customer_id,$tailor_id,$status='0',$type='1');
+		}
+
+        
         public function findByID($p_id){
 			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
 		}
 
 		public function getViewDetails($a){
-			$a--;
-			$limit = array('limit'=>$a++.',6');
-			$details = $this->find($limit);
+			$a=6*($a-1);
+			$conditions = array('limit'=>$a.',6', 'conditions'=>'status = ?', 'bind' => ['0']);
+
+			$details = $this->find($conditions);
 
 			foreach ($details as $row){
 				$image=new Image('custom_design_image');
@@ -100,6 +88,7 @@
     			
     		}
 		}
+
 	}
 
  ?>
