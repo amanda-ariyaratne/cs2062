@@ -324,12 +324,18 @@
 
             
               <ul class="top-bar-list" style="">
-                
-                  <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
 
                   <li><a href="<?=PROOT?>home/AllVendors/1" title="Customer Request" >All Tailors</a></li>
 
+                  <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
+
                   <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
+
+                  <?php
+                    if ($user->role == 1) {
+                      echo '<li><a href="'.PROOT.'admin/newProducts" title="New Products"> New Products </a></li>';
+                    }
+                   ?>
                 
               </ul>
             

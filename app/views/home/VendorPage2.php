@@ -12101,7 +12101,7 @@ min-height: 200px;
     
   
     <li>
-      <a target="_blank" rel="noopener" href="https://www.facebook.com/shopify/" title="Facebook">
+      <a target="_blank" rel="noopener" href="https://www.facebook.com" title="Facebook">
         
           <i class="demo-icon icon-facebook"></i>
         
@@ -12119,7 +12119,7 @@ min-height: 200px;
     
   
     <li>
-      <a target="_blank" rel="noopener" href="https://www.twitter.com/shopify/" title="Twitter">
+      <a target="_blank" rel="noopener" href="https://www.twitter.com" title="Twitter">
         
           <i class="demo-icon icon-twitter"></i>
         
@@ -12137,7 +12137,7 @@ min-height: 200px;
     
   
     <li>
-      <a target="_blank" rel="noopener" href="https://www.instagram.com/shopify/" title="Instagram">
+      <a target="_blank" rel="noopener" href="https://www.instagram.com" title="Instagram">
         
           <i class="demo-icon icon-instagram"></i>
         
@@ -12155,7 +12155,7 @@ min-height: 200px;
     
   
     <li>
-      <a target="_blank" rel="noopener" href="https://www.pinterest.com/shopify/" title="Pinterest">
+      <a target="_blank" rel="noopener" href="https://www.pinterest.com" title="Pinterest">
         
           <i class="demo-icon icon-pinterest-circled"></i>
         

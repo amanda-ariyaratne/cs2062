@@ -47,8 +47,46 @@
 
 
         public function approvePageAction($product_id){
-            var_dump("coming soon");
-            die();
+            
+            $params = array();
+
+            //get product
+            $product = new Product();
+            $product_obj = $product->findById($product_id);
+
+            //load sub categories table and instert sub category name into product
+            $sub_category_obj = new SubCategory();
+            $sub_category_details = $sub_category_obj->findByID($product_obj->sub_category_id);
+            $product_obj->sub_category_name = $sub_category_details->name;
+
+            //load categories table and instert main category name -> product_obj
+            $category_obj = new Category();
+            $category_details = $category_obj->findByID($sub_category_details->main_id);
+            $product_obj->main_category_name = $category_details->name;
+            $params['product'] = $product_obj;
+
+            //add product images array - inster to params
+            $img = new Image();
+            $images = $img->getImage($product_id);
+            $params['images'] = $images;
+
+            //new user object
+            $user_obj = new User();
+
+            //add vendor name
+            $product_obj->vendor = $user_obj->findByUserID($product_obj->vendor_id);
+
+            //load product colors
+            $color = new Color();
+            $params['colors'] = $color->getColorByproductID($p_id);
+
+            //load product measurements
+            $measurement = new Measurement();
+            $params['measurements'] = $measurement->getMeasurementByID($p_id);
+
+
+            //dnd($params['product']->main_category_name);
+            $this->view->render('admin/approvePage',$params);
         }
 
 
