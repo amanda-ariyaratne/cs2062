@@ -127,7 +127,25 @@
 
 				$order = new CustomerOrder();
 				$status_details = $order->getOrderList(currentUser()->id);
-				$params['orders'] = $status_details;
+
+				//reverse order list
+				$reverse_orders = array();
+				if(!empty($status_details)){
+					$reverse_orders = array_reverse($status_details);
+				}
+
+				//update order state
+				$state = new OrderStatus();
+				$orders = array();
+				foreach ($reverse_orders as $key => $order) {
+					$order_details = [
+						'order_id'  => $order->id,
+						'delivered' =>	$state->checkIfDelivered($order->id)
+					];
+					array_push($orders, $order_details)	;
+				}
+
+				$params['orders'] = $orders;
 				//dnd($params);
 
 				$this->view->render('account/orderHistory', $params);

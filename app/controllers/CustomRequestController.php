@@ -64,4 +64,38 @@
 			echo json_encode(array('status'=> $status));
 
 		}
+
+
+
+		//product view
+		public function requestedProductViewAction($r_id){
+			$params = array();
+
+			//load customer request table and get details
+			$customer_request = new CustomRequest();
+			$request_obj = $customer_request->findByID($r_id);
+
+			$params = [
+				'id' => $request_obj->id,
+				'customer_id' => $request_obj->customer_id,
+				'pr_name' => $request_obj->pr_name,
+				'description' => $request_obj->description,
+				'color' => $request_obj->color,
+				'location' => $request_obj->location,
+				'due_date' => $request_obj->due_date
+			]; 
+
+			//load images 
+			$image = new Image('custom_design_image');
+			$image_obj = $image->getImage($request_obj);
+			$params['images'] = $image_obj;
+
+			//load product measurements
+			// $measurement = new Measurement();
+			// $params['measurements'] = $measurement->getMeasurementByID($p_id);
+
+			//dnd($params);
+
+			$this->view->render('home/customerRequestProductView',$params);
+		}
 }

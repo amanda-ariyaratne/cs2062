@@ -15,7 +15,16 @@ abstract class Message{
 	// public abstract function sendNoification($product_id,$to,$from,$status, $type);
 
 	public function setProductName(){
-		$this->productName= '<a style="font-weight: 400;"php href="'.PROOT.'home/productView/'.$this->notification->pr_id.'"><b>'.$this->notification->pr_name.'</b></a>';
+
+		if (!is_integer($this->notification->pr_name)){
+			$this->productName = '<a style="font-weight: 400;"php href="'.PROOT.'home/productView/'.$this->notification->pr_id.'"><b>'.$this->notification->pr_name.'</b></a>';
+		}
+
+		else{
+			$this->productName = $this->notification->pr_name;
+		}
+
+
 	}
 
 	public function setStatus(){

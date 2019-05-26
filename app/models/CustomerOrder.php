@@ -1,8 +1,8 @@
 <?php
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	class CustomerOrder extends Model{
-		private $_current, $_state_obj;
+	class CustomerOrder extends Model implements Observable{
+		private $_current, $_state_obj, $observers=array();
 
 		public function __construct($table='customer_order'){
 			$table = $table;
@@ -37,6 +37,36 @@
 			else{return true;}
 		}
 
+		public function getUserIDs_for_OrderID($o_id){
+			$order_details = $this->findFirst(array('conditions'=>'id = ?' , 'bind' => [$o_id]));
+			$params = [
+				'customer_id' => $order_details->user_id,
+				'vendor_id'   => $order_details->vendor_id
+			];
+			return $params;
+		}
+
+
+		/////////////////notifications
+		public function notify_call($t){
+			$user_IDs = $this->getUserIDs_for_OrderID($this->id);
+			$this->addObserver(new Notification());
+            $this->notifyObservers('2', $user_IDs['customer_id'] , $user_IDs['vendor_id'] , $status='1', $type=$t);
+		}
+
+        public function notifyObservers($product_id,$tailor_id,$customer_id,$status ,$type){
+            foreach ($this->observers as $observer){
+                $observer->updateClass($product_id,$tailor_id,$customer_id,$status, $type);
+            }
+        }
+
+        public function addObserver($obj){
+            array_push($this->observers, $obj);
+        }
+
+
+
+
 
 
 		//state behavioral pattern
@@ -49,19 +79,23 @@
 		}
 		public function confirm(){
 			$a = $this->_state_obj->update($this->id ,['state_confirmed'=>'1']);
-			dnd('confirmed');
+			$this->notify_call(5);
+			var_dump('confirmed');
 		}		
 		public function manufacturing(){
 			$a = $this->_state_obj->update($this->id ,['state_manufacturing'=>'1']);
-			dnd($a);
+			$this->notify_call(6);
+			var_dump('manufacturing');
 		}		
 		public function delivering(){
 			$a = $this->_state_obj->update($this->id ,['state_delivering'=>'1']);
-			dnd($a);
+			$this->notify_call(7);
+			var_dump('delivering');
 		}		
 		public function delivered(){
 			$a = $this->_state_obj->update($this->id ,['state_delivered'=>'1']);
-			dnd($a);
+			$this->notify_call(8);
+			var_dump('delivered');
 		}
 	}
 
@@ -95,6 +129,7 @@
 		function changeState($order){
 			$this->confirm($order);
 			$order->setState(new StateConfirmed());
+			Router::redirect("home");
 		}
 	}
 
@@ -104,6 +139,7 @@
 		function changeState($order){
 			$this->manufacturing($order);
 			$order->setState(new StateManufacturing());
+			Router::redirect("home");
 		}
 	}
 
@@ -113,6 +149,7 @@
 		function changeState($order){
 			$this->delivering($order);
 			$order->setState(new StateDelivering());
+			Router::redirect("home");
 		}
 	}
 
@@ -121,12 +158,13 @@
 		function changeState($order){
 			$this->delivered($order);
 			$order->setState(new StateDelivered());
+			Router::redirect("home");
 		}
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	class StateDelivered extends OrderState{
 		function changeState($order){
-			dnd('final state');
+			Router::redirect("home");
 		}
 	}

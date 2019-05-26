@@ -15,7 +15,8 @@
 				foreach ($details as $item) {
 					$field = [
 						'product_id' => $item->product_id,
-						'quantity'   => $item->quantity
+						'quantity'   => $item->quantity,
+                        'vendor_id'  => $item->vendor_id
 					];
 					array_push($payments, $field);
 				}

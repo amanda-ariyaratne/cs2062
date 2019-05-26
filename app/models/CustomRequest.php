@@ -4,8 +4,8 @@
 
 		private $observers=array();
 
-		public function __construct($_table=''){
-			$_table='custom_request';
+		public function __construct($_table='custom_request'){
+			//$_table='custom_request';
 			parent::__construct($_table);			
 		}
 
@@ -88,6 +88,10 @@
     			
     		}
 		}
+
+
+
+
 
 	}
 

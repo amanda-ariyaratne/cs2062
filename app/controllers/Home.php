@@ -106,6 +106,8 @@
 			$product = new Product('product');
 			$product_obj = $product->findById($p_id);
 
+
+
 			//load sub categories table and instert sub category name into product
 			$sub_category_obj = new SubCategory();
 			$sub_category_details = $sub_category_obj->findByID($product_obj->sub_category_id);
@@ -124,7 +126,7 @@
 			//load review table
 			$review_object = new Review();
 			$review_details = $review_object->findByProductID($p_id);
-	
+			
 			//load rates table
 			$rate_obj = new Rate();
 			if(count($review_details)!=0){
@@ -181,6 +183,8 @@
 			//load product measurements
 			$measurement = new Measurement();
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
+
+			$params['vendor_id'] = $product_obj->vendor_id;
 
 			//dnd($params);
 

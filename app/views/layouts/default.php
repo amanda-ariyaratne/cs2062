@@ -478,7 +478,7 @@
                   <?php 
                       if ($user->role==3){
                         echo '
-                          <a href=# title="Your cart">
+                          <a href="'.PROOT.'CartController/cart/0" title="Your cart">
                             <span>
                               <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
                             </span>

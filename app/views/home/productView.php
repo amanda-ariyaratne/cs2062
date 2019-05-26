@@ -252,11 +252,6 @@
                         
                           <div class="btns-wrapper">
                             
-                              <!-- <a href="javascript:void(0)" class="add-to-compare add-product-compare" data-handle-product="donkix-product-sample" title="Compare">Compare</a> -->
-                            
-
-                            	
-                              <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="donkix-product-sample" title="Add to wishlist">Add to wishlist</a>
                           </div>
                         
 
@@ -389,6 +384,7 @@
                                 <?php echo'<input type="hidden" name="price" value='.$params[0]->price.'>';?>
                                 <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
                                 <?php echo'<input type="hidden" name="name" value="'.$params[0]->name.'">';?>
+                                <?php echo'<input type="hidden" name="vendor_id" value="'.$params['vendor_id'].'">';?>
 
 
 
@@ -814,12 +810,6 @@
                                         <i class="demo-icon icon-search"></i>
                                         " quick view"
                                       </div>
-                                      <div class="product-wishlist">
-                                        <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-1" title="add to wishlist">
-                                          <i class="demo-icon icon-heart"></i>
-                                          " Add to wishlist"
-                                        </a>
-                                      </div>
                                     </div>
 
                                     <div class="wrapper-countdown">
@@ -839,11 +829,8 @@
 
                                     <div class="price-cart-wrapper">
                                       <div class="product-price">
-                                        <span class="price-compare">
-                                          <span class="money" data-currency-lkr="$ '.$product['price'].'" data-currency="LKR">$ '.$product['price'].'</span>
-                                        </span>
                                         <span class="price-sale">
-                                          <span class="money" data-currency-lkr="$ '.$product['sale_price'].'" data-currency="LKR">$ '.$product['sale_price'].'</span>
+                                          <span class="money" data-currency-lkr="$ '.$product['price'].'" data-currency="LKR">$ '.$product['price'].'</span>
                                         </span>
                                       </div>
 

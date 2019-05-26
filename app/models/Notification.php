@@ -39,9 +39,16 @@
 						$row->pr_name=$product->findByID($row->pr_id)->pr_name;
 					}
 
-					else{
+					elseif ($row->type==2 && $row->type==3 && $row->type==4)
+					{
 						$product=new Product();
 						$row->pr_name=$product->findByID($row->pr_id)->name;
+					}
+
+					elseif($row->type==5 && $row->type==6 && $row->type==7 && $row->type==8){
+
+						//$product=new CustomerOrder();
+						$row->pr_name=$row->pr_id;					
 					}
 					
 					$tailorShop=new TailorShop();
@@ -78,6 +85,22 @@
 				$message=new MessageType4($row);
 			}
 
+			elseif ($type=='5'){
+				$message=new MessageType5($row);
+			}
+
+			elseif ($type=='6'){
+				$message=new MessageType6($row);
+			}
+
+			elseif ($type=='7'){
+				$message=new MessageType7($row);
+			}
+
+			elseif ($type=='8'){
+				$message=new MessageType8($row);
+			}
+
 			return $message->getMessage();
 
 		}
@@ -96,9 +119,16 @@
 						$row->pr_name=$product->findByID($row->pr_id)->pr_name;
 					}
 
-					else{
+					elseif ($row->type==2 && $row->type==3 && $row->type==4)
+					{
 						$product=new Product();
 						$row->pr_name=$product->findByID($row->pr_id)->name;
+					}
+
+					elseif($row->type==5 && $row->type==6 && $row->type==7 && $row->type==8){
+
+						//$product=new CustomerOrder();
+						$row->pr_name=$row->pr_id;					
 					}
 					
 					$tailorShop=new TailorShop();
