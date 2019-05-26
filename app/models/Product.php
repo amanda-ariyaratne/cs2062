@@ -100,25 +100,38 @@
 
 
 
-        public function addProduct()
-        {
-
+        public function addProduct(){
 //		    dnd($_POST);
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
 
-            $fields = [
-                "name" => $_POST["Product_Name"],
-                "description" => $_POST["Product_Description"],
-                "price" => $_POST["product_price"],
-                "sale_price" => $_POST["sale_price"],
-                "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"]
-            ];
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
             
             $this->insert($fields);
-            //add image
             $pr_id = $this->lastInsertedID();
+
+            //add measurements
+            $mes = $_POST["mes"];
+            $mesArry = explode(",",$mes);
+            $newMesArry = $_POST["newMesurements"];
+            $mesurements_arry = array_merge($mesArry,$newMesArry);
+            $measurement = new Measurement("product_measurement");
+            $measurement->addMesurement($pr_id,$mesurements_arry);
+
+            //add colors
+            $colors = $_POST["colors"];
+            $color = new Color();
+            $color->addColor($colors,$pr_id);
+
+            //add image
             $images=($_FILES['fileUpload']['name']);
-            //dnd($images);
 
             for ($x=0; $x<sizeof($images); $x++){
                 
@@ -171,34 +184,68 @@
             }
             return $new_item_array;
         }
+
+        public function getViewDetailsForSearch($keywords, $a){
+            $products = [];
+            $keys = [];
+            foreach ($keywords as $key) {
+                $key = '%' . $key . '%';
+                array_push($keys, $key);
+            }
+
+            $params = [
+                'column' => 'name',
+                'keys' => $keys,
+                'limit' => $a . ',6'
+            ];
+
+            $details = $this->_db->search('product', $params);
+            if ($details) {
+                foreach ($details as $row){
+                    $image=new Image();
+                    $images=$image->getImage($row->id);
+                    $row->images = $images;
+
+                }
+
+                $noOfRows=count($details);
+            } else {
+                $details = [];
+                $noOfRows = 0;
+            }
+
+            return [$details,$noOfRows];
+        }
+
+        public function editProduct($pr_id){
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
+
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
+            $this->update($pr_id,$fields);
+        }
+
+        public function removeProduct($pr_id){
+            $this->delete($pr_id);
+        }
+
+        public function changeActiveStatus($pr_id,$status){
+            $details = $this->findById($pr_id);
+            $fields = [
+                "status" => $status
+            ];
+            $this->update($pr_id,$fields);
+        }
     }
 
 
-
-        //     //add colors
-        //     dnd($_POST["color"]);
-        //     for ($x=1; $x<= 10; $x++){
-        //         $color='color'.$x;
-
-        //         if ($_POST[$color]!=''){
-        //             $color=new Color('color');
-        //             $cl_id=count($color->find());
-
-        //             $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
-        //             $color=new Color('color');
-        //             $color->addProduct($pr_id,);
-        //         }            
-        //     }
-
-        // }
-
-        // public function getDetails(){
-
-        // }
-
-
-
-	// }
 
 
 

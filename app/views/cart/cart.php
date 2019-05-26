@@ -194,12 +194,13 @@
     ?>
         <main class="site-content col-xs-9 col-md-9 col-sm-9" style="margin-left: 160px" itemscope="itemscope" itemprop="mainContentOfPage"><!-- Main content -->
 
-    <a class="btn btn-1" style="margin-left: 980px" href="<?=PROOT?>CartController/emptyCart/<?php echo $fields[0]["customer_id"]; ?>">Empty Cart</a><br><br>
     <?php
     if(isset($_SESSION["cart_item"])){
         $total_quantity = 0;
         $total_price = 0;
         ?>
+        <a class="btn btn-1" style="margin-left: 980px" href="<?=PROOT?>CartController/emptyCart/<?php echo $fields[0]["customer_id"]; ?>">Empty Cart</a><br><br>
+
         <table class="tbl-cart" cellpadding="10" cellspacing="1">
             <tbody>
             <tr>
@@ -213,9 +214,14 @@
             <?php
             foreach ($_SESSION["cart_item"] as $item){
                 $item_price = $item["quantity"]*$item["price"];
+
+                $color = $item["color"];
+
+
                 ?>
                 <tr>
-                    <td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
+                    <td><?php echo '<img style="width:60px;height:70px;" src="'.PROOT.'assets/images/'.$item["image"].'"  >';?><?php echo $item["name"]; ?>
+                        <?php echo '<br><br><div style="text-align:center"><span style="height: 25px;width: 25px;background-color: '.$color.';border-radius: 50%;display: inline-block; margin: 2px" class="dot"></span>';?></td>
                     <td><?php echo $item["product_id"]; ?></td>
                     <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ".$item["price"]; ?></td>
@@ -240,7 +246,7 @@
         <br>
         <div class="wc-proceed-to-checkout">
 
-            <a href="<?=PROOT?>orderController/customerInformation" class="btn btn-1" style="margin-left: 930px" >Proceed to checkout</a>
+            <a href="<?=PROOT?>OrderController/CustomerInformation" class="btn btn-1" style="margin-left: 930px" >Proceed to checkout</a>
         </div>
         <?php
     } else {

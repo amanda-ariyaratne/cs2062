@@ -2,9 +2,9 @@
 	class Image extends Model{
 		//  $product_id, $path, $table_name,$db;
 
-		public function __construct($table){
-			parent::__construct($table);
-		}
+	public function __construct($table){
+		parent::__construct($table);
+	}
 
 		//add image to the table\\
 		public function addImage($pr_id,$image_path,$ind,$folder){

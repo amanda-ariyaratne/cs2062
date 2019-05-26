@@ -24,13 +24,12 @@
             <div class="row">
 
                <?php 
-                      echo '
-                        <div class="col-lg-8 d-none d-lg-block">
+                      echo
+                        '<div class="col-lg-8 d-none d-lg-block">
                           <div class="page-title">'.
                              end($params).'
                           </div>
-                        </div>
-                      ';
+                        </div>';
                  ?> 
 
                                
@@ -98,6 +97,8 @@
                 <?= $params[0][0]->vendorName;?>  
               </h2>
             </div>
+              <a href="<?=PROOT?>home/addProduct"><button type="button" class="btn btn-1">Add Product</button></a>
+
           </div>
 
           <div class="col-lg-3 col-md-12 row" style="float:right; padding-right: 0px; padding-left: 8%;">
@@ -126,7 +127,7 @@
             
             <div class="pagination-showing">
               <div class="showing">
-                <?php
+                  <?php
 
                    if ($params[1]<6){
                      echo 'Showing all Items';
@@ -136,7 +137,7 @@
                    }
 
                 ?>
-                
+
               </div>
             </div>
           </div>
@@ -146,10 +147,20 @@
 <div id="col-main">
           
   <div class="cata-product cp-grid">
-         
-<?php 
+
+
+      <?php
   foreach ($params[0] as $product){
     // dnd();
+      if($product->status=="1"){
+
+          $pr_status = "Deactivate";
+      }
+      if($product->status=="0"){
+          $pr_status = "Activate";
+      }
+
+      $approved = $product->approve_status;
 
 echo '
 <div class="product-grid-item mode-view-item">
@@ -158,18 +169,18 @@ echo '
   <div class="product-wrapper effect-overlay ">
 
     <div class="product-head">
-      <div class="product-image">
+      <div class="product-image">';
 
+    if($approved==0){
+        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" disabled >'.$pr_status.'</button> ';
+    }
+    else {
+        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" id="' . $product->id . '" onclick="active(id)">' . $pr_status . '</button> ';
+    }
+      echo ' 
         <div class="featured-img lazyload">
           <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$params[0][0]->images[0].'">            
-            
-        <span class="product-label">
-    
-      
-        <span class="label-sale">
-          <span class="sale-text">Available</span>  
-          </span>   
+            <img style="width: 230px;height: 250px" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0].'">  
     
         </span>
           </a>
@@ -185,15 +196,22 @@ echo '
       </div>
     </div>
 
-    <div class="product-content">
-      <div class="pc-inner">
+    <div style="padding: 20px 1px 5px 20px" class="product-content">
+      <div  class="pc-inner">
         
         <div class="product-group-vendor-name"> 
           <h5 class="product-name">
-            <a href="/products/black-fashion-zapda-shoes">
+            <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
              '.$product->name.'
             </a>
+                    <span class="price-sale"><span style="margin-left: 20px" class=money>'.$product->price.'</span></span>
+                    <br><br>
+                    <a style="color: #dc3545" href="'.PROOT.'home/editProduct/'.$product->id.'">edit</a>
+                    <a style="color: #dc3545;margin-left: 40px" href="'.PROOT.'home/removeProduct/'.$product->id.'">remove</a>
+
+
           </h5>
+          
           
             <div class="product-review">
               <span class="shopify-product-reviews-badge" data-id="1588807401531"></span>
@@ -201,23 +219,14 @@ echo '
           
         </div>
         
-    <div class="price-cart-wrapper">
+    
 
-      <div class="product-price">  
-          
-      	<span class="price-compare"><span class=money>Price</span></span>
-        <span class="price-sale"><span class=money>Sale price</span></span>  	
-      </div>
-
-      <div class="product-add-cart">
-                  
-        <form action="/cart/add" method="post" enctype="multipart/form-data">
-          <a href="#" class="btn-add-cart add-to-cart" title="Add to cart">
-            <span class="demo-icon icon-basket"></span>
-          </a>          
-        </form>
-
-      </div>
+      
+      
+      
+      <div>
+      
+        
 
     </div>
   </div>
@@ -249,6 +258,38 @@ echo '
   </div>
 </div>
 <script>
+    function active(id) {
+        if(document.getElementById(id).innerHTML==="Activate"){
+            var arry1 = [id,"1"];
+            var data1 = JSON.stringify( arry1 );
+                $.ajax({
+                    url:"<?=PROOT?>Home/changeActiveStatus",
+                    type: "POST",
+                    data:{'new': data1},
+            success: function(){
+                        alert("Successfully Activated");
+                // var array_new=JSON.parse(data);
+            }
+        });
+            document.getElementById(id).innerHTML = "Deactivate";
+
+        }
+        else {
+            var arry2 = [id,"0"];
+            var data2 = JSON.stringify( arry2 );
+            $.ajax({
+                url:"<?=PROOT?>Home/changeActiveStatus",
+                type: "POST",
+                data:{'new' : data2},
+                success: function(){
+                    alert("Successfully Deactivated");
+                    // var array_new=JSON.parse(data);
+                }
+            });
+            document.getElementById(id).innerHTML = "Activate";
+        }
+    }
+
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }

@@ -79,19 +79,22 @@
 // chamodi akka's edited page
 
         public function addProductAction(){
-
-            $db = DB::getInstance();
-            $categories = $db->find('sub_categories');
-            $measurements = $db->find('measurement_types');
-            $params = [$categories,$measurements];
-            if ($_POST) {
-                $product=new Product('product');
-                $product-> addProduct();
-
-                //redirect to some page\\
-                Router::redirect('home/addProduct');
-            }
-            $this->view->render('home/addProduct', $params);
+        	if (currentUser()->role_id != 3) {
+        		$db = DB::getInstance();
+        		$main_category = $db->find('category');
+	            $sub_category = $db->find('sub_category');
+	            $measurements = $db->find('measurement_type');
+	            $params = [$sub_category,$measurements,$main_category];
+	            if ($_POST) {
+	                $product=new Product('product');
+	                $product->addProduct();
+	                //redirect to some page\\
+	                Router::redirect('home/addProduct');
+	            }
+	            $this->view->render('home/addProduct', $params);
+        	} else {
+        		Router::redirect('home/ProductList/1');
+        	}
 
         }
 
@@ -121,7 +124,7 @@
 
 			//add product images array - inster to params
 			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj));
+			array_push($params,$img->getImage($product_obj->id));
 			
 			//load review table
 			$review_object = new Review();
@@ -226,4 +229,133 @@
 		}
 		
 
-	}
+        public function subscribeToNewsletterAction(){
+        	$email = $_POST['subscribe-mail'];
+        	$fields = [
+        		'email' => $email
+        	];
+        	$subscriber = new Subscriber();
+        	$subscriber->addNewSubscriber($fields);
+        	Router::redirect('home/newsletterSubscription/'.$email);
+        }
+
+        public function newsletterSubscriptionAction($email=''){
+        	$params['email'] = $email;
+        	$this->view->render('home/newsletterSubscription', $params);
+        }
+
+        public function getViewDetailsForSearch($keywords, $a){
+            $products = [];
+            $keys = [];
+            foreach ($keywords as $key) {
+                $key = '%' . $key . '%';
+                array_push($keys, $key);
+            }
+
+            $params = [
+                'column' => 'name',
+                'keys' => $keys,
+                'limit' => $a . ',6'
+            ];
+
+            $details = $this->_db->search('product', $params);
+
+            foreach ($details as $row){
+                $image=new Image('tailor_product_image');
+                $images=$image->getImage($row);
+                $row->images = $images;
+            }
+            $noOfRows=count($details);
+
+            return [$details,$noOfRows];
+        }
+
+        public function searchAction($a='0'){
+        	$keywords = explode(" ", $_GET["keywords"]);
+        	$a = $_GET['page'];
+        	$product=new Product('product');
+			$details = $product->getViewDetailsForSearch($keywords, $a);
+			$param=$details[0];
+			$noOfProducts =$details[1];
+			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
+			$this->view->render('home/searchProductList',$params);
+        }
+
+        public function sendMessageAction(){
+        	$mediator = new messageMediator();
+        	$mediator->setSubscribers();
+
+        	$subject = 'Tailor Mate received a new message from a user';
+
+        	date_default_timezone_set('Asia/Colombo');
+        	$message = '<p>Tailor Mate received a new message from a user.</p>';
+			$message .= '<p>Following are the details</p>';
+			$message .= '<p> Date & Time: ' . date("Y-m-d H:i:s") . '</p>';
+			$message .= '<p> Name: ' . $_POST['name'] . '</p>';
+			$message .= '<p> Email: ' . $_POST['email'] . '</p>';
+			$message .= '<p> Phone Number: ' . $_POST['number'] . '</p>';
+			$message .= '<p> Message: ' . $_POST['message'] . '</p>';
+
+			$content = $message;
+
+        	$mediator->sendMessage($subject, $content);
+
+        	Router::redirect('home/contactUsSuccess');
+
+        }
+
+        public function contactUsSuccessAction(){
+        	$this->view->render('home/contactUsSuccess');
+        }
+
+    public function editProductAction($pr_id){
+        $product = new Product();
+        $product_details = $product->findById($pr_id);
+        $color = new Color();
+        $colors = $color->getColorByproductID($pr_id);
+        $fields = [
+            "name" => $product_details->name,
+            "description" =>$product_details->description,
+            "price" => $product_details->price,
+            "sub_category_id" => $product_details->sub_category_id,
+            "material" => $product_details->material
+        ];
+        $db = DB::getInstance();
+        $main_category = $db->find('category');
+        $sub_category = $db->find('sub_category');
+        $mes = new Measurement("product_measurement");
+        $measurements = $mes->getMeasurementByID($pr_id);
+        $params = [$sub_category,$measurements,$main_category,$fields,$colors];
+
+        $color = new Color();
+        if($_POST){
+//                dnd($_POST);
+            $product->editProduct($pr_id);
+            $color->editColor($_POST["colors"],$pr_id);
+            $mes->editMesurement($pr_id,$_POST["newMeasurements"]);
+        }
+
+        $this->view->render('home/EditProduct',$params);
+    }
+
+    public function removeProductAction($pr_id){
+        $product = new Product();
+        $product_details = $product->findById($pr_id);
+        $vendor_id = $product_details->vendor_id;
+        $product->removeProduct($pr_id);
+        $this->VendorPageAction($vendor_id);
+    }
+
+    public function changeActiveStatusAction(){
+        $data=json_decode($_POST['new']);
+//            dnd($data);
+        $pr_id = $data[0];
+        $status = $data[1];
+        $product = new Product();
+        $product->changeActiveStatus($pr_id,$status);
+
+    }
+
+
+
+}
