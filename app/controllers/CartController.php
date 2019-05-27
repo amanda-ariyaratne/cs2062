@@ -37,11 +37,9 @@ class CartController extends Controller{
                         "color" => $_POST["color"],
                         "quantity" => $_POST["quantity"],
                     ];
-//                    dnd($fields);
 
                     $cart = new Cart();
                     $status = $cart->addItem($fields);
-
                     $measurements = unserialize($_POST['measurements']);
                     foreach ($measurements as $key => $mes) {
                         $fields[$mes] = $_POST["measuremnt" . $key];
@@ -88,14 +86,14 @@ class CartController extends Controller{
         $cart = new Cart();
         $cart->remove($i);
 
-        $this->cartAction($u_id);
+        $this->cartAction();
     }
 
     public function emptyCartAction($u_id){
         $cart = new Cart();
         $cart->emptyCart($u_id);
 
-        $this->cartAction($u_id);
+        $this->cartAction();
 
     }
 
@@ -116,7 +114,7 @@ class CartController extends Controller{
         $product_obj->main_category_name = $category_details->name;
         array_push($params, $product_obj);
         //add product images array - inster to params
-        $img = new Image('tailor_product_image');
+        $img = new TailorProductImage();
         array_push($params,$img->getImage($product_obj));
         //load review table
         $review_object = new Review();
@@ -161,7 +159,7 @@ class CartController extends Controller{
         $color = new Color();
         $params['colors'] = $color->getColorByproductID($p_id);
         //load product measurements
-        $measurement = new Measurement("product_measurement");
+        $measurement = new ProductMeasurement();
         $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
         return $params;

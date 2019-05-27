@@ -7,7 +7,9 @@
 		}
 
 		public function getMeasurementByID($p_id){
+//		    dnd($p_id);
 			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
+//			dnd($measurement_details);
 			$measurements = array();
 
 			if(count($measurement_details)!=null){
@@ -16,6 +18,7 @@
 				}
 			}
 			return $measurements;
+//			dnd($measurements);
 		}
 
 		public function addMesurement($p_id,$arry){

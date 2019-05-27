@@ -175,7 +175,7 @@ echo '
         echo '<button style="margin-left: 140px" class="btn btn-1" type="button" disabled >'.$pr_status.'</button> ';
     }
     else {
-        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" id="' . $product->id . '" onclick="active(id)">' . $pr_status . '</button> ';
+        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" id="'. $product->id .'" onclick="active(id)">' . $pr_status . '</button> ';
     }
       echo ' 
         <div class="featured-img lazyload">
@@ -207,7 +207,7 @@ echo '
                     <span class="price-sale"><span style="margin-left: 20px" class=money>'.$product->price.'</span></span>
                     <br><br>
                     <a style="color: #dc3545" href="'.PROOT.'home/editProduct/'.$product->id.'">edit</a>
-                    <a style="color: #dc3545;margin-left: 40px" href="'.PROOT.'home/removeProduct/'.$product->id.'">remove</a>
+                    <a style="color: #dc3545;margin-left: 40px"  href="'.PROOT.'home/removeProduct/'.$product->id.'" >remove</a>
 
 
           </h5>
@@ -258,7 +258,24 @@ echo '
   </div>
 </div>
 <script>
+    function confirm(name) {
+        if(confirm("Remove the product permanently")){
+            $.ajax({
+                url:<?=PROOT?>name,
+                type: "POST",
+                // data:{'new': data1},
+                // success: function(){
+                //     alert("Successfully Activated");
+                //     // var array_new=JSON.parse(data);
+                // }
+            });
+        }
+    }
+
+
+
     function active(id) {
+        alert(id);
         if(document.getElementById(id).innerHTML==="Activate"){
             var arry1 = [id,"1"];
             var data1 = JSON.stringify( arry1 );
