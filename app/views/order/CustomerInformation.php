@@ -80,7 +80,7 @@
 
                   <ul class="breadcrumbb breadcrumbb--center" >
       <li class="breadcrumbb__item breadcrumbb__item--completed">
-        <a class="breadcrumbb__link" data-trekkie-id="breadcrumbb_cart_link" style="font-size: 15px"  href="">Cart</a>
+        <a class="breadcrumbb__link" data-trekkie-id="breadcrumbb_cart_link" style="font-size: 15px"  href="<?=PROOT?>cartController/cart">Cart</a>
         <svg class="icon-svg icon-svg--color-adaptive-light icon-svg--size-10 breadcrumbb__chevron-icon" aria-hidden="true" focusable="false"> <use xlink:href="#chevron-right" /> </svg>
       </li>
 
@@ -205,6 +205,7 @@
         <div class="fieldset" >
           <div class="bg-danger" ><?=$this->displayErrors ?></div>
 
+
           <div class="field--half field field--required" style="width: 50%;">
             <label class="field__label" for="">First name</label>
             <div class="field__input-wrapper">
@@ -271,13 +272,13 @@
               <input type="submit" class="button button-primary btn-primary" value="Continue to payment method" style="background-color: #c1939e; cursor: pointer; border-color: black; border-radius: 4px; border:2px solid #c1939e;padding: 10px; float:right;">
             </div>
             <input type='hidden' name='payment_summary' value="<?php echo htmlentities(serialize($params[1])); ?>" />
-            <?php echo'<input type="hidden" name="user_id" value='.$params['user_id'].'>';?> 
+          <?php echo'<input type="hidden" name="user_id" value="'.$params['user_id'].'">';?> 
         </div>
 
     </form>
 
 
-          <a class="step__footer__previous-link" data-trekkie-id="previous_step_link" href="#">
+          <a class="step__footer__previous-link" data-trekkie-id="previous_step_link" href="<?=PROOT?>cartController/cart">
             <svg focusable="false" aria-hidden="true" class="icon-svg icon-svg--color-accent icon-svg--size-10 previous-link__icon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">
               <path d="M8 1L7 0 3 4 2 5l1 1 4 4 1-1-4-4"/>
             </svg>

@@ -8,7 +8,7 @@
 		}
 
 		public function findByID($id){
-			return $this->findFirst(array('conditions' => 'category_id = ?' , 'bind' => [$id]));
+			return $this->findFirst(array('conditions' => 'id = ?' , 'bind' => [$id]));
 		}
 
 		public function getDetails(){

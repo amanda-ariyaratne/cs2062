@@ -8,7 +8,7 @@ class MessageType7 extends Message{
 	public function setMessage(){
 			$this->setProductName();
 			$this->setStatus();
-			$this->message='Your order '.$this->productName.' is on the way!;
+			$this->message='Your order '.$this->productName.' is on the way!';
 	}
 
 	public function getMessage(){

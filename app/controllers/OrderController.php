@@ -21,9 +21,7 @@
 
 
 
-		public function orderSuccessAction(){
-			$this->view->render('Order/OrderSuccess');
-		}
+
 
 		public function orderListAction(){
 			$user = new User();
@@ -35,7 +33,25 @@
 
 				$order = new CustomerOrder();
 				$status_details = $order->getOrderList($user->id);
-				$params['orders'] = $status_details;
+
+				//reverse order list
+				$reverse_orders = array();
+				if(!empty($status_details)){
+					$reverse_orders = array_reverse($status_details);
+				}
+
+				$state = new OrderStatus();
+				$orders = array();
+				foreach ($reverse_orders as $key => $order) {
+					$order_details = [
+						'order_id'  => $order->id,
+						'delivered' =>	$state->checkIfDelivered($order->id)
+					];
+
+					array_push($orders, $order_details)	;
+				}
+				$params['orders'] = $orders;
+
 				//dnd($params);
 				$this->view->render('Order/OrderList', $params);
 			}else{
@@ -54,8 +70,10 @@
 				$order_status = $order->getOrderStatusByID($o_id);
 				$params = ['order_status' => $order_status];
 
-				//add total 
-				$params = $this->addToParams($params, $user->id);
+				//add ordered items
+				$order_item_obj = new OrderedItem();
+				$orderedItems = $order_item_obj->getItemList_by_Order_ID($o_id);
+				$params['ordered_items'] = $orderedItems;
 
 				$customerOrder = new CustomerOrder();
 				$order_details = $customerOrder->getOrderDetails($o_id);
@@ -115,6 +133,7 @@
 				]);
 				if($validation->passed()){
 					$fields = [
+						'user_id' => $_POST['user_id'],
 						'email'	   => $_POST['email'],
 						'f_name' => $_POST['first_name'],
 						'l_name' => $_POST['last_name'],
@@ -122,7 +141,7 @@
 						'apartment_suite'  => $_POST['address2'],
 						'city'      => $_POST['city'],
 						'region'  => $_POST['province'],
-						'postal code'       => $_POST['zip'],
+						'postal_code'       => $_POST['zip'],
 						'night_phone_a'     => '+94',
 						'night_phone_b'     => substr($_POST['phone'], -10)
 					];
@@ -166,7 +185,7 @@
 				array_push($params, $order_details);
 			}
 			else{
-				array_push($params, []);
+				Router::redirect('CaertController/cart');
 			}
 
 			$params['user_id'] = $user_id;
@@ -178,10 +197,10 @@
 		public function updateStatusAction(){
 			$this->view->render('Order/updateStatus');
 		}
-		public function inputStatusAction(){
+		public function inputStatusAction($o_id=''){
+			$o_id = '27';
 			$order = new OrderStatus();
-			$order->updateStatus($_POST);
-			dnd('done');
+			$order->updateStatus($o_id);
 		}
 
 
@@ -192,8 +211,13 @@
 
 
 
+		public function orderSuccessAction(){
+			$this->view->render('Order/OrderSuccess');
+		}
 
-
+		public function notifyAction(){
+			dnd('notify url');
+		}
 
 
 
@@ -202,7 +226,6 @@
 		/////////////////////////////////////////////////////////////////////////////////////////////// paypal
 
 		public function completeOrderAction(){
-			//dnd($_POST);
 
 			// For test payments we want to enable the sandbox mode. If you want to put live
 			// payments through then this setting needs changing to `false`.
@@ -219,10 +242,10 @@
 			// PayPal settings. Change these to your account details and the relevant URLs
 			// for your site.
 			$paypalConfig = [
-			    // 'email' => 'selleraccount2062@gmail.com',
+			    'email' => 'selleraccount2062@gmail.com',
 			    'return_url' => 'http://localhost/cs2062/OrderController/orderSuccess',
 			    'cancel_url' => 'http://localhost/cs2062/OrderController/CustomerInformation',
-			    'notify_url' => 'http://localhost/cs2062/OrderController/CustomerInformation'
+			    'notify_url' => 'http://localhost/cs2062/OrderController/notify'
 			];
 
 			$paypalUrl = $enableSandbox ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
@@ -234,51 +257,32 @@
 			    // Grab the post data so that we can set up the query string for PayPal.
 			    // Ideally we'd use a whitelist here to check nothing is being injected into
 			    // our post data.
-			    // $data = [];
+			    $data = [
+			    	"payer_email" => $_POST["payer_email"],
+			    	"first_name" => $_POST["first_name"],
+			    	"last_name" => $_POST["last_name"],
+			    	"night_phone_a" => $_POST["night_phone_a"],
+			    	"night_phone_b" => $_POST["night_phone_b"],
+			    	"address1" => $_POST["address1"],
+			    	"address2" => $_POST["address2"],
+			    	"city" => $_POST["city"],
+			    	"zip" => $_POST["zip"],
+			    	"lc" => $_POST["lc"],
+			    	"cmd" => $_POST["cmd"],
+			    	"item_name" => $_POST["item_name"],
+			    	"item_number" => $_POST["item_number"],
+			    	"amount" => $_POST["amount"],
+			    	"currency_code" => $_POST["currency_code"],
+			    	"submit_x" => $_POST["submit_x"],
+			    	"submit_y" => $_POST["submit_y"]
+			    ];
 			    // foreach ($_POST as $key => $value) {
 			    //     $data[$key] = stripslashes($value);
 			    // }
 
-
-			    
-
-			    $data = [
-			    	'payer_email' => 'buyeraccount@gmail.com',
-			    	'lc' => 'en-LK',
-			    	'cmd' => '_xclick',
-			    	'currency_code' => 'USD',
-			    	'submit_x' => '32',
-			    	'submit_y' => '13',
-					"items" => [
-					    array(
-					      "recipient_type"=> "EMAIL",
-					      "amount"=> array(
-					        "value"=> "0.12",
-					        "currency"=> "USD"
-					      ),
-					      "sender_item_id"=> "201403140001",
-					      "receiver"=> "seller2062@gmail.com"
-					    ),
-					    array(
-					      "recipient_type"=> "EMAIL",
-					      "amount"=> array(
-					        "value"=> "0.12",
-					        "currency"=> "USD"
-					      ),
-					      "sender_item_id"=> "201403140001",
-					      "receiver"=> "selleraccount2062@gmail.com"
-					    )
-					  ]
-
-
-			    ];
-
-
-
-			   
+			    $data['payer_email'] =  'buyeraccount@gmail.com';
 			    // Set the PayPal account.
-			    // $data['business'] = $paypalConfig['email'];
-
+			    $data['business'] = $paypalConfig['email'];
 			    // Set the PayPal return addresses.
 			    $data['return'] = stripslashes($paypalConfig['return_url']);
 			    $data['cancel_return'] = stripslashes($paypalConfig['cancel_url']);
@@ -289,7 +293,53 @@
 			    //$data['custom'] = USERID;
 
 			    //dnd($data);
-			    
+
+
+
+			    //////////////////////////////////save in customer_order
+			    $customer_info = unserialize($_POST['customer_info']);
+			    $payment_summary = unserialize($_POST['payment_summary']);
+
+			    $db_customer_order_fields = [];
+			    foreach ($customer_info as $key => $value) {
+			        $db_customer_order_fields[$key] = stripslashes($value);
+			    }
+			    $db_customer_order_fields['vendor_id'] = $payment_summary[0]['vendor_id'];
+			    $db_customer_order_fields['total_amount'] = $_POST['total'];
+
+			    $customerOrder_obj = new CustomerOrder();
+			    $customerOrder_obj->insert($db_customer_order_fields);
+
+			    //////////////////////////////////save in ordered_item
+			    $last_inserted_id = $customerOrder_obj->lastInsertedID();
+
+			    //dnd($payment_summary);
+			    foreach ($payment_summary as $order_key => $order) {
+			    	$db_order_item_fields = [];
+				    foreach ($order as $item_key => $item) {
+				        $db_order_item_fields[$item_key] = stripslashes($item);
+				    }
+				    $db_order_item_fields['order_id'] = $last_inserted_id;
+				    //dnd($db_order_item_fields);
+				    $orderedItems_obj = new OrderedItem();
+
+				    $orderedItems_obj->insert($db_order_item_fields);
+			    }
+
+			   	////////////////////////////////////save order status
+			   	$db_order_status_fields = [
+			   		'id' => $last_inserted_id,
+			   		'state_confirmed' => '1'
+			   	];
+			   	$order_status_obj = new OrderStatus();
+			   	$order_status_obj->insert($db_order_status_fields);
+
+			  	$cart_obj = new Cart();
+			  	$cart_obj->emptyCart($customer_info['user_id']);
+
+			    //dnd('done');
+
+
 			    // Build the query string from the data.
 			    $queryString = http_build_query($data);
 			    //dnd($queryString);
@@ -302,7 +352,6 @@
 
 				// Create a connection to the database.
 				// $db = new mysqli($dbConfig['host'], $dbConfig['username'], $dbConfig['password'], $dbConfig['name']);
-				dnd('wrong output in payment method');
 				// Assign posted variables to local data array.
 				$data = [
 				    'item_name' => $_POST['item_name'],
@@ -315,7 +364,7 @@
 				    'payer_email' => $_POST['payer_email'],
 				    'custom' => $_POST['custom'],
 				];
-
+				dnd($data);
 				// We need to verify the transaction comes from PayPal and check we've not
 				// already processed the transaction before adding the payment to our
 				// database.

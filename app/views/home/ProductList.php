@@ -145,9 +145,10 @@
                             </div>
 
                             <div class="product-content" style="padding:7px;">
-                              <div class="pc-inner">          
+                              <div class="pc-inner">     
+                              
                                 <div class="product-group-vendor-name row"> 
-                                  <h5 class="product-name" style="display: block;top: 10px;left: 20px;"><a href="/products/consectetur-nibh-eget">'. $value->name.'</a>
+                                  <h5 class="product-name" style="display: block;top: 10px;left: 20px;"><a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
                                   </h5>
 
                                   <div class="price-cart-wrapper" style="display: inline-block; margin-left: 130px;">

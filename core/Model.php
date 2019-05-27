@@ -84,7 +84,8 @@
 
 		public function insert($fields){
 
-			if (empty($fields)) {				
+
+			if (empty($fields)) {
 				return false;
 			} 
 			else {

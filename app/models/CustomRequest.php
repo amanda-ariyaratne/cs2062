@@ -48,7 +48,7 @@
 				$field->images=$image_set;
 			}
 			// dnd($fields);
-			return $fields;			 
+			return $fields;		
 		}
 
         public function notifyObservers($product_id,$to,$from,$status,$type){

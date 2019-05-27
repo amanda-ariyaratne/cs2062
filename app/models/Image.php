@@ -2,9 +2,9 @@
 	class Image extends Model{
 		//  $product_id, $path, $table_name,$db;
 
-		public function __construct($table){
-			parent::__construct($table);
-		}
+	public function __construct($table){
+		parent::__construct($table);
+	}
 
 		//add image to the table\\
 		public function addImage($pr_id,$image_path,$ind,$folder){
@@ -34,8 +34,9 @@
 
 		// get details of a particular image\\
 
-		public function getImage($pr_id){
+		public function getImage($detail){
 
+			$pr_id=$detail->id;
 			$condition=array('conditions'=> 'product_id = ?','bind'=>[$pr_id]);
 			$image_details = $this->find($condition);
 			$images = array();

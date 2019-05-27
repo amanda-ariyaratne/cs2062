@@ -10,8 +10,8 @@
  --><!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
  --><!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
  --><!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- -->	<style id="shopify-dynamic-checkout">
-	</style>
+ -->    <style id="shopify-dynamic-checkout">
+    </style>
 
   <style>
     .bg-danger{
@@ -161,7 +161,7 @@
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
 
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
 
                                     </div>
                                     <div class="slick-item slick-zoom">
@@ -230,11 +230,11 @@
                           <div class="detail-price" itemprop="price" content="0.0">
                             
                             <?php echo '
-                              <span class="price-sale"><span class=money>$ '.$params[0]->sale_price.'</span></span>
-                              <del class="price-compare"> <span class=money>$ '.$params[0]->price.'</span></del>
+                              <span class="price-sale"><span class=money>$ '.$params[0]->price.'</span></span>
+                              
                             ';?>
-
-                          </div>
+<!--                             <del class="price-compare"> <span class=money>$ '.$params[0]->price.'</span></del>
+ -->                          </div>
                         </div>   
                         
                         
@@ -252,11 +252,6 @@
                         
                           <div class="btns-wrapper">
                             
-                              <!-- <a href="javascript:void(0)" class="add-to-compare add-product-compare" data-handle-product="donkix-product-sample" title="Compare">Compare</a> -->
-                            
-
-                            	
-                              <a href="javascript:void(0)" class="add-to-wishlist add-product-wishlist" data-handle-product="donkix-product-sample" title="Add to wishlist">Add to wishlist</a>
                           </div>
                         
 
@@ -386,9 +381,10 @@
 
                               <input type='hidden' name='measurements' value="<?php echo htmlentities(serialize($params['measurements'])); ?>" />
                               <?php echo'<input type="hidden" name="product_id" value='.$params[0]->id.'>';?>
-                                <?php echo'<input type="hidden" name="price" value='.$params[0]->sale_price.'>';?>
+                                <?php echo'<input type="hidden" name="price" value='.$params[0]->price.'>';?>
                                 <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
-                                <?php echo'<input type="hidden" name="name" value='.$params[0]->name.'>';?>
+                                <?php echo'<input type="hidden" name="name" value="'.$params[0]->name.'">';?>
+                                <?php echo'<input type="hidden" name="vendor_id" value="'.$params['vendor_id'].'">';?>
 
 
 
@@ -471,7 +467,7 @@
 
                                           
                                           
-                                          	
+                                            
                                             <div id="pre-order-popup" style="display: none;">
 <!--                                               <form method="post" action="/contact#contact_form" id="contact_form" accept-charset="UTF-8" class="contact-form"><input type="hidden" name="form_type" value="contact" /><input type="hidden" name="utf8" value="✓" />
 
@@ -805,7 +801,7 @@
 
                                     <div class="featured-img">
                                       <a href="/">
-                                        <img class="featured-image front" style="height:200px;" src="'.PROOT.'assets/images/'.$product['path'].'" alt="'.$product['name'].'"></img>
+                                        <img class="featured-image front" style="height:200px;" src="'.PROOT.'assets/images/products/'.$product['path'].'" alt="'.$product['name'].'"></img>
                                       </a>
                                     </div>
 
@@ -813,12 +809,6 @@
                                       <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-1" data-toggle="modal" title="Quick View">
                                         <i class="demo-icon icon-search"></i>
                                         " quick view"
-                                      </div>
-                                      <div class="product-wishlist">
-                                        <a href="/" class="add-to-wishlist add-product-wishlist" data-handle-product="tshirt-1" title="add to wishlist">
-                                          <i class="demo-icon icon-heart"></i>
-                                          " Add to wishlist"
-                                        </a>
                                       </div>
                                     </div>
 
@@ -839,11 +829,8 @@
 
                                     <div class="price-cart-wrapper">
                                       <div class="product-price">
-                                        <span class="price-compare">
-                                          <span class="money" data-currency-lkr="$ '.$product['price'].'" data-currency="LKR">$ '.$product['price'].'</span>
-                                        </span>
                                         <span class="price-sale">
-                                          <span class="money" data-currency-lkr="$ '.$product['sale_price'].'" data-currency="LKR">$ '.$product['sale_price'].'</span>
+                                          <span class="money" data-currency-lkr="$ '.$product['price'].'" data-currency="LKR">$ '.$product['price'].'</span>
                                         </span>
                                       </div>
 
