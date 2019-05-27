@@ -2,7 +2,7 @@
 
 	class Measurement extends Model{
 
-		public function __construct($table='measurement'){
+		public function __construct($table){
 			parent::__construct($table);
 		}
 
@@ -18,5 +18,29 @@
 			return $measurements;
 		}
 
+		public function getMeasurementForTView($p_id){
+			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
+
+			return $measurement_details;
+		}
+
+
+		public function addNewMeasurement($pr_id, $customer_id, $types, $measurements){
+
+			// dnd($types);
+
+			for ($i=0; $i<count($types); $i++){
+				$fields=[
+					'product_id'=>$pr_id,
+					'customer_id'=> $customer_id,
+					'measurement_type'=> $types[$i],
+					'measurement'=>$measurements[$i]
+				];
+				
+				$this->insert($fields);
+			}
+			
+
+		}
 
 	}

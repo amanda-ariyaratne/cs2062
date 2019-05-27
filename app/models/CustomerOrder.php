@@ -1,13 +1,21 @@
 <?php
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	class CustomerOrder extends Model{
+	class CustomerOrder extends Model  implements Observable{
 		private $_current, $_state_obj;
 
 		public function __construct($table='customer_order'){
 			$table = $table;
 			parent::__construct($table);
 		}
+
+		public function notifyObservers($product_id,$to,$from,$status, $type){
+			
+		}
+
+        public function addObserver($obj){
+        	
+        }
 
 		public function calculateCheckoutPrice($item_array){
 			$updated_items = array();
@@ -41,6 +49,7 @@
 		}
 		public function confirm(){
 			$a = $this->_state_obj->update($this->id ,['state_confirmed'=>'1']);
+
 			dnd('confirmed');
 		}		
 		public function manufacturing(){

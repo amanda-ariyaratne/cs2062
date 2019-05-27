@@ -17,32 +17,6 @@
 			$product->getAcceptedRequest('2','1','2');
 		}
 		
-		public function AllVendorsAction($no){
-
-			$tailorshop=new Tailorshop('tailor_shop');
-			
-			$details = $tailorshop->getShops((6*$no-6),6);			
-			$noOfProducts = $tailorshop->noOfShops();
-
-			$params=array($details,$no,$noOfProducts,'Tailor shops');
-
-			$this->view->render('home/AllVendors',$params);
-		}
-
-		public function VendorPageAction($a){
-			$product=new Product('product');
-			$details=$product->getPageVendor($a);
-
-			$param=$details[0];
-			$noOfProducts =$details[1];			
-
-			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
-			$this->view->render('home/VendorPage',$params);
-
-
-			//get vendor name
-		}
-
 		public function ProductListAction($a){
 			$product=new Product();
 
@@ -56,7 +30,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductCategoryAction($a,$sub_cat_id){
+		public function ProductCategoryAction($sub_cat_id,$a){
 			// dnd($sub_cat_id);
 			$product=new Product();
 
@@ -71,7 +45,7 @@
 			$name=$sub->findByID($sub_cat_id)->name;
 			// dnd($name);
 
-			$params=array($param,$a,$noOfProducts,$name);
+			$params=array($param,$a,$noOfProducts,$sub_cat_id,$name);
 
 			$this->view->render('home/ProductCategoryView',$params);
 		}

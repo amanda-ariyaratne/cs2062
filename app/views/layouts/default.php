@@ -8,6 +8,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=0" />
+  
   <link rel="canonical" href="https://arena-handy.myshopify.com/account/login" />
   <!-- Title and description -->
 
@@ -21,14 +22,13 @@
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
   
   <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
-  <link href="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/jquery.plugin.css?0" rel="stylesheet" type="text/css" media="all" />
-  
-  <!-- <link href="<?=PROOT?>assets/css/noti.css" rel="stylesheet" type="text/css" media="all" /> -->
-
+  <link href="<?=PROOT?>assets/plugin/jquery.plugin.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="<?=PROOT?>assets/css/jquery.min.css" rel="stylesheet" type="text/css" media="all" />
+  <script type="text/javascript" src="<?=PROOT?>assets/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?=PROOT?>assets/js/bootstrap.min.js"></script>
   <style type="text/css">
     .header-container.bg-imagee{
       background-image:url(<?=PROOT?>assets/images/back-1.jpg);
-  
   }
 
     .header-container.bg-image{
@@ -324,7 +324,7 @@
                 
                   <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
 
-                  <li><a href="<?=PROOT?>home/AllVendors/1" title="Customer Request" >All Tailors</a></li>
+                  <li><a href="<?=PROOT?>VendorController/AllVendors/1" title="Customer Request" >All Tailors</a></li>
 
                   <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
                 
@@ -512,12 +512,12 @@
                     if ($user->role==2 || $user->role==3){
                       $sentence='';
                       $LinkPath='';
-                      if ($user->role==3){
+                      if ($user->role==2){
                         $sentence="Add-our-Designs";
                         $LinkPath="CustomerRequestView/1";
 
                       }                          
-                      elseif ($user->role==2){
+                      elseif ($user->role==3){
                         $sentence="Custom-Requests";
                         $LinkPath="ProductRequest/1";
                       }
@@ -574,7 +574,7 @@
                         foreach ($subCat as $sub){
                             
                             echo '<li>
-                              <a tabindex="-1" href="'.PROOT.'home/ProductCategory/1/'.$sub[1].'">
+                              <a tabindex="-1" href="'.PROOT.'home/ProductCategory/'.$sub[1].'/1">
 
                                 <span>'.$sub[0].'</span>
                               </a>
@@ -1392,10 +1392,14 @@ $(document).ready(function () {
             url:"<?=PROOT?>NotificationController/newNotification",
             method: "POST",
             success: function(data){
-                var newNotification=JSON.parse(data);
-                notificationList = newNotification.new; 
-                displayNewNotification(notificationList);
-                $('.badge-counter').html(notificationList.length);
+              console.log(data);
+                if(data.status=='true'){
+                    var newNotification=JSON.parse(data);
+                    notificationList = newNotification.new; 
+                    displayNewNotification(notificationList);
+                    $('.badge-counter').html(notificationList.length);
+                }
+                
                 // console.log(notificationList);
             }
         });           
@@ -1423,9 +1427,8 @@ $(document).ready(function () {
 
 function displayNewNotification(noti){
 
-    line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>'
-
-    if (noti.seen==0){
+    line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>';
+    if (noti.seen=='0'){
         line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
     }
 

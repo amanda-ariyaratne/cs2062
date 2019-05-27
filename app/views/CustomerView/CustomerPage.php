@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle(($params[0][0]->vendorName).'-TailorMate' )?>
+<?= $this->setSiteTitle(end($params).'-TailorMate' )?>
 
 <?= $this->start('head'); ?>
 
@@ -85,17 +85,16 @@
         </div>
 
 
-        <?php include 'Categories.php';?>
+        <?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>
 
 </div>
-
       <div class="col-lg-9 col-md-12">
         <div class="row">
           <div class="col-lg-9 col-md-12">
 
             <div class="wrap-cata-title">
               <h2>
-                <?= $params[0][0]->vendorName;?>  
+                <?= end($params)?> 
               </h2>
             </div>
           </div>
@@ -126,16 +125,16 @@
             
             <div class="pagination-showing">
               <div class="showing">
-                <?php
+                <!-- <?php
 
-                   if ($params[1]<6){
-                     echo 'Showing all Items';
-                   }
-                   elseif ($params[1]>6) {
-                     echo 'Showing 6 items from'.$params[1];
-                   }
+                   // if ($params[1]<6){
+                   //   echo 'Showing all Items';
+                   // }
+                   // elseif ($params[1]>6) {
+                   //   echo 'Showing page '..' from '.$params[1].' no of Pages';
+                   // }
 
-                ?>
+                ?> -->
                 
               </div>
             </div>
@@ -146,14 +145,16 @@
 <div id="col-main">
           
   <div class="cata-product cp-grid">
-         
+      
+   
 <?php 
-  foreach ($params[0] as $product){
-    // dnd();
 
+  foreach ($params[0] as $product){
+    // $product=$product[0];
+
+// dnd($product->id);
 echo '
-<div class="product-grid-item mode-view-item">
-                      
+<div class="product-grid-item mode-view-item">  
 
   <div class="product-wrapper effect-overlay ">
 
@@ -161,14 +162,26 @@ echo '
       <div class="product-image">
 
         <div class="featured-img lazyload">
-          <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$params[0][0]->images[0].'">            
+          <a href="'.PROOT.'CustomRequestController/requestedProductViewCustomer/'.$product->id.'"> 
+            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0]->path.'">            
             
         <span class="product-label">
     
       
-        <span class="label-sale">
-          <span class="sale-text">Available</span>  
+        <span class="label-sale">';
+        if ($product->status==0){
+          echo '
+            <span class="sale-text">NO RESPONSE</span> 
+            ';
+        }
+        else{
+
+          echo'
+            <span class="sale-text">RESPONDED</span> 
+            ';
+        }
+
+        echo' 
           </span>   
     
         </span>
@@ -188,36 +201,19 @@ echo '
     <div class="product-content">
       <div class="pc-inner">
         
-        <div class="product-group-vendor-name"> 
-          <h5 class="product-name">
-            <a href="/products/black-fashion-zapda-shoes">
-             '.$product->name.'
-            </a>
-          </h5>
-          
-            <div class="product-review">
-              <span class="shopify-product-reviews-badge" data-id="1588807401531"></span>
-            </div>
-          
-        </div>
-        
+                
     <div class="price-cart-wrapper">
 
-      <div class="product-price">  
-          
-      	<span class="price-compare"><span class=money>Price</span></span>
-        <span class="price-sale"><span class=money>Sale price</span></span>  	
+      <div>  
+        <span>your product  </span>
+        <span  class="price-sale"><span class=money> '.$product->pr_name.'</span></span>   
+      </div>   
+      <div>  
+        <span>price range :</span>
+        <span class="price-sale"><span class=money> $'.$product->min_price.' - $'.$product->max_price.'</span></span>   
       </div>
 
-      <div class="product-add-cart">
-                  
-        <form action="/cart/add" method="post" enctype="multipart/form-data">
-          <a href="#" class="btn-add-cart add-to-cart" title="Add to cart">
-            <span class="demo-icon icon-basket"></span>
-          </a>          
-        </form>
-
-      </div>
+       
 
     </div>
   </div>

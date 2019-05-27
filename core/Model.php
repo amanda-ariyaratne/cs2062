@@ -84,10 +84,10 @@
 
 		public function insert($fields){
 
-			if (empty($fields)) {
-				
+			if (empty($fields)) {				
 				return false;
-			} else {
+			} 
+			else {
 				return $this->_db->insert($this->_table, $fields);
 			}
 		}

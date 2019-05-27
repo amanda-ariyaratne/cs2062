@@ -14,10 +14,8 @@
     		];
 			$this->insert($imageTable);
 
-
 			$this->saveImage($image_path,$ind,$folder);
 
-    		    	
 		}
 
 		public function saveImage($im_path,$ind,$folder){

@@ -40,7 +40,7 @@
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {
-							Router::redirect('home/vendorPage/'.$user->id);
+							Router::redirect('TailorView/vendorPage/'.$user->id);
 						} else if($user->role == 3){
 							Router::redirect('account/orderHistory');
 						}
@@ -92,7 +92,7 @@
 						if (currentUser()->role == 3) {
 							Router::redirect('account/orderHistory');
 						} else if(currentUser()->role == 2){
-							Router::redirect('home/vendorPage/'.currentUser()->id);
+							Router::redirect('VendorController/VendorPage/'.currentUser()->id);
 						} else if(currentUser()->role == 1){
 							Router::redirect('home/ProductList/1');
 						}
