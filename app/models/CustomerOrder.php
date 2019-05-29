@@ -9,14 +9,6 @@
 			parent::__construct($table);
 		}
 
-		public function notifyObservers($product_id,$to,$from,$status, $type){
-			
-		}
-
-        public function addObserver($obj){
-        	
-        }
-
 		public function calculateCheckoutPrice($item_array){
 			$updated_items = array();
 			$new_array = array();
@@ -71,11 +63,6 @@
         public function addObserver($obj){
             array_push($this->observers, $obj);
         }
-
-
-
-
-
 
 		//state behavioral pattern
 		public function setState($state,$_state_obj){

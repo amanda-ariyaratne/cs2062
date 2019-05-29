@@ -66,7 +66,7 @@
             $params['product'] = $product_obj;
 
             //add product images array - inster to params
-            $img = new Image();
+            $img = new Image('tailor_product_image');
             $images = $img->getImage($product_id);
             $params['images'] = $images;
 
@@ -81,7 +81,7 @@
             $params['colors'] = $color->getColorByproductID($p_id);
 
             //load product measurements
-            $measurement = new Measurement();
+            $measurement = new Measurement('product_request_measurement');
             $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 

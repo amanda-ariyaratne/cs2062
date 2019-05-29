@@ -29,8 +29,6 @@
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('TailorView/VendorPage',$params);
 
-
-			//get vendor name
 		}
 
 }
