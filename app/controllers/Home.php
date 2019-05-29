@@ -124,7 +124,7 @@
 
 			//add product images array - inster to params
 			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj->id));
+			array_push($params,$img->getImage($product_obj));
 			
 			//load review table
 			$review_object = new Review();
@@ -165,8 +165,10 @@
 
 					//add rating to review
 					$review->rate = $reverse_rates[$i]->rate;
+					$review->rate_id = $reverse_rates[$i]->id;
+					$review->current_user_id = $user_obj->currentLoggedInUser()->id;
+					//dnd($review);
 					$i ++;
-
 				}
 			}
 			array_push($params,$reverse_reviews);

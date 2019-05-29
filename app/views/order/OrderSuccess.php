@@ -39,7 +39,7 @@
 		    <a href="<?=PROOT?>home/ContactUs">Contact us</a>
 		  </p>
 		  <p class="lead">
-		    <a class="btn btn-primary btn-sm continue-to-home" href="<?=PROOT?>home/frontpage" role="button">Continue to homepage</a>
+		    <a class="btn btn-primary btn-sm continue-to-home" href="<?=PROOT?>home" role="button">Continue to homepage</a>
 		  </p>
 		</div>	
 	</div>

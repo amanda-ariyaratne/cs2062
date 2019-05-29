@@ -91,5 +91,9 @@
                 }
             }
         }
+
+        public function getCartItemCount($customer_id){
+            return count($this->find(array('conditions' => 'customer_id = ?', 'bind' => [$customer_id])));
+        }
     }
 

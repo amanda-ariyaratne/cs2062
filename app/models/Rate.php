@@ -39,4 +39,8 @@
 			return $tailor_rating;
 		}
 
+		public function deleteByID($id){
+			$this->delete($id);
+		}
+
 	}

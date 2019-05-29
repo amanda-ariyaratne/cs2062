@@ -50,7 +50,7 @@
 					}
 					else{
 						$validation = new Validate();
-						$validation->displayErrorMsgs("order before reviewing");
+						$validation->displayErrorMsgs("You cannot review products. You must have a ordering history!");
 
 	                    $params = $this->getProductViewParams($p_id);
 	                    $this->view->displayErrors = $validation->displayErrors();
@@ -77,6 +77,21 @@
 
 			$starAvg = $rate_obj->calculateAvg($p_id);
 		}
+
+
+
+	    public function deleteReviewAction(){
+	    	$rate_obj = new Rate();
+	    	$rate_obj->deleteByID($_POST['rate_id']);
+
+	    	$review_obj = new Review();
+	    	$review_obj->deleteByID($_POST['review_id']);
+
+	    	$params = $this->getProductViewParams($_POST['product_id']);
+	    	$this->view->render('home/productView', $params);
+	    }
+
+
 
 
 
@@ -128,6 +143,8 @@
 	                $review->user_lname = $user->last_name;
 	                //add rating to review
 	                $review->rate = $reverse_rates[$i]->rate;
+	                $review->rate_id = $reverse_rates[$i]->id;
+					$review->current_user_id = $user_obj->currentLoggedInUser()->id;
 	                $i++;
 	            }
 	        }
@@ -147,4 +164,5 @@
 
 	        return $params;
 	    }
+
 	}

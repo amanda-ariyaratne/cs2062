@@ -156,6 +156,8 @@
 				foreach ($reverse_orders as $key => $order) {
 					$order_details = [
 						'order_id'  => $order->id,
+						'total_amount'  => $order->total_amount,
+						'created_at'  => $order->created_at,
 						'delivered' =>	$state->checkIfDelivered($order->id)
 					];
 					array_push($orders, $order_details)	;

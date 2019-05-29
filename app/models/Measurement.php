@@ -2,7 +2,7 @@
 
 	class Measurement extends Model{
 
-		public function __construct($table){
+		public function __construct($table='measurement'){
 			parent::__construct($table);
 		}
 

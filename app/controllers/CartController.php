@@ -37,7 +37,7 @@ class CartController extends Controller{
                         "color" => $_POST["color"],
                         "quantity" => $_POST["quantity"],
                     ];
-//                    dnd($fields);
+                    //dnd($fields);
 
                     $cart = new Cart();
                     $status = $cart->addItem($fields);
@@ -47,7 +47,7 @@ class CartController extends Controller{
                         $fields[$mes] = $_POST["measuremnt" . $key];
 
                     }
-                    dnd($fields);
+                    //dnd($fields);
 
                     $params = $this->getProductViewParams();
                     array_push($params,$status);
@@ -161,7 +161,7 @@ class CartController extends Controller{
         $color = new Color();
         $params['colors'] = $color->getColorByproductID($p_id);
         //load product measurements
-        $measurement = new Measurement("product_measurement");
+        $measurement = new Measurement();
         $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
         return $params;
