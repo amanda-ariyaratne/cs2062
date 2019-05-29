@@ -52,7 +52,7 @@
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {
-							Router::redirect('home/vendorPage/'.$user->id);
+							Router::redirect('TailorView/vendorPage/'.$user->id);
 						} else if($user->role == 3){
 							Router::redirect('account/orderHistory');
 						} else if ($user->role == 1) {
@@ -106,7 +106,7 @@
 						if (currentUser()->role == 3) {
 							Router::redirect('account/orderHistory');
 						} else if(currentUser()->role == 2){
-							Router::redirect('home/vendorPage/'.currentUser()->id);
+							Router::redirect('VendorController/VendorPage/'.currentUser()->id);
 						} else if(currentUser()->role == 1){
 							Router::redirect('admin/newProducts');
 						}
@@ -143,7 +143,25 @@
 
 				$order = new CustomerOrder();
 				$status_details = $order->getOrderList(currentUser()->id);
-				$params['orders'] = $status_details;
+
+				//reverse order list
+				$reverse_orders = array();
+				if(!empty($status_details)){
+					$reverse_orders = array_reverse($status_details);
+				}
+
+				//update order state
+				$state = new OrderStatus();
+				$orders = array();
+				foreach ($reverse_orders as $key => $order) {
+					$order_details = [
+						'order_id'  => $order->id,
+						'delivered' =>	$state->checkIfDelivered($order->id)
+					];
+					array_push($orders, $order_details)	;
+				}
+
+				$params['orders'] = $orders;
 				//dnd($params);
 
 				$this->view->render('account/orderHistory', $params);

@@ -18,7 +18,7 @@ class MessageType1 extends Message{
 	}
 
 	public function setTailorName(){
-			$this->tailorName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$this->notification->_from.'"><b>'.$this->notification->tailor_shop.'</b></a>';
+			$this->tailorName='<a style="font-weight: 400;" href="'.PROOT.'TailorView/VendorPage/'.$this->notification->_from.'"><b>'.$this->notification->tailor_shop.'</b></a>';
 	}
 
 }

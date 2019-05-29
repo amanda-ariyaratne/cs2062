@@ -19,14 +19,13 @@ class CartController extends Controller{
                     'required' => true
                 ];
             }
-            $validation->check($_POST, $to_check);
+//            $validation->check($_POST, $to_check);
 
             //check if the user is logged in
             $user = new User();
             $user = $user->currentLoggedInUser();
-
-            if ($user != null) {
-                if ($validation->passed()) {
+            if (($user != null ) and $user->role==3) {
+//                if ($validation->passed()) {
                     $fields = [
                         "vendor_id" => $_POST["vendor_id"],
                         "name" => $_POST["name"],
@@ -41,24 +40,26 @@ class CartController extends Controller{
                     $cart = new Cart();
                     $status = $cart->addItem($fields);
                     $measurements = unserialize($_POST['measurements']);
+                    $values = [];
                     foreach ($measurements as $key => $mes) {
-                        $fields[$mes] = $_POST["measuremnt" . $key];
-
+                        array_push($values,$_POST["measuremnt" . $key]);
                     }
-                    dnd($fields);
+
+                    $measurement = new Measurement("tailor_request_measurement");
+                    $measurement->addNewMeasurement($_POST["product_id"],$user->id,$measurements,$values);
 
                     $params = $this->getProductViewParams();
-                    array_push($params,$status);
+                    $params["status"] = $status;
                     $this->view->render('home/productView' , $params);
                     
 
-                }
-                else {
-                    ////////////////////////////////////////////////load product details
-                    $params = $this->getProductViewParams();
-                    $this->view->displayErrors = $validation->displayErrors();
-                    $this->view->render('home/productView', $params);
-                }
+//                }
+//                else {
+//                    ////////////////////////////////////////////////load product details
+//                    $params = $this->getProductViewParams();
+//                    $this->view->displayErrors = $validation->displayErrors();
+//                    $this->view->render('home/productView', $params);
+//                }
             } else {
                 Router::redirect('account/login');
             }
@@ -70,7 +71,7 @@ class CartController extends Controller{
         $user = $user->currentLoggedInUser();
         $userId = $user->id;
 
-        if ($user != null) {
+        if (($user != null ) and $user->role==3) {
             $cart = new Cart();
             $cartItems = $cart->getCartItems($userId);
             $params = [$cartItems];

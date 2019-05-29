@@ -98,7 +98,7 @@
                         <input type="hidden" name="address1" value="<?php echo $params[0]['address']; ?>" />
                         <input type="hidden" name="address2" value="<?php echo $params[0]['apartment_suite']; ?>" />
                         <input type="hidden" name="city" value="<?php echo $params[0]['city']; ?>" />
-                        <input type="hidden" name="zip" value="<?php echo $params[0]['postal code']; ?>" />
+                        <input type="hidden" name="zip" value="<?php echo $params[0]['postal_code']; ?>" />
                         <input type="hidden" name="lc" value="en-LK" />
                           
 
@@ -111,7 +111,7 @@
                             </div>
                             <div role="gridcell" class="review-block__content">
                               <?php echo'
-                                <p style="padding-left:10px; display: inline-block; width:89%;" placeholder="ship to"  aria-required="true" class="field__input" size="30" type="" name="address" id="checkout_address" value="" >'.$params[0]['address'].', '.$params[0]['apartment_suite'].', '.$params[0]['city'].', '.$params[0]['region'].', '.$params[0]['postal code'].'
+                                <p style="padding-left:10px; display: inline-block; width:89%;" placeholder="ship to"  aria-required="true" class="field__input" size="30" type="" name="address" id="checkout_address" value="" >'.$params[0]['address'].', '.$params[0]['apartment_suite'].', '.$params[0]['city'].', '.$params[0]['region'].', '.$params[0]['postal_code'].'
                               ';?></p>
                               <a href="<?=PROOT?>OrderController/customerInformation?>" style="display: inline-block; font-size: 11px; padding-left: 2px;">change</a>
                             </div>
@@ -188,8 +188,10 @@
                       </a>
                     </div>
 
-<!--                     <input type='hidden' name='payment_summary' value="<?php echo htmlentities(serialize($params)); ?>" />
- -->            
+                    <input type='hidden' name='customer_info' value="<?php echo htmlentities(serialize($params[0])); ?>" />
+                    <input type='hidden' name='payment_summary' value="<?php echo htmlentities(serialize($params[1][0])); ?>" />
+                    <input type="hidden" name="total" value="<?php echo $params[1]['total']; ?>" />
+            
                   </form>
                 </div>
               </div>

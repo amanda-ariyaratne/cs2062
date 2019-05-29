@@ -71,7 +71,7 @@
                     <div class="">
                       <i class="demo-icon icon-handy-cart" style="font-size: 15px; padding: 5px 12px;"></i>
                       <span style="padding-right: 15px;">Total : </span>
-                      <span>$ <?=$params[0]['total']?></span>
+                      <span>$ <?=$params['order_details']->total_amount?></span>
                     </div>
 
                     <div class="">
@@ -85,7 +85,7 @@
                       <tbody class="total-line-table__tbody">
                         
                         <?php
-                          foreach($params[0][0] as $item){
+                          foreach($params['ordered_items'] as $item){
                             echo '
 
                               <tr class="total-line total-line--subtotal">

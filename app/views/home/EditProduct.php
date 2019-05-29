@@ -86,7 +86,7 @@
                                             </div>
 
                                             <div id="wp-pv_shop_description-editor-container" class="col-md-4s"  ><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                                <textarea value="<?php echo $params[3]["description"]; ?>" class="wp-editor-area" style="height: 180px; width: 400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
+                                                <textarea class="wp-editor-area" style="height: 180px; width:400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description">"<?php echo $params[3]["description"]; ?>"</textarea>
 
                                             </div>
                                         </div>

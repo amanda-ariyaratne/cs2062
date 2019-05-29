@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle(($params[0][0]->vendorName).'-TailorMate' )?>
+<?= $this->setSiteTitle(end($params).'-TailorMate' )?>
 
 <?= $this->start('head'); ?>
 
@@ -24,12 +24,13 @@
             <div class="row">
 
                <?php 
-                      echo
-                        '<div class="col-lg-8 d-none d-lg-block">
+                      echo '
+                        <div class="col-lg-8 d-none d-lg-block">
                           <div class="page-title">'.
                              end($params).'
                           </div>
-                        </div>';
+                        </div>
+                      ';
                  ?> 
 
                                
@@ -84,21 +85,18 @@
         </div>
 
 
-        <?php include 'Categories.php';?>
+        <?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>
 
 </div>
-
       <div class="col-lg-9 col-md-12">
         <div class="row">
           <div class="col-lg-9 col-md-12">
 
             <div class="wrap-cata-title">
               <h2>
-                <?= $params[0][0]->vendorName;?>  
+                <?= end($params)?> 
               </h2>
             </div>
-              <a href="<?=PROOT?>home/addProduct"><button type="button" class="btn btn-1">Add Product</button></a>
-
           </div>
 
           <div class="col-lg-3 col-md-12 row" style="float:right; padding-right: 0px; padding-left: 8%;">
@@ -127,17 +125,17 @@
             
             <div class="pagination-showing">
               <div class="showing">
-                  <?php
+                <!-- <?php
 
-                   if ($params[1]<6){
-                     echo 'Showing all Items';
-                   }
-                   elseif ($params[1]>6) {
-                     echo 'Showing 6 items from'.$params[1];
-                   }
+                   // if ($params[1]<6){
+                   //   echo 'Showing all Items';
+                   // }
+                   // elseif ($params[1]>6) {
+                   //   echo 'Showing page '..' from '.$params[1].' no of Pages';
+                   // }
 
-                ?>
-
+                ?> -->
+                
               </div>
             </div>
           </div>
@@ -147,40 +145,44 @@
 <div id="col-main">
           
   <div class="cata-product cp-grid">
+      
+   
+<?php 
 
-
-      <?php
   foreach ($params[0] as $product){
-    // dnd();
-      if($product->status=="1"){
+    // $product=$product[0];
 
-          $pr_status = "Deactivate";
-      }
-      if($product->status=="0"){
-          $pr_status = "Activate";
-      }
-
-      $approved = $product->approve_status;
-
+// dnd($product->id);
 echo '
-<div class="product-grid-item mode-view-item">
-                      
+<div class="product-grid-item mode-view-item">  
 
   <div class="product-wrapper effect-overlay ">
 
     <div class="product-head">
-      <div class="product-image">';
+      <div class="product-image">
 
-    if($approved==0){
-        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" disabled >'.$pr_status.'</button> ';
-    }
-    else {
-        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" id="'. $product->id .'" onclick="active(id)">' . $pr_status . '</button> ';
-    }
-      echo ' 
         <div class="featured-img lazyload">
-          <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-            <img style="width: 230px;height: 250px" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0].'">  
+          <a href="'.PROOT.'CustomRequestController/requestedProductViewCustomer/'.$product->id.'"> 
+            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0]->path.'">            
+            
+        <span class="product-label">
+    
+      
+        <span class="label-sale">';
+        if ($product->status==0){
+          echo '
+            <span class="sale-text">NO RESPONSE</span> 
+            ';
+        }
+        else{
+
+          echo'
+            <span class="sale-text">RESPONDED</span> 
+            ';
+        }
+
+        echo' 
+          </span>   
     
         </span>
           </a>
@@ -196,37 +198,22 @@ echo '
       </div>
     </div>
 
-    <div style="padding: 20px 1px 5px 20px" class="product-content">
-      <div  class="pc-inner">
+    <div class="product-content">
+      <div class="pc-inner">
         
-        <div class="product-group-vendor-name"> 
-          <h5 class="product-name">
-            <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-             '.$product->name.'
-            </a>
-                    <span class="price-sale"><span style="margin-left: 20px" class=money>'.$product->price.'</span></span>
-                    <br><br>
-                    <a style="color: #dc3545" href="'.PROOT.'home/editProduct/'.$product->id.'">edit</a>
-                    <a style="color: #dc3545;margin-left: 40px"  href="'.PROOT.'home/removeProduct/'.$product->id.'" >remove</a>
+                
+    <div class="price-cart-wrapper">
 
+      <div>  
+        <span>your product  </span>
+        <span  class="price-sale"><span class=money> '.$product->pr_name.'</span></span>   
+      </div>   
+      <div>  
+        <span>price range :</span>
+        <span class="price-sale"><span class=money> $'.$product->min_price.' - $'.$product->max_price.'</span></span>   
+      </div>
 
-          </h5>
-          
-          
-            <div class="product-review">
-              <span class="shopify-product-reviews-badge" data-id="1588807401531"></span>
-            </div>
-          
-        </div>
-        
-    
-
-      
-      
-      
-      <div>
-      
-        
+       
 
     </div>
   </div>
@@ -258,55 +245,6 @@ echo '
   </div>
 </div>
 <script>
-    function confirm(name) {
-        if(confirm("Remove the product permanently")){
-            $.ajax({
-                url:<?=PROOT?>name,
-                type: "POST",
-                // data:{'new': data1},
-                // success: function(){
-                //     alert("Successfully Activated");
-                //     // var array_new=JSON.parse(data);
-                // }
-            });
-        }
-    }
-
-
-
-    function active(id) {
-        alert(id);
-        if(document.getElementById(id).innerHTML==="Activate"){
-            var arry1 = [id,"1"];
-            var data1 = JSON.stringify( arry1 );
-                $.ajax({
-                    url:"<?=PROOT?>Home/changeActiveStatus",
-                    type: "POST",
-                    data:{'new': data1},
-            success: function(){
-                        alert("Successfully Activated");
-                // var array_new=JSON.parse(data);
-            }
-        });
-            document.getElementById(id).innerHTML = "Deactivate";
-
-        }
-        else {
-            var arry2 = [id,"0"];
-            var data2 = JSON.stringify( arry2 );
-            $.ajax({
-                url:"<?=PROOT?>Home/changeActiveStatus",
-                type: "POST",
-                data:{'new' : data2},
-                success: function(){
-                    alert("Successfully Deactivated");
-                    // var array_new=JSON.parse(data);
-                }
-            });
-            document.getElementById(id).innerHTML = "Activate";
-        }
-    }
-
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }

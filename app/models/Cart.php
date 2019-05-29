@@ -15,7 +15,8 @@
 				foreach ($details as $item) {
 					$field = [
 						'product_id' => $item->product_id,
-						'quantity'   => $item->quantity
+						'quantity'   => $item->quantity,
+                        'vendor_id'  => $item->vendor_id
 					];
 					array_push($payments, $field);
 				}
@@ -69,7 +70,9 @@
                         "price" => $item->price,
                         "customer_id" => $o_id,
                         "image" => $item->image_path,
-                        "color" => $item->color
+                        "color" => $item->color,
+                        "vendor_id" => $item->vendor_id
+
                     ];
                     array_push($cartItems, $fields);
                 }
