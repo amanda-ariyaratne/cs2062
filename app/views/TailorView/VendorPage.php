@@ -24,12 +24,13 @@
             <div class="row">
 
                <?php 
-                      echo
-                        '<div class="col-lg-8 d-none d-lg-block">
+                      echo '
+                        <div class="col-lg-8 d-none d-lg-block">
                           <div class="page-title">'.
                              end($params).'
                           </div>
-                        </div>';
+                        </div>
+                      ';
                  ?> 
 
                                
@@ -84,7 +85,7 @@
         </div>
 
 
-        <?php include 'Categories.php';?>
+        <?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>
 
 </div>
 
@@ -97,9 +98,15 @@
                 <?= $params[0][0]->vendorName;?>  
               </h2>
             </div>
-              <a href="<?=PROOT?>home/addProduct"><button type="button" class="btn btn-1">Add Product</button></a>
-
           </div>
+          <?php if (currentUser()->role == 2) {
+            echo '<div class="col-lg-3 col-md-12">
+              <div class="pull-right">
+                <a href=""><button class="btn btn-1">Add Product</button></a>
+              </div>
+            </div>';
+          }
+          ?>
 
           <div class="col-lg-3 col-md-12 row" style="float:right; padding-right: 0px; padding-left: 8%;">
             
@@ -127,7 +134,7 @@
             
             <div class="pagination-showing">
               <div class="showing">
-                  <?php
+                <?php
 
                    if ($params[1]<6){
                      echo 'Showing all Items';
@@ -137,7 +144,7 @@
                    }
 
                 ?>
-
+                
               </div>
             </div>
           </div>
@@ -147,20 +154,10 @@
 <div id="col-main">
           
   <div class="cata-product cp-grid">
-
-
-      <?php
+         
+<?php 
   foreach ($params[0] as $product){
     // dnd();
-      if($product->status=="1"){
-
-          $pr_status = "Deactivate";
-      }
-      if($product->status=="0"){
-          $pr_status = "Activate";
-      }
-
-      $approved = $product->approve_status;
 
 echo '
 <div class="product-grid-item mode-view-item">
@@ -169,18 +166,18 @@ echo '
   <div class="product-wrapper effect-overlay ">
 
     <div class="product-head">
-      <div class="product-image">';
+      <div class="product-image">
 
-    if($approved==0){
-        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" disabled >'.$pr_status.'</button> ';
-    }
-    else {
-        echo '<button style="margin-left: 140px" class="btn btn-1" type="button" id="' . $product->id . '" onclick="active(id)">' . $pr_status . '</button> ';
-    }
-      echo ' 
         <div class="featured-img lazyload">
           <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-            <img style="width: 230px;height: 250px" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0].'">  
+            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$params[0][0]->images[0].'">            
+            
+        <span class="product-label">
+    
+      
+        <span class="label-sale">
+          <span class="sale-text">Available</span>  
+          </span>   
     
         </span>
           </a>
@@ -196,92 +193,15 @@ echo '
       </div>
     </div>
 
-    <div style="padding: 20px 1px 5px 20px" class="product-content">
-      <div  class="pc-inner">
+    <div class="product-content">
+      <div class="pc-inner">
         
         <div class="product-group-vendor-name"> 
           <h5 class="product-name">
-            <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
+            <a href="/products/black-fashion-zapda-shoes">
              '.$product->name.'
             </a>
-                    <span class="price-sale"><span style="margin-left: 20px" class=money>'.$product->price.'</span></span>
-                    <br><br>
-                    <a style="color: #dc3545" href="'.PROOT.'home/editProduct/'.$product->id.'">edit</a>
-
-
-                                        <div>
-                                          <button id="deleteBtn" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black;">Delete</button>
-
-                                          <!-- The Modal -->
-                                          <div id="deleteModal" class="modal">
-
-                                            <!-- Modal content -->
-                                            <div class="modal-content" style="width: 20%">
-                                              <div class="modal-header">
-                                                <h4 style="float: left;">DELETE THE REVIEW</h4>
-                                                <span class="close_x" data-dismiss="modal" style="float: right;cursor: pointer;font-size:20px;">&times;</span>
-                                              </div>
-
-
-                                              <form method="post" action="<?=PROOT?>ReviewAndRate/deleteReview">
-                                                <div class="modal-body">    
-                                                  <div class="yes-no-selector">
-                                                    <label class="spr-form-label" style="font-weight: 600">Do you want to delete this review ?</label>
-                                                    <div class="spr-form-input">
-                                                      <input type="submit" class="button button-primary btn-primary delete_modal" value="YES" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:50px; padding:5px 10px;">
-                                                      <input type="" class="close_d button button-primary btn-primary delete_modal" data-dismiss="modal" value="NO" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:30px; padding:5px 10px; width:42px;">
-                                          
-                                                      
-                                                    </div>
-                                                  </div>
-
-                                                </div>
-                                                <div class="modal-footer">
-<!--                                                   <?php echo\'<input type="hidden" name="product_id" value=\'.$params[0]->id.\'>\';?> 
- -->                                                </div>
-                                              </form>
-
-
-                                            </div>
-
-                                          </div>
-                                        
-                                          <script>
-                                            // Get the modal
-                                            var modal_d = document.getElementById(\'deleteModal\');
-
-                                            // Get the button that opens the modal
-                                            var btn_d = document.getElementById("deleteBtn");
-
-                                            // Get the <span> element that closes the modal
-                                            var span_x = document.getElementsByClassName("close_x")[0];
-                                            var span_d = document.getElementsByClassName("close_d")[0];
-
-                                            // When the user clicks the button, open the modal 
-                                            btn_d.onclick = function() {
-                                              modal_d.style.display = "block";
-                                            }
-
-                                            // When the user clicks on <span> (x), close the modal
-                                            span_x.onclick = function() {
-                                              modal_d.style.display = "none";
-                                            }
-                                            span_d.onclick = function() {
-                                              modal_d.style.display = "none";
-                                            }
-
-                                            // When the user clicks anywhere outside of the modal, close it
-                                            window.onclick = function(event) {
-                                              if (event.target == modal) {
-                                                modal_d.style.display = "none";
-                                              }
-                                            }
-                                          </script>
-
-                                        </div>
-
           </h5>
-          
           
             <div class="product-review">
               <span class="shopify-product-reviews-badge" data-id="1588807401531"></span>
@@ -289,14 +209,23 @@ echo '
           
         </div>
         
-    
+    <div class="price-cart-wrapper">
 
-      
-      
-      
-      <div>
-      
-        
+      <div class="product-price">  
+          
+        <span class="price-compare"><span class=money>Price</span></span>
+        <span class="price-sale"><span class=money>Sale price</span></span>   
+      </div>
+
+      <div class="product-add-cart">
+                  
+        <form action="/cart/add" method="post" enctype="multipart/form-data">
+          <a href="#" class="btn-add-cart add-to-cart" title="Add to cart">
+            <span class="demo-icon icon-basket"></span>
+          </a>          
+        </form>
+
+      </div>
 
     </div>
   </div>
@@ -328,38 +257,6 @@ echo '
   </div>
 </div>
 <script>
-    function active(id) {
-        if(document.getElementById(id).innerHTML==="Activate"){
-            var arry1 = [id,"1"];
-            var data1 = JSON.stringify( arry1 );
-                $.ajax({
-                    url:"<?=PROOT?>Home/changeActiveStatus",
-                    type: "POST",
-                    data:{'new': data1},
-            success: function(){
-                        alert("Successfully Activated");
-                // var array_new=JSON.parse(data);
-            }
-        });
-            document.getElementById(id).innerHTML = "Deactivate";
-
-        }
-        else {
-            var arry2 = [id,"0"];
-            var data2 = JSON.stringify( arry2 );
-            $.ajax({
-                url:"<?=PROOT?>Home/changeActiveStatus",
-                type: "POST",
-                data:{'new' : data2},
-                success: function(){
-                    alert("Successfully Deactivated");
-                    // var array_new=JSON.parse(data);
-                }
-            });
-            document.getElementById(id).innerHTML = "Activate";
-        }
-    }
-
 function openForm() {
   document.getElementById("myForm").style.display = "block";
 }

@@ -9,17 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="<?=PROOT?>assets/css/datetimepicker.min.css">
 
 
-	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script> -->
-
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
@@ -60,8 +49,10 @@
 		
 	<div class="wcv-grid">
 
+		<?php $details=$params['details'][0]; 
 
-		<form method="post" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();">
+		// dnd($params['product_id'])?>
+		<form method="post" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequestEdit/<?=$params['product_id']?>" onsubmit="return validateData();">
 			<?php 
 				if(isset($_SESSION['alert']))
 					{echo $_SESSION['alert']; $_SESSION['alert'] = '';
@@ -86,7 +77,7 @@
 						</label>
 
 						<div class="control" >
-							<input type="text" class="form-control" name="design-name" value="mad" id="design-name"  style="width: 616px;" placeholder="design name" data-rules="required"/> 
+							<input type="text" class="form-control" name="design-name" value="<?=$details->pr_name?>" id="design-name"  style="width: 616px;" placeholder="design name" data-rules="required"/> 
 							<small id="error-msg-name"></small>
 						</div>
 
@@ -105,7 +96,9 @@
 						<div id="wp-pv_shop_description-editor-container" class="wp-editor-container">
 							<div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
 
-							<textarea  style="height: 200px;width: 617px;" autocomplete="off" cols="40" name="design-Description" id="design-description"></textarea>				 
+							<textarea  style="height: 200px;width: 617px;" autocomplete="off" cols="40" name="design-Description" id="design-description">
+								<?=$details->description?>								
+							</textarea>				 
 
 							<small id="error-msg-description"></small>  
 						</div>
@@ -136,8 +129,7 @@
 
 						<div class="control-group col-lg-7">
 							<label>Color</label>	<br>
-							<input type="color" id="design-color" name="color-picker" style="border:none;background-color: none;width: 40px;padding-left: 0px;padding-right: 0px;" />
-
+							<input type="color" id="design-color" value="<?=$details->color?>" name="color-picker" style="border:none;background-color: none;width: 40px;padding-left: 0px;padding-right: 0px;" />
 							 
 							 <small id="error-msg-color"></small><br>
 						</div>
@@ -146,46 +138,74 @@
 
 					<br/>
 
-					<?php 
-					$options='';
-					foreach ($params['measurement_types'] as $measurement_type){
-						$options=$options.'<option>'.$measurement_type->name.'</option>';
+					<!-- Add ypur measurements -->
+			<?php 			
+
+			$options='';
+			foreach ($params['measurement_types'] as $measurement_type){
+				$options=$options.'<option value='.$measurement_type->name.'>'.$measurement_type->name.'</option>';
+
+			}
+
+			$measurements=$params['details']['measurements'];
+
+			$types=[];		
+			foreach ($measurements as $measurement){
+				$options='';
+				foreach ($params['measurement_types'] as $measurement_type){
+
+					if ($measurement_type->name==$measurement->measurement_type){
+						$options=$options.'<option value='.$measurement_type->name.' selected>'.$measurement_type->name.'</option>';
 					}
+					else{
+						$options=$options.'<option value='.$measurement_type->name.'>'.$measurement_type->name.'</option>';
+					}
+				}
+				array_push($types,$options);	
+			}
+				echo '
 
-					 ?>
-					
 
-					 <!-- Add ypur measurements -->
-
-					<div class="control-group">
+				<div class="control-group">
 						<div class="row">
 							<label class="col-md-4">Measurements</label>
 							<div class="col-md-1"></div>
 							<i class="fa fa-plus col-md-4" style="color: #000;padding-left: 30px;" aria-hidden="true"></i>
 							<div class="col-md-3"></div>
 						</div>
-						
-						<div class="row id-1">
+				';
+
+				for ($i=1; $i<count($measurements)+1; $i++){
+					echo '
+
+						<div class="row id-'.$i.'">
 
 							<div class="form-group col-lg-2">
 						      <select class="form-control" id="type-1" name="type[]" style="width: 150px;height: 38.5px;">
-						        <?=$options?>
+						      '.$types[$i-1].'
 						      </select>
 						     </div>
 
 							<div class="col-lg-1"></div>
 
-							<input type='text' id="measurement-1" name="measurement[]" value="10" class="form-control col-lg-2" placeholder="$xxx" data-rules="required"/>
+							<input type="text" name="measurement[]" value="'.$measurements[$i-1]->measurement.'" class="form-control col-lg-2" placeholder="$xxx" data-rules="required"/>
 
-							<button type="button" class="close col-lg-1 btn-id" aria-label="Close">
+							<button type="button" class="close col-lg-1 btn-id-update" data-id='.$measurements[$i-1]->id.' aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
 							</button>
 
 							<div class="col-lg-6"></div>
 
 						</div>
+					';
+				}
 
-						<div id="id-1"></div>
+				$id=count($measurements)+1;
+
+		 	?>
+
+
+						<div id="id-<?=$id?>"></div>
 
 						<small id="error-msg-measurements"></small>
 														
@@ -198,10 +218,10 @@
 					<div class="control-group" style="padding-left: 14px;">
 						<label>Price Range</label>
 						<div class="row control">
-							<input type='text' id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" value="10"/>
+							<input type='text' id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" value="<?=$details->min_price?>"/>
 
 							<div class="col-lg-1"></div>
-							<input type='text' id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" value="100"/>	
+							<input type='text' id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" value="<?=$details->max_price?>"/>	
 							<div class="col-lg-7"></div>
 						</div>								
 					</div>
@@ -213,7 +233,7 @@
 
 						<div class="control-group">
 							<label >Postal Code</label>	
-							<input type='text' value="14000" placeholder="ex: 15000" style="width: 181px;" id="postal-code" class="form-control" name="postal-code"  />
+							<input type='text' value="<?=$details->location?>" placeholder="ex: 15000" style="width: 181px;" id="postal-code" class="form-control" name="postal-code"  />
 							<small id="error-msg-location"></small>
 						</div>
 						<br/>
@@ -224,7 +244,7 @@
 						
 						<div class="control-group">
 							<label >Due date</label>	
-							<input type='date'  id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" class="form-control" name="due-date"  />
+							<input type='date'  id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" class="form-control" name="due-date" value="<?=$details->due_date?>"/>
 							<small id="error-msg-due-date"></small>
 						</div>
 					             
@@ -249,9 +269,10 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
-			// console.log('ready');
-			var id=1;
-			var cl=2;
+
+			var id=<?=$id?>;
+			var cl=id+1;
+
 			$('.fa-plus').on('click',function(){
 
 				$('#id-'+id).addClass('row');
@@ -268,12 +289,26 @@
 
 				$('.id-'+cl).after('<div id="id-'+id+'"></div>');
 				cl++;
+			});
 
-				$('.btn-id').on('click',function(){
-					$(this).parent().remove();
-				});
+			$('.btn-id').on('click',function(){
+				$(this).parent().remove();
+			});
 
+			$('.btn-id-update').on('click',function(){
 
+				var id=$(this).data("id");
+
+				$.ajax({  
+	                url:"<?=PROOT?>CustomRequestController/removeMeasurement",
+	                method: "POST",
+	                data:{'m_id': id },
+	                success: function(data){
+	                	data=JSON.parse(data);
+	                	console.log(data);                    
+	                }
+	            }); 
+	            $(this).parent().remove();				
 			});
 
 
@@ -349,7 +384,6 @@
 			<?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>					
 	</div>
 				
-			
 
 </div>
 <br><br><br>

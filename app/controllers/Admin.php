@@ -92,7 +92,7 @@
                     $params['colors'] = $color->getColorByproductID($p_id);
 
                     //load product measurements
-                    $measurement = new Measurement('product_measurement');
+                    $measurement = new Measurement('product_request_measurement');
                     $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 
@@ -104,8 +104,6 @@
             } else {
                 Router::redirect('account/login');
             }
-            
-                    
         }
 
 
@@ -118,8 +116,7 @@
                 }
             } else {
                 Router::redirect('account/login');
-            }
-            
+            }            
         }
 
         public function sendNewsletterAction(){

@@ -10,4 +10,8 @@
 		public function findByProductID($p_id){
 			return $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
 		}
+
+		public function deleteByID($id){
+			$this->delete($id);
+		}
 	}

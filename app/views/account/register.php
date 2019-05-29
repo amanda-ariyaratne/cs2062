@@ -55,17 +55,18 @@
 
           </div>
 
-          <div class="row" style="margin: 100px 500px;">
-            <div class="col-xs-12">
-              <button class="btn btn-1" id="customer-register">I want to register as a <span style="font-size: 20px;">customer</span></button>
-            </div>
+          <div style="border: 1px solid #c1939e">
+              <div class="row" style="margin: 100px 500px;">
+                <div class="col-xs-12">
+                  <button class="btn btn-1" id="customer-register">I want to register as a <span style="font-size: 20px;">customer</span></button>
+                </div>
+              </div>
+              <div class="row" style="margin: 100px 500px;">
+                <div class="col-xs-12">
+                  <button class="btn btn-1" id="tailor-register">I want to register as a <span style="font-size: 20px;">tailor</span></button>
+                </div>
+              </div>
           </div>
-          <div class="row" style="margin: 100px 500px;">
-            <div class="col-xs-12">
-              <button class="btn btn-1" id="tailor-register">I want to register as a <span style="font-size: 20px;">tailor</span></button>
-            </div>
-          </div>
-          
 
 
 
@@ -86,11 +87,11 @@
   
   $(document).ready(function(){
     $('#customer-register').on('click', function(){
-      localStorage.setItem('role', JSON.stringify('3'));
+      localStorage.setItem('role', '3');
       window.location.href = "<?=PROOT?>account/customerRegister1";
     });
     $('#tailor-register').on('click', function(){
-      localStorage.setItem('role', JSON.stringify('2'));
+      localStorage.setItem('role', '2');
       window.location.href = "<?=PROOT?>account/tailorRegister1";
     });
   });

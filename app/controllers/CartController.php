@@ -19,13 +19,14 @@ class CartController extends Controller{
                     'required' => true
                 ];
             }
-//            $validation->check($_POST, $to_check);
+            $validation->check($_POST, $to_check);
 
             //check if the user is logged in
             $user = new User();
             $user = $user->currentLoggedInUser();
+
             if (($user != null ) and $user->role==3) {
-//                if ($validation->passed()) {
+                if ($validation->passed()) {
                     $fields = [
                         "vendor_id" => $_POST["vendor_id"],
                         "name" => $_POST["name"],
@@ -36,6 +37,7 @@ class CartController extends Controller{
                         "color" => $_POST["color"],
                         "quantity" => $_POST["quantity"],
                     ];
+//                    dnd($fields);
 
                     $cart = new Cart();
                     $status = $cart->addItem($fields);
@@ -53,13 +55,13 @@ class CartController extends Controller{
                     $this->view->render('home/productView' , $params);
                     
 
-//                }
-//                else {
-//                    ////////////////////////////////////////////////load product details
-//                    $params = $this->getProductViewParams();
-//                    $this->view->displayErrors = $validation->displayErrors();
-//                    $this->view->render('home/productView', $params);
-//                }
+                }
+                else {
+                    ////////////////////////////////////////////////load product details
+                    $params = $this->getProductViewParams();
+                    $this->view->displayErrors = $validation->displayErrors();
+                    $this->view->render('home/productView', $params);
+                }
             } else {
                 Router::redirect('account/login');
             }
@@ -115,7 +117,7 @@ class CartController extends Controller{
         $product_obj->main_category_name = $category_details->name;
         array_push($params, $product_obj);
         //add product images array - inster to params
-        $img = new TailorProductImage();
+        $img = new Image('tailor_product_image');
         array_push($params,$img->getImage($product_obj));
         //load review table
         $review_object = new Review();
@@ -160,7 +162,7 @@ class CartController extends Controller{
         $color = new Color();
         $params['colors'] = $color->getColorByproductID($p_id);
         //load product measurements
-        $measurement = new ProductMeasurement();
+        $measurement = new Measurement("product_measurement");
         $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
         return $params;

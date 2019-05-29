@@ -210,6 +210,39 @@
       font-size: 18px;
     }
 
+/*    account drop down
+*/
+    .dropdown-account {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }    
+    .dropdown-account i{
+      cursor: pointer;
+    }
+    .dropdown-account-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 130px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-account-content a {
+      color: black;
+      padding: 10px 10px;
+      text-decoration: none;
+      display: block;
+    }
+    .dropdown-account:hover .dropdown-account-content {
+      display: block;
+    }
+    .dropdown-account-content a:hover{
+      color: #c1939e;
+    }
+    .dropdown-account-content a i{
+      padding-right: 5px;
+    }
   </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -357,15 +390,27 @@
               <div class="top-bar-left col-lg-3">
                 <ul class="list-inline">
 
-                    <li class="customer-account lazyload waiting">
+                    <li class="customer-account lazyload waiting dropdown">
 
                         <?php if ($user->first_name!='') {
-                        echo '<a href="'.PROOT.'account/myAccount" ><i class="demo-icon icon-user"></i>' . $user->first_name . '</a>';
+                        echo '   
+                          <div class="dropdown-account" style="color:black;">  
+                            <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                            <div class="dropdown-account-content">
+                              <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                              <a href="'.PROOT.'account/orderHistory"><i class="fab fa-opencart" style="font-size:10px;"></i> Order history</a>
+                            </div>
+                          </div>          
+
+ 
+                        ';
                       } else {
                         echo '<a href="'.PROOT.'account/login" title="Account"><i class="demo-icon icon-user"></i>Login</a>';
                       } ?>
-                        
+
+
                     </li>
+
 
                     <!-- 
                     
@@ -491,8 +536,8 @@
                             <span>
                               <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
                             </span>
-                            <span class="badge-counter" style="position: absolute; top: 20px;right: 18px;">
-                              5
+                            <span class="badge-counter cartItemCount" style="position: absolute; top: 20px;right: 18px;">
+                              '.$cartItemCount.'
                             </span>
                           </a>
 

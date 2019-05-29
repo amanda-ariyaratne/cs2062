@@ -3,10 +3,11 @@
 	class CustomRequest extends Model implements Observable{
 
 		private $observers=array();
-		protected $user;
+		protected $user, $_table;
 
 		public function __construct($_table=''){
 			$_table='custom_request';
+            $this->_table=$_table;
 			parent::__construct($_table);	
 			$userObject=new User();
 			$this->user=$userObject->currentLoggedInUser()->id;
@@ -128,6 +129,46 @@
     			
     		}
 		}
+
+		public function updateCustomRequest($pr_id){
+			
+    		$fields=[
+    			'pr_name'=> $_POST["design-name"],
+    			'customer_id'=>$this->user,
+    			'status'=>'0',  			
+    			'description'=> $_POST["design-Description"],
+    			'location' => $_POST["postal-code"],
+    			'color' => $_POST["color-picker"],
+    			'min_price'=>$_POST["min-price"],
+    			'max_price'=>$_POST["max-price"],
+    			'due_date' => $_POST["due-date"] 
+    		]; 
+
+    		$this->update($pr_id, $fields);
+
+    		$measurements=$_POST["measurement"];
+    		$types=$_POST["type"];
+
+    		$measurement=new Measurement('custom_request_measurement');
+    		$measurement->updateMeasurement($pr_id, $this->user, $types, $measurements);
+
+
+    		$images=($_FILES["fileUpload"]['name']);
+
+            $image=new Image('custom_design_image'); 
+            $image->removeOld($pr_id);
+    		for ($x=0; $x<sizeof($images); $x++){
+    			$im_id=count($image->find())+1;
+
+    			$image_name=date("Y-m-d-h-i-sa").'-'.$this->_table.'-'.$im_id;
+    			$ext=pathinfo($images[$x])['extension'];
+    			$image_path=$image_name.'.'.$ext;
+
+    			$image->addImage($_id,$image_path,$x,'custom_requests');
+    			
+    		}
+		}
+
 
 	}
 
