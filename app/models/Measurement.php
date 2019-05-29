@@ -46,34 +46,32 @@
 
 		}
 		public function addMesurement($p_id,$arry){
-		    foreach ($arry as $mes){
-		        $fields = [
-		           "product_id" => $p_id,
-                   "name" => $mes
-                ];
-		        $this->insert($fields);
+            if($arry!=null) {
+                foreach ($arry as $mes) {
+                    $fields = [
+                        "product_id" => $p_id,
+                        "name" => $mes
+                    ];
+                    $this->insert($fields);
+                }
             }
 
         }
 
         public function editMesurement($p_id,$arry){
-            $initial_measurements =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
-            if(count($initial_measurements)!=null){
-                foreach ($initial_measurements as $mes) {
+            $this->deleteMeasurements($p_id);
+           $this->addMesurement($p_id,$arry);
+
+        }
+
+        public function deleteMeasurements($pr_id){
+            $measurements =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$pr_id]));
+//            dnd($measurements);
+            if(count($measurements)!=null){
+                foreach ($measurements as $mes) {
                     $id = $mes->id;
                     $this->delete($id);
                 }
             }
-
-            if($arry!=null){
-            foreach ($arry as $mes){
-                $fields = [
-                    "product_id" => $p_id,
-                    "name" => $mes
-                ];
-                $this->insert($fields);
-            }
-            }
-
         }
 	}

@@ -17,6 +17,60 @@
 			$product->getAcceptedRequest('2','1','2');
 		}
 		
+		public function AllVendorsAction($no){
+
+			$tailorshop=new Tailorshop('tailor_shop');
+
+			$details = $tailorshop->getShops((6*$no-6),6);
+
+			foreach ($details as $store) {
+
+				// set rating
+				$tailor_id = $store->vendor_id;
+				$rating = new Rate();
+				$store->rating = $rating->getTailorRating($tailor_id);
+
+
+				// set images
+				$product = new Product();
+				$all_products = $product->find(array('conditions' => 'vendor_id = ?', 'bind' => [$tailor_id]));
+				$images = [];
+				foreach ($all_products as $product) {
+
+					$image=new Image('tailor_product_image');
+                    $product_images=$image->getImage($product);
+                    $images = array_merge($images, $product_images);
+				}
+				$images_total = count($images);
+				if ($images_total < 7) {
+					$store->images = $images;
+				} else {
+					$store->images = array_rand($images, 6);
+				}
+
+			}
+
+			$noOfProducts = $tailorshop->noOfShops();
+
+			$params=array($details,$no,$noOfProducts,'All Tailors');
+
+			$this->view->render('home/AllVendors',$params);
+		}
+
+		public function VendorPageAction($a){
+			$product=new Product('product');
+			$details=$product->getPageVendor($a);
+
+			$param=$details[0];
+			$noOfProducts =$details[1];
+
+			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
+			$this->view->render('home/VendorPage',$params);
+
+
+			//get vendor name
+		}
+
 		public function ProductListAction($a){
 			$product=new Product();
 
@@ -158,8 +212,7 @@
 			$params['colors'] = $color->getColorByproductID($p_id);
 
 			//load product measurements
-			$measurement = new Measurement("product_measurement
-			");
+			$measurement = new Measurement('product_measurement');
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 			$params['vendor_id'] = $product_obj->vendor_id;
@@ -318,17 +371,25 @@
         $product_details = $product->findById($pr_id);
         $vendor_id = $product_details->vendor_id;
         $product->removeProduct($pr_id);
-        $this->VendorPageAction($vendor_id);
+        $measurement = new Measurement("product_measurement");
+        $measurement->deleteMeasurements($pr_id);
+        $color = new Color();
+        $color->deleteColor($pr_id);
+
+//        $this->VendorPageAction($vendor_id);
     }
 
     public function changeActiveStatusAction(){
         $data=json_decode($_POST['new']);
-//            dnd($data);
         $pr_id = $data[0];
         $status = $data[1];
         $product = new Product();
         $product->changeActiveStatus($pr_id,$status);
 
+    }
+
+    public function pageNotFoundAction(){
+    	$this->view->render('home/404');
     }
 
 
