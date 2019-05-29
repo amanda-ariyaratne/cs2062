@@ -44,7 +44,7 @@
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row->id);
+                $images=$image->getImage($row);
                 $row->images = $images;         
             }   
 
@@ -209,7 +209,7 @@
             $details = $this->_db->search('product', $params);
             if ($details) {
                 foreach ($details as $row){
-                    $image=new Image();
+                    $image=new Image('tailor_product_image');
                     $images=$image->getImage($row->id);
                     $row->images = $images;
 

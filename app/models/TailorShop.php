@@ -21,7 +21,10 @@
 
 		public function updateStoreDetails($id, $fields){
 			$this->update($id, $fields);
-			Router::redirect('account/storeDetails');
+		}
+
+		public function addTailorShop($fields){
+			$this->insert($fields);
 		}
 
 	}
