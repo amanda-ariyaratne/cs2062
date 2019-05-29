@@ -21,10 +21,38 @@
 
 			$tailorshop=new Tailorshop('tailor_shop');
 			
-			$details = $tailorshop->getShops((6*$no-6),6);			
+			$details = $tailorshop->getShops((6*$no-6),6);
+
+			foreach ($details as $store) {
+
+				// set rating
+				$tailor_id = $store->vendor_id;
+				$rating = new Rate();
+				$store->rating = $rating->getTailorRating($tailor_id);
+
+
+				// set images
+				$product = new Product();
+				$all_products = $product->find(array('conditions' => 'vendor_id = ?', 'bind' => [$tailor_id]));
+				$images = [];
+				foreach ($all_products as $product) {
+
+					$image=new Image('tailor_product_image');
+                    $product_images=$image->getImage($product);
+                    $images = array_merge($images, $product_images);
+				}
+				$images_total = count($images);
+				if ($images_total < 7) {
+					$store->images = $images;
+				} else {
+					$store->images = array_rand($images, 6);
+				}
+
+			}
+
 			$noOfProducts = $tailorshop->noOfShops();
 
-			$params=array($details,$no,$noOfProducts,'Tailor shops');
+			$params=array($details,$no,$noOfProducts,'All Tailors');
 
 			$this->view->render('home/AllVendors',$params);
 		}
@@ -56,7 +84,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductCategoryAction($a,$sub_cat_id){
+		public function ProductCategoryAction($sub_cat_id,$a){
 			// dnd($sub_cat_id);
 			$product=new Product();
 
@@ -71,7 +99,7 @@
 			$name=$sub->findByID($sub_cat_id)->name;
 			// dnd($name);
 
-			$params=array($param,$a,$noOfProducts,$name);
+			$params=array($param,$a,$noOfProducts,$sub_cat_id,$name);
 
 			$this->view->render('home/ProductCategoryView',$params);
 		}
@@ -186,7 +214,7 @@
 			$params['colors'] = $color->getColorByproductID($p_id);
 
 			//load product measurements
-			$measurement = new Measurement();
+			$measurement = new Measurement('product_measurement');
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 			$params['vendor_id'] = $product_obj->vendor_id;
@@ -356,6 +384,10 @@
         $product = new Product();
         $product->changeActiveStatus($pr_id,$status);
 
+    }
+
+    public function pageNotFoundAction(){
+    	$this->view->render('home/404');
     }
 
 

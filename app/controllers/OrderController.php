@@ -83,7 +83,8 @@
 				
 				//dnd($params);
 				$this->view->render('Order/OrderStatus', $params);
-			}else{
+			}
+			else{
 					Router::redirect('account/login');
 			}
 			

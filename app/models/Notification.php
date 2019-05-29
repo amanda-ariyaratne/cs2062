@@ -46,8 +46,6 @@
 					}
 
 					elseif($row->type==5 && $row->type==6 && $row->type==7 && $row->type==8){
-
-						//$product=new CustomerOrder();
 						$row->pr_name=$row->pr_id;					
 					}
 					
@@ -126,8 +124,6 @@
 					}
 
 					elseif($row->type==5 && $row->type==6 && $row->type==7 && $row->type==8){
-
-						//$product=new CustomerOrder();
 						$row->pr_name=$row->pr_id;					
 					}
 					

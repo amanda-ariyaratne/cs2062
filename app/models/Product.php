@@ -36,13 +36,15 @@
             array_push($this->observers, $obj);
         }
 
-        public function getViewDetails($a){            
-            $a=6*($a-1);
-            $limit = array('limit'=>$a.',6');
+        public function getViewDetails($pageNo){            
+            $pageNo=6*($pageNo-1);
+
+            $limit = array('limit'=>$pageNo.',6');
+
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row->id);
+                $images=$image->getImage($row);
                 $row->images = $images;         
             }   
 
@@ -51,23 +53,28 @@
             return [$details,$noOfRows];
         }
 
-        public function getCategoryViewDetails($a,$sub_cat_id){
-            $a--;
-            $limit = array('limit'=>$a++.',6');
-            $conditions=array('conditions'=> 'sub_category_id = ?', 'bind'=> [$sub_cat_id]);
-            $tot=array_merge($conditions,$limit);
+        public function getCategoryViewDetails($pageNo,$sub_cat_id){
+            $pageNo=6*($pageNo-1);
+            
+            $limit = ['limit'=>$pageNo.',6'];
+
+            $conditions=['conditions'=> ['sub_category_id = ?'], 'bind'=> [$sub_cat_id]];
+            $tot=array_merge($conditions, $limit);
             
             $details = $this->find($tot);
-            // dnd($details);
+            
+            // dnd($details[0]);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
                 $row->images = $images;         
             }   
 
-            $noOfRows=count($this->find());
-            
+            $noOfRows=count($this->find($conditions));
+
             return [$details,$noOfRows];
+
+            
         }
 
         public function getPageVendor($id){
@@ -202,7 +209,7 @@
             $details = $this->_db->search('product', $params);
             if ($details) {
                 foreach ($details as $row){
-                    $image=new Image();
+                    $image=new Image('tailor_product_image');
                     $images=$image->getImage($row->id);
                     $row->images = $images;
 

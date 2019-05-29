@@ -1,6 +1,5 @@
 <?php
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	class CustomerOrder extends Model implements Observable{
 		private $_current, $_state_obj, $observers=array();
 
@@ -8,7 +7,7 @@
 			$table = $table;
 			parent::__construct($table);
 		}
-
+		
 		public function calculateCheckoutPrice($item_array){
 			$updated_items = array();
 			$new_array = array();
@@ -63,11 +62,6 @@
         public function addObserver($obj){
             array_push($this->observers, $obj);
         }
-
-
-
-
-
 
 		//state behavioral pattern
 		public function setState($state,$_state_obj){
