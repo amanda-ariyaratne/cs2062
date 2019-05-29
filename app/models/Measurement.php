@@ -2,12 +2,12 @@
 
 	class Measurement extends Model{
 
-		public function __construct($table){
+		public function __construct($table='measurement'){
 			parent::__construct($table);
 		}
 
-		public function getMeasurementByID($p_id){
-			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
+		public function getMeasurementByID($pr_id){
+			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$pr_id]));
 			$measurements = array();
 
 			if(count($measurement_details)!=null){
@@ -18,16 +18,13 @@
 			return $measurements;
 		}
 
-		public function getMeasurementForTView($p_id){
-			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$p_id]));
+		public function getMeasurementForTView($pr_id){
+			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$pr_id]));
 
 			return $measurement_details;
 		}
 
-
 		public function addNewMeasurement($pr_id, $customer_id, $types, $measurements){
-
-			// dnd($types);
 
 			for ($i=0; $i<count($types); $i++){
 				$fields=[
@@ -39,9 +36,31 @@
 				
 				$this->insert($fields);
 			}
-			
-
 		}
+
+		public function updateMeasurement($pr_id, $customer_id, $types, $measurements){
+
+			$old_measurement=$this->find(['conditions'=>'product_id', 'bind'=>[$pr_id]]);
+			for ($i=0; $i<count($old_measurement); $i++){
+				$this->deleteMeasurement($old_measurement[$i]->id);
+			}
+
+			for ($i=0; $i<count($types); $i++){
+				$fields=[
+					'product_id'=>$pr_id,
+					'customer_id'=> $customer_id,
+					'measurement_type'=> $types[$i],
+					'measurement'=>$measurements[$i]
+				];
+				
+				$this->insert($fields);
+			}
+		}
+
+		public function deleteMeasurement($m_id){
+			$this->delete($m_id);
+		}
+
 		public function addMesurement($p_id,$arry){
 		    foreach ($arry as $mes){
 		        $fields = [

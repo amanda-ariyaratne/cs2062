@@ -16,7 +16,7 @@
 
 
 			$params=array($param,$a,$noOfProducts,'Custom Requests');
-// dnd($params);
+
 			$this->view->render('CustomRequest/CustomerRequests', $params);
 		}
 
@@ -45,6 +45,56 @@
 				$params=array('measurement_types'=>$measurement_types,'Product Request');
 
 	        	$this->view->render('CustomRequest/ProductRequest',$params);
+
+			}
+			else{
+				var_dump('Access denied!');
+			}
+
+        }
+
+        public function ProductRequestEditAction($pr_id){
+
+			if (currentUser()->role==3){
+				$condition=['conditions'=>'id=?', 'bind'=> [$pr_id]];
+
+				//get custom request row
+				$details= $this->customRequest->find($condition);
+
+				//get added measurement details
+				$measurement=new Measurement('custom_request_measurement');
+				$measurement_details= $measurement->getMeasurementForTView($pr_id);
+				$details['measurements']=$measurement_details;
+
+				//get image details uploaded
+				$image=new Image('custom_design_image');
+				$image_details=$image->getImage($pr_id);
+				$details['image']=$image_details;
+
+				//get types of all measurement types
+				$measurement_type=new MeasurementType();
+				$measurement_types=$measurement_type->getAllMeasurementTypes();
+
+				$params=array('product_id'=>$pr_id, 'measurement_types'=>$measurement_types, 'details'=>$details, 'Your Request', '');
+
+				if($_POST){					
+					$this->customRequest->updateCustomRequest($pr_id);
+				
+					$_SESSION['alert']='
+					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
+					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+					<div class="container">
+						<div class="alert alert-success fade in">    
+					    	<strong>Success!</strong> Your CUSTOM REQUEST has been successfully UPDATED!
+					  	</div>
+					</div>';	
+
+					Router::redirect("CustomRequestController/ProductRequestEdit/".$pr_id,$params);
+				}				
+
+				// dnd($params['details']['measurements'][1]->measurement_type);
+
+	        	$this->view->render('CustomRequest/ProductRequestEdit',$params);
 
 			}
 			else{
@@ -173,5 +223,12 @@
 			$params['responses']=$tailor_response->getResponse($request_obj->id, '2');
 
 			$this->view->render('CustomRequest/CCustomRequestProductView',$params);
+		}
+
+		public function removeMeasurementAction(){
+			$m_id=$_POST['m_id'];
+			$measurement=new Measurement('custom_request_measurement');
+			$measurement->deleteMeasurement($m_id);
+			// echo json_encode($data);			
 		}
 }
