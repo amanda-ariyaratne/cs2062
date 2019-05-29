@@ -77,7 +77,7 @@
           </div>
         </div>
   
-        <?php include 'Categories.php';?>
+        <?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>
 
     </div>
 
@@ -94,14 +94,11 @@
       
   <div class="pagination-showing">
     <div class="showing">
-            <!-- <?php 
-            // echo 'Showing '.count($params[0]).' Items';
-             ?> -->
 
           <?php                       
             $pageNo=$params[1];
             $noOfPages = ceil(($params[2]/6));           
-            echo 'Showing  '. $pageNo.' - of  '.$noOfPages.'  Items';
+            echo 'Showing page '. $pageNo.' of  '.$noOfPages.'  pages';
           ?>
              
             
@@ -132,7 +129,7 @@
         <div class="product-image">
       
           <div class="featured-img">
-            <a href="/collections/personal/products/georgeous-white-dresses"> 
+            <a href="'.PROOT.'CustomRequestController/requestedProductView/'.$field->id.'"> 
                 <img class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$field->images[0].'" alt="Georgeous White Dresses" />       
               <span class="product-label"></span>
         </a>
@@ -149,28 +146,13 @@
     <div class="pc-inner">
       
       <div class="product-group-vendor-name"> 
-        <h5 class="product-name">
-          <a href="/collections/personal/products/georgeous-white-dresses">'.$field->pr_name.'</a>
+        <h5 class="price-cart-wrapper">
+          '.$field->pr_name.'
         </h5>
 
         <div class="product-des-list-" style="list-style-position: outside;">
-          <ul>    
-            
-            <li>
-              <span>Color: </span>
-              <span class="a-list-item">'.$field->color.'</span>
-            </li>
-            <li>
-              <span>Loaction: </span>
-              <span class="a-list-item">'.$field->location.'</span>
-            </li>
-            <li>
-              <span>Due date: </span>
-              <span class="a-list-item">'.$field->due_date.'</span>
-            </li>
-            </ul>
-                        
-              <span class="a-list-item">'.$field->description.'</span>
+             
+            <span class="a-list-item">'.$field->description.'</span>
             
 
           
@@ -191,7 +173,7 @@
         </span>
     </div>
 
-    <a class="btn btn-1" data-id="'.$field->id.'">accept</a> 
+    <a href="'.PROOT.'CustomRequestController/requestedProductView/'.$field->id.'" class="btn btn-1">View Details</a> 
 
 
     </div>

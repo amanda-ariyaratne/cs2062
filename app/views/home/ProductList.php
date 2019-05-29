@@ -80,7 +80,7 @@
             </div>
           </div>
 
-      <?php include 'Categories.php'?>
+      <?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>
 
 
     </div>
@@ -97,8 +97,10 @@
     
     <div class="pagination-showing">
       <div class="showing">
-          <?php                       
+          <?php          
             $pageNo=$params[1];
+
+
             $noOfPages = ceil(($params[2]/6));           
             echo 'Showing  page '. $pageNo.' of  '.$noOfPages.'  pages';
           ?>        
@@ -108,13 +110,13 @@
           
       <!-- <div class="filter-icon dropdown"><i class="demo-icon icon-sliders"></i>Filter</div> -->
           
-      <div class="grid-list">
+      <!-- <div class="grid-list">
         <span class="text">View</span>
         <span class="grid grid-4" title="Small"><i class="demo-icon icon-icon-grid-04"></i></span>
         <span class="grid grid-3 active" title="Medium"><i class="demo-icon icon-electro-grid-view"></i></span>
         <span class="grid grid-2" title="Large"><i class="demo-icon icon-grid-circle"></i></span>
         <span class="grid grid-1" title="Huge"><i class="demo-icon icon-th-list-1"></i></span>
-      </div>
+      </div> -->
 
 
   </div>
@@ -142,36 +144,24 @@
                               </div>
                             </div>
 
-                            <div class="product-content">
-                              <div class="pc-inner">          
-                                <div class="product-group-vendor-name"> 
-                                  <h5 class="product-name"><a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a></h5>  
+                            <div class="product-content" style="padding:7px;">
+                              <div class="pc-inner">     
+                              
+                                <div class="product-group-vendor-name row"> 
+                                  <h5 class="product-name" style="display: block;top: 10px;left: 20px;"><a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
+                                  </h5>
 
-                                  <!-- <div class="product-des-list"><ul>
+                                  <div class="price-cart-wrapper" style="display: inline-block; margin-left: 130px;">
 
-                                    <li><span class="a-list-item">Party Frock</span></li>
-                                    <li><span class="a-list-item">Linen material</span></li>
-                                    <li><span class="a-list-item">Colours available</span></li>
+                                    <div class="product-price">                     
+                                      <span class="sold-out">$'. $value->price.'</span>                          
+                                    </div>
+                                  </div> 
 
-                                    </ul>
-                                  </div> -->
-
-                                  <div class="product-review">
-                                    <span class="shopify-product-reviews-badge" data-id="1588807794747"></span>
-                                  </div>
-                                  
-                                </div>          
-                                <div class="price-cart-wrapper">    
-
-                                  <div class="product-price">                          
-                                    <span class="sold-out">$'. $value->sale_price.'</span>                          
-                                  </div>
-
-                                  <div class="product-add-cart"></div>
-
-                                </div>
+                                </div>  
                               </div>
                             </div>
+
                           </div>
                       </div>';    
 

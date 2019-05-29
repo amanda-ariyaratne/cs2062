@@ -84,7 +84,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductCategoryAction($a,$sub_cat_id){
+		public function ProductCategoryAction($sub_cat_id,$a){
 			// dnd($sub_cat_id);
 			$product=new Product();
 
@@ -99,7 +99,7 @@
 			$name=$sub->findByID($sub_cat_id)->name;
 			// dnd($name);
 
-			$params=array($param,$a,$noOfProducts,$name);
+			$params=array($param,$a,$noOfProducts,$sub_cat_id,$name);
 
 			$this->view->render('home/ProductCategoryView',$params);
 		}

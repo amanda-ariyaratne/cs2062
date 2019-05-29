@@ -68,7 +68,7 @@
 
                     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
                       <a itemprop="url" href="#home">
-                        Home
+                        Home / Vendor / 
                       </a>
                     </li>
 
@@ -223,7 +223,7 @@
                   <div class="description">'.$param->about_page.'</div>
                 </div>              
 
-              <a class="btn btn-1" href="#add path to the pariticular vendors page">Visit Store</a>               
+              <a class="btn btn-1" href="'.PROOT.'VendorController/VendorPage/'.$param->id.'">Visit Store</a>               
             </div>
           </div>
           
