@@ -155,15 +155,15 @@
                         
                         
                         echo '<label class = "full" for="star5"'; if($product->rating == 5){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class="half" for="star4half"'; if($product->rating > 4.5){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class = "full" for="star4"'; if($product->rating > 4){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class="half" for="star3half"'; if($product->rating > 3.5){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class = "full" for="star3"'; if($product->rating > 3){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class="half" for="star2half"'; if($product->rating > 2.5){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class = "full" for="star2"'; if($product->rating > 2){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class="half" for="star1half"'; if($product->rating > 1.5){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class = "full" for="star1"'; if($product->rating > 1){echo ' style="color: #c1939e"';} echo '></label>';
-                        echo '<label class="half" for="starhalf"'; if($product->rating > 0.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star4half"'; if($product->rating >= 4.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star4"'; if($product->rating >= 4){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star3half"'; if($product->rating >= 3.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star3"'; if($product->rating >= 3){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star2half"'; if($product->rating >= 2.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star2"'; if($product->rating >= 2){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star1half"'; if($product->rating >= 1.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star1"'; if($product->rating >= 1){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="starhalf"'; if($product->rating >= 0.5){echo ' style="color: #c1939e"';} echo '></label>';
                     
 
                     echo     
@@ -174,7 +174,7 @@
               <div>
                 <span class="vendor-address">
                   <i class="demo-icon icon-location"></i>'
-                  .$product->streetName.','
+                  .$product->streetName2.','
                   .$product->city.'
 
                 </span>

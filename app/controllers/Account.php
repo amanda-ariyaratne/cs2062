@@ -47,6 +47,7 @@
 							];
 							
 							$tailorShop->addTailorShop($fields);
+							
 				    	}
 
 				    	$remember = true;
@@ -373,6 +374,19 @@
 			}
 
 			$store->updateStoreDetails($store->id, $fields);
+		}
+
+
+		public function testAction(){
+			$this->view->render('home/test');
+		}
+
+		public function customerRegister1Action(){
+			$this->view->render('account/customerRegister1');
+		}
+
+		public function tailorRegister1Action(){
+			$this->view->render('account/tailorRegister1');
 		}
 
 	}

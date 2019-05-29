@@ -2,11 +2,37 @@
 
 <?= $this->start('head'); ?>
 <style type="text/css">
+  @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
   .dropdown-content {
   display: none;
   z-index: 1;
 }
   .dropdown:hover .dropdown-content {display: block;}
+
+.rating { 
+  border: none;
+  float: left;
+}
+
+.rating > input { display: none; } 
+.rating > label:before { 
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before { 
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label { 
+  color: #ddd; 
+ float: right; 
+}
+
 </style>
 
 <?= $this->end(); ?>
@@ -94,8 +120,8 @@
           
           <div class="wrap-text">
             <span class="heading">Open your shop here</span>
-            <p class="caption">Sell new unique products across 5500 categories.</p>
-            <a class="btn btn-1" href="#directToRegisterAsVendorPage">BECOME A TAILOR</a>               
+            <p class="caption">Sell new unique products across various categories.</p>
+            <a class="btn btn-1" href="<?=PROOT?>account/register">BECOME A TAILOR</a>               
           </div>
             
           
@@ -133,9 +159,14 @@
             <div class="vendor-image-inner">
               
               
-                <div class="vendor-icon">
-                  <img src="'.PROOT.'assets/images/custom_requests/'.$param->logo_image.'" alt="Vendor Icon" />
-                </div>
+                <div class="vendor-icon">';
+                if ($param->logo_image) {
+                  echo '<img src="'.PROOT.'assets/images/store_logo/'.$param->logo_image.'" alt="Vendor Icon" />';
+                } else {
+                  echo '<img src="'.PROOT.'assets/images/store-default.png" alt="Vendor Icon" />';
+                }
+                  
+                echo '</div>
               
                 <div class="socials-container dropdown" id="change-class-id-'.$i.'" onmouseover=mouseoverShare(this) onmouseout=mouseoutShare(this)>
                  
@@ -156,25 +187,35 @@
           
           <div class="vendor-description col-md-lg-4 col-md-4 col-sm-12 col-12">
             <div class="vendor-description-inner">  
-              <h4>'.$param->name.'</h4>
+              <h4 style="font-size: 25px;">'.$param->name.'</h4>
               
-              <span class="rating-container 5-star"> 
-                
-                    <i class="demo-icon icon-star"></i>
-                    <i class="demo-icon icon-star"></i>
-                    <i class="demo-icon icon-star"></i>
-                    <i class="demo-icon icon-star"></i>
-                    <i class="demo-icon icon-star"></i>
-                                
-              </span>
-              
-              <span class="vendor-address">
-                <i class="demo-icon icon-location"></i>'
-                .$param->address_line_1.','
-                .$param->address_line_2.','
-                .$param->address_line_3.'
+              <div class=""> 
+                    <span class="rating-container 5-star rating">';
+                        
+                        
+                        echo '<label class = "full" for="star5"'; if($param->rating == 5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star4 half"'; if($param->rating >= 4.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star4"'; if($param->rating >= 4){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star3 half"'; if($param->rating >= 3.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star3"'; if($param->rating >= 3){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star2 half"'; if($param->rating >= 2.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star2"'; if($param->rating >= 2){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star1 half"'; if($param->rating >= 1.5){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class = "full" for="star1"'; if($param->rating >= 1){echo ' style="color: #c1939e"';} echo '></label>';
+                        echo '<label class="half" for="star half"'; if($param->rating >= 0.5){echo ' style="color: #c1939e"';} echo '></label>';
+                    
 
-              </span>
+                    echo     
+                    '</span>
+                    <p style="padding-top: 6px; padding-left: 10px;"> &nbsp; ( ' . $param->rating . ' ratings )</p>        
+              </div>
+              <br>
+              <span class="vendor-address">
+                  <i class="demo-icon icon-location"></i>'
+                  .$param->streetName2.','
+                  .$param->city.'
+
+                </span>
 
               
                 <div class="short-vendor-description">
@@ -187,20 +228,15 @@
           </div>
           
           <div class="vendor-products col-md-lg-4 col-md-6 col-sm-12 col-12">
-            <div class="vendor-products-inner">
-                
-                  <div class="product-img" data-number="1">
-                    <img src="'.PROOT.'assets/images/custom_requests/'.$param->sample_image_1.'" alt="Black Fashion Example"/>                    
-                  </div>
-                
-                  <div class="product-img" data-number="2">
-                    <img src="'.PROOT.'assets/images/custom_requests/'.$param->sample_image_2.'" alt="Donkix Product Sample" />                    
-                  </div>
+            <div class="vendor-products-inner">';
 
-                  <div class="product-img" data-number="3">
-                    <img src="'.PROOT.'assets/images/custom_requests/'.$param->sample_image_3.'" alt="Freshkix Product Sample" />                    
-                  </div>'
-                  ;  
+                  foreach ($param->images as $image) {
+                      echo '<div class="product-img">
+                      <img src="'.PROOT.'assets/images/products/'.$image.'" alt="Black Fashion Example"/>                    
+                      </div>';
+                  }
+                
+                  
 
                   for ($x=4; $x<=6; $x++){
                     $s='sample_image_'.$x;
@@ -227,7 +263,7 @@
           }
          ?>
  
-          <script>
+          <!--<script>
             var x;
                 var id="change-class-id-"+x;
 
@@ -243,7 +279,7 @@
                   }
                 );   
             
-            </script>
+            </script>-->
         <!-- end general product -->
 
       </div>      
