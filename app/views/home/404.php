@@ -14,8 +14,6 @@
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
-
-<?php $email = $params['email']; ?>
       
 <div id="body-content" class="layout-boxed">
   <div id="main-content"> 
@@ -50,12 +48,13 @@
             </div>
             <div id="col-main" class="col-lg-6 col-md-8 col-sm-12">
               <div id="customer_orders">
-                <h3>Something went wrong</h3>
+                <h3>OOPS, this page cannot be found.</h3>
                 <div class="alert alert-success">
                   <button type="button" class="close" title="Close" data-dismiss="alert">×</button>
                   <p>Sorry</p>
-                  <p>The page you are looking for is not found.</p>
+                  <p>Sorry, the page you are looking for is not available.</p>
                 </div>
+                <div><a href="<?=PROOT?>"><button class="btn btn-1">Back to Homepage</button></a></div>
               </div>
             </div>
             <div id="col-main" class="col-lg-3 col-md-8 col-sm-12">

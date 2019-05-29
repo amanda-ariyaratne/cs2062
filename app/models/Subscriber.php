@@ -26,5 +26,9 @@
 				return false;
 			}
 		}
+
+		public function deleteSubscriber($id){
+			$this->delete($id);
+		}
 	}
  ?>

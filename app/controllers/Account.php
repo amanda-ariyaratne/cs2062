@@ -372,11 +372,6 @@
 			Router::redirect('account/storeDetails');
 		}
 
-
-		public function testAction(){
-			$this->view->render('home/test');
-		}
-
 		public function customerRegister1Action(){
 			$this->view->render('account/customerRegister1');
 		}
