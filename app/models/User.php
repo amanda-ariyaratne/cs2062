@@ -75,8 +75,8 @@
 			return $this->findFirst($params);
 		}
 
-		public function findByUserID($p_id){
-			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
+		public function findByUserID($user_id){
+			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$user_id]));
 		}
 
 		public function sendPasswordResetEmail($email){

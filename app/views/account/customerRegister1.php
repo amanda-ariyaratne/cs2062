@@ -51,7 +51,7 @@
           <div id="customer-login" class="content">
             <!--<h2 class="heading">Register</h2>-->
 
-            <form method="post" action="" id="registerform" name="registerform" onsubmit="return validateRegistration();">
+            <form method="post" action="<?=PROOT?>account/register" id="registerform" name="registerform" onsubmit="return validateRegistration();">
               <input type="hidden" name="role" id="role" value="" />
           <div id="register-form">
 

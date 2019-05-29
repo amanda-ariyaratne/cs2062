@@ -1,6 +1,5 @@
 <?php
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	class CustomerOrder extends Model implements Observable{
 		private $_current, $_state_obj, $observers=array();
 
@@ -9,13 +8,6 @@
 			parent::__construct($table);
 		}
 
-		public function notifyObservers($product_id,$to,$from,$status, $type){
-			
-		}
-
-        public function addObserver($obj){
-        	
-        }
 
 		public function calculateCheckoutPrice($item_array){
 			$updated_items = array();
