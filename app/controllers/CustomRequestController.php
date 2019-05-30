@@ -27,7 +27,8 @@
 				$measurement_types=$measurement_type->getAllMeasurementTypes();
 
 				if($_POST){
-					$this->customRequest-> createRequest();
+
+					$this->customRequest->createRequest();
 				
 					$_SESSION['alert']='
 					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">			  
@@ -68,16 +69,28 @@
 
 				//get image details uploaded
 				$image=new Image('custom_design_image');
-				$image_details=$image->getImage($pr_id);
-				$details['image']=$image_details;
+				$image_details=$image->getImageObject($details[0]->id);
 
+				$details['image']=$image_details;
+				$img_url_array = [];
+				$img_config_array = [];
+
+				foreach ($image_details as $image) {
+
+					array_push($img_url_array, "<img style='height:160px' src='".PROOT."assets/images/custom_requests/".$image->path."'>");
+					array_push($img_config_array, array('caption' => $image->path, 'key' => $image->id, 'url' => PROOT.'CustomRequestController/deleteCustomImage'));
+				}
+				$details['img_url_array'] = $img_url_array;
+				$details['img_config_array'] = $img_config_array;		
+						
 				//get types of all measurement types
 				$measurement_type=new MeasurementType();
 				$measurement_types=$measurement_type->getAllMeasurementTypes();
 
 				$params=array('product_id'=>$pr_id, 'measurement_types'=>$measurement_types, 'details'=>$details, 'Your Request', '');
 
-				if($_POST){					
+				if($_POST){		
+							
 					$this->customRequest->updateCustomRequest($pr_id);
 				
 					$_SESSION['alert']='
@@ -230,5 +243,12 @@
 			$measurement=new Measurement('custom_request_measurement');
 			$measurement->deleteMeasurement($m_id);
 			// echo json_encode($data);			
+		}
+
+		public function deleteCustomImageAction(){
+			$id = $_POST['key'];
+			$image = new Image('custom_design_image');
+			$image->deleteImage($id);
+			echo json_encode(array('data'=>'true'));
 		}
 }
