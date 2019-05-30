@@ -224,7 +224,7 @@
       display: none;
       position: absolute;
       background-color: white;
-      min-width: 130px;
+      min-width: 160px;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       z-index: 1;
     }
@@ -398,17 +398,45 @@
                     <li class="customer-account lazyload waiting dropdown">
 
                         <?php if ($user->first_name!='') {
-                        echo '   
-                          <div class="dropdown-account" style="color:black;">  
-                            <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
-                            <div class="dropdown-account-content">
-                              <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
-                              <a href="'.PROOT.'account/orderHistory"><i class="fab fa-opencart" style="font-size:10px;"></i> Order history</a>
-                            </div>
-                          </div>          
+                          if($user->role == 1){
+                            echo '   
+                              <div class="dropdown-account" style="color:black;">  
+                                <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                                <div class="dropdown-account-content">
+                                  <a href="'.PROOT.'admin/newProducts"><i class="fas fa-box-open"></i> New products</a>
+                                  <a href="'.PROOT.'admin/newsletter"><i class="fas fa-envelope-open-text"></i> Send news letter</a>
+                                  <a href="'.PROOT.'admin/subscribersList"><i class="fas fa-clipboard-list"></i> Subscribers List</a>
+                                </div>
+                              </div>         
+     
+                            ';
+                          }
+                          else if($user->role == 3){
+                            echo '   
+                              <div class="dropdown-account" style="color:black;">  
+                                <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                                <div class="dropdown-account-content">
+                                  <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                  <a href="'.PROOT.'account/orderHistory"><i class="fab fa-opencart" style="font-size:10px;"></i> Order history</a>
+                                </div>
+                              </div>          
 
- 
-                        ';
+     
+                            ';
+                          }
+                          else{
+                            echo '   
+                              <div class="dropdown-account" style="color:black;">  
+                                <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                                <div class="dropdown-account-content">
+                                  <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                </div>
+                              </div>          
+
+     
+                            ';  
+                          }
+
                       } else {
                         echo '<a href="'.PROOT.'account/login" title="Account"><i class="demo-icon icon-user"></i>Login</a>';
                       } ?>

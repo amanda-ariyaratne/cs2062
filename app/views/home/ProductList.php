@@ -125,6 +125,21 @@
 
         <div id="col-main">
             <div class="cata-product cp-grid">
+
+              <style type="text/css">
+                .product-list-style{
+                  display:block; 
+                  border:solid; 
+                  border-width:1px; 
+                  width:200px; 
+                  display:inline-block; 
+                  margin:10px;
+                }.product-list-style:hover{
+                  color: #7f4956;
+                  box-shadow: 0 10px 15px #c1939e;
+                }
+              </style>
+
               <?php 
                
                 foreach($params[0]as $value){
@@ -132,14 +147,13 @@
 
                       $pid=$value->id;
 
-                      echo '<div class="product-grid-item mode-view-item">                   
+                      echo '<div class="product-grid-item mode-view-item product-list-style" style="margin:5px; width:32%;">                   
 
                           <div class="product-wrapper effect-overlay ">
                             <div class="product-head">
                               <div class="product-image">
-                                
                                   <a href="'.PROOT.'home/productView/'.$pid.'"> 
-                                    <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
+                                    <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
                                   </a>
                               </div>
                             </div>
