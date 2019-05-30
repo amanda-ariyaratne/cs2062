@@ -205,7 +205,7 @@
             <tbody>
             <tr>
                 <th style="text-align:center;">Name</th>
-                <th style="text-align:center;" width="8%">Tailor</th>
+                <th style="text-align:center;" width="8%">Color</th>
                 <th style="text-align:center;" width="8%">Quantity</th>
                 <th style="text-align:center;" width="15%">Unit Price</th>
                 <th style="text-align:center;" width="20%">Price</th>
@@ -220,9 +220,8 @@
 
                 ?>
                 <tr>
-                    <td><?php echo '<img style="width:60px;height:70px;" src="'.PROOT.'assets/images/'.$item["image"].'"  >';?><?php echo $item["name"]; ?>
-                        <?php echo '<br><br><div style="text-align:center"><span style="height: 25px;width: 25px;background-color: '.$color.';border-radius: 50%;display: inline-block; margin: 2px" class="dot"></span>';?></td>
-                    <td><?php echo $item["vendor_name"]; ?></td>
+                    <td><?php echo '<img style="width:60px;height:70px;" src="'.PROOT.'assets/images/'.$item["image"].'"  >';?><?php echo $item["name"]; ?><br><br><label>Product by: </label><?php echo $item["vendor_name"]; ?></td>
+                    <td><?php echo '<div style="text-align:center"><span style="height: 25px;width: 25px;background-color: '.$color.';display: inline-block; margin: 2px" class="dot"></span>'; ?></td>
                     <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ".$item["price"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ". number_format($item_price,2); ?></td>

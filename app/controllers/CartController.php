@@ -37,7 +37,6 @@ class CartController extends Controller{
                         "color" => $_POST["color"],
                         "quantity" => $_POST["quantity"],
                     ];
-//                    dnd($fields);
 
                     $cart = new Cart();
                     $status = $cart->addItem($fields);

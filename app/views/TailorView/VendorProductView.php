@@ -197,15 +197,15 @@
                                 }
                                 if($params[0]->status=="0"){
                                     $pr_status = "Activate";
-                                    $colr = "#008000";
+                                    $colr = "#478fdd";
                                 }
 
-                                $approved = $params[0]->approve_status;
+                                $approved = $params[0]->permission;
 
 
                                                                                     if($approved==0){
                                                                                     echo '<span class="headname" style="display: inline-block"><button  class="btn btn-1" type="button" style="margin-bottom: 20px;margin-left: 100px; background-color: '.$colr.'" disabled>'.$pr_status.'</button></span><br>
-                                                                                            <p>Product not approved yet</p> ';
+                                                                                            <p>Product still not approved</p> ';
                                                                                     }
                                                                                     else {
                                                                                     echo '<span class="headname" style="display: inline-block"><button  class="btn btn-1" type="button" id="activate_id" style="margin-bottom: 20px;margin-left: 100px;background-color: '.$colr.'" >' . $pr_status . '</button></span>';
@@ -253,7 +253,7 @@
                                                                                                 }
                                                                                             });
                                                                                             activateButton.innerHTML = "Activate";
-                                                                                            activateButton.style.backgroundColor = "#008000"
+                                                                                            activateButton.style.backgroundColor = "#478fdd"
                                                                                         }
                                                                                     }
                                                                                     </script>
@@ -505,6 +505,11 @@
                                     </div>
 
                                 </div>
+                        </div>
+                    </div>
+                </div>
+
+
 
 
 

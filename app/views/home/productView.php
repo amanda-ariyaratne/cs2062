@@ -385,7 +385,6 @@
                                 <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
                                 <?php echo'<input type="hidden" name="name" value="'.$params[0]->name.'">';?>
                                 <?php echo'<input type="hidden" name="vendor_id" value="'.$params['vendor_id'].'">';?>
-                                 <?php echo'<input type="hidden" name="vendor_name" value="'.$params[0]->vendor->first_name.'">';?>
 
 
 
@@ -445,11 +444,12 @@
 
                           <div>
                               <?php
+//                              dnd($params["status"]);
                               if($params["status"]!=null){
                               if($params["status"]==1){
                                   echo '<p>Added to cart</p>';
                               }
-                              elseif ($params["status"]==0){
+                              else{
                                   echo '<p>Products added to the cart should belong to a same tailor</p>';
                               }
                               }
