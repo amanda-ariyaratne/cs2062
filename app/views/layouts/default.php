@@ -200,7 +200,7 @@
           color: #c1939e;
         }
 
-    input[type="text"], input[type="password"] {
+    input[type="text"], input[type="password"], input[type="search"] {
       padding-left: 7px;
       padding-right: 7px;
       padding-top: 5px;
