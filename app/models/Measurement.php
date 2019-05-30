@@ -57,8 +57,13 @@
 			}
 		}
 
-		public function deleteMeasurement($m_id){
-			$this->delete($m_id);
+		public function deleteAllMeasurement($pr_id){
+			$condition=['conditions'=>'product_id = ?', 'bind'=>[$pr_id]];
+			$measurements=$this->find($condition);
+			$ids=[];
+			foreach ($measurements as $measurement){
+				$this->delete($measurement->id);
+			}
 		}
 
 		public function addMesurement($p_id,$arry){
