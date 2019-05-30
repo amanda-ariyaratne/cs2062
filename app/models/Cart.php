@@ -48,7 +48,9 @@
                     return false;
                 }
             }
+
             else{
+
                 $this->insert($fields);
                 return true;
             }

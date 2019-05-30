@@ -1099,7 +1099,7 @@
                                 <i class="demo-icon icon-phone"></i>
 
                               
-                              <span>(+800) 123 456 7890</span>
+                              <span>(+94) 714 678 7890</span>
                             </li>
                           
                           
@@ -1109,7 +1109,7 @@
                               <i class="demo-icon icon-mail"></i>
 
                               
-                              <span>example@example.com</span>
+                              <span>tailormatemail@gmail.com</span>
                             </li>
                           
                           
@@ -1118,7 +1118,7 @@
                                 <i class="demo-icon icon-location"></i>
 
                               
-                              <span>102580 Santa Monica BLVD Los Angeles</span>
+                              <span>Bandaranayake Mawatha, Moratuwa 10400</span>
                             </li>
                           
                         </ul>
@@ -1190,7 +1190,7 @@
                           
                           <a href="">
                             <span class="text-1">Online Consultation</span>
-                            <span class="text-2">Call: + 0123 456 789</span>
+                            <span class="text-2">Call: +94 714 678 7890</span>
                           </a>
                         </div>
                         
