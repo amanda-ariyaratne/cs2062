@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle(end($params).'-TailorMate' )?>
+<?= $this->setSiteTitle(($params[0][0]->vendorName).'-TailorMate' )?>
 
 <?= $this->start('head'); ?>
 
@@ -15,6 +15,8 @@
   <div id="main-content"> 
     <div class="main-content">
       <div id="shopify-section-collection-template" class="shopify-section">
+
+
 
         <div class="wrap-breadcrumb bw-color">
           <div id="breadcrumb" class="breadcrumb-holder container">
@@ -70,13 +72,13 @@
 
               
                 <a href="/collections/birthday-gifts">
-                  <img class="lazyload" src = "//cdn.shopify.com/s/files/1/0102/1155/7435/files/sb_banner_270x.jpg?v=1539569056" alt="" /> 
+                  <img class="lazyload" src = "<?=PROOT?>assets/images/vendorpage-img-1.jpg" alt="" /> 
                 </a>
             
               
               
               <div class="block-text">
-                <span class="text" style="color: #ffffff;">Wooden kitchen tools</span>
+                <span class="text" style="color: #ffffff;">Tailored Products</span>
                 <a class="btn btn-1" href="/collections/birthday-gifts">shop now</a>
               </div>
           </div>
