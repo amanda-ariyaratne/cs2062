@@ -1,6 +1,5 @@
 <?php 
 	class Image extends Model{
-		//  $product_id, $path, $table_name,$db;
 
 		public function __construct($table){
 			parent::__construct($table);

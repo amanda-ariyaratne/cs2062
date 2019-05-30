@@ -7,18 +7,17 @@
 	<link rel='stylesheet'  href='<?=PROOT?>assets/css/grid.css' type='text/css' media='all' />
 	<link rel='stylesheet' id='editor-buttons-css'  href='http://handy.themes.zone/wp-includes/css/editor.min.css?ver=4.9.4' type='text/css' media='all' />
 	<link rel="stylesheet" type="text/css" href="<?=PROOT?>assets/css/datetimepicker.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 
 
-	<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+<!-- if using RTL (Right-To-Left) orientation, load the RTL CSS file after fileinput.css by uncommenting below -->
+<!-- link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput-rtl.min.css" media="all" rel="stylesheet" type="text/css" /-->
+<!-- the font awesome icon library if using with `fas` theme (or Bootstrap 4.x). Note that default icons used in the plugin are glyphicons that are bundled only with Bootstrap 3.x. -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/themes/fas/theme.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/locales/LANG.js"></script> -->
+
+
 
 <?= $this->end(); ?>
 
@@ -61,7 +60,7 @@
 	<div class="wcv-grid">
 
 
-		<form method="post" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();">
+		<form method="post" id="post-custom-request-form" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();">
 			<?php 
 				if(isset($_SESSION['alert']))
 					{echo $_SESSION['alert']; $_SESSION['alert'] = '';
@@ -86,7 +85,7 @@
 						</label>
 
 						<div class="control" >
-							<input type="text" class="form-control" name="design-name" value="mad" id="design-name"  style="width: 616px;" placeholder="design name" data-rules="required"/> 
+							<input type="text" class="form-control" name="design-name" value="" id="design-name"  style="width: 616px;" placeholder="design name" data-rules="required"/> 
 							<small id="error-msg-name"></small>
 						</div>
 
@@ -121,7 +120,7 @@
 
 						<!-- Add an image -->
 						
-						<div class="control-group col-lg-5">
+						<div class="control-group col-lg-9">
 							<label>Image</label>
 							<small>*Add 1-3 images</small>		
 							<br>
@@ -130,7 +129,8 @@
 							<small id="error-msg-images"></small>
 						</div>
 
-
+					</div>
+					<div class="row">
 						
 						<!-- Add a color -->
 
@@ -159,7 +159,7 @@
 
 					<div class="control-group">
 						<div class="row">
-							<label class="col-md-4">Measurements</label>
+							<label class="col-md-4">Measurements (in Inches)</label>
 							<div class="col-md-1"></div>
 							<i class="fa fa-plus col-md-4" style="color: #000;padding-left: 30px;" aria-hidden="true"></i>
 							<div class="col-md-3"></div>
@@ -175,7 +175,7 @@
 
 							<div class="col-lg-1"></div>
 
-							<input type='text' id="measurement-1" name="measurement[]" value="10" class="form-control col-lg-2" placeholder="$xxx" data-rules="required"/>
+							<input type='text' id="measurement-1" name="measurement[]" value="" class="form-control col-lg-2" placeholder="" data-rules="required"/>
 
 							<button type="button" class="close col-lg-1 btn-id" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
@@ -233,7 +233,7 @@
 				</div>
 
 				<div class="control-wrapper last">
-	                <button class="btn btn-1"  type="submit">
+	                <button class="btn btn-1"  type="submit" id="submitForm">
 	                	Submit Product
 	            	</button>
 	            </div>
@@ -275,6 +275,74 @@
 
 
 			});
+
+
+
+			        jQuery("#design-image").fileinput({
+			          theme: "fas",
+			          overwriteInitial: true,
+			          dropZoneEnabled: true,
+			          dropZoneTitle: '<span style="font-size:16px;"><b>Drop files here or click to upload.</b></span>',
+			          dropZoneClickTitle: '<br><span style="font-size:14px;">(Maximum file size is 30MB and 3 files are allowed</span>)',
+			          uploadUrl: "<?=PROOT?>CustomRequestController/ProductRequest",
+			          uploadAsync : false,
+			          showUpload: false,
+			          showBrowse: false,
+			          showPreview: true,
+			          purifyHtml: true,
+			          showCaption: false,
+			          showUploadedThumbs: true,
+			          browseOnZoneClick: true,
+			          minFileCount: 1,
+			          maxFileCount: 3,
+			          previewFileIcon: '<i class="fas fa-file"></i>',
+			          removeIcon: '<i class="fas fa-file"></i>',
+			          allowedFileTypes: ['image'],          
+			          allowedFileExtensions: ["jpg", "gif", "png", "jpeg", "jfif"],
+			          maxFileSize: 30000,
+			          elErrorContainer : false,
+			          fileActionSettings: {
+			            showUpload: false
+			          },
+			          uploadExtraData: function(event, files) {
+			            tinymce.triggerSave();
+
+			            var poData = new FormData(document.getElementById('post-custom-request-form'));
+
+			            var test = {};
+			            for (var pair of poData.entries()) {
+
+			              test[pair[0]] = pair[1]
+			            }
+			            console.log(test);
+			            return test;
+			          }
+
+			        }).on('filebatchuploadsuccess', function(event, data, previewId, index) {
+			          $("#submitForm").prop('disabled', true);
+			          toastr.success("Your Ad was successfully submitted");
+			          location.reload();
+			        }).on('filebatchuploaderror', function(event, data, msg) {
+			        	alert(msg);
+			          $("#submitFormBtn").prop("disabled", false)
+			          $("#saveFormBtn").prop('disabled', false);
+			          $(".submit-btn-loader").css('display', 'none');
+
+			          if(data.jqXHR.responseJSON.hasOwnProperty("errors")){
+			            var errors = data.jqXHR.responseJSON.errors
+
+			            $.each(errors, function(index, value){
+
+			              toastr.error(value);
+			            });
+
+			          }else{
+			            toastr.error("!! Opps, Something went wrong. Please try again.");
+
+			          }
+			        }).on('filesorted', function(e, params) {
+			          console.log('File sorted params', params);
+			        });
 
 
 		});
@@ -362,5 +430,21 @@
 	toastr.info('Are you the 6 fingered man?')
 
 </script>
-
+<!-- piexif.min.js is needed for auto orienting image files OR when restoring exif data in resized images and when you
+    wish to resize images before upload. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
+<!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview. 
+    This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
+<!-- purify.min.js is only needed if you wish to purify HTML content in your preview for 
+    HTML files. This must be loaded before fileinput.min.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+<!-- popper.min.js below is needed if you use bootstrap 4.x (for popover and tooltips). You can also use the bootstrap js 
+   3.3.x versions without popper.min.js. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+    dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<!-- the main fileinput plugin file -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
 <?= $this->end(); ?>

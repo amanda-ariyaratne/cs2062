@@ -23,7 +23,7 @@
   
   <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/plugin/jquery.plugin.css" rel="stylesheet" type="text/css" media="all" />
-  <link href="<?=PROOT?>assets/css/jquery.min.css" rel="stylesheet" type="text/css" media="all" />
+  <!--<link href="<?=PROOT?>assets/css/jquery.min.css" rel="stylesheet" type="text/css" media="all" />-->
   <script type="text/javascript" src="<?=PROOT?>assets/js/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="<?=PROOT?>assets/js/bootstrap.min.js"></script>
   <style type="text/css">
