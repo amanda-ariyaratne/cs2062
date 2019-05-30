@@ -85,7 +85,7 @@
             foreach ($details as $row){
                 //get Image details
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
                 $row->images = $images;     
             }
 

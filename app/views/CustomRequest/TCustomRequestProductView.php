@@ -220,13 +220,13 @@
 
                         <div class="swatch color clearfix" data-option-index="1">
                           <div class="header">Postal Code</div>
-                          <label style="padding-top: 6px;"><?=$params['location']?></label>
+                          <div style="padding-top: 6px;"><?=$params['location']?></div>
                         </div>
                         <br>
 
                         <div class="swatch color clearfix" data-option-index="1">
                           <div class="header">Due Date</div>
-                          <label style="padding-top: 6px;"><?=$params['due_date']?></label>
+                          <div style="padding-top: 6px;"><?=$params['due_date']?></div>
                         </div>
                         <br>
 
