@@ -161,7 +161,7 @@ class CartController extends Controller{
         $color = new Color();
         $params['colors'] = $color->getColorByproductID($p_id);
         //load product measurements
-        $measurement = new Measurement();
+        $measurement = new Measurement('product_measurement');
         $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
         return $params;

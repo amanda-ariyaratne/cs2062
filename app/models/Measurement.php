@@ -9,7 +9,7 @@
 		public function getMeasurementByID($pr_id){
 			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$pr_id]));
 			$measurements = array();
-
+			
 			if(count($measurement_details)!=null){
 				foreach ($measurement_details as $measurement) {
 					array_push($measurements, $measurement->name);

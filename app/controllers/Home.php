@@ -137,7 +137,7 @@
 			$product = new Product('product');
 			$product_obj = $product->findById($p_id);
 
-
+			
 
 			//load sub categories table and instert sub category name into product
 			$sub_category_obj = new SubCategory();
@@ -149,7 +149,7 @@
 			$category_details = $category_obj->findByID($sub_category_details->main_id);
 			$product_obj->main_category_name = $category_details->name;
 			array_push($params,$product_obj);
-
+			
 			//add product images array - inster to params
 			$img = new Image('tailor_product_image');
 			array_push($params,$img->getImage($product_obj));
@@ -219,7 +219,7 @@
 
 			$params['vendor_id'] = $product_obj->vendor_id;
 
-			//dnd($params);
+			//dnd($params['measurements']);
 
 			$this->view->render('home/productView',$params);
 		}
