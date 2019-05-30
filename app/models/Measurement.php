@@ -10,7 +10,7 @@
 
 		public function getMeasurementByID($pr_id){
 			$measurement_details =  $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$pr_id]));
-<<<<<<< HEAD
+
 			$measurements = array();
 			
 			if(count($measurement_details)!=null){
@@ -20,17 +20,7 @@
 			}
 			return $measurements;
 		}
-=======
-            $measurements = array();
 
-            if (count($measurement_details) != null) {
-                foreach ($measurement_details as $measurement) {
-                    array_push($measurements, $measurement->name);
-                }
-            }
-            return $measurements;
-        }
->>>>>>> 88307b278e28f576928206e625475c2a6cb4c5fc
 
         public function getMeasurementForTView($p_id)
         {
