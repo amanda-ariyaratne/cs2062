@@ -47,7 +47,7 @@
         <div id="col-main" class="page-login">
           <div class="row">
             <div class="col-sm-6 col-xs-12">
-              <div class="form-wrapper">
+              <div class="form-wrapper" style="">
                 <div id="customer-login" class="content">
                   <h2 class="heading">Login</h2>
 
@@ -108,7 +108,23 @@
 
               </div>
 
-            </div>
+
+
+            </div>'
+
+              <div class="" style="float: right; width: 550px;">
+                <style type="text/css">
+                  .fa-user-circle{
+                    font-size: 200px;
+                    padding: 50px 180px;
+                    background: -webkit-linear-gradient(right, white, #7f4956);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                  }
+                </style>
+
+                <i class="far fa-user-circle"></i>
+              </div>
 
 <!--       <div class="col-sm-6 col-xs-12 login-or">
             <div class="form-wrapper">

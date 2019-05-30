@@ -113,7 +113,7 @@
 	        array_push($params, $product_obj);
 	        //add product images array - inster to params
 	        $img = new Image('tailor_product_image');
-	        array_push($params,$img->getImage($product_obj));
+	        array_push($params,$img->getImage($p_id));
 	        //load review table
 	        $review_object = new Review();
 	        $review_details = $review_object->findByProductID($p_id);
@@ -159,7 +159,7 @@
 	        $color = new Color();
 	        $params['colors'] = $color->getColorByproductID($p_id);
 	        //load product measurements
-	        $measurement = new Measurement();
+	        $measurement = new Measurement('product_measurement');
 	        $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 	        return $params;

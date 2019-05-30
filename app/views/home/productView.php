@@ -82,7 +82,7 @@
             
             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
               <a itemprop="url" href="/">
-                <span itemprop="title" class="d-none">Handy Store</span>Home
+                <span itemprop="title" class="d-none">Tailor Mate</span>Home
               </a>
             </li>
 
@@ -161,7 +161,7 @@
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
 
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
 
                                     </div>
                                     <div class="slick-item slick-zoom">
@@ -259,24 +259,6 @@
 
                           <div class="group-cw clearfix">
                             
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                             <form method="post" action="<?=PROOT?>CartController/addToCart" id="product_form"  class="product-form product-action variants" >
 <!--                               <input type="hidden" name="form_type" value="product" />
@@ -887,14 +869,14 @@
                                   <div class="product-image">
 
                                     <div class="featured-img">
-                                      <a href="/">
+                                      <a href="'.PROOT.'home/productView/'.$product['id'].'">
                                         <img class="featured-image front" style="height:200px;" src="'.PROOT.'assets/images/products/'.$product['path'].'" alt="'.$product['name'].'"></img>
                                       </a>
                                     </div>
 
                                     <div class="product-button">
                                       <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-1" data-toggle="modal" title="Quick View">
-                                        <i class="demo-icon icon-search"></i>
+                                        <a href="'.PROOT.'home/productView/'.$product['id'].'"><i class="demo-icon icon-search"></i></a>
                                         " quick view"
                                       </div>
                                     </div>
@@ -910,7 +892,7 @@
 
                                     <div class="product-group-vendor-name">
                                       <h5 class="product-name">
-                                        <a href="/">'.$product['name'].'</a>
+                                        <a href="'.PROOT.'home/productView/'.$product['id'].'">'.$product['name'].'</a>
                                       </h5>
                                     </div>
 
@@ -922,15 +904,6 @@
                                       </div>
 
                                       <div class="product-add-cart">
-<!--                                         <form action="/cart/add" method="post" enctype="multipart/form-data">
-                                          <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
-                                            <span class="demo-icon icon-basket"></span>
-                                          </a>
-
-                                          <select class="d-none" name="id">
-                                            <option value="14880160612411"> Default Title</option>
-                                          </select>
-                                        </form> -->
                                       </div>
                                     </div>
 
