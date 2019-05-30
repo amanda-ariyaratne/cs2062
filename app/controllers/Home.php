@@ -20,7 +20,7 @@
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
-			
+
 			$details = $tailorshop->getShops((6*$no-6),6);
 
 			foreach ($details as $store) {
@@ -62,7 +62,7 @@
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
@@ -373,12 +373,16 @@
         $product_details = $product->findById($pr_id);
         $vendor_id = $product_details->vendor_id;
         $product->removeProduct($pr_id);
-        $this->VendorPageAction($vendor_id);
+        $measurement = new Measurement("product_measurement");
+        $measurement->deleteMeasurements($pr_id);
+        $color = new Color();
+        $color->deleteColor($pr_id);
+
+//        $this->VendorPageAction($vendor_id);
     }
 
     public function changeActiveStatusAction(){
         $data=json_decode($_POST['new']);
-//            dnd($data);
         $pr_id = $data[0];
         $status = $data[1];
         $product = new Product();
