@@ -4,6 +4,8 @@
 <?= $this->start('head'); ?>
 
 <link href="<?=PROOT?>assets/css/productView.css" rel="stylesheet" type="text/css" media="all" />
+<link href="<?=PROOT?>assets/css/toggle.css" rel="stylesheet" type="text/css" media="all" />
+
 <style id="shopify-dynamic-checkout">
 	</style>
 
@@ -99,7 +101,9 @@
                 </div>
 
                 <div itemscope itemtype="http://schema.org/Product">
-                  <span itemprop="name" class="hide">'<?=$params['pr_name']?>'</span>
+                  <span itemprop="name" class="hide">
+                    <?=$params['pr_name']?>                    
+                  </span>
                   <div class="container">
                     <div class="row">
                       <div class="col-lg-9 col-md-12" style="width: 1100px">
@@ -149,19 +153,41 @@
                                   <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <div id="product-info" class="product-info">
                                       <div class="product-info-inner">
-                                      
+                                      <div class="row">
                                         
                                        <?php 
+                                       if ($params['active']=='1'){
+                                        $class='fa-toggle-on';
+                                       }
+                                       else{
+                                        $class='fa-toggle-off';
+                                       }
+
                                         echo '
 
-                                      <h1 itemprop="name" content="'.$params['pr_name'].'" class="page-heading">'.$params['pr_name'].'</h1>
+                                      <h1 itemprop="name" content="'.$params['pr_name'].'" class="page-heading col-lg-9">'.$params['pr_name'].'</h1>
 
-                                      <a href="<?=PROOT?>home/addProduct"><i class="fas fa-plus" title="add new product" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
+                                      <a class="col-lg-1" style="text-align:right;"><i class="fa '.$class.'"  title="Visibility to the TAILORS" style="color: #000; opacity: 0.5; font-size: 30px;"></i></a>
+
+                                      <a href="'.PROOT.'CustomRequestController/ProductRequestEdit/'.$params["id"].'" class="col-lg-1" style="text-align:right;"><i class="fas fa-edit" title="add new product" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
+
+                                      <a class="col-lg-1" style="text-align:right;"><i class="fa fa-trash" id="deleteBtn" title="Delete" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
+
+                                      
+
 
                                       ';
                                       ?>
 
-           
+                                      </div>
+                                      <!-- <label class="switch col-lg-1" title="make visible to TAILORS" style="text-align:right;">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                      </label> -->
+
+
+                                      <?php include (ROOT.DS.'app'.DS.'models'.DS.'delete_modal.php');?>
+                                      
                                       
                                       
                                         <div id="purchase-1588808155195" class="product-price">
@@ -199,13 +225,13 @@
 
                         <div class="swatch color clearfix" data-option-index="1">
                           <div class="header">Postal Code</div>
-                          <label style="padding-top: 6px;"><?=$params['location']?></label>
+                          <div style="padding-top: 6px;"><?=$params['location']?></div>
                         </div>
                         <br>
 
                         <div class="swatch color clearfix" data-option-index="1">
                           <div class="header">Due Date</div>
-                          <label style="padding-top: 6px;"><?=$params['due_date']?></label>
+                          <div style="padding-top: 6px;"><?=$params['due_date']?></div>
                         </div>
                         <br>
 
@@ -378,6 +404,30 @@
         });
       }
 
+    });
+
+    $('.fa-toggle-off').click(function(){      
+      $.ajax({
+        url:"<?=PROOT?>/CustomRequestController/Activation",
+        method:"POST",
+        data:{'data' : '1', 'product': <?=$params['id']?>}
+      });
+      $(this).toggleClass('fa-toggle-on');
+      $(this).toggleClass('fa-toggle-off');
+      
+    });
+
+    $('.fa-toggle-on').click(function(){      
+      $.ajax({
+        url:"<?=PROOT?>/CustomRequestController/Activation",
+        method:"POST",
+        data:{'data' : '0' , 'product': <?=$params['id']?>}
+      });
+      $(this).toggleClass('fa-toggle-off');
+      $(this).toggleClass('fa-toggle-on');
+      
+
+      console.log($(this));
     });
     
     // function approval(state){

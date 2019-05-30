@@ -148,7 +148,7 @@
       
    
 <?php 
-
+// dnd($params[0]);
   foreach ($params[0] as $product){
     // $product=$product[0];
 
@@ -163,7 +163,7 @@ echo '
 
         <div class="featured-img lazyload">
           <a href="'.PROOT.'CustomRequestController/requestedProductViewCustomer/'.$product->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0]->path.'">            
+            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$product->images[0]->path.'">            
             
         <span class="product-label">
     

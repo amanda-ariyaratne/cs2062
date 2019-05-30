@@ -27,7 +27,9 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
-				    	
+				    	$if ($role == 2) {
+				    		$role == 4;
+				    	}
 				    	$fields = [
 				    		"first_name" => $first_name,
 				    		"last_name" => $last_name,
@@ -518,6 +520,9 @@
 				}
 
 				$store->addTailorShop($fields);
+				$user = new User($user_id);
+				$params = ['role'=>2];
+				$user->updateRole($params);
 				
 				if (currentUser()) {
 					Router::redirect('VendorController/vendorPage/'.currentUser()->id);
