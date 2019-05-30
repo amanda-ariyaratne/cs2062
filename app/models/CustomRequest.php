@@ -170,8 +170,9 @@
 
     		$images=($_FILES["fileUpload"]['name']);
 
-            $image=new Image('custom_design_image'); 
-            $image->removeOld($pr_id);
+            $image=new Image('custom_design_image');
+            //dnd($images); 
+            //$image->removeOld($pr_id);
     		for ($x=0; $x<sizeof($images); $x++){
     			$im_id=count($image->find())+1;
 

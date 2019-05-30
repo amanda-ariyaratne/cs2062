@@ -18,45 +18,55 @@
 
 				//check logged in
 				if ($user!=null) {
-					$p_id = $_POST["product_id"];
 
-					//check if the user have ordered items from vendors
-					$order = new CustomerOrder();
-					if($order->check_order_for_user_id($user->id)){
+		            if (currentUser()->role == 3) {
+						$p_id = $_POST["product_id"];
 
-						//create objects of review and rate
-						$review_obj = new Review();
-						$rate_obj = new Rate();
+						//check if the user have ordered items from vendors
+						$order = new CustomerOrder();
+						if($order->check_order_for_user_id($user->id)){
 
-						//add reviews to review table
-						$fields = [
-							"content" => $_POST["body"],
-							"product_id" => $_POST["product_id"],
-							"yes_no" => $_POST["yes-no"],
-							"user_id" => $user->id
-						];
-						$review_obj->insert($fields);
+							//create objects of review and rate
+							$review_obj = new Review();
+							$rate_obj = new Rate();
 
-						//add rating to rates table
-						$fields_ratings = [
-							"rate" => $_POST["star"],
-							"product_id" => $_POST["product_id"],
-							"user_id" => $user->id
-						];
-						$rate_obj->insert($fields_ratings);
+							//add reviews to review table
+							$fields = [
+								"content" => $_POST["body"],
+								"product_id" => $_POST["product_id"],
+								"yes_no" => $_POST["yes-no"],
+								"user_id" => $user->id
+							];
+							$review_obj->insert($fields);
+
+							//add rating to rates table
+							$fields_ratings = [
+								"rate" => $_POST["star"],
+								"product_id" => $_POST["product_id"],
+								"user_id" => $user->id
+							];
+							$rate_obj->insert($fields_ratings);
+							
+							
+							Router::redirect('home/productView/'.$p_id);
+						}
+						else{
+							$validation = new Validate();
+							$validation->displayErrorMsgs("You cannot review products. You must have a ordering history!");
+
+		                    $params = $this->getProductViewParams($p_id);
+		                    $this->view->displayErrors = $validation->displayErrors();
+		                    $this->view->render('home/productView', $params);
+							dnd("no orders");
+						}
+
+
+		            } else {
+		                Router::redirect('home/pageNotFound');
+		            }
+
 						
-						
-						Router::redirect('home/productView/'.$p_id);
-					}
-					else{
-						$validation = new Validate();
-						$validation->displayErrorMsgs("You cannot review products. You must have a ordering history!");
 
-	                    $params = $this->getProductViewParams($p_id);
-	                    $this->view->displayErrors = $validation->displayErrors();
-	                    $this->view->render('home/productView', $params);
-						dnd("no orders");
-					}
 				}
 				else{
 					Router::redirect('account/login');
