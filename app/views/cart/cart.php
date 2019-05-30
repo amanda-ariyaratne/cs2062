@@ -220,7 +220,7 @@
 
                 ?>
                 <tr>
-                    <td><?php echo '<img style="width:60px;height:70px;" src="'.PROOT.'assets/images/'.$item["image"].'"  >';?><?php echo $item["name"]; ?><br><br><label>Product by: </label><?php echo $item["vendor_name"]; ?></td>
+                    <td><?php echo '<img style="width:60px;height:70px;" src="'.PROOT.'assets/images/products/'.$item["image"].'"  >';?><?php echo $item["name"]; ?><br><br><label>Product by: </label><?php echo $item["vendor_name"]; ?></td>
                     <td><?php echo '<div style="text-align:center"><span style="height: 25px;width: 25px;background-color: '.$color.';display: inline-block; margin: 2px" class="dot"></span>'; ?></td>
                     <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ".$item["price"]; ?></td>

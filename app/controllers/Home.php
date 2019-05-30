@@ -152,7 +152,7 @@
 			
 			//add product images array - inster to params
 			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj));
+			array_push($params,$img->getImage($p_id));
 			
 			//load review table
 			$review_object = new Review();

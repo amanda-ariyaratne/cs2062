@@ -6,18 +6,40 @@
 		public function __construct($controller,$action){
 			parent::__construct($controller,$action);
 			$this->customRequest = new CustomRequest();
+
+
+		}
+
+		public function DeleteCustomRequestAction(){
+			if(currentUser()->role==3){
+				$pr_id=$_POST['product_id'];
+				$this->customRequest->deleteCustomRequest($pr_id);
+
+				$customer_id=currentUser()->id;
+
+				Router::redirect('CustomerController/CustomerPage/'.$customer_id);
+			}
+		}
+
+		public function ActivationAction(){
+			if(currentUser()->role==3){
+				$data=$_POST['data'];
+				$pr_id=$_POST['product'];
+				$this->customRequest->changeActivationMode($data, $pr_id);
+			}
 		}
 
 		public function CustomerRequestViewAction($a){
-			
-			$details= $this->customRequest->getAllCustomRequests($a);
-			$param=$details[0];
-			$noOfProducts =$details[1];	
+			if(currentUser()->role==2){
+				$details= $this->customRequest->getAllCustomRequests($a);
+				$param=$details[0];
+				$noOfProducts =$details[1];	
 
 
-			$params=array($param,$a,$noOfProducts,'Custom Requests');
-
-			$this->view->render('CustomRequest/CustomerRequests', $params);
+				$params=array($param,$a,$noOfProducts,'Custom Requests');
+				$this->view->render('CustomRequest/CustomerRequests', $params);
+		
+			}
 		}
 
 		public function ProductRequestAction(){
@@ -39,7 +61,7 @@
 					  	</div>
 					</div>';	
 
-					Router::redirect('CustomRequestController/ProductRequest',$params);
+					Router::redirect('CustomRequestController/ProductRequest');
 				}
 
 
@@ -102,7 +124,7 @@
 					  	</div>
 					</div>';	
 
-					Router::redirect("CustomRequestController/ProductRequestEdit/".$pr_id,$params);
+					Router::redirect("CustomRequestController/ProductRequestEdit/".$pr_id);
 				}				
 
 				// dnd($params['details']['measurements'][1]->measurement_type);
@@ -149,10 +171,10 @@
 			$params = array();
 
 			//load customer request table and get details
-			$customer_request = new CustomRequest();
-			$request_obj = $customer_request->findByID($r_id);
-
+			
+			$request_obj = $this->customRequest->findByID($r_id);			
 			$params = [
+				'active'=>$request_obj->active,
 				'id' => $request_obj->id,
 				'customer_id' => $request_obj->customer_id,
 				'pr_name' => $request_obj->pr_name,
@@ -209,6 +231,7 @@
 			$request_obj = $customer_request->findByID($r_id);
 
 			$params = [
+				'active'=>$request_obj->active,
 				'id' => $request_obj->id,
 				'customer_id' => $request_obj->customer_id,
 				'pr_name' => $request_obj->pr_name,

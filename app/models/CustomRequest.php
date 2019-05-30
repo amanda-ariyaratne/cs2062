@@ -1,5 +1,4 @@
 <?php 
-
 	class CustomRequest extends Model implements Observable{
 
 		private $observers=array();
@@ -13,11 +12,27 @@
 			$this->user=$userObject->currentLoggedInUser()->id;
 		}
 
+        public function changeActivationMode($data, $pr_id){
+            $field=['active'=>$data];
+            $this->update($pr_id,$field);
+        }
+
+        public function deleteCustomRequest($pr_id){
+            //deletes all images of the product
+            $image=new Image('custom_design_image');
+            $image->deleteAllImages($pr_id);
+
+            //delete all measuremenets
+            $measurement=new Measurement('custom_request_measurement');
+            $measurement->deleteAllMeasurement($pr_id);
+            $this->delete($pr_id);
+        }
+
 		public function getAllCustomRequests($a){			
 			$a=6*($a-1);
 
 			$limit=['limit'=>$a.',6'];
-			$conditions = ['conditions'=>'status = ?', 'bind' => ['0']];
+			$conditions = ['conditions'=>['status = ?', 'active=?'], 'bind' => ['0','1']];
 
 			$allConditions=array_merge($conditions, $limit);
 

@@ -11,8 +11,6 @@
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 
 
-
-
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
@@ -168,8 +166,8 @@
 						     </div>
 
 							<div class="col-lg-1"></div>
-
-							<input type='text' id="measurement-1" name="measurement[]" value="" class="form-control col-lg-2" placeholder="" data-rules="required"/>
+							
+							<input type='number' name="measurement[]" value="10" class="form-control col-lg-2" placeholder="$xxx" data-rules="required" style="width:181px;padding-left:10px;border-right-width:10px;"/>
 
 							<button type="button" class="close col-lg-1 btn-id" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
@@ -192,10 +190,10 @@
 					<div class="control-group" style="padding-left: 14px;">
 						<label>Price Range</label>
 						<div class="row control">
-							<input type='text' id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" value="10"/>
+							<input type='number' min="0" id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" value="10" style="width: 181px;padding-left: 10px;border-right-width: 10px;"/>
 
 							<div class="col-lg-1"></div>
-							<input type='text' id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" value="100"/>	
+							<input type='number' min="0" id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" value="100" style="width: 181px;padding-left: 10px;border-right-width: 10px;"/>	
 							<div class="col-lg-7"></div>
 						</div>								
 					</div>
@@ -207,18 +205,18 @@
 
 						<div class="control-group">
 							<label >Postal Code</label>	
-							<input type='text' value="14000" placeholder="ex: 15000" style="width: 181px;" id="postal-code" class="form-control" name="postal-code"  />
+							<input type='number' min='10000' max='40000' placeholder="ex: 15000" style="width: 181px;padding-left: 10px;border-right-width: 10px;" id="postal-code" class="form-control" name="postal-code"  />
 							<small id="error-msg-location"></small>
 						</div>
 						<br/>
 						
-						
+						<?php $dateCurrent=date("m/d/Y");?>
 
 						<!-- Add due Date -->
 						
 						<div class="control-group">
-							<label >Due date</label>	
-							<input type='date'  id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" class="form-control" name="due-date"  />
+							<label >Need before</label>	
+							<input type='date' id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" value="<?=$dateCurrent?>" class="form-control" name="due-date"  />
 							<small id="error-msg-due-date"></small>
 						</div>
 					             
@@ -243,6 +241,8 @@
 	<script type="text/javascript">
 
 		$(document).ready(function(){
+
+			console.log(document.getElementById("due-date").value);
 			// console.log('ready');
 			var id=1;
 			var cl=2;
@@ -255,7 +255,7 @@
 				
 
 				// console.log($('#id-'+id));
-				var divTag='<div class="form-group col-lg-2"><select class="form-control"  name="type[]" style="width: 150px;height: 38.5px;"><?=$options?></select></div><div class="col-lg-1"></div><input type="text" name="measurement[]" class="form-control col-lg-2" placeholder="$xxx" data-rules="required"/><button type="button" class="close col-lg-1 btn-id" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-lg-6"></div>';
+				var divTag='<div class="form-group col-lg-2"><select class="form-control"  name="type[]" style="width: 150px;height: 38.5px;"><?=$options?></select></div><div class="col-lg-1"></div><input type="number" min="0" name="measurement[]" class="form-control col-lg-2" style="width:181px;padding-left:10px;border-right-width:10px;" placeholder="$xxx" data-rules="required"/><button type="button" class="close col-lg-1 btn-id" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-lg-6"></div>';
 
 				$('#id-'+id).html(divTag);
 				id++;
@@ -354,43 +354,58 @@
 
 		function validateData(){
 
+
 			document.getElementById("error-msg-name").innerHTML="";
 			document.getElementById("error-msg-description").innerHTML="";
-			document.getElementById("error-msg-images").innerHTML="";
+			document.getElementById("error-msg-prices").innerHTML="";
 			document.getElementById("error-msg-location").innerHTML="";
-			document.getElementById("error-msg-date").innerHTML="";
+			document.getElementById("error-msg-due-date").innerHTML="";
+			// document.getElementById("error-msg-measurements").innerHTML="";
 
-			var date=document.getElementById("due-date").value;
-			var postalCode=document.getElementById("postal-code").value;
 			var name=document.getElementById("design-name").value;
 			var description=document.getElementById("design-description").value;
-			var images=document.getElementById("design-image").files;
-			var color=document.getElementById("design-color");
+			var min_price=document.getElementById("min-price").value;
+			var max_price=document.getElementById("min-price").value;
+			var postalCode=document.getElementById("postal-code").value;
+			// var measurement=document.getElementById("measurement").value;
+			var date=document.getElementById("due-date").value;
+			// console.log(date=="");
 			var error;
-
-			//window.alert(color);
 		
 
 			if (name==""){
+				alert('dsds');
 				error=document.getElementById("error-msg-name");
 				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
 				return false;
 			}
 
-			else if (images.length<0 || images.length>3){
-				error=document.getElementById("error-msg-images");
-				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add valid number of images!</small>";
+			else if (description==""){
+				error=document.getElementById("error-msg-description");
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add some description about the request!</small>";
 				return false;
 			}
+
+			else if(min_price=="" || max_price==""){
+				error=document.getElementById("error-msg-prices");
+				error.innerHTML="value required!";
+				return false;
+			}
+
+			else if(min_price>max_price){
+				error=document.getElementById("error-msg-prices");
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Enter a valid value for prices!</small>";
+				return false;
+			}	
 
 			else if (postalCode==""){
 				error=document.getElementById("error-msg-location");
-				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Invalid postalCode!</small>";
+				error.innerHTML="<small style=\"font-color:red; font-size:12px;\"> Add a value!</small>";
 				return false;
-			}
+			}	
 
 			else if (date==""){
-				error=document.getElementById("error-msg-date");
+				error=document.getElementById("error-msg-due-date");
 				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Date is required!</small>";
 				return false;
 			} 

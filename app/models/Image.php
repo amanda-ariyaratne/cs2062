@@ -17,8 +17,26 @@
 
 		}
 
-		public function removeOld($pr_id){
+		public function getAllImageId($pr_id){
+			$condition=['conditions'=>'product_id = ?', 'bind'=>[$pr_id]];
+			$images=$this->find($condition);
+			$ids=[];
+			foreach ($images as $image){
+				array_push($ids, $image->id);
+			}
+			return $ids;
 		}
+
+		//deletes all images related to pr_id
+		public function deleteAllImages($pr_id){
+			$ids=$this->getAllImageId($pr_id);
+			foreach ($ids as $id){
+				$this->delete($id);
+			}			
+		}
+
+		// public function removeOld($pr_id){
+		// }
 
 		public function updateImage($pr_id,$image_path,$ind,$folder){
     		$imageTable=[
@@ -42,11 +60,12 @@
 		}
 
 
-		public function removeImage(){}
+		// public function removeImage(){}
 
 		// get details of a particular image\\
 
 		public function getImage($pr_id){
+
 			$condition=array('conditions'=> 'product_id = ?','bind'=>[$pr_id]);
 			$image_details = $this->find($condition);
 			$images = array();
@@ -56,7 +75,7 @@
 					array_push($images,$imagePath->path);
 				}
 			}
-			return $images;
+			return $images;			
 		}
 
 		public function getImageObject($pr_id){
