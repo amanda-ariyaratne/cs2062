@@ -27,8 +27,8 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
-				    	$if ($role == 2) {
-				    		$role == 4;
+				    	if ($role == 2) {
+				    		$role = 4;
 				    	}
 				    	$fields = [
 				    		"first_name" => $first_name,
