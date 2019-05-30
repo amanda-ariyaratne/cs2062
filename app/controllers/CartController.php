@@ -50,7 +50,7 @@ class CartController extends Controller{
                     $measurement->addNewMeasurement($_POST["product_id"],$user->id,$measurements,$values);
 
                     $params = $this->getProductViewParams();
-                    $params["status"] = $status;
+                    $params["status"] = [$status];
                     $this->view->render('home/productView' , $params);
                     
 

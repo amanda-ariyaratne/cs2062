@@ -117,7 +117,7 @@
 	                $product=new Product('product');
 	                $product->addProduct();
 	                //redirect to some page\\
-	                Router::redirect('home/addProduct');
+	                Router::redirect('VendorController/VendorPage/'.currentUser()->id);
 	            }
 	            $this->view->render('home/addProduct', $params);
         	} else {
@@ -366,6 +366,8 @@
         }
 
         $this->view->render('home/EditProduct',$params);
+//        Router::redirect('VendorController/VendorProductView/'.$pr_id);
+
     }
 
     public function removeProductAction($pr_id){
@@ -378,7 +380,7 @@
         $color = new Color();
         $color->deleteColor($pr_id);
 
-//        $this->VendorPageAction($vendor_id);
+        Router::redirect('VendorController/VendorPage/'.$vendor_id);
     }
 
     public function changeActiveStatusAction(){

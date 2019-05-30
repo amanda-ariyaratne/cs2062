@@ -428,7 +428,7 @@
                               <?php
 //                              dnd($params["status"]);
                               if($params["status"]!=null){
-                              if($params["status"]==1){
+                              if($params["status"][0]==1){
                                   echo '<p>Added to cart</p>';
                               }
                               else{
