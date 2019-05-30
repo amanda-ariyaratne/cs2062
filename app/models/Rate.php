@@ -51,4 +51,8 @@
 			return $tailor_rating/$tailor_rating_count;
 		}
 
+		public function deleteByID($id){
+			$this->delete($id);
+		}
+
 	}

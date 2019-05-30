@@ -24,32 +24,32 @@
 
 
 		public function addColor($colors,$pr_id){
-		    for($i = 0;$i<count($colors);$i++){
-                $fields = [
-                    "color_code" => $colors[$i],
-                    "pr_id" => $pr_id
+            if($colors!=null) {
+                for ($i = 0; $i < count($colors); $i++) {
+                    $fields = [
+                        "color_code" => $colors[$i],
+                        "pr_id" => $pr_id
 //                "type" =>
-                ];
+                    ];
                     $this->insert($fields);
+                }
             }
 		}
 
         public function editColor($colors,$pr_id){
+            $this->deleteColor($pr_id);
+            $this->addColor($colors,$pr_id);
+        }
+
+        public function deleteColor($pr_id){
             $color_details =  $this->find(array('conditions' => 'pr_id = ?' , 'bind' => [$pr_id]));
             if(count($color_details)!=null){
                 foreach ($color_details as $color) {
-                     $id = $color->id;
+                    $id = $color->id;
                     $this->delete($id);
                 }
             }
-            for($i = 0;$i<count($colors);$i++){
-                $fields = [
-                    "color_code" => $colors[$i],
-                    "pr_id" => $pr_id
-//                "type" =>
-                ];
-                $this->insert($fields);
-            }
+
         }
 	}
 

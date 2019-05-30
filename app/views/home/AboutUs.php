@@ -21,7 +21,7 @@
                         Here is some of our work
                       </h2>
                       <div class="caption">
-                        I walked through the door with you, the air was cold,But something 'bout it felt like home somehow and I Left my scarf there at your sister's house,And you still got it in your drawer even now.
+                       	"The biggest asset of Tailor Mate is the people behind it, ranging from world class professionals to creating products"
                       </div>
                     </div>  
                   </div>
@@ -34,7 +34,7 @@
 					              		<i class="demo-icon icon-users"></i>
 					              	</div>
 					              	<h6>Loved by Customers</h6>
-					              	<p>Donec libero dolor, tincidunt id laoreet vitae,ullamcorper eu tortor. Maecenas pellentesque, dui vitae iaculis mattis, tortor nisi faucibus magna, vitae ultrices lacus purus vitae metus.</p>
+					              	<p>The seller, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale.</p>
 					              	<a href="" class="btn btn-1">Read More</a>
 					          	</div>
 					         </div>
@@ -47,7 +47,7 @@
 				              			<i class="demo-icon icon-doc-text"></i>
 					              		</div>
 					              		<h6>Well Documented</h6>
-				              			<p>Donec libero dolor, tincidunt id laoreet vitae,ullamcorper eu tortor. Maecenas pellentesque, dui vitae iaculis mattis, tortor nisi faucibus magna, vitae ultrices lacus purus vitae metus.</p>
+				              			<p>The seller, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale.</p>
 				              			<a href="" class="btn btn-1">Read More</a>
 				              		</div>
 				              	</div>
@@ -60,7 +60,7 @@
 						              		<i class="demo-icon icon-like"></i>
 						              	</div>
 						              	<h6>High-Quality</h6>
-						              	<p>Donec libero dolor, tincidunt id laoreet vitae,ullamcorper eu tortor. Maecenas pellentesque, dui vitae iaculis mattis, tortor nisi faucibus magna, vitae ultrices lacus purus vitae metus.</p>
+						              	<p>The seller, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale.</p>
 						              	<a href="" class="btn btn-1">Read More</a>
 						            </div>
 						        </div>
@@ -73,7 +73,7 @@
 					              			<i class="demo-icon icon-cog-alt"></i>
 					              		</div>
 					              		<h6>Customizable</h6>
-							             <p>Donec libero dolor, tincidunt id laoreet vitae,ullamcorper eu tortor. Maecenas pellentesque, dui vitae iaculis mattis, tortor nisi faucibus magna, vitae ultrices lacus purus vitae metus.</p>
+							             <p>The seller, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale.</p>
 							             <a href="" class="btn btn-1">Read More</a>
 							        </div>
 							    </div>
@@ -85,7 +85,7 @@
     					<div class="our-team">
     						<div class="wrap-title">
         						<h2>Our Team</h2>
-        						<div class="caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodot.</div>
+        						<div class="caption">The seller, or the provider of the goods or services, completes a sale in response to an acquisition, appropriation,[1] requisition, or a direct interaction with the buyer at the point of sale..</div>
       						</div>
 
       						<style type="text/css">
@@ -113,7 +113,7 @@
 							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-1.jpg" alt="Image" />
 							              </div>
 							              
-							              <span class="name">Aari</span>
+							              <span class="name">K.H.A.Ariyarathne</span>
 							              <span class="major">Sales Manager</span>
 							              <div class="description">Born in 1997. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
 
@@ -135,7 +135,7 @@
 							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-3.jpg" alt="Image" />
 							              </div>
 							              
-							              <span class="name">Loku akka</span>
+							              <span class="name">M.P.M.Gayathri</span>
 							              <span class="major">Sales Manager</span>
 							              <div class="description">Born in 1997. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
 
@@ -162,7 +162,7 @@
 							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-4.jpg" alt="Image" />
 							              </div>
 							             
-							              <span class="name">Akka</span>
+							              <span class="name">C.M.Fernando</span>
 							              <span class="major">Sales Manager</span>
 							              <div class="description">Born in 1996. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
 
@@ -182,7 +182,7 @@
 							                <img src="<?=PROOT?>assets/images/ProfilePictures/ProfilePic-2.png" alt="Image" />
 							              </div>
 							              
-							              <span class="name">WEB</span>
+							              <span class="name">W.E.Bangamuarachchi</span>
 							              <span class="major">Sales Manager</span>
 							              <div class="description">Born in 1997. Department of Computer Science and Engineering. Faculty of Engineering. University of Moratuwa.</div>
 

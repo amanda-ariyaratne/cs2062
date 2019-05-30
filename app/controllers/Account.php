@@ -102,7 +102,13 @@
 						if (currentUser()->role == 3) {
 							Router::redirect('account/orderHistory');
 						} else if(currentUser()->role == 2){
-							Router::redirect('VendorController/VendorPage/'.currentUser()->id);
+							$store = new TailorShop();
+							if ($store->getStoreByVendor(currentUser()->id)) {
+								Router::redirect('VendorController/VendorPage/'.currentUser()->id);
+							} else {
+								Router::redirect('account/setUpYourStore');
+							}
+							
 						} else if(currentUser()->role == 1){
 							Router::redirect('admin/newProducts');
 						}
@@ -115,56 +121,99 @@
 
 			}
 
-			$this->view->displayErrors = $validation->displayErrors();
+			if (!currentUser()) {
+				$this->view->displayErrors = $validation->displayErrors();
 
-			$this->view->render('account/login');
+				$this->view->render('account/login');
+			} else {
+				$user = currentUser();
+				if ($user->role == 1) {
+					Router::redirect('admin/newProducts');
+				} else if ($user->role == 2){
+					$store = new TailorShop();
+					if ($store->getStoreByVendor(currentUser()->id)) {
+						Router::redirect('VendorController/VendorPage/'.currentUser()->id);
+					} else {
+						Router::redirect('account/setUpYourStore');
+					}
+				} else if ($user->role == 3) {
+					Router::redirect('account/orderHistory');
+				} else {
+					Router::redirect('home/pageNotFound'); 
+				}
+			}
+
+			
 		}
 
 		public function myAccountAction(){
-			$user = currentUser();
-			if ($user->role == 2) {
-				$this->view->render('account/storeDetails');
-			} else if($user->role == 3){
-				$this->view->render('account/details');
-			} else if($user->role == 1){
-				$this->view->render('account/storeDetails');
+			if (currentUser()) {
+				if (currentUser()->role == 2) {
+					$store = new TailorShop();
+					if ($store->getStoreByVendor(currentUser()->id)) {
+						$this->view->render('account/storeDetails');
+					} else {
+						$this->view->render('account/setUpYourStore');
+					}
+					
+				} else if (currentUser()->role == 3) {
+					$this->view->render('account/details');
+				} else if (currentUser()->role == 1) {
+					$this->view->render('account/storeDetails');
+				}
+			} else {
+				Router::redirect('account/login');
 			}
-			dnd('The requested page cannot be found.');
+			
 		}
 
 		public function orderHistoryAction(){
-			if (currentUser()->role == 3) {
-				$params = array();
-				$params['user_id'] = currentUser()->id;
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 3 or $user->role == 1) {
+					$params = array();
+					$params['user_id'] = $user->id;
 
-				$order = new CustomerOrder();
-				$status_details = $order->getOrderList(currentUser()->id);
+					$order = new CustomerOrder();
+					$status_details = $order->getOrderList($user->id);
 
-				//reverse order list
-				$reverse_orders = array();
-				if(!empty($status_details)){
-					$reverse_orders = array_reverse($status_details);
+					//reverse order list
+					$reverse_orders = array();
+					if(!empty($status_details)){
+						$reverse_orders = array_reverse($status_details);
+					}
+
+					//update order state
+					$state = new OrderStatus();
+					$orders = array();
+					foreach ($reverse_orders as $key => $order) {
+						$order_details = [
+							'order_id'  => $order->id,
+							'total_amount'  => $order->total_amount,
+							'created_at'  => $order->created_at,
+							'delivered' =>	$state->checkIfDelivered($order->id)
+						];
+						array_push($orders, $order_details)	;
+					}
+
+					$params['orders'] = $orders;
+
+					$this->view->render('account/orderHistory', $params);
+				} else if ($user->role == 2){
+					$store = new TailorShop();
+					if ($store->getStoreByVendor($user->id)) {
+						Router::redirect('home/pageNotFound');
+					} else {
+						Router::redirect('account/setUpYourStore');
+					}
 				}
-
-				//update order state
-				$state = new OrderStatus();
-				$orders = array();
-				foreach ($reverse_orders as $key => $order) {
-					$order_details = [
-						'order_id'  => $order->id,
-						'delivered' =>	$state->checkIfDelivered($order->id)
-					];
-					array_push($orders, $order_details)	;
+				else {
+					Router::redirect('home/pageNotFound');
 				}
-
-				$params['orders'] = $orders;
-				//dnd($params);
-
-				$this->view->render('account/orderHistory', $params);
+			} else {
+				Router::redirect('account/login');
 			}
-			else {
-				$this->view->render('home/index');
-			}
+			
 		}
 
 		public function editMyAccountAction(){
@@ -370,11 +419,6 @@
 
 			$store->updateStoreDetails($store->id, $fields);
 			Router::redirect('account/storeDetails');
-		}
-
-
-		public function testAction(){
-			$this->view->render('home/test');
 		}
 
 		public function customerRegister1Action(){

@@ -82,7 +82,7 @@
             
             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
               <a itemprop="url" href="/">
-                <span itemprop="title" class="d-none">Handy Store</span>Home
+                <span itemprop="title" class="d-none">Tailor Mate</span>Home
               </a>
             </li>
 
@@ -260,24 +260,6 @@
                           <div class="group-cw clearfix">
                             
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             <form method="post" action="<?=PROOT?>CartController/addToCart" id="product_form"  class="product-form product-action variants" >
 <!--                               <input type="hidden" name="form_type" value="product" />
                               <input type="hidden" name="utf8" value="✓" /> -->
@@ -375,7 +357,7 @@
                               </div>
 
                               <div class="action-button">
-                                <button id="add-to-cart" type="submit" value="Submit" class="add-to-cart btn btn-1" >Add to cart</button> 
+                                <button id="add-to-cart" type="submit" value="Submit" class="add-to-cart btn btn-1" onclick="incrementCartValue()">Add to cart</button> 
                               </div>
 
 
@@ -432,36 +414,33 @@
 
 
 
-
-
-
-
-
-
                                  </div>             
 
 
                                       <div class="people-in-cart">
                                           <div class="img-user">
-                                              <a href="<?=PROOT?>CartController/cart/0"><img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image"/>
+                                              <a href="<?=PROOT?>CartController/cart"><img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image"/></a>
                                           </div>
                                           <div class="people-block-text"></div>
                                       </div>
-                                            
 
+                          <div>
+                              <?php
+//                              dnd($params["status"]);
+                              if($params["status"]!=null){
+                              if($params["status"]==1){
+                                  echo '<p>Added to cart</p>';
+                              }
+                              else{
+                                  echo '<p>Products added to the cart should belong to a same tailor</p>';
+                              }
+                              }
+                              ?>
+
+                          </div>
                                               
                                               
-                    <!--                             <ul class="shipping-time" data-deliverytime="2" data-deadline="16">
-                                                  
-                                                  <li class="delivery-time"></li>
-                                                  
-                                                  <li class="deadline">
-                                                    <span class="text">Order within</span>
-                                                    <div class="countdown_deadline"></div>
-                                                  </li>  
-                                                  
-                                                </ul> -->
-                                              
+
                                    
                                             </div>
 
@@ -584,6 +563,9 @@
                           font-size: 15px;
                           margin: 0px;
                         }
+                        .delete_modal:hover{
+                          background-color: #c1939e;
+                        }
                       </style>
 
                       <?php
@@ -603,10 +585,64 @@
                                   <h6 style="padding-left: 30px;">'.$review->content.'</h6>
                                 </div>
 
-                                <div style="padding-left: 30px;">
+                                <div style="padding-left: 30px; position:relative;">
                                   ';for ($i=0;$i<$review->rate;$i++) {
                                     echo '
                                       <span class="fa fa-star checked" style="display:inline-block; color:gold;"></span>
+                                    ';
+                                  }
+                                  if ($review->user_id == $review->current_user_id) {
+                                    echo'
+                                      <span style="display:inline-block; color: black; font-weight:400; padding-right:10px; position:absolute; top:0px; right:20px;">
+
+
+
+                                        <div>
+                                          <button id="deleteBtn" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black;">Delete</button>
+
+                                          <!-- The Modal -->
+                                          <div id="deleteModal" class="modal">
+
+                                            <!-- Modal content -->
+                                            <div class="modal-content" style="width: 20%">
+                                              <div class="modal-header">
+                                                <h4 style="float: left;">DELETE THE REVIEW</h4>
+                                                <span class="close_x" data-dismiss="modal" style="float: right;cursor: pointer;font-size:20px;">&times;</span>
+                                              </div>
+
+
+                                              <form method="post" action="'.PROOT.'ReviewAndRate/deleteReview">
+                                                <div class="modal-body">    
+                                                  <div class="yes-no-selector">
+                                                    <label class="spr-form-label" style="font-weight: 600">Do you want to delete this review ?</label>
+                                                    <div class="spr-form-input">
+                                                      <input type="submit" class="button button-primary btn-primary delete_modal" value="YES" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:50px; padding:5px 10px;">
+                                                      <input type="" class="close_d button button-primary btn-primary delete_modal" data-dismiss="modal" value="NO" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:30px; padding:5px 10px; width:42px;">
+                                          
+                                                      
+                                                    </div>
+                                                  </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <input type="hidden" name="product_id" value='.$params[0]->id.'>
+                                                  <input type="hidden" name="review_id" value='.$review->id.'>
+                                                  <input type="hidden" name="rate_id" value='.$review->rate_id.'>
+                                                </div>
+                                              </form>
+
+
+                                            </div>
+
+                                          </div>
+
+
+                                        </div>
+
+
+
+
+                                      </span>
                                     ';
                                   }
                                   echo'
@@ -631,6 +667,39 @@
                       ?>
                     </ul>
 
+                    <script>
+                    // Get the modal
+                    var modal_d = document.getElementById('deleteModal');
+
+                    // Get the button that opens the modal
+                    var btn_d = document.getElementById("deleteBtn");
+
+                    // Get the <span> element that closes the modal
+                    var span_x = document.getElementsByClassName("close_x")[0];
+                    var span_d = document.getElementsByClassName("close_d")[0];
+
+                    // When the user clicks the button, open the modal 
+                    btn_d.onclick = function() {
+                      modal_d.style.display = "block";
+                    }
+
+                    // When the user clicks on <span> (x), close the modal
+                    span_x.onclick = function() {
+                      modal_d.style.display = "none";
+                    }
+                    span_d.onclick = function() {
+                      modal_d.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function(event) {
+                      if (event.target == modal) {
+                        modal_d.style.display = "none";
+                      }
+                    }
+                    </script>
+
+
                   </div>
                 </div>
                 <div class="tab-footer" style="padding: 20px">
@@ -642,7 +711,7 @@
                     <!-- Modal content -->
                     <div class="modal-content" style="width: 20%">
                       <div class="modal-header">
-                        <h4 style="float: left;">Write a review</h4>
+                        <h4 style="float: left;">WRITE A REVIEW</h4>
                         <span class="close" data-dismiss="modal" style="float: right;">&times;</span>
                         
                       </div>
@@ -800,14 +869,14 @@
                                   <div class="product-image">
 
                                     <div class="featured-img">
-                                      <a href="/">
+                                      <a href="'.PROOT.'home/productView/'.$product['id'].'">
                                         <img class="featured-image front" style="height:200px;" src="'.PROOT.'assets/images/products/'.$product['path'].'" alt="'.$product['name'].'"></img>
                                       </a>
                                     </div>
 
                                     <div class="product-button">
                                       <div data-target="#quick-shop-popup" class="quick_shop" data-handle="tshirt-1" data-toggle="modal" title="Quick View">
-                                        <i class="demo-icon icon-search"></i>
+                                        <a href="'.PROOT.'home/productView/'.$product['id'].'"><i class="demo-icon icon-search"></i></a>
                                         " quick view"
                                       </div>
                                     </div>
@@ -823,7 +892,7 @@
 
                                     <div class="product-group-vendor-name">
                                       <h5 class="product-name">
-                                        <a href="/">'.$product['name'].'</a>
+                                        <a href="'.PROOT.'home/productView/'.$product['id'].'">'.$product['name'].'</a>
                                       </h5>
                                     </div>
 
@@ -835,15 +904,6 @@
                                       </div>
 
                                       <div class="product-add-cart">
-<!--                                         <form action="/cart/add" method="post" enctype="multipart/form-data">
-                                          <a href="/" class="btn-add-cart add-to-cart" title="Add to cart">
-                                            <span class="demo-icon icon-basket"></span>
-                                          </a>
-
-                                          <select class="d-none" name="id">
-                                            <option value="14880160612411"> Default Title</option>
-                                          </select>
-                                        </form> -->
                                       </div>
                                     </div>
 

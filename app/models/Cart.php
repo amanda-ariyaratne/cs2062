@@ -48,20 +48,25 @@
                     return false;
                 }
             }
+
             else{
+
                 $this->insert($fields);
                 return true;
             }
         }
 
 
-        public function getCartItems($o_id)
-        {
+        public function getCartItems($o_id){
             $cartItems = [];
             $details = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$o_id]));
+            $tailor = new User();
 
             if (count($details) != 0) {
                 foreach ($details as $item) {
+                    $tailor_details = $tailor->findById($item->vendor_id);
+//                    dnd($tailor_details);
+                    $tailor_name = $tailor_details->first_name;
                     $fields = [
                         "cart_id" => $item->id,
                         "product_id" => $item->product_id,
@@ -70,10 +75,14 @@
                         "price" => $item->price,
                         "customer_id" => $o_id,
                         "image" => $item->image_path,
-                        "color" => $item->color
+                        "color" => $item->color,
+                        "vendor_name" => $tailor_name
+
                     ];
+
                     array_push($cartItems, $fields);
                 }
+//                dnd($cartItems);
                 return $cartItems;
             }
         }
@@ -90,6 +99,10 @@
                     $this->delete($item->id);
                 }
             }
+        }
+
+        public function getCartItemCount($customer_id){
+            return count($this->find(array('conditions' => 'customer_id = ?', 'bind' => [$customer_id])));
         }
     }
 

@@ -55,7 +55,7 @@
 		}
 
 
-        public function approvePageAction($product_id){
+        public function approvePageAction($p_id){
 
             if (currentUser()) {
                 if (currentUser()->role == 1) {
@@ -63,7 +63,7 @@
 
                     //get product
                     $product = new Product();
-                    $product_obj = $product->findById($product_id);
+                    $product_obj = $product->findById($p_id);
 
                     //load sub categories table and instert sub category name into product
                     $sub_category_obj = new SubCategory();
@@ -78,7 +78,7 @@
 
                     //add product images array - inster to params
                     $img = new Image('tailor_product_image');
-                    $images = $img->getImage($product_id);
+                    $images = $img->getImage($product_obj);
                     $params['images'] = $images;
 
                     //new user object
@@ -92,11 +92,11 @@
                     $params['colors'] = $color->getColorByproductID($p_id);
 
                     //load product measurements
-                    $measurement = new Measurement('product_request_measurement');
+                    $measurement = new Measurement('product_measurement');
                     $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 
-                    //dnd($params['product']->main_category_name);
+                    //dnd($params);
                     $this->view->render('admin/approvePage',$params);
                 } else {
                     Router::redirect('home/pageNotFound');
@@ -145,6 +145,44 @@
                 Router::redirect('account/login');
             }
             
+        }
+
+        public function subscribersListAction(){
+            if (currentUser()) {
+                if (currentUser()->role == 1) {
+                    $this->view->render('admin/subscribersList');
+                } else {
+                    Router::redirect('home/pageNotFound');
+                }
+            } else {
+                Router::redirect('account/login');
+            }
+        }
+
+        public function jsonSubscribersListAction(){
+            $subscribersList = [];
+            $all_subscribers = new Subscriber();
+            $all_subscribers = $all_subscribers->find([]);
+            $i = 1;
+            foreach ($all_subscribers as $subscriber) {
+                $row = [];
+                array_push($row, $i);
+                $i++;
+                array_push($row, $subscriber->email);
+                array_push($row, $subscriber->created_at);
+                array_push($row, '<button data-id="'.$subscriber->id.'" class="btn btn-1"><i class="fas fa-trash sub-remove"></i></button>');
+                array_push($subscribersList, $row);
+            }
+            //$subscribersList = json_encode($subscribersList);
+            echo json_encode(array('data'=> $subscribersList));
+            return $subscribersList;
+        }
+
+        public function deleteSubscriberAction(){
+            $id = $_POST['id'];
+            $subscriber = new Subscriber();
+            $subscriber->deleteSubscriber($id);
+            echo json_encode($id);
         }
 
 	}

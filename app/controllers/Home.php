@@ -20,7 +20,7 @@
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
-			
+
 			$details = $tailorshop->getShops((6*$no-6),6);
 
 			foreach ($details as $store) {
@@ -62,7 +62,7 @@
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
@@ -137,7 +137,7 @@
 			$product = new Product('product');
 			$product_obj = $product->findById($p_id);
 
-
+			
 
 			//load sub categories table and instert sub category name into product
 			$sub_category_obj = new SubCategory();
@@ -149,10 +149,10 @@
 			$category_details = $category_obj->findByID($sub_category_details->main_id);
 			$product_obj->main_category_name = $category_details->name;
 			array_push($params,$product_obj);
-
+			
 			//add product images array - inster to params
 			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj->id));
+			array_push($params,$img->getImage($p_id));
 			
 			//load review table
 			$review_object = new Review();
@@ -193,8 +193,10 @@
 
 					//add rating to review
 					$review->rate = $reverse_rates[$i]->rate;
+					$review->rate_id = $reverse_rates[$i]->id;
+					$review->current_user_id = $user_obj->currentLoggedInUser()->id;
+					//dnd($review);
 					$i ++;
-
 				}
 			}
 			array_push($params,$reverse_reviews);
@@ -217,7 +219,7 @@
 
 			$params['vendor_id'] = $product_obj->vendor_id;
 
-			//dnd($params);
+			//dnd($params['measurements']);
 
 			$this->view->render('home/productView',$params);
 		}
@@ -371,12 +373,16 @@
         $product_details = $product->findById($pr_id);
         $vendor_id = $product_details->vendor_id;
         $product->removeProduct($pr_id);
-        $this->VendorPageAction($vendor_id);
+        $measurement = new Measurement("product_measurement");
+        $measurement->deleteMeasurements($pr_id);
+        $color = new Color();
+        $color->deleteColor($pr_id);
+
+//        $this->VendorPageAction($vendor_id);
     }
 
     public function changeActiveStatusAction(){
         $data=json_decode($_POST['new']);
-//            dnd($data);
         $pr_id = $data[0];
         $status = $data[1];
         $product = new Product();
