@@ -102,7 +102,7 @@
           <?php if (currentUser()->role == 2) {
             echo '<div class="col-lg-3 col-md-12">
               <div class="pull-right">
-                <a href=""><button class="btn btn-1">Add Product</button></a>
+                <a href="'.PROOT.'Home/addProduct"><button class="btn btn-1">Add Product</button></a>
               </div>
             </div>';
           }
@@ -171,14 +171,31 @@ echo '
           <a href="'.PROOT.'VendorController/VendorProductView/'.$product->id.'"> 
             <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0].'">            
             
-        <span class="product-label">
+        <span class="product-label">';
     
-      
-        <span class="label-sale">
-          <span class="sale-text">Available</span>  
-          </span>   
+      if($product->permission==1){
+         echo '<span class="label-sale">
+          <span class="sale-text">Approved</span>  
+          </span>';
+      }
+      else{
+         echo '<span class="label-sale" style="background-color: #bc4a54">
+          <span class="sale-text" >Not Approved</span>  
+          </span>';
+      }
+
+      if($product->active==1){
+          echo '<span class="label-sale">
+          <span class="sale-text" >Active</span>  
+          </span>';
+      }
+      else{
+          echo '<span class="label-sale" style="background-color: #bc4a54">
+          <span class="sale-text" >Not Active</span>  
+          </span>';
+      }
     
-        </span>
+        echo '</span>
           </a>
         </div>
         
@@ -197,7 +214,7 @@ echo '
         
         <div class="product-group-vendor-name"> 
           <h5 class="product-name">
-            <a href="/products/black-fashion-zapda-shoes">
+            <a href="'.PROOT.'VendorController/VendorProductView/'.$product->id.'">
              '.$product->name.'
             </a>
           </h5>
@@ -212,18 +229,10 @@ echo '
 
       <div class="product-price">  
           
-        <span class="price-sale"><span class=money>'.$product->price.'</span></span>   
+        <span class="price-sale"><span class=money>$'.$product->price.'</span></span>   
       </div>
 
-      <div class="product-add-cart">
-                  
-        <form action="/cart/add" method="post" enctype="multipart/form-data">
-          <a href="#" class="btn-add-cart add-to-cart" title="Add to cart">
-            <span class="demo-icon icon-basket"></span>
-          </a>          
-        </form>
-
-      </div>
+      
 
     </div>
   </div>

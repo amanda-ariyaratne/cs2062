@@ -200,7 +200,7 @@
                                                     <button class="add_field_button_color" style="background-color: #f1f1f1;border-radius: 5px" >+</button>
                                                 </div>
                                                 <br>
-                                                <div style="display: inline-block"><input type="color" id="color1" value="null" name="colors[]"/><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a> </div>
+                                                <div style="display: inline-block"><input type="color" id="color1" value="null" name="colors[]"/><a href="#" class=""></a> </div>
 <!--                                                <div style="margin-left: 250px"><input style="display: inline-block" type="color" name="colors[]"></div>-->
                                             </div>
                                             <script>
