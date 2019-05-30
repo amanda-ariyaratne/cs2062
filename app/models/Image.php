@@ -1,9 +1,7 @@
 <?php 
 	class Image extends Model{
-		//  $product_id, $path, $table_name,$db;
 
-		public function __construct($table=''){
-			$table = 'tailor_product_image';
+		public function __construct($table){
 			parent::__construct($table);
 		}
 
@@ -15,10 +13,21 @@
     		];
 			$this->insert($imageTable);
 
-
 			$this->saveImage($image_path,$ind,$folder);
 
-    		    	
+		}
+
+		public function removeOld($pr_id){
+		}
+
+		public function updateImage($pr_id,$image_path,$ind,$folder){
+    		$imageTable=[
+    			'path'=>$image_path,
+    			'product_id'=>$pr_id
+    		];
+			$this->insert($imageTable);
+
+			$this->saveImage($image_path,$ind,$folder);
 		}
 
 		public function saveImage($im_path,$ind,$folder){

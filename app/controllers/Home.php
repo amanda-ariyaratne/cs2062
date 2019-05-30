@@ -20,22 +20,49 @@
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');
-			
-			$details = $tailorshop->getShops((6*$no-6),6);			
+
+			$details = $tailorshop->getShops((6*$no-6),6);
+
+			foreach ($details as $store) {
+
+				// set rating
+				$tailor_id = $store->vendor_id;
+				$rating = new Rate();
+				$store->rating = $rating->getTailorRating($tailor_id);
+
+
+				// set images
+				$product = new Product();
+				$all_products = $product->find(array('conditions' => 'vendor_id = ?', 'bind' => [$tailor_id]));
+				$images = [];
+				foreach ($all_products as $product) {
+
+					$image=new Image('tailor_product_image');
+                    $product_images=$image->getImage($product);
+                    $images = array_merge($images, $product_images);
+				}
+				$images_total = count($images);
+				if ($images_total < 7) {
+					$store->images = $images;
+				} else {
+					$store->images = array_rand($images, 6);
+				}
+
+			}
+
 			$noOfProducts = $tailorshop->noOfShops();
 
-			$params=array($details,$no,$noOfProducts,'Tailor shops');
+			$params=array($details,$no,$noOfProducts,'All Tailors');
 
 			$this->view->render('home/AllVendors',$params);
 		}
 
 		public function VendorPageAction($a){
 			$product=new Product('product');
-			dnd('da');
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
 			$this->view->render('home/VendorPage',$params);
@@ -57,7 +84,7 @@
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductCategoryAction($a,$sub_cat_id){
+		public function ProductCategoryAction($sub_cat_id,$a){
 			// dnd($sub_cat_id);
 			$product=new Product();
 
@@ -72,7 +99,7 @@
 			$name=$sub->findByID($sub_cat_id)->name;
 			// dnd($name);
 
-			$params=array($param,$a,$noOfProducts,$name);
+			$params=array($param,$a,$noOfProducts,$sub_cat_id,$name);
 
 			$this->view->render('home/ProductCategoryView',$params);
 		}
@@ -80,19 +107,22 @@
 // chamodi akka's edited page
 
         public function addProductAction(){
-
-            $db = DB::getInstance();
-            $categories = $db->find('sub_categories');
-            $measurements = $db->find('measurement_types');
-            $params = [$categories,$measurements];
-            if ($_POST) {
-                $product=new Product('product');
-                $product-> addProduct();
-
-                //redirect to some page\\
-                Router::redirect('home/addProduct');
-            }
-            $this->view->render('home/addProduct', $params);
+        	if (currentUser()->role_id != 3) {
+        		$db = DB::getInstance();
+        		$main_category = $db->find('category');
+	            $sub_category = $db->find('sub_category');
+	            $measurements = $db->find('measurement_type');
+	            $params = [$sub_category,$measurements,$main_category];
+	            if ($_POST) {
+	                $product=new Product('product');
+	                $product->addProduct();
+	                //redirect to some page\\
+	                Router::redirect('VendorController/VendorPage/'.currentUser()->id);
+	            }
+	            $this->view->render('home/addProduct', $params);
+        	} else {
+        		Router::redirect('home/ProductList/1');
+        	}
 
         }
 
@@ -107,6 +137,8 @@
 			$product = new Product('product');
 			$product_obj = $product->findById($p_id);
 
+			
+
 			//load sub categories table and instert sub category name into product
 			$sub_category_obj = new SubCategory();
 			$sub_category_details = $sub_category_obj->findByID($product_obj->sub_category_id);
@@ -117,15 +149,15 @@
 			$category_details = $category_obj->findByID($sub_category_details->main_id);
 			$product_obj->main_category_name = $category_details->name;
 			array_push($params,$product_obj);
-
+			
 			//add product images array - inster to params
 			$img = new Image('tailor_product_image');
-			array_push($params,$img->getImage($product_obj));
+			array_push($params,$img->getImage($p_id));
 			
 			//load review table
 			$review_object = new Review();
 			$review_details = $review_object->findByProductID($p_id);
-	
+			
 			//load rates table
 			$rate_obj = new Rate();
 			if(count($review_details)!=0){
@@ -161,8 +193,10 @@
 
 					//add rating to review
 					$review->rate = $reverse_rates[$i]->rate;
+					$review->rate_id = $reverse_rates[$i]->id;
+					$review->current_user_id = $user_obj->currentLoggedInUser()->id;
+					//dnd($review);
 					$i ++;
-
 				}
 			}
 			array_push($params,$reverse_reviews);
@@ -180,10 +214,12 @@
 			$params['colors'] = $color->getColorByproductID($p_id);
 
 			//load product measurements
-			$measurement = new Measurement();
+			$measurement = new Measurement('product_measurement');
 			$params['measurements'] = $measurement->getMeasurementByID($p_id);
 
-			//dnd($params);
+			$params['vendor_id'] = $product_obj->vendor_id;
+
+			//dnd($params['measurements']);
 
 			$this->view->render('home/productView',$params);
 		}
@@ -245,22 +281,22 @@
                 $key = '%' . $key . '%';
                 array_push($keys, $key);
             }
-            
+
             $params = [
                 'column' => 'name',
                 'keys' => $keys,
                 'limit' => $a . ',6'
             ];
-            
+
             $details = $this->_db->search('product', $params);
-            
+
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row);
-                $row->images = $images;         
-            }   
+                $row->images = $images;
+            }
             $noOfRows=count($details);
-            
+
             return [$details,$noOfRows];
         }
 
@@ -270,7 +306,7 @@
         	$product=new Product('product');
 			$details = $product->getViewDetailsForSearch($keywords, $a);
 			$param=$details[0];
-			$noOfProducts =$details[1];			
+			$noOfProducts =$details[1];
 			$params=array($param,$a,$noOfProducts,'All Products', $_GET["keywords"]);
 			$this->view->render('home/searchProductList',$params);
         }
@@ -302,4 +338,64 @@
         	$this->view->render('home/contactUsSuccess');
         }
 
-	}
+    public function editProductAction($pr_id){
+        $product = new Product();
+        $product_details = $product->findById($pr_id);
+        $color = new Color();
+        $colors = $color->getColorByproductID($pr_id);
+        $fields = [
+            "name" => $product_details->name,
+            "description" =>$product_details->description,
+            "price" => $product_details->price,
+            "sub_category_id" => $product_details->sub_category_id,
+            "material" => $product_details->material
+        ];
+        $db = DB::getInstance();
+        $main_category = $db->find('category');
+        $sub_category = $db->find('sub_category');
+        $mes = new Measurement("product_measurement");
+        $measurements = $mes->getMeasurementByID($pr_id);
+        $params = [$sub_category,$measurements,$main_category,$fields,$colors];
+
+        $color = new Color();
+        if($_POST){
+//                dnd($_POST);
+            $product->editProduct($pr_id);
+            $color->editColor($_POST["colors"],$pr_id);
+            $mes->editMesurement($pr_id,$_POST["newMeasurements"]);
+        }
+
+        $this->view->render('home/EditProduct',$params);
+//        Router::redirect('VendorController/VendorProductView/'.$pr_id);
+
+    }
+
+    public function removeProductAction($pr_id){
+        $product = new Product();
+        $product_details = $product->findById($pr_id);
+        $vendor_id = $product_details->vendor_id;
+        $product->removeProduct($pr_id);
+        $measurement = new Measurement("product_measurement");
+        $measurement->deleteMeasurements($pr_id);
+        $color = new Color();
+        $color->deleteColor($pr_id);
+
+        Router::redirect('VendorController/VendorPage/'.$vendor_id);
+    }
+
+    public function changeActiveStatusAction(){
+        $data=json_decode($_POST['new']);
+        $pr_id = $data[0];
+        $status = $data[1];
+        $product = new Product();
+        $product->changeActiveStatus($pr_id,$status);
+
+    }
+
+    public function pageNotFoundAction(){
+    	$this->view->render('home/404');
+    }
+
+
+
+}

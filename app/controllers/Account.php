@@ -12,6 +12,7 @@
 		public function registerAction(){
 			
 			if ($_POST) {
+
 				    $_SESSION['email'] = $_POST['email'];
     				$_SESSION['first_name'] = $_POST['first_name'];
 	    			$_SESSION['last_name'] = $_POST['last_name'];
@@ -26,7 +27,7 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
-
+				    	
 				    	$fields = [
 				    		"first_name" => $first_name,
 				    		"last_name" => $last_name,
@@ -35,24 +36,19 @@
 				    		"role" => $role
 				    	];
 				    	$user->insert($fields);
+
 				    	//$user = $this->UserModel->findByEmail($email);
 				    	$user = $user->findByEmail($email);
 
 				    	// create new store
 				    	if ($role == 2) {
-				    		$tailorShop = new TailorShop();
-							$fields = [
-								'vendor_id' => $user->id,
-								'paypal_email' => $_POST['paypal_email']
-							];
-							
-							$tailorShop->addTailorShop($fields);
+				    		Router::redirect('account/setUpYourStore/'.$user->id);
 				    	}
 
 				    	$remember = true;
 						$user->login($remember);
 						if ($user->role == 2) {
-							Router::redirect('home/vendorPage/'.$user->id);
+							Router::redirect('TailorView/vendorPage/'.$user->id);
 						} else if($user->role == 3){
 							Router::redirect('account/orderHistory');
 						} else if ($user->role == 1) {
@@ -106,7 +102,13 @@
 						if (currentUser()->role == 3) {
 							Router::redirect('account/orderHistory');
 						} else if(currentUser()->role == 2){
-							Router::redirect('home/vendorPage/'.currentUser()->id);
+							$store = new TailorShop();
+							if ($store->getStoreByVendor(currentUser()->id)) {
+								Router::redirect('VendorController/VendorPage/'.currentUser()->id);
+							} else {
+								Router::redirect('account/setUpYourStore');
+							}
+							
 						} else if(currentUser()->role == 1){
 							Router::redirect('admin/newProducts');
 						}
@@ -119,38 +121,99 @@
 
 			}
 
-			$this->view->displayErrors = $validation->displayErrors();
+			if (!currentUser()) {
+				$this->view->displayErrors = $validation->displayErrors();
 
-			$this->view->render('account/login');
+				$this->view->render('account/login');
+			} else {
+				$user = currentUser();
+				if ($user->role == 1) {
+					Router::redirect('admin/newProducts');
+				} else if ($user->role == 2){
+					$store = new TailorShop();
+					if ($store->getStoreByVendor(currentUser()->id)) {
+						Router::redirect('VendorController/VendorPage/'.currentUser()->id);
+					} else {
+						Router::redirect('account/setUpYourStore');
+					}
+				} else if ($user->role == 3) {
+					Router::redirect('account/orderHistory');
+				} else {
+					Router::redirect('home/pageNotFound'); 
+				}
+			}
+
+			
 		}
 
 		public function myAccountAction(){
-			$user = currentUser();
-			if ($user->role == 2) {
-				$this->view->render('account/storeDetails');
-			} else if($user->role == 3){
-				$this->view->render('account/details');
-			} else if($user->role == 1){
-				$this->view->render('account/storeDetails');
+			if (currentUser()) {
+				if (currentUser()->role == 2) {
+					$store = new TailorShop();
+					if ($store->getStoreByVendor(currentUser()->id)) {
+						$this->view->render('account/storeDetails');
+					} else {
+						$this->view->render('account/setUpYourStore');
+					}
+					
+				} else if (currentUser()->role == 3) {
+					$this->view->render('account/details');
+				} else if (currentUser()->role == 1) {
+					$this->view->render('account/storeDetails');
+				}
+			} else {
+				Router::redirect('account/login');
 			}
-			dnd('The requested page cannot be found.');
+			
 		}
 
 		public function orderHistoryAction(){
-			if (currentUser()->role == 3) {
-				$params = array();
-				$params['user_id'] = currentUser()->id;
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 3 or $user->role == 1) {
+					$params = array();
+					$params['user_id'] = $user->id;
 
-				$order = new CustomerOrder();
-				$status_details = $order->getOrderList(currentUser()->id);
-				$params['orders'] = $status_details;
-				//dnd($params);
+					$order = new CustomerOrder();
+					$status_details = $order->getOrderList($user->id);
 
-				$this->view->render('account/orderHistory', $params);
+					//reverse order list
+					$reverse_orders = array();
+					if(!empty($status_details)){
+						$reverse_orders = array_reverse($status_details);
+					}
+
+					//update order state
+					$state = new OrderStatus();
+					$orders = array();
+					foreach ($reverse_orders as $key => $order) {
+						$order_details = [
+							'order_id'  => $order->id,
+							'total_amount'  => $order->total_amount,
+							'created_at'  => $order->created_at,
+							'delivered' =>	$state->checkIfDelivered($order->id)
+						];
+						array_push($orders, $order_details)	;
+					}
+
+					$params['orders'] = $orders;
+
+					$this->view->render('account/orderHistory', $params);
+				} else if ($user->role == 2){
+					$store = new TailorShop();
+					if ($store->getStoreByVendor($user->id)) {
+						Router::redirect('home/pageNotFound');
+					} else {
+						Router::redirect('account/setUpYourStore');
+					}
+				}
+				else {
+					Router::redirect('home/pageNotFound');
+				}
+			} else {
+				Router::redirect('account/login');
 			}
-			else {
-				$this->view->render('home/index');
-			}
+			
 		}
 
 		public function editMyAccountAction(){
@@ -355,6 +418,128 @@
 			}
 
 			$store->updateStoreDetails($store->id, $fields);
+			Router::redirect('account/storeDetails');
+		}
+
+		public function customerRegister1Action(){
+			$this->view->render('account/customerRegister1');
+		}
+
+		public function tailorRegister1Action(){
+			$this->view->render('account/tailorRegister1');
+		}
+
+		public function setUpYourStoreAction($user_id=0){
+			if ($_POST) {
+
+				$store = new TailorShop();
+
+				$image = ($_FILES['logo']['name']);
+				$file_name = 'logo-' . date("Y-m-d-h-i-sa") . '-' . $store->id;
+				$file_ext = pathinfo($image)['extension'];
+				if ($file_ext != null) {
+					$file_path = $file_name . '.' . $file_ext;
+					$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/store_logo';
+					move_uploaded_file($_FILES["logo"]["tmp_name"], $target_dir.'/'.$file_path);
+				} else {
+					$file_path = '';
+				}
+	            
+
+				$fields = [];
+				$fields['vendor_id'] = $_POST['user_id'];
+				if ($_POST['store_name'] != null) {
+					$fields['name'] = $_POST['store_name'];
+				} else {
+					$fields['name'] = "";
+				}
+				if ($_POST['paypal_email'] != null) {
+					$fields['paypal_email'] = $_POST['paypal_email'];
+				} else {
+					$fields['paypal_email'] = "";
+				}
+				if ($_POST['apartmentNo'] != null) {
+					$fields['apartmentNo'] = $_POST['apartmentNo'];
+				} else {
+					$fields['apartmentNo'] = "";
+				}
+				if ($_POST['streetName1'] != null) {
+					$fields['streetName1'] = $_POST['streetName1'];
+				} else {
+					$fields['streetName1'] = "";
+				}
+				if ($_POST['streetName2'] != null) {
+					$fields['streetName2'] = $_POST['streetName2'];
+				} else {
+					$fields['streetName2'] = "";
+				}
+				if ($_POST['city'] != null) {
+					$fields['city'] = $_POST['city'];
+				} else {
+					$fields['city'] = "";
+				}
+				if ($_POST['postalCode'] != null) {
+					$fields['postal_code'] = $_POST['postalCode'];
+				} else {
+					$fields['postal_code'] = "";
+				}
+				if ($_POST['contactNo'] != null) {
+					$fields['contactNumber'] = $_POST['contactNo'];
+				} else {
+					$fields['contactNumber'] = "";
+				}
+				if ($_POST['facebook_url'] != null) {
+					$fields['facebook_url'] = $_POST['facebook_url'];
+				} else {
+					$fields['facebook_url'] = "";
+				}
+				if ($_POST['google_plus_url'] != null) {
+					$fields['google_plus_url'] = $_POST['google_plus_url'];
+				} else {
+					$fields['google_plus_url'] = "";
+				}
+				if ($_POST['instagram_url'] != null) {
+					$fields['instagram_url'] = $_POST['instagram_url'];
+				} else {
+					$fields['instagram_url'] = "";
+				}
+				if ($_POST['youtube_url'] != null) {
+					$fields['youtube_url'] = $_POST['youtube_url'];
+				} else {
+					$fields['youtube_url'] = "";
+				}
+				if ($_POST['linkedin_url'] != null) {
+					$fields['linkedin_url'] = $_POST['linkedin_url'];
+				} else {
+					$fields['linkedin_url'] = "";
+				}
+				if ($file_path != null) {
+					$fields['logo'] = $file_path;
+				}
+
+				$store->addTailorShop($fields);
+				
+				if (currentUser()) {
+					Router::redirect('VendorController/vendorPage/'.currentUser()->id);
+				} else {
+					$user = new User();
+					$user = $user->findByUserID($fields['vendor_id']);
+
+					$remember = true;
+					$user->login($remember);
+					if ($user->role == 2) {
+						Router::redirect('VendorController/VendorPage/'.$user->id);
+					} else if($user->role == 3){
+						Router::redirect('account/orderHistory');
+					} else if ($user->role == 1) {
+						Router::redirect('admin/newProducts');
+					}
+				}
+
+				
+			}
+			$params['user_id'] = $user_id;
+			$this->view->render('account/setUpYourStore', $params);
 		}
 
 	}

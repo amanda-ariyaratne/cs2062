@@ -33,10 +33,26 @@
 		}
 
 		public function getTailorRating($tailor_id){
-			$tailor_rating = 7.5;
-			// logic for the calculations
+			$product = new Product();
+			$all_products = $product->find(array('conditions' => 'vendor_id = ?', 'bind' => [$tailor_id]));
+			$tailor_rating = 0;
+			$tailor_rating_count = 0;
+			foreach ($all_products as $product) {
+				$ratings = $this->find(array('conditions' => 'product_id = ?', 'bind' => [$product->id]));
+				$tailor_rating_count += count($ratings);
+				foreach ($ratings as $rating) {
+					$tailor_rating += $rating->rate;
+				}
+			}
+			if ($tailor_rating == 0) {
+				return 0;
+			}
 
-			return $tailor_rating;
+			return $tailor_rating/$tailor_rating_count;
+		}
+
+		public function deleteByID($id){
+			$this->delete($id);
 		}
 
 	}

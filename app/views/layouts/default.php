@@ -8,6 +8,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=3, user-scalable=0" />
+  
   <link rel="canonical" href="https://arena-handy.myshopify.com/account/login" />
   <!-- Title and description -->
 
@@ -21,14 +22,13 @@
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
   
   <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
-  <link href="//cdn.shopify.com/s/files/1/0102/1155/7435/t/10/assets/jquery.plugin.css?0" rel="stylesheet" type="text/css" media="all" />
-  
-  <!-- <link href="<?=PROOT?>assets/css/noti.css" rel="stylesheet" type="text/css" media="all" /> -->
-
+  <link href="<?=PROOT?>assets/plugin/jquery.plugin.css" rel="stylesheet" type="text/css" media="all" />
+  <!--<link href="<?=PROOT?>assets/css/jquery.min.css" rel="stylesheet" type="text/css" media="all" />-->
+  <script type="text/javascript" src="<?=PROOT?>assets/js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="<?=PROOT?>assets/js/bootstrap.min.js"></script>
   <style type="text/css">
     .header-container.bg-imagee{
       background-image:url(<?=PROOT?>assets/images/back-1.jpg);
-  
   }
 
     .header-container.bg-image{
@@ -200,7 +200,7 @@
           color: #c1939e;
         }
 
-    input[type="text"], input[type="password"] {
+    input[type="text"], input[type="password"], input[type="search"] {
       padding-left: 7px;
       padding-right: 7px;
       padding-top: 5px;
@@ -210,6 +210,44 @@
       font-size: 18px;
     }
 
+/*    account drop down
+*/
+    .dropdown-account {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }    
+    .dropdown-account i{
+      cursor: pointer;
+    }
+    .dropdown-account-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    .dropdown-account-content a {
+      color: black;
+      padding: 7px 10px;
+      text-decoration: none;
+      display: block;
+      border-color: #d6d6d6;
+      border-style: solid;
+      border-width: 1px;
+    }
+    .dropdown-account:hover .dropdown-account-content {
+      display: block;
+    }
+    .dropdown-account-content a:hover{
+      color: #c1939e;
+      border-width: 1px;
+      border-color: #565656;
+    }
+    .dropdown-account-content a i{
+      padding-right: 5px;
+    }
   </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -324,12 +362,18 @@
 
             
               <ul class="top-bar-list" style="">
-                
+
+                  <li><a href="<?=PROOT?>VendorController/AllVendors/1" title="Customer Request" >All Tailors</a></li>
+
                   <li><a href="<?=PROOT?>home/AboutUs" title="About us" >About us</a></li>
 
-                  <li><a href="<?=PROOT?>home/AllVendors/1" title="Customer Request" >All Tailors</a></li>
-
                   <li><a href="<?=PROOT?>home/ContactUs" title="Contact us" >Contact us</a></li>
+
+                  <?php
+                    if ($user->role == 1) {
+                      echo '<li><a href="'.PROOT.'admin/newProducts" title="New Products"> New Products </a></li>';
+                    }
+                   ?>
                 
               </ul>
             
@@ -351,15 +395,55 @@
               <div class="top-bar-left col-lg-3">
                 <ul class="list-inline">
 
-                    <li class="customer-account lazyload waiting">
+                    <li class="customer-account lazyload waiting dropdown">
 
                         <?php if ($user->first_name!='') {
-                        echo '<a href="'.PROOT.'account/myAccount" ><i class="demo-icon icon-user"></i>' . $user->first_name . '</a>';
+                          if($user->role == 1){
+                            echo '   
+                              <div class="dropdown-account" style="color:black;">  
+                                <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                                <div class="dropdown-account-content">
+                                  <a href="'.PROOT.'admin/newProducts"><i class="fas fa-box-open"></i> New products</a>
+                                  <a href="'.PROOT.'admin/newsletter"><i class="fas fa-envelope-open-text"></i> Send news letter</a>
+                                  <a href="'.PROOT.'admin/subscribersList"><i class="fas fa-clipboard-list"></i> Subscribers List</a>
+                                </div>
+                              </div>         
+     
+                            ';
+                          }
+                          else if($user->role == 3){
+                            echo '   
+                              <div class="dropdown-account" style="color:black;">  
+                                <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                                <div class="dropdown-account-content">
+                                  <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                  <a href="'.PROOT.'account/orderHistory"><i class="fab fa-opencart" style="font-size:10px;"></i> Order history</a>
+                                </div>
+                              </div>          
+
+     
+                            ';
+                          }
+                          else{
+                            echo '   
+                              <div class="dropdown-account" style="color:black;">  
+                                <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
+                                <div class="dropdown-account-content">
+                                  <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                </div>
+                              </div>          
+
+     
+                            ';  
+                          }
+
                       } else {
                         echo '<a href="'.PROOT.'account/login" title="Account"><i class="demo-icon icon-user"></i>Login</a>';
                       } ?>
-                        
+
+
                     </li>
+
 
                     <!-- 
                     
@@ -481,12 +565,12 @@
                   <?php 
                       if ($user->role==3){
                         echo '
-                          <a href=# title="Your cart">
+                          <a href="'.PROOT.'CartController/cart/0" title="Your cart">
                             <span>
                               <i class="demo-icon icon-handy-cart" style="background: rgba(255,255,255,0.5); color:black; font-size:27px; padding:0 6px; border-radius:3px; position:absolute; top:0px;"></i>
                             </span>
-                            <span class="badge-counter" style="position: absolute; top: 20px;right: 18px;">
-                              5
+                            <span class="badge-counter cartItemCount" style="position: absolute; top: 20px;right: 18px;">
+                              '.$cartItemCount.'
                             </span>
                           </a>
 
@@ -515,12 +599,12 @@
                     if ($user->role==2 || $user->role==3){
                       $sentence='';
                       $LinkPath='';
-                      if ($user->role==3){
+                      if ($user->role==2){
                         $sentence="Add-our-Designs";
                         $LinkPath="CustomerRequestView/1";
 
                       }                          
-                      elseif ($user->role==2){
+                      elseif ($user->role==3){
                         $sentence="Custom-Requests";
                         $LinkPath="ProductRequest/1";
                       }
@@ -577,7 +661,7 @@
                         foreach ($subCat as $sub){
                             
                             echo '<li>
-                              <a tabindex="-1" href="'.PROOT.'home/ProductCategory/1/'.$sub[1].'">
+                              <a tabindex="-1" href="'.PROOT.'home/ProductCategory/'.$sub[1].'/1">
 
                                 <span>'.$sub[0].'</span>
                               </a>
@@ -1015,7 +1099,7 @@
                                 <i class="demo-icon icon-phone"></i>
 
                               
-                              <span>(+800) 123 456 7890</span>
+                              <span>(+94) 714 678 7890</span>
                             </li>
                           
                           
@@ -1025,7 +1109,7 @@
                               <i class="demo-icon icon-mail"></i>
 
                               
-                              <span>example@example.com</span>
+                              <span>tailormatemail@gmail.com</span>
                             </li>
                           
                           
@@ -1034,7 +1118,7 @@
                                 <i class="demo-icon icon-location"></i>
 
                               
-                              <span>102580 Santa Monica BLVD Los Angeles</span>
+                              <span>Bandaranayake Mawatha, Moratuwa 10400</span>
                             </li>
                           
                         </ul>
@@ -1106,7 +1190,7 @@
                           
                           <a href="">
                             <span class="text-1">Online Consultation</span>
-                            <span class="text-2">Call: + 0123 456 789</span>
+                            <span class="text-2">Call: +94 714 678 7890</span>
                           </a>
                         </div>
                         
@@ -1266,8 +1350,8 @@ $(document).ready(function () {
                 url:"<?=PROOT?>NotificationController/updateSeenNotification",
                 method: "POST",
                 data:{'new': newArray },
-                success: function(){
-
+                success: function(data){
+                    var array_new=JSON.parse(data);
                 }
             }); 
       }
@@ -1280,17 +1364,16 @@ $(document).ready(function () {
             url:"<?=PROOT?>NotificationController/newNotification",
             method: "POST",
             success: function(data){
-
-              if (data.status=="true"){
-
-                var newNotification=JSON.parse(data);
-                notificationList = newNotification.new; 
-                displayNewNotification(notificationList);
-                $('.badge-counter').html(notificationList.length);
-                // console.log(notificationList);
-              }
+              
+                if(data.status=='true'){
+                    var newNotification=JSON.parse(data);
+                    notificationList = newNotification.new; 
+                    displayNewNotification(notificationList);
+                    $('.badge-counter').html(notificationList.length);
+                }
             }
-        });           
+        }); 
+
     },5000);
 
     $('#noti_Button').click(function () { 
@@ -1315,9 +1398,8 @@ $(document).ready(function () {
 
 function displayNewNotification(noti){
 
-    line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>'
-
-    if (noti.seen==0){
+    line_1='<div class="cart-item-image"><a href=""><img src="'+<?=PROOT?>+'assets/images/1x_420x.jpg"></a></div>';
+    if (noti.seen=='0'){
         line_2='<div class="cart-item-info id-num-'+noti.id+' change-bg-unseen" style="width: 200px;padding-right: 0px;">';
     }
 

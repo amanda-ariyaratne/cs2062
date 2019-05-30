@@ -36,9 +36,11 @@
             array_push($this->observers, $obj);
         }
 
-        public function getViewDetails($a){            
-            $a=6*($a-1);
-            $limit = array('limit'=>$a.',6');
+        public function getViewDetails($pageNo){            
+            $pageNo=6*($pageNo-1);
+
+            $limit = array('limit'=>$pageNo.',6');
+
             $details = $this->find($limit);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
@@ -51,23 +53,28 @@
             return [$details,$noOfRows];
         }
 
-        public function getCategoryViewDetails($a,$sub_cat_id){
-            $a--;
-            $limit = array('limit'=>$a++.',6');
-            $conditions=array('conditions'=> 'sub_category_id = ?', 'bind'=> [$sub_cat_id]);
-            $tot=array_merge($conditions,$limit);
+        public function getCategoryViewDetails($pageNo,$sub_cat_id){
+            $pageNo=6*($pageNo-1);
+            
+            $limit = ['limit'=>$pageNo.',6'];
+
+            $conditions=['conditions'=> ['sub_category_id = ?'], 'bind'=> [$sub_cat_id]];
+            $tot=array_merge($conditions, $limit);
             
             $details = $this->find($tot);
-            // dnd($details);
+            
+            // dnd($details[0]);
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
                 $row->images = $images;         
             }   
 
-            $noOfRows=count($this->find());
-            
+            $noOfRows=count($this->find($conditions));
+
             return [$details,$noOfRows];
+
+            
         }
 
         public function getPageVendor($id){
@@ -78,7 +85,7 @@
             foreach ($details as $row){
                 //get Image details
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row->id);
+                $images=$image->getImage($row);
                 $row->images = $images;     
             }
 
@@ -100,25 +107,38 @@
 
 
 
-        public function addProduct()
-        {
-
+        public function addProduct(){
 //		    dnd($_POST);
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
 
-            $fields = [
-                "name" => $_POST["Product_Name"],
-                "description" => $_POST["Product_Description"],
-                "price" => $_POST["product_price"],
-                "sale_price" => $_POST["sale_price"],
-                "sub_category_id" => $_POST["category"],
-                "material" => $_POST["material"]
-            ];
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
             
             $this->insert($fields);
-            //add image
             $pr_id = $this->lastInsertedID();
+
+            //add measurements
+            $mes = $_POST["mes"];
+            $mesArry = explode(",",$mes);
+            $newMesArry = $_POST["newMesurements"];
+            $mesurements_arry = array_merge($mesArry,$newMesArry);
+            $measurement = new Measurement("product_measurement");
+            $measurement->addMesurement($pr_id,$mesurements_arry);
+
+            //add colors
+            $colors = $_POST["colors"];
+            $color = new Color();
+            $color->addColor($colors,$pr_id);
+
+            //add image
             $images=($_FILES['fileUpload']['name']);
-            //dnd($images);
 
             for ($x=0; $x<sizeof($images); $x++){
                 
@@ -179,19 +199,19 @@
                 $key = '%' . $key . '%';
                 array_push($keys, $key);
             }
-       
+
             $params = [
                 'column' => 'name',
                 'keys' => $keys,
                 'limit' => $a . ',6'
             ];
-            
+
             $details = $this->_db->search('product', $params);
             if ($details) {
                 foreach ($details as $row){
-                    $image=new Image();
+                    $image=new Image('tailor_product_image');
                     $images=$image->getImage($row->id);
-                    $row->images = $images;  
+                    $row->images = $images;
 
                 }
 
@@ -200,38 +220,39 @@
                 $details = [];
                 $noOfRows = 0;
             }
-            
+
             return [$details,$noOfRows];
         }
 
+        public function editProduct($pr_id){
+            $fields['name'] = $_POST["Product_Name"];
+            $fields['price'] = $_POST["product_price"];
+            $fields['sub_category_id'] = $_POST["category"];
+            $fields['vendor_id'] = currentUser()->id;
+            if ($_POST["Product_Description"] != '') {
+                $fields['description'] = $_POST["Product_Description"];
+            }
+
+            if ($_POST["material"] != '') {
+                $fields['material'] = $_POST["material"];
+            }
+            $this->update($pr_id,$fields);
+        }
+
+        public function removeProduct($pr_id){
+            $this->delete($pr_id);
+        }
+
+        public function changeActiveStatus($pr_id,$status){
+            $details = $this->findById($pr_id);
+            $fields = [
+                "status" => $status
+            ];
+            $this->update($pr_id,$fields);
+        }
     }
 
 
-
-        //     //add colors
-        //     dnd($_POST["color"]);
-        //     for ($x=1; $x<= 10; $x++){
-        //         $color='color'.$x;
-
-        //         if ($_POST[$color]!=''){
-        //             $color=new Color('color');
-        //             $cl_id=count($color->find());
-
-        //             $params=["pr_id"=>$product_id , "color_code"=>$_POST["color".$x]];
-        //             $color=new Color('color');
-        //             $color->addProduct($pr_id,);
-        //         }            
-        //     }
-
-        // }
-
-        // public function getDetails(){
-
-        // }
-
-
-
-	// }
 
 
 

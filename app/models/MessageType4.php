@@ -17,7 +17,7 @@ class MessageType4 extends Message{
 	}
 
 	public function setCustomerName(){
-			$this->customerName='<a style="font-weight: 400;" href="'.PROOT.'home/VendorPage/'.$this->notification->_from.'"><b>'.$this->notification->from_name.'</b></a>';
+			$this->customerName='<a style="font-weight: 400;" href="'.PROOT.'TailorView/VendorPage/'.$this->notification->_from.'"><b>'.$this->notification->from_name.'</b></a>';
 	}
 
 }

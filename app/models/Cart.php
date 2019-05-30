@@ -15,7 +15,8 @@
 				foreach ($details as $item) {
 					$field = [
 						'product_id' => $item->product_id,
-						'quantity'   => $item->quantity
+						'quantity'   => $item->quantity,
+                        'vendor_id'  => $item->vendor_id
 					];
 					array_push($payments, $field);
 				}
@@ -25,49 +26,63 @@
 
 
         public function addItem($val){
-
-//            $detail = $this->find(array('conditions' => 'product_id = ?' , 'bind' => [$val["product_id"]]));
-//            if(count($detail)!=0){
-//                $fields = [
-//                    "quantity" => $val["quantity"]+$detail["quantity"],
-//                    "price" => $val["price"]+$detail["price"],
-//                ];
-//                $this->update($detail["id"],$fields);
-////                dnd("yes");
-//            }
-//            else {
-
             $fields = [
-                    "product_id" => $val["product_id"],
-                    "product_name" => $val["name"],
-                    "customer_id" => $val["user_id"],
-                    "quantity" => $val["quantity"],
-                    "price" => $val["price"],
-                    "image_path" => $val["image"]
+                "product_id" => $val["product_id"],
+                "product_name" => $val["name"],
+                "customer_id" => $val["user_id"],
+                "quantity" => $val["quantity"],
+                "price" => $val["price"],
+                "image_path" => $val["image"],
+                "vendor_id" => $val["vendor_id"],
+                "color" => $val["color"]
 
-                ];
-            $this->insert($fields);
-//            }
+            ];
+            $details = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$val["user_id"]]));
+            if(count($details)!= 0 ){
+                $vendor_id = $details[0]->vendor_id;
+                if($val["vendor_id"]==$vendor_id){
+                    $this->insert($fields);
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+
+            else{
+
+                $this->insert($fields);
+                return true;
+            }
         }
 
 
-        public function getCartItems($o_id)
-        {
+        public function getCartItems($o_id){
             $cartItems = [];
             $details = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$o_id]));
+            $tailor = new User();
 
             if (count($details) != 0) {
                 foreach ($details as $item) {
+                    $tailor_details = $tailor->findById($item->vendor_id);
+//                    dnd($tailor_details);
+                    $tailor_name = $tailor_details->first_name;
                     $fields = [
                         "cart_id" => $item->id,
                         "product_id" => $item->product_id,
                         "name" => $item->product_name,
                         "quantity" => $item->quantity,
                         "price" => $item->price,
-                        "customer_id" => $o_id
+                        "customer_id" => $o_id,
+                        "image" => $item->image_path,
+                        "color" => $item->color,
+                        "vendor_name" => $tailor_name
+
                     ];
+
                     array_push($cartItems, $fields);
                 }
+//                dnd($cartItems);
                 return $cartItems;
             }
         }
@@ -84,6 +99,10 @@
                     $this->delete($item->id);
                 }
             }
+        }
+
+        public function getCartItemCount($customer_id){
+            return count($this->find(array('conditions' => 'customer_id = ?', 'bind' => [$customer_id])));
         }
     }
 

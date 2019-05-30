@@ -50,7 +50,7 @@
 					}
 					else{
 						$validation = new Validate();
-						$validation->displayErrorMsgs("order before reviewing");
+						$validation->displayErrorMsgs("You cannot review products. You must have a ordering history!");
 
 	                    $params = $this->getProductViewParams($p_id);
 	                    $this->view->displayErrors = $validation->displayErrors();
@@ -80,6 +80,21 @@
 
 
 
+	    public function deleteReviewAction(){
+	    	$rate_obj = new Rate();
+	    	$rate_obj->deleteByID($_POST['rate_id']);
+
+	    	$review_obj = new Review();
+	    	$review_obj->deleteByID($_POST['review_id']);
+
+	    	$params = $this->getProductViewParams($_POST['product_id']);
+	    	$this->view->render('home/productView', $params);
+	    }
+
+
+
+
+
 
 
 	    private function getProductViewParams($p_id){
@@ -98,7 +113,7 @@
 	        array_push($params, $product_obj);
 	        //add product images array - inster to params
 	        $img = new Image('tailor_product_image');
-	        array_push($params,$img->getImage($product_obj));
+	        array_push($params,$img->getImage($p_id));
 	        //load review table
 	        $review_object = new Review();
 	        $review_details = $review_object->findByProductID($p_id);
@@ -128,6 +143,8 @@
 	                $review->user_lname = $user->last_name;
 	                //add rating to review
 	                $review->rate = $reverse_rates[$i]->rate;
+	                $review->rate_id = $reverse_rates[$i]->id;
+					$review->current_user_id = $user_obj->currentLoggedInUser()->id;
 	                $i++;
 	            }
 	        }
@@ -142,9 +159,10 @@
 	        $color = new Color();
 	        $params['colors'] = $color->getColorByproductID($p_id);
 	        //load product measurements
-	        $measurement = new Measurement();
+	        $measurement = new Measurement('product_measurement');
 	        $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
 	        return $params;
 	    }
+
 	}

@@ -20,8 +20,7 @@
 		}
 
 
-		public function updateStatus($data){
-			$o_id = '5';
+		public function updateStatus($o_id){
 			$order = new CustomerOrder();
 			$order_obj = $order->findById($o_id);
 			$state_obj = $this->findById($o_id);
@@ -60,5 +59,18 @@
 			// 	$a = $this->update($o_id,['state_confirmed'=>'1' , 'state_manufacturing'=>'1' , 'state_delivering'=>'1' , 'state_delivered'=>'1']);
 			// 	dnd($a);
 			// }
+		}
+
+
+
+
+		public function checkIfDelivered($o_id){
+			$states = $this->findById($o_id);
+			if ($states->state_delivered == '1') {
+				return true;
+			}
+			else{
+				return false;
+			}
 		}
 	}
