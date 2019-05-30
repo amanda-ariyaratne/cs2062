@@ -2,6 +2,37 @@
 
 <?= $this->start('head'); ?>
 
+  <style type="text/css">
+    .register-image{
+      font-size: 300px;
+      display: inline-block;
+      color:#c1939e;
+      padding: 80px 100px;
+      background: -webkit-linear-gradient(right, #f7d2da, #7f4956);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .register-option-holder{
+      width: 1200px;
+    }
+    .register-option{
+      margin: 75px 150px;
+      width: 250px;
+      display: inline-block;
+      position: relative;
+      float: right;
+    }
+    .register-items{
+      margin: 50px 0;
+    }
+    .register-btn{
+      font-size: 20px;
+      padding: 20px;
+      background-color: #6d6d6d;
+      
+    }
+  </style>
+
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
@@ -49,21 +80,20 @@
         <div class="form-wrapper">
 
           <div id="customer-login" class="content">
-            <h2 class="heading" style="text-align: center">Register</h2>
+            <h2 class="heading" style="text-align: center; font-weight: 300; font-size: 50px;">Register</h2>
 
 
 
           </div>
 
-          <div style="border: 1px solid #c1939e">
-              <div class="row" style="margin: 100px 500px;">
-                <div class="col-xs-12">
-                  <button class="btn btn-1" id="customer-register">I want to register as a <span style="font-size: 20px;">customer</span></button>
+          <div class="register-option-holder" style="border: 1px solid #c1939e; ">
+              <i class="fas fa-users register-image" ></i>
+              <div class="row register-option" style="">
+                <div class="col-xs-12 register-items">
+                  <button class="btn btn-1 register-btn" id="customer-register">I WANT TO REGISTER AS A <span style="font-size: 25px;">customer</span></button>
                 </div>
-              </div>
-              <div class="row" style="margin: 100px 500px;">
-                <div class="col-xs-12">
-                  <button class="btn btn-1" id="tailor-register">I want to register as a <span style="font-size: 20px;">tailor</span></button>
+                <div class="col-xs-12 register-items">
+                  <button class="btn btn-1 register-btn" id="tailor-register">I WANT TO REGISTER AS A <span style="font-size: 25px;">tailor</span></button>
                 </div>
               </div>
           </div>

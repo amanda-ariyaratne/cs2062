@@ -37,6 +37,7 @@
 
   $product = $params['product'];
   $images = $params['images'];
+  $vendor = $params['product']->vendor;
 ?>
 
 <!-- <body class="templateProduct category-mode-false cata-grid-3 lazy-loading-img"> -->
@@ -62,7 +63,6 @@
     </div>
     
     <div id="page-body" class="breadcrumb-color">
-      
       <div id="shopify-section-header" class="shopify-section">
         <header class="header-content" data-stick="true" data-stickymobile="false">
   
@@ -78,245 +78,218 @@
               <div id="shopify-section-product-template" class="shopify-section">
                 
                 <div class="wrap-breadcrumb bw-color">
-    <div id="breadcrumb" class="breadcrumb-holder container">
+                  <div id="breadcrumb" class="breadcrumb-holder container">
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <ul class="breadcrumb">
+                          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a itemprop="url" href="/">
+                              <span itemprop="title" class="d-none">Tailor Mate</span>Home
+                            </a>
+                          </li>
 
-      <div class="row">
-        
-        
-        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-          <ul class="breadcrumb">
-            
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a itemprop="url" href="/">
-                <span itemprop="title" class="d-none">Handy Store</span>Home
-              </a>
-            </li>
+                          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
+                            <a href="" itemprop="url">
+                              <span itemprop="title"><?=$product->main_category_name?></span>
+                            </a>
+                          </li>    
+                          
+                          <li>
+                            <a href="" title=""><?=$product->main_category_name?></a>
+                          </li>
 
-            
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-              <a href="" itemprop="url">
-                <span itemprop="title"><?=$product->main_category_name?></span>
-              </a>
-            </li>    
-            
-            <li>
-              <a href="" title=""><?=$product->main_category_name?></a>
-            </li>
+                          <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
+                            <a href="/products/donkix-product-sample" itemprop="url">
+                              <span itemprop="title"><?=$product->sub_category_name?></span>
+                            </a>
+                          </li>
 
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-              <a href="/products/donkix-product-sample" itemprop="url">
-                <span itemprop="title"><?=$product->sub_category_name?></span>
-              </a>
-            </li>
+                          <li>
+                            <a href="" title=""><?=$product->sub_category_name?></a>
+                          </li>
 
-            <li>
-              <a href="" title=""><?=$product->sub_category_name?></a>
-            </li>
+                        </ul>
+                      </div>
+                    </div>
 
-            
-          </ul>
-        </div>
-      </div>
-
-    </div>
+                  </div>
                 </div>
 
                 <div itemscope itemtype="http://schema.org/Product">
-    <meta itemprop="url" content="https://arena-handy.myshopify.com/products/donkix-product-sample" />
-    <meta itemprop="image" content="//cdn.shopify.com/s/files/1/0102/1155/7435/products/6_a58db3c3-fa0c-4882-a718-b543511467ce_grande.jpg?v=1537342931">
-    <span itemprop="name" class="hide">'<?=$product->name?>'</span>
-    
-    
-  
-  
-  
-  
-  
-  
-    <div class="container">
-      <div class="row">
-      
-        
+                <meta itemprop="url" content="https://arena-handy.myshopify.com/products/donkix-product-sample" />
+                <meta itemprop="image" content="//cdn.shopify.com/s/files/1/0102/1155/7435/products/6_a58db3c3-fa0c-4882-a718-b543511467ce_grande.jpg?v=1537342931">
+                <span itemprop="name" class="hide">'<?=$product->name?>'</span>
 
-        
-        
-        <div class="col-lg-9 col-md-12" style="width: 1100px">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-9 col-md-12" style="width: 1100px">
+                      <div id="col-main" class="page-product layout-normal" style="width: 1200px">
+                        <div class="product">
+                          <div class="product-content-wrapper">
+                            <div class="row">
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div id="product-image" class="product-image ">
+                                  <div class="product-image-inner ">
+                                    <ul style="height: 600px; overflow: scroll; list-style: none;">
 
+                                      <?php
+                                        foreach($images as $image){
+                                          echo '
+                                          <li>
+                                            <div class="slider-main-image">
+                                              <div class="slider-for-03">
+                                                <div class="slick-item slick-zoom">
+                                                    <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
 
+                                                    <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image.'" alt="'.$product->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
 
-
-
-          <div id="col-main" class="page-product layout-normal" style="width: 1200px">
-
-            <div class="product">
-              
-              <div class="product-content-wrapper">
-                <div class="row">
-
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div id="product-image" class="product-image ">
-                      <div class="product-image-inner ">
-                        <ul style="height: 600px; overflow: scroll; list-style: none;">
-
-                          <?php
-                            foreach($images as $image){
-                              echo '
-                              <li>
-                                <div class="slider-main-image">
-                                  <div class="slider-for-03">
-                                    <div class="slick-item slick-zoom">
-                                        <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
-
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image.'" alt="'.$product->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
-
-                                    </div>
-                                    <div class="slick-item slick-zoom">
-                                        <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
-                                    </div> 
-                                  </div>
-                                  <div class="slick-btn-03">
-                                    <span class="btn-prev"><i class="demo-icon icon-left-1"></i></span>
-                                    <span class="btn-next"><i class="demo-icon icon-right-1"></i></span>
-                                  </div> 
-                                </div>                               
-                              </li>
-                              <br></br>
-                             
-                             ';
-                            }
-                            $image_path = $images[0];
-                          ?>         
-
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6 col-md-6 col-sm-6 col-12" style="position: relative; right: 1px;">
-                    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-
-                    <div id="product-info" class="product-info">
-                      <div class="product-info-inner">
-                        
-                        
-                          
-                          
-                          
-
-                          
-                         <?php 
-                          echo '
-
-                        <h1 itemprop="name" content="'.$product->name.'" class="page-heading">'.$product->name.'</h1>
-
-                        ';
-                        ?>
-                          <!--<div class="rating-links">
-                            <span class="apr-badge" id="spr_badge_1588808155195" data-rating="0.0">
-                              <span class="spr-starrating spr-badge-starrating">
-                                <?php
-                                  for ($i=0;$i<$product->starRating;$i++) {
-                                    echo '
-                                      <span class="fa fa-star checked" style="display:inline-block; color:gold;"></span>
-                                    ';
-                                  }
-                                ?>
-                              </span>
-                            </span>
-                            <div class="shopify-product-reviews-badge" data-id="1588808155195"></div>
-                            <a href="#tab_review">Add Your Review</a>
-                          </div>-->
-                        
-                        
-                        <div class="product-price">
-                          <div class="detail-price" itemprop="price" content="0.0">
-                            
-                            <?php echo '
-                              <span class="price-sale"><span class=money>$ '.$product->price.'</span></span>
-                            ';?>
-
-                          </div>
-                        </div>   
-                        
-                        
-                          
-                        
-                          
-                          <?php echo '
-                          
-                            <div class="short-description"><ul>
-                              '.$product->description.'
-                            </ul></div>
-                          
-                        ';?>
-
-                        
-                          
-                        
-
-                        <meta itemprop="priceCurrency" content="USD" /> 
-
-                                            </div>
-
-                                        </div>
-                                      </div>
-
-                                      </div>
-                                    </div>
+                                                </div>
+                                                <div class="slick-item slick-zoom">
+                                                    <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
+                                                </div> 
+                                              </div>
+                                              <div class="slick-btn-03">
+                                                <span class="btn-prev"><i class="demo-icon icon-left-1"></i></span>
+                                                <span class="btn-next"><i class="demo-icon icon-right-1"></i></span>
+                                              </div> 
+                                            </div>                               
+                                          </li>
+                                          <br></br>
+                                         
+                                         ';
+                                        }
+                                        $image_path = $images[0];
+                                      ?>         
 
                                   </div>
                                 </div>
+                              </div>
+
+                              <div class="col-lg-6 col-md-6 col-sm-6 col-12" style="position: relative; right: 1px;">
+                                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+                                <div id="product-info" class="product-info">
+                                  <div class="product-info-inner">
+                                    
+                                  
+                                     <?php 
+                                      echo '
+
+                                    <h1 itemprop="name" content="'.$product->name.'" class="page-heading">'.$product->name.'</h1>
+
+                                    ';
+                                    ?>
+                                    
+                                    <span>
+                                      <button id="approve-btn" type="submit" value="Approve" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Approve</button> 
+                                    </span>
+                                    <span>
+                                      <button id="approve-btn" type="submit" value="Approve" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Reject</button> 
+                                    </span>
+
+                                    <div class="product-price">
+                                      <div class="detail-price" itemprop="price" content="0.0">
+                                        
+                                        <?php echo '
+                                          <span class="price-sale"><span class=money>$ '.$product->price.'</span></span>
+                                        ';?>
+
+                                      </div>
+                                    </div>   
+                                  
+                                    <?php echo '
+                                      
+                                      <div class="short-description">
+                                        <ul>
+                                          '.$product->description.'
+                                        </ul>
+                                      </div>
+                                      
+                                    ';?>
+
+                                    <meta itemprop="priceCurrency" content="USD" /> 
+
+                                    <div class="group-cw clearfix">
+                                      <div id="product-action"  class="options">
+                                        <style>
+                                          label[for="product-select-option-1"] { display: none; }
+                                          #product-select-option-1 { display: none; }
+                                          #product-select-option-1 + .custom-style-select-box { display: none !important; }
+                                        </style>
+                                        <div class="swatch color clearfix" data-option-index="1">
+                                          <div class="header">Color</div>
+                                          
+                                            <?php
+                                              foreach($params['colors'] as $key=>$color){
+                                                echo '
+
+                                                  <div data-value="'.$color.'" class="swatch-element">
+                                                    
+                                                      <div class="tooltip" style="">'.$color.'</div>
+                                                      <input value="'.$color.'" style="display:none;"/>
+                                                      <label for="swatch-1-'.$color.'" style="background-color: '.$color.' ; "></label>
+                                                    
+                                                  </div>
+                                                ';
+                                              }
+                                            ?>
+                                            
+                                        </div>
+
+                                        <style>
+                                          label[for="product-select-option-0"] { display: none; }
+                                          #product-select-option-0 { display: none; }
+                                          #product-select-option-0 + .custom-style-select-box { display: none !important; }
+                                        </style>
+                                        <div class="measurements-main" data-option-index="0">
+                                          <div class="header" style="float: none; font-weight: 600;">Size</div>
+                                            <?php
+                                              foreach($params['measurements'] as $key=>$measurement){
+                                                echo '
+                                                  <div class="spr-form-for-measurements" style="padding-bottom:10px;" >
+                                                    <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
+                                                  </div>
+                                                ';
+                                              }
+                                            ?> 
+                                          
+                                        </div>
+                                      </div>
+                                    </div> 
+
+                                    <?php echo '
+                                      
+                                      <div class="short-description">
+                                        <h3 style="font-weight:400;">Vendor details</h3>
+                                        <ul>
+                                          <li> ID : '.$vendor->id.'</li>
+                                          <li> Name : '.$vendor->first_name.' '.$vendor->last_name.'</li>
+                                          <li> Email : '.$vendor->email.'</li>
+                                        </ul>
+                                      </div>
+                                      
+                                    ';?>
+
+                                  </div>
+                                </div>
+                               </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   </div>
                 </div>
-              </div>
-              <div class="product-meta-sharing">
-                  <div class="row">
-                    
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                      <ul class="product-sku-collection">
-
-                        
-                          <li class="product-vendor">
-                            <span>Sold By:</span>
-                            <a href="/collections/vendors?q=Armani" title="Armani"><?=$product->vendor->first_name?> <?=$product->vendor->last_name?></a>
-                          </li>
-                        
-
-                        
-                          <li class="product-code" style="display:none;">
-                            <span>SKU:</span>
-                            <span id="sku"></span>
-                          </li>
-
-                        
-
-                      </ul>
-                    </div>
-
-                    
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        
-                      </div>
-              </div>
-
-
-
-              </div>
-              
+              </div> 
             </div>
-            
           </div>
-
-          </div> 
-
         </div>
-
-      </div>
-
       </div>
     </div>
-                </div>
-
-              </div>
+  </div>
   
 
 

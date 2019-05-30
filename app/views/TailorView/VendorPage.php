@@ -155,9 +155,8 @@
           
   <div class="cata-product cp-grid">
          
-<?php 
+<?php
   foreach ($params[0] as $product){
-    // dnd();
 
 echo '
 <div class="product-grid-item mode-view-item">
@@ -169,8 +168,8 @@ echo '
       <div class="product-image">
 
         <div class="featured-img lazyload">
-          <a href="'.PROOT.'home/productView/'.$params[0][0]->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$params[0][0]->images[0].'">            
+          <a href="'.PROOT.'VendorController/VendorProductView/'.$product->id.'"> 
+            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0].'">            
             
         <span class="product-label">
     
@@ -213,8 +212,7 @@ echo '
 
       <div class="product-price">  
           
-        <span class="price-compare"><span class=money>Price</span></span>
-        <span class="price-sale"><span class=money>Sale price</span></span>   
+        <span class="price-sale"><span class=money>'.$product->price.'</span></span>   
       </div>
 
       <div class="product-add-cart">

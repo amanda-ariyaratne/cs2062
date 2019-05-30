@@ -86,7 +86,7 @@
                                             </div>
 
                                             <div id="wp-pv_shop_description-editor-container" class="col-md-4s"  ><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                                <textarea value="<?php echo $params[3]["description"]; ?>" class="wp-editor-area" style="height: 180px; width: 400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"></textarea>
+                                                <textarea class="wp-editor-area" style="height: 180px; width:400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description">"<?php echo $params[3]["description"]; ?>"</textarea>
 
                                             </div>
                                         </div>
@@ -142,10 +142,12 @@
                                                 <label style="font-family: sans-serif;margin-left: 15px">Measurements<button class="add_field_button" style="background-color: #f1f1f1;border-radius: 5px" >+</button></label>
 
                                                 <div class="old_mes" >
-                                                    <?php foreach ($params[1] as $mes){
-                                                        echo '<div style="margin-left: 250px"><input style="width: 400px" name="newMeasurements[]" type="text" value="'.$mes.'" ><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a></div>';
-                                                    }
-                                                    //                                                            ?>
+                                                    <?php if(count($params)!=null) {
+                                                        foreach ($params[1] as $mes) {
+                                                            echo '<div style="margin-left: 250px"><input style="width: 400px" name="newMeasurements[]" type="text" value="' . $mes . '" ><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a></div>';
+                                                        }
+                                                    }?>
+
                                                 </div>
                                                 <div id="addmes" class="input_fields_wrap">
                                                     <div class="col-md-3">

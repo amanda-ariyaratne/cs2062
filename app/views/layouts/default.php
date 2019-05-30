@@ -230,15 +230,20 @@
     }
     .dropdown-account-content a {
       color: black;
-      padding: 10px 10px;
+      padding: 7px 10px;
       text-decoration: none;
       display: block;
+      border-color: #d6d6d6;
+      border-style: solid;
+      border-width: 1px;
     }
     .dropdown-account:hover .dropdown-account-content {
       display: block;
     }
     .dropdown-account-content a:hover{
       color: #c1939e;
+      border-width: 1px;
+      border-color: #565656;
     }
     .dropdown-account-content a i{
       padding-right: 5px;
