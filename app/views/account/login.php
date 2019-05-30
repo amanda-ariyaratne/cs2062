@@ -69,7 +69,7 @@
 
 
                     <div class="control-wrapper">
-                      <label for="remember_me">Remember Me?<input type="checkbox" id="remember_me" name="remember_me" value="on" ></label>
+                      <label for="remember_me">Remember Me?<input type="checkbox" id="remember_me" name="remember_me" value="on" checked="checked"></label>
                     </div>
                     
 
