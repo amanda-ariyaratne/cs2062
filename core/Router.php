@@ -22,7 +22,7 @@
 			if (method_exists($controller, $action)) {
 				call_user_func_array([$dispatch, $action], $queryParams);
 			} else {
-				die('The method does not exist in the controller');
+				Router::redirect('home/pageNotFound');
 			}
 
 		}

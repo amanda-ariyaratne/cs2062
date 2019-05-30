@@ -147,4 +147,42 @@
             
         }
 
+        public function subscribersListAction(){
+            if (currentUser()) {
+                if (currentUser()->role == 1) {
+                    $this->view->render('admin/subscribersList');
+                } else {
+                    Router::redirect('home/pageNotFound');
+                }
+            } else {
+                Router::redirect('account/login');
+            }
+        }
+
+        public function jsonSubscribersListAction(){
+            $subscribersList = [];
+            $all_subscribers = new Subscriber();
+            $all_subscribers = $all_subscribers->find([]);
+            $i = 1;
+            foreach ($all_subscribers as $subscriber) {
+                $row = [];
+                array_push($row, $i);
+                $i++;
+                array_push($row, $subscriber->email);
+                array_push($row, $subscriber->created_at);
+                array_push($row, '<button data-id="'.$subscriber->id.'" class="btn btn-1"><i class="fas fa-trash sub-remove"></i></button>');
+                array_push($subscribersList, $row);
+            }
+            //$subscribersList = json_encode($subscribersList);
+            echo json_encode(array('data'=> $subscribersList));
+            return $subscribersList;
+        }
+
+        public function deleteSubscriberAction(){
+            $id = $_POST['id'];
+            $subscriber = new Subscriber();
+            $subscriber->deleteSubscriber($id);
+            echo json_encode($id);
+        }
+
 	}

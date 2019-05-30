@@ -25,7 +25,7 @@ class CartController extends Controller{
             $user = new User();
             $user = $user->currentLoggedInUser();
 
-            if ($user != null) {
+            if (($user != null ) and $user->role==3) {
                 if ($validation->passed()) {
                     $fields = [
                         "vendor_id" => $_POST["vendor_id"],
@@ -37,20 +37,20 @@ class CartController extends Controller{
                         "color" => $_POST["color"],
                         "quantity" => $_POST["quantity"],
                     ];
-                    //dnd($fields);
 
                     $cart = new Cart();
                     $status = $cart->addItem($fields);
-
                     $measurements = unserialize($_POST['measurements']);
+                    $values = [];
                     foreach ($measurements as $key => $mes) {
-                        $fields[$mes] = $_POST["measuremnt" . $key];
-
+                        array_push($values,$_POST["measuremnt" . $key]);
                     }
-                    //dnd($fields);
+
+                    $measurement = new Measurement("tailor_request_measurement");
+                    $measurement->addNewMeasurement($_POST["product_id"],$user->id,$measurements,$values);
 
                     $params = $this->getProductViewParams();
-                    array_push($params,$status);
+                    $params["status"] = $status;
                     $this->view->render('home/productView' , $params);
                     
 
@@ -72,7 +72,7 @@ class CartController extends Controller{
         $user = $user->currentLoggedInUser();
         $userId = $user->id;
 
-        if ($user != null) {
+        if (($user != null ) and $user->role==3) {
             $cart = new Cart();
             $cartItems = $cart->getCartItems($userId);
             $params = [$cartItems];
@@ -88,14 +88,14 @@ class CartController extends Controller{
         $cart = new Cart();
         $cart->remove($i);
 
-        $this->cartAction($u_id);
+        $this->cartAction();
     }
 
     public function emptyCartAction($u_id){
         $cart = new Cart();
         $cart->emptyCart($u_id);
 
-        $this->cartAction($u_id);
+        $this->cartAction();
 
     }
 
@@ -161,7 +161,8 @@ class CartController extends Controller{
         $color = new Color();
         $params['colors'] = $color->getColorByproductID($p_id);
         //load product measurements
-        $measurement = new Measurement('product_measurement');
+
+        $measurement = new Measurement("product_measurement");
         $params['measurements'] = $measurement->getMeasurementByID($p_id);
 
         return $params;

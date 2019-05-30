@@ -145,7 +145,8 @@
                                                 $mes = [];
                                                 ?>
 
-                                                <label class="col-md-3" style="font-family: sans-serif">Required Measurements</label>
+                                                <label class="col-md-3" style="font-family: sans-serif">Measurements</label>
+                                                <label>Basic measurements required</label>
 
                                                 <div class="col-md-4s" style="color: #6c757d;margin-left: 250px" id="measurements" name="mesname">
                                                     <a></a>
@@ -199,6 +200,7 @@
                                                     <button class="add_field_button_color" style="background-color: #f1f1f1;border-radius: 5px" >+</button>
                                                 </div>
                                                 <br>
+                                                <div style="display: inline-block"><input type="color" id="color1" value="null" name="colors[]"/><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a> </div>
 <!--                                                <div style="margin-left: 250px"><input style="display: inline-block" type="color" name="colors[]"></div>-->
                                             </div>
                                             <script>
@@ -210,17 +212,18 @@
                                                     var x = 1; //initlal text box count
                                                     $(add_button).click(function(e){//on add input button click
                                                         e.preventDefault();
-                                                        if(x < max_fields){ //max input box allowed
-                                                            x++; //text box increment
-                                                            $(wrapper).append('<div style="display: inline-block"><input type="color" name="colors[]"/><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a> </div> '); //add input box
+                                                        if(x < max_fields){ //max input  allowed
+                                                            x++;
+                                                            $(wrapper).append('<div style="display: inline-block"><input type="color" id="colors[]" name="colors[]"/><a href="#" class="remove_field"><button style="border-radius: 10px">-</button> </a> </div> ');
                                                         }
                                                     });
 
-                                                    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                                                    $(wrapper).on("click",".remove_field", function(e){
                                                         e.preventDefault(); $(this).parent('div').remove(); x--;
                                                     })
                                                 });
                                             </script>
+                                            <small id="error-msg-color"></small>
                                             <br>
                                     </div>
                                             <br>
@@ -260,13 +263,6 @@
                                                             document.getElementById("measurements").innerHTML += mname+'<br>';
                                                             m.push(mname);
 
-                                                            // if(document.getElementById("reqMes").checked===true) {
-                                                            //     alert(mname);
-                                                            // }
-                                                            //     m.push(mname);
-                                                            // var s = JSON.stringify(m);
-                                                            // document.getElementById("lab").innerHTML = s;
-                                                            // }
                                                         }
 
                                                     }
@@ -279,7 +275,6 @@
                                                     document.getElementById(mesurements[i]).style.display = "block";
                                                 }
 
-                                                //Add colors
 
                                                 function validateData(){
 
@@ -287,36 +282,52 @@
                                                     document.getElementById("error-msg-image").innerHTML="";
                                                     document.getElementById("error-msg-price").innerHTML="";
                                                     document.getElementById("error-msg-category").innerHTML="";
+                                                    document.getElementById("error-msg-color").innerHTML="";
+
 
                                                     var name=document.getElementById("productName").value;
                                                     var price=document.getElementById("productPrice").value;
                                                     var category=document.getElementById("productCategory").value;
                                                     var image=document.getElementById("productImage").files;
+                                                    var color=document.getElementById("color1").value;
+                                                    // alert();
                                                     var error;
 
 
                                                     var msg = "fill requirerd fields";
-                                                    if (name==""){
+                                                    if (name===""){
                                                         error=document.getElementById("error-msg-name");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
                                                         return false;
                                                     }
 
-                                                    else if (image.length==0){
+                                                    else if (image.length===0){
                                                         error=document.getElementById("error-msg-image");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Add an image!</small>";
                                                         return false;
                                                     }
 
-                                                    else if (price==""){
+                                                    else if (image.length>10){
+                                                        error=document.getElementById("error-msg-image");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Maximum 10 images!</small>";
+                                                        return false;
+                                                    }
+
+                                                    else if (price===""){
                                                         error=document.getElementById("error-msg-price");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
                                                         return false;
                                                     }
 
-                                                    else if (category==""){
+                                                    else if (category===""){
                                                         error=document.getElementById("error-msg-category");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
+                                                        return false;
+                                                    }
+
+                                                    else if(color==="#000000"){
+                                                        error=document.getElementById("error-msg-color");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Color is required!</small>";
                                                         return false;
                                                     }
 
