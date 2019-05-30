@@ -8,12 +8,18 @@
 			$user = $user->currentLoggedInUser();
 
 			if($user!=null){
-				$params = array();
-				array_push($params,$user);
 
-				$params = $this->addToParams($params, $user->id);
-				//dnd($params);
-				$this->view->render('Order/CustomerInformation',$params);
+				if (currentUser()->role == 3) {
+					$params = array();
+					array_push($params,$user);
+
+					$params = $this->addToParams($params, $user->id);
+					//dnd($params);
+					$this->view->render('Order/CustomerInformation',$params);
+	            } else {
+	                Router::redirect('home/pageNotFound');
+	            }
+
 			}else{
 					Router::redirect('account/login');
 			}
@@ -28,34 +34,49 @@
 			$user = $user->currentLoggedInUser();
 
 			if($user!=null){
-				$params = array();
-				$params['user_id'] = $user->id;
 
-				$order = new CustomerOrder();
-				$status_details = $order->getOrderList($user->id);
 
-				//reverse order list
-				$reverse_orders = array();
-				if(!empty($status_details)){
-					$reverse_orders = array_reverse($status_details);
-				}
+	            if (currentUser()->role == 3) {
+					$params = array();
+					array_push($params,$user);
 
-				$state = new OrderStatus();
-				$orders = array();
-				foreach ($reverse_orders as $key => $order) {
-					$order_details = [
-						'order_id'  => $order->id,
-						'total_amount'  => $order->total_amount,
-						'created_at'  => $order->created_at,
-						'delivered' =>	$state->checkIfDelivered($order->id)
-					];
+					$params = $this->addToParams($params, $user->id);
+					//dnd($params);
+					$this->view->render('Order/CustomerInformation',$params);
 
-					array_push($orders, $order_details)	;
-				}
-				$params['orders'] = $orders;
+					$params = array();
+					$params['user_id'] = $user->id;
 
-				//dnd($params);
-				$this->view->render('Order/OrderList', $params);
+					$order = new CustomerOrder();
+					$status_details = $order->getOrderList($user->id);
+
+					//reverse order list
+					$reverse_orders = array();
+					if(!empty($status_details)){
+						$reverse_orders = array_reverse($status_details);
+					}
+
+					$state = new OrderStatus();
+					$orders = array();
+					foreach ($reverse_orders as $key => $order) {
+						$order_details = [
+							'order_id'  => $order->id,
+							'total_amount'  => $order->total_amount,
+							'created_at'  => $order->created_at,
+							'delivered' =>	$state->checkIfDelivered($order->id)
+						];
+
+						array_push($orders, $order_details)	;
+					}
+					$params['orders'] = $orders;
+
+					//dnd($params);
+					$this->view->render('Order/OrderList', $params);
+	            } else {
+	                Router::redirect('home/pageNotFound');
+	            }
+
+	
 			}else{
 					Router::redirect('account/login');
 			}

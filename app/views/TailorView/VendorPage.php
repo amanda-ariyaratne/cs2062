@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle(($params[0][0]->vendorName).'-TailorMate' )?>
+<?= $this->setSiteTitle(end($params).'-TailorMate' )?>
 
 <?= $this->start('head'); ?>
 
@@ -15,8 +15,6 @@
   <div id="main-content"> 
     <div class="main-content">
       <div id="shopify-section-collection-template" class="shopify-section">
-
-
 
         <div class="wrap-breadcrumb bw-color">
           <div id="breadcrumb" class="breadcrumb-holder container">
