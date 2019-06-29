@@ -106,6 +106,15 @@
             }
         }
 
+        // public function approveProduct(){
+        //     // if(){
+
+        //     // }
+        //     // else{
+                
+        //     // }
+        // }
+
 
         public function newsletterAction(){
             if (currentUser()) {

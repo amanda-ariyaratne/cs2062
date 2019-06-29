@@ -20,7 +20,7 @@
         }
 
         public function rejectRequest($product_id,$tailor_id,$customer_id){
-
+            
             //end of the function
             $this->addObserver(new Notification());
             $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='0', $type='4');
