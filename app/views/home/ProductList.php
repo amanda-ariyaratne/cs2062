@@ -59,9 +59,6 @@
   
     <div class="row">
 
-
-
-      
         <div id="sidebar" class="left-column-container col-lg-3  d-none d-lg-block">
 
   
@@ -87,22 +84,27 @@
 
 
   <div class="col-lg-9 col-md-12">
-        
-        <div class="wrap-cata-title">
-          <h2>Products</h2>
-        </div>
+        <div class="row">
 
-        <div class="cata-toolbar">
+          <div class="col-lg-9">
+            <div class="wrap-cata-title">
+              <h2>Products</h2>
+            </div>            
+          </div>
+
+          <div class="col-lg-3">
+
+<div class="cata-toolbar">
   <div class="group-toolbar">
     
     <div class="pagination-showing">
-      <div class="showing">
+      <div class="showing" style="font-weight: 50; font-style: italic;">
           <?php          
             $pageNo=$params[1];
 
 
             $noOfPages = ceil(($params[2]/6));           
-            echo 'Showing  page '. $pageNo.' of  '.$noOfPages.'  pages';
+            echo 'Showing <b>'. $pageNo.'</b> of  <b>'.$noOfPages.'</b>  pages';
           ?>        
       </div>
     </div>
@@ -121,6 +123,12 @@
 
   </div>
 </div>
+
+          </div>
+        </div>
+
+        
+
 
 
         <div id="col-main">
@@ -141,15 +149,14 @@
               </style>
 
               <?php 
-               
                 foreach($params[0]as $value){
-                      //dnd($value);
 
-                      $pid=$value->id;
+                      $pid=$value->id;                      
+              // dnd($value->images);
 
-                      echo '<div class="product-grid-item mode-view-item product-list-style" style="margin:5px; width:32%;">                   
+                      echo '<div class="product-grid-item mode-view-item product-list-style" style="margin:5px;width:32%;height: 375px;border-width:0 0 0 0;padding-top: 15px;">                   
 
-                          <div class="product-wrapper effect-overlay ">
+                          <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
                             <div class="product-head">
                               <div class="product-image">
                                   <a href="'.PROOT.'home/productView/'.$pid.'"> 
@@ -160,19 +167,27 @@
 
                             <div class="product-content" style="padding:7px;">
                               <div class="pc-inner">     
-                              
-                                <div class="product-group-vendor-name row"> 
-                                  <h5 class="product-name" style="display: block;top: 10px;left: 20px;"><a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
-                                  </h5>
 
-                                  <div class="price-cart-wrapper" style="display: inline-block; margin-left: 130px;">
+                              <div style="text-align:center;">
 
-                                    <div class="product-price">                     
-                                      <span class="sold-out">$'. $value->price.'</span>                          
-                                    </div>
-                                  </div> 
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
 
-                                </div>  
+                              </div>
+
+                              <div class="product-name" style="text-align:center;>
+                                <a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
+                              </div>
+
+                              <div class="price-cart-wrapper" style="text-align:center;">
+                                <span class="sold-out">$'. $value->price.'</span> 
+                              </div>
+
+                                
+
                               </div>
                             </div>
 

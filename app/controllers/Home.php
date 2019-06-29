@@ -12,10 +12,10 @@
 			$this->view->renderFrontPage('home/index');
 		}
 
-		public function testAction(){
-			$product=new Product();
-			$product->getAcceptedRequest('2','1','2');
-		}
+		// public function testAction(){
+		// 	$product=new Product();
+		// 	$product->getAcceptedRequest('1','1','2');
+		// }
 		
 		public function AllVendorsAction($no){
 
@@ -80,7 +80,7 @@
 			$noOfProducts =$details[1];			
 
 			$params=array($param,$a,$noOfProducts,'All Products');
-
+			
 			$this->view->render('home/ProductList',$params);
 		}
 

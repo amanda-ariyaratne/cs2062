@@ -11,6 +11,7 @@
 		}
 
 		public function getSubCat($condition){
+			// dnd($condition);
 			return $this->find($condition);
 		}
 

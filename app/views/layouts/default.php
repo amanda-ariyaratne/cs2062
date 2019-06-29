@@ -659,8 +659,8 @@
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">';
-                        // dnd($subCat);
                         foreach ($subCat as $sub){
+                        // dnd($sub[1]);
                             
                             echo '<li>
                               <a tabindex="-1" href="'.PROOT.'home/ProductCategory/'.$sub[1].'/1">

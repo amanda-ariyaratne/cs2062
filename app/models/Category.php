@@ -16,7 +16,7 @@
 		}
 
 		public function getSubCat($id){
-			$condition = array('conditions'=>'main_id = ?','bi nd'=>[$id]);
+			$condition = array('conditions'=>'main_id = ?','bind'=>[$id]);
 			$sub=new SubCategory('sub_category');
 			return $sub->getSubCat($condition);
 		}
