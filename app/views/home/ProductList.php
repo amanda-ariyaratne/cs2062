@@ -102,7 +102,6 @@
           <?php          
             $pageNo=$params[1];
 
-
             $noOfPages = ceil(($params[2]/6));           
             echo 'Showing <b>'. $pageNo.'</b> of  <b>'.$noOfPages.'</b>  pages';
           ?>        
@@ -137,58 +136,60 @@
               <?php 
                 foreach($params[0]as $value){
 
-                      $pid=$value->id;                      
-              // dnd($value->images);
+                      $pid=$value->id;
 
-                      echo '<div class="product-grid-item mode-view-item product-list-style" >                   
+    echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
-                          <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
-                            <div class="product-head">
-                              <div class="product-image">
-                                  <a href="'.PROOT.'home/productView/'.$pid.'"> 
-                                    <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
-                                  </a>
-                              </div>
-                            </div>
+        <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
 
-                            <div class="product-content" style="padding:7px;">
-                              <div class="pc-inner">
-                              <div style="text-align:center;">
-                              ';     
+          <div class="product-head">
+            <div class="product-image">
 
-                              for($rate=0; $rate<$value->rates; $rate++) {
-                                echo '
-                                  <span class="fa fa-star checked"></span>
-                                ';
-                              }
+                <a href="'.PROOT.'home/productView/'.$pid.'"> 
+                  <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
+                </a>
+            </div>
+          </div>
 
-                              for($rate=0; $rate<5-$value->rates; $rate++) {
-                                echo '
-                                  <span class="fa fa-star unchecked"></span>
-                                ';
-                              }                              
+          <div class="product-content" style="padding:7px;">
+            <div class="pc-inner">
+            <div style="text-align:center;">
+            ';     
 
-                              echo'
-                              </div>
+          for($rate=0; $rate<$value->rates; $rate++) {
+            echo '
+              <span class="fa fa-star checked"></span>
+            ';
+          }
 
-                              <div class="product-name" style="text-align:center;>
-                                <a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
-                              </div>
+          for($rate=0; $rate<5-$value->rates; $rate++) {
+            echo '
+              <span class="fa fa-star unchecked"></span>
+            ';
+          }                              
 
-                              <div class="price-cart-wrapper" style="text-align:center;">
-                                <span class="sold-out">$'. $value->price.'</span> 
-                              </div>
+            echo'
+            </div>
 
-                                
+            <div class="product-name" style="text-align:center;>
+              <a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
+            </div>
 
-                              </div>
-                            </div>
+            <div class="price-cart-wrapper" style="text-align:center;">
+              <span class="sold-out">$'. $value->price.'</span> 
+            </div>
+            </div>
+          </div>
 
-                          </div>
-                      </div>';    
+        </div>
+    </div>';    
 
                 }
+
+
                ?>
+
+
 
               
             </div>
