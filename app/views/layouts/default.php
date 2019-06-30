@@ -15,7 +15,8 @@
   <title>
     <?= $this->siteTitle(); ?>
   </title>
-
+  <link href="<?=PROOT?>assets/css/rate.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="<?=PROOT?>assets/css/List.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bootstrap.4x.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
@@ -326,7 +327,7 @@
               
           ?>                
                 
-              </div>
+    </div>
               <!-- <div class="cart-item-quantity">
                       5
                     </div>
@@ -645,10 +646,20 @@
 
             <nav class="navbar navbar-expand-lg">
               <div class="collapse navbar-collapse">
-                <ul class="menu-list">
 
+                <ul class="menu-list">
+                  <li class="dropdown">
+                    <a href="<?=PROOT?>home/ProductList/1" class="dropdown-link">
+                      <span>
+                      All Products                        
+                      </span>
+                    </a>
+                    <span class="expand"></span>
+                  </li>
                   
                   <?php 
+
+
                     foreach($categories as $cat=>$subCat){
 
                       echo '
@@ -673,7 +684,7 @@
                         }
 
                       echo '</ul>
-                  </li>
+                      </li>
                       ';
                       
                     }

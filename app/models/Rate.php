@@ -32,6 +32,11 @@
 			return count($ratingArray);
 		}
 
+		public function getRate($product_id){
+			$ratingArray = $this->findFirst(array('conditions' => 'product_id = ?' , 'bind' => [$product_id]));
+			return $ratingArray->rate;
+		}
+
 		public function getTailorRating($tailor_id){
 			$product = new Product();
 			$all_products = $product->find(array('conditions' => 'vendor_id = ?', 'bind' => [$tailor_id]));

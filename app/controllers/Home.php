@@ -71,37 +71,34 @@
 			//get vendor name
 		}
 
-		public function ProductListAction($a){
+		public function ProductListAction($pagination){
 			$product=new Product();
 
-			$details=$product->getViewDetails($a);
-
+			$details=$product->getViewDetails($pagination);
 			$param=$details[0];
 			$noOfProducts =$details[1];			
 
-			$params=array($param,$a,$noOfProducts,'All Products');
+			$params=array($param,$pagination,$noOfProducts,'All Products');
 			
 			$this->view->render('home/ProductList',$params);
 		}
 
-		public function ProductCategoryAction($sub_cat_id,$a){
-			// dnd($sub_cat_id);
+		public function ProductCategoryAction($sub_cat_id,$pagination){
+
 			$product=new Product();
 
-			$details=$product->getCategoryViewDetails($a,$sub_cat_id);
+			$details=$product->getCategoryViewDetails($pagination,$sub_cat_id);
 
 			$param=$details[0];
 			$noOfProducts =$details[1];		
 
-			// dnd(count($param));	
-
 			$sub=new SubCategory();
 			$name=$sub->findByID($sub_cat_id)->name;
-			// dnd($name);
 
-			$params=array($param,$a,$noOfProducts,$sub_cat_id,$name);
+			$params=array($param,$pagination,$noOfProducts,$sub_cat_id,$name);
 
 			$this->view->render('home/ProductCategoryView',$params);
+
 		}
 
 // chamodi akka's edited page

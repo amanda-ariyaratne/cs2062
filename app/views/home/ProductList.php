@@ -88,7 +88,7 @@
 
           <div class="col-lg-9">
             <div class="wrap-cata-title">
-              <h2>Products</h2>
+              <h2 style="font-family: 'Open Sans',sans-serif; font-weight: 400;">Products</h2>
             </div>            
           </div>
 
@@ -134,27 +134,13 @@
         <div id="col-main">
             <div class="cata-product cp-grid">
 
-              <style type="text/css">
-                .product-list-style{
-                  display:block; 
-                  border:solid; 
-                  border-width:1px; 
-                  width:200px; 
-                  display:inline-block; 
-                  margin:10px;
-                }.product-list-style:hover{
-                  color: #7f4956;
-                  box-shadow: 0 10px 15px #c1939e;
-                }
-              </style>
-
               <?php 
                 foreach($params[0]as $value){
 
                       $pid=$value->id;                      
               // dnd($value->images);
 
-                      echo '<div class="product-grid-item mode-view-item product-list-style" style="margin:5px;width:32%;height: 375px;border-width:0 0 0 0;padding-top: 15px;">                   
+                      echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
                           <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
                             <div class="product-head">
@@ -166,16 +152,23 @@
                             </div>
 
                             <div class="product-content" style="padding:7px;">
-                              <div class="pc-inner">     
-
+                              <div class="pc-inner">
                               <div style="text-align:center;">
+                              ';     
 
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
+                              for($rate=0; $rate<$value->rates; $rate++) {
+                                echo '
+                                  <span class="fa fa-star checked"></span>
+                                ';
+                              }
 
+                              for($rate=0; $rate<5-$value->rates; $rate++) {
+                                echo '
+                                  <span class="fa fa-star unchecked"></span>
+                                ';
+                              }                              
+
+                              echo'
                               </div>
 
                               <div class="product-name" style="text-align:center;>
