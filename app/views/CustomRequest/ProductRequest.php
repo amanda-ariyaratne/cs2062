@@ -379,7 +379,7 @@
 		
 
 			if (name==""){
-				alert('dsds');
+				
 				error=document.getElementById("error-msg-name");
 				error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
 				return false;

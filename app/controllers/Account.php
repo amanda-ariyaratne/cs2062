@@ -101,7 +101,7 @@
 					Router::redirect('account/setUpYourStore/'.$user->id);
 				}
 			}
-			
+
 			$validation = new Validate();
 
 			if($_POST){
@@ -287,7 +287,21 @@
 		}
 
 		public function forgotPasswordAction(){
-			$this->view->render('account/forgotPassword');
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 1) {
+					$this->view->render('account/forgotPassword');
+				} else if ($user->role == 2) {
+					$this->view->render('account/forgotPassword');
+				} else if ($user->role == 3){
+					$this->view->render('account/forgotPassword');
+				} else if ($user->role == 4) {
+					$this->view->render('account/forgotPassword');
+				}
+			} else {
+				$this->view->render('home/pageNotFound');
+			}
+			
 		}
 
 		public function sendPasswordResetEmailAction(){
