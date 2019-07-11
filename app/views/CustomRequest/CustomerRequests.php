@@ -66,7 +66,6 @@
         <div class="sb-widget">
           <div class="sb-banner">
 
-              
                 <a href="#">
                   <img class="lazyload" src = "<?=PROOT?>assets/images/products/front2.jpg" alt="" /> 
                 </a>
@@ -84,28 +83,31 @@
     
 
 <div class="col-lg-9 col-md-12">
-        
-  <div class="wrap-cata-title">
-    <h2>Customer Requests</h2>
-  </div>
+  <div class="row height:32px;">
+    <div class="wrap-cata-title col-lg-9">
+      <h2 style="font-family: 'Open Sans',sans-serif; font-size: 32px; font-weight: 400;">Customer Requests</h2>
+    </div>
 
-<div class="cata-toolbar">
-  <div class="group-toolbar">
-      
-  <div class="pagination-showing">
-    <div class="showing">
+    <div class="cata-toolbar col-lg-3">
+      <div class="group-toolbar">
+          
+      <div class="pagination-showing">
+        <div class="showing" style="font-weight: 50; font-style: italic;">
+            <?php          
+              $pageNo=$params[1];
+              
+              $noOfPages = ceil(($params[2]/6));           
+              echo 'Showing <b>'. $pageNo.'</b> of  <b>'.$noOfPages.'</b>  pages';
+            ?>        
+        </div>
 
-          <?php                       
-            $pageNo=$params[1];
-            $noOfPages = ceil(($params[2]/6));           
-            echo 'Showing page '. $pageNo.' of  '.$noOfPages.'  pages';
-          ?>
-             
-            
+      </div>
+      </div>
     </div>
   </div>
-  </div>
-</div>
+  
+
+
 
 
 <div id="col-main">
@@ -117,77 +119,47 @@
     <!-- product view -->
 <?php 
     foreach ($params[0] as $field){
-      //dnd($field);
+      $pid=$field->id;
 
-      echo '
-  <div class="product-grid-item mode-view-item">
-          
 
-    <div class="product-wrapper effect-overlay ">
+    echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
-      <div class="product-head">
-        <div class="product-image">
-      
-          <div class="featured-img">
-            <a href="'.PROOT.'CustomRequestController/requestedProductView/'.$field->id.'"> 
-                <img class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$field->images[0].'" alt="Georgeous White Dresses" />       
-              <span class="product-label"></span>
-        </a>
-      </div>
-         
-      <div class="wrapper-countdown">
-      <div class="countdown_1588809236539"></div>
-      </div>
+        <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
 
-    </div>
-  </div>
+          <div class="product-head">
+            <div class="product-image">
 
-  <div class="product-content">
-    <div class="pc-inner">
-      
-      <div class="product-group-vendor-name"> 
-        <h5 class="price-cart-wrapper">
-          '.$field->pr_name.'
-        </h5>
+                <a href="'.PROOT.'CustomRequestController/requestedProductViewTailor/'.$pid.'"> 
+                  <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$field->images[0].'"/>
+                </a>
+            </div>
+          </div>
 
-        <div class="product-des-list-" style="list-style-position: outside;">
-             
-            <span class="a-list-item">'.$field->description.'</span>
-            
+          <div class="product-content" style="padding:7px;">
+            <div class="pc-inner">
+            <div style="text-align:center;">
 
-          
-        </div>   
+            </div>
 
-        <div class="product-review">
-          <span class="shopify-product-reviews-badge" data-id="1588809236539">            
-          </span>
+            <div style="text-align:center; font-weight:500; height:25px;">
+              '. $field->pr_name.'
+            </div>
+
+            <div style="text-align:center; font-weight:500; height:25px;">
+              '.$field->due_date.'
+            </div>
+
+            <div class="price-cart-wrapper" style="text-align:center;">
+              <span class="sold-out">$'.$field->max_price .' - $'.$field->max_price.'</span> 
+            </div>
+            </div>
+          </div>
+
         </div>
-        
-      </div>
-      
-     <div class="price-cart-wrapper">
-    <div class="product-price">   
-        <span class="price">
-          <br>
-          <span class=money>$100.00</span>
-        </span>
-    </div>
+    </div>';    
 
-    <a href="'.PROOT.'CustomRequestController/requestedProductView/'.$field->id.'" class="btn btn-1">View Details</a> 
-
-
-    </div>
-</div>
-
-</div>
-
-</div>
-
-
-</div>
-      ';
-    }
- ?>
+                }
+               ?>
 
 
     <!-- end product view -->
@@ -197,80 +169,11 @@
 </div>
 
 
+    <?php include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Pagination.php');?>
+
+
+
 </div>
-
-
-
-<div class="pagination-holder">
-  <ul class="pagination">
-
-    <li>
-      <a class="prev disabled" href="javascript:;">
-        <i class="icon-demo icon-angle-left"></i>
-      </a>
-    </li>
-
-    <?php
-      $pageNo=$params[1];
-      $noOfPages = ceil(($params[2]/6));      
-
-      if ($pageNo-1>0){
-        $previousPage=$pageNo-1;
-        echo
-        '<li>
-          <a href="'.$previousPage.'" title="Next" class="next">
-            <i class="icon-demo icon-angle-left"></i>
-          </a>
-        </li>';
-      }
-
-      $start=$pageNo-2;
-      $end=$pageNo+2;
-
-      if ($noOfPages<=5){
-        $start=1;
-        $end=$noOfPages;
-      }
-      
-      else{
-
-        if ($pageNo==1 || $pageNo==2){        
-          $start=1;
-            $end=$noOfPages;
-        }
-
-        else if($pageNo+1==$noOfPages) {
-          $start=$pageNo-3;
-          $end=$noOfPages;
-        }
-
-        else if ($pageNo==$noOfPages){
-          $start=$noOfPages-4;
-          $end=$noOfPages;
-        }
-
-      }
-
-      for($i=$start; $i<=$end; $i++) {
-        echo '<li><a href="'.$i.'">'.$i.'</a></li>';
-      }
-        
-      if ($pageNo+1<=$noOfPages){
-        $nextPage=$pageNo+1;
-        echo
-        '<li>
-          <a href="'.$nextPage.'" title="Next" class="next">
-            <i class="icon-demo icon-angle-right"></i>
-          </a>
-        </li>';
-      }
-
-    ?>
-
-  </ul>
-</div>
-
-
 </div>
 </div>
   

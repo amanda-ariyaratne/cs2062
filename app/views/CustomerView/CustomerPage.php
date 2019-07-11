@@ -93,54 +93,34 @@
           <div class="col-lg-9 col-md-12">
 
             <div class="wrap-cata-title">
-              <h2>
+              <h2 style="font-family: 'Open Sans',sans-serif; font-weight: 400;">
                 <?= end($params)?> 
               </h2>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-12 row" style="float:right; padding-right: 0px; padding-left: 8%;">
+          <div class="col-lg-3">
+
+<div class="cata-toolbar">
+  <div class="group-toolbar">
+    
+    <div class="pagination-showing">
+      <div class="showing" style="font-weight: 50; font-style: italic;">
+          <?php          
+            $pageNo=$params[1];
+
+            $noOfPages = ceil(($params[2]/6));           
+            echo 'Showing <b>'. $pageNo.'</b> of  <b>'.$noOfPages.'</b>  pages';
+          ?>        
+      </div>
+    </div>
+  </div>
+</div>
             
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 icon-style">
-
-                          
-            </div>
-
-
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 icon-style">
-              
-              <div></div>
-              <div><br></div>
-            </div> 
-
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 icon-style notification">
-              
-                  
-            </div>
           </div>
 
         </div>
-        <div class="cata-toolbar">
-          <div class="group-toolbar">
-            
-            <div class="pagination-showing">
-              <div class="showing">
-                <!-- <?php
-
-                   // if ($params[1]<6){
-                   //   echo 'Showing all Items';
-                   // }
-                   // elseif ($params[1]>6) {
-                   //   echo 'Showing page '..' from '.$params[1].' no of Pages';
-                   // }
-
-                ?> -->
-                
-              </div>
-            </div>
-          </div>
-        </div>
-
+        
 
 <div id="col-main">
           
@@ -148,78 +128,64 @@
       
    
 <?php 
+// dnd($params[0]);
+foreach($params[0]as $value){
 
-  foreach ($params[0] as $product){
-    // $product=$product[0];
+  $pid=$value->id;
 
-// dnd($product->id);
-echo '
-<div class="product-grid-item mode-view-item">  
+    echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
-  <div class="product-wrapper effect-overlay ">
+        <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
 
-    <div class="product-head">
-      <div class="product-image">
+          <div class="product-head">
+            <div class="product-image">
 
-        <div class="featured-img lazyload">
-          <a href="'.PROOT.'CustomRequestController/requestedProductViewCustomer/'.$product->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0]->path.'">            
+            <a href="'.PROOT.'CustomRequestController/requestedProductViewCustomer/'.$value->id.'"> 
+                  
+
+              <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$value->images[0]->path.'"/>
+
+              <span class="product-label">
             
-        <span class="product-label">
-    
-      
-        <span class="label-sale">';
-        if ($product->status==0){
-          echo '
-            <span class="sale-text">NO RESPONSE</span> 
-            ';
-        }
-        else{
+              
+                <span class="label-sale">';
+                  if ($value->status==0){
+                    echo '
+                      <span class="sale-text">NO RESPONSE</span> 
+                      ';
+                  }
+                  else{
 
-          echo'
-            <span class="sale-text">RESPONDED</span> 
-            ';
-        }
+                    echo'
+                      <span class="sale-text">RESPONDED</span> 
+                      ';
+                  }
 
-        echo' 
-          </span>   
-    
-        </span>
-          </a>
+
+                echo' 
+                </span>   
+            
+              </ >
+                </a>
+            </div>
+          </div>
+
+          <div class="product-content" style="padding:7px;">
+            <div class="pc-inner">
+            
+            <div class="product-name" style="text-align:center;">'. $value->pr_name. '
+            </div>
+
+            <div class="product-name" style="text-align:center;">'. $value->due_date. '
+            </div>
+
+            <div class="price-cart-wrapper" style="text-align:center;">
+              <span class="price-sale"><span class=money> $'.$value->min_price.' - $'.$value->max_price.'</span></span> 
+            </div>
+          </div>
         </div>
-        
-        <div class="product-button">
-
-        </div>    
-
-    <div class="wrapper-countdown">
-      <div class="countdown_1588807401531"></div>
-    </div>
-      </div>
-    </div>
-
-    <div class="product-content">
-      <div class="pc-inner">
-        
-                
-    <div class="price-cart-wrapper">
-
-      <div>  
-        <span>your product  </span>
-        <span  class="price-sale"><span class=money> '.$product->pr_name.'</span></span>   
-      </div>   
-      <div>  
-        <span>price range :</span>
-        <span class="price-sale"><span class=money> $'.$product->min_price.' - $'.$product->max_price.'</span></span>   
-      </div>
-
-       
-
-    </div>
-  </div>
 
 
-</div>
 </div>
 </div>';
 

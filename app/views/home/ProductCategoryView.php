@@ -59,9 +59,6 @@
   
     <div class="row">
 
-
-
-      
         <div id="sidebar" class="left-column-container col-lg-3  d-none d-lg-block">
 
   
@@ -88,80 +85,109 @@
 
   <div class="col-lg-9 col-md-12">
         
+        <div class="row">
+
+          <div class="col-lg-9">
+
         <div class="wrap-cata-title">
-          <h2><?= end($params)?></h2>
+          <h2 style="font-family: 'Open Sans',sans-serif; font-weight: 400;">
+            <?= end($params)?>
+          </h2>
         </div>
 
-        <div class="cata-toolbar">
-  <div class="group-toolbar">
-    
-    <div class="pagination-showing">
-     <div class="showing">
-          <?php          
-            $pageNo=$params[1];
+          </div>
+
+          <div class="col-lg-3">
+            
+              <div class="cata-toolbar">
+                <div class="group-toolbar">
+                  
+                  <div class="pagination-showing">
+                   <div class="showing" style="font-weight: 50; font-style: italic;">
+                      <?php          
+                        $pageNo=$params[1];
 
 
-            $noOfPages = ceil(($params[2]/6));           
-            echo 'Showing  page '. $pageNo.' of  '.$noOfPages.'  pages';
-          ?>        
-      </div>
-    </div>
-    
+                        $noOfPages = ceil(($params[2]/6));           
+                        echo 'Showing <b>'. $pageNo.'</b> of  <b>'.$noOfPages.'</b>  pages';
+                      ?>        
+                  </div>
+                  </div>
           
-      <!-- <div class="filter-icon dropdown"><i class="demo-icon icon-sliders"></i>Filter</div> -->
-          
-      <!-- <div class="grid-list">
-        <span class="text">View</span>
-        <span class="grid grid-4" title="Small"><i class="demo-icon icon-icon-grid-04"></i></span>
-        <span class="grid grid-3 active" title="Medium"><i class="demo-icon icon-electro-grid-view"></i></span>
-        <span class="grid grid-2" title="Large"><i class="demo-icon icon-grid-circle"></i></span>
-        <span class="grid grid-1" title="Huge"><i class="demo-icon icon-th-list-1"></i></span>
-      </div> -->
+                
+            <!-- <div class="filter-icon dropdown"><i class="demo-icon icon-sliders"></i>Filter</div> -->
+                
+            <!-- <div class="grid-list">
+              <span class="text">View</span>
+              <span class="grid grid-4" title="Small"><i class="demo-icon icon-icon-grid-04"></i></span>
+              <span class="grid grid-3 active" title="Medium"><i class="demo-icon icon-electro-grid-view"></i></span>
+              <span class="grid grid-2" title="Large"><i class="demo-icon icon-grid-circle"></i></span>
+              <span class="grid grid-1" title="Huge"><i class="demo-icon icon-th-list-1"></i></span>
+            </div> -->
 
 
-  </div>
-</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+
+        
 
 
         <div id="col-main">
             <div class="cata-product cp-grid">
               <?php 
-               
                 foreach($params[0]as $value){
-                      //dnd($value);
 
-                      $pid=$value->id;
+                      $pid=$value->id;                      
+              // dnd($value->images);
 
-                      echo '<div class="product-grid-item mode-view-item">                   
+                      echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
-                          <div class="product-wrapper effect-overlay ">
+                          <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
                             <div class="product-head">
                               <div class="product-image">
-                                
                                   <a href="'.PROOT.'home/productView/'.$pid.'"> 
-                                    <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
+                                    <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
                                   </a>
                               </div>
                             </div>
 
                             <div class="product-content" style="padding:7px;">
-                              <div class="pc-inner">          
-                                <div class="product-group-vendor-name row"> 
-                                  <h5 class="product-name" style="display: block;top: 10px;left: 20px;"><a href="/products/consectetur-nibh-eget">'. $value->name.'</a>
-                                  </h5>
+                              <div class="pc-inner">
+                              <div style="text-align:center;">
+                              ';     
 
-                                  <div class="price-cart-wrapper" style="display: inline-block; margin-left: 130px;">
+                              for($rate=0; $rate<$value->rates; $rate++) {
+                                echo '
+                                  <span class="fa fa-star checked"></span>
+                                ';
+                              }
 
-                                    <div class="product-price">                     
-                                      <span class="sold-out">$'. $value->price.'</span>                          
-                                    </div>
-                                  </div> 
+                              for($rate=0; $rate<5-$value->rates; $rate++) {
+                                echo '
+                                  <span class="fa fa-star unchecked"></span>
+                                ';
+                              }                              
 
-                                </div>  
+                              echo'
+                              </div>
+
+                              <div class="product-name" style="text-align:center;>
+                                <a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
+                              </div>
+
+                              <div class="price-cart-wrapper" style="text-align:center;">
+                                <span class="sold-out">$'. $value->price.'</span> 
+                              </div>
+
+                                
+
                               </div>
                             </div>
 
-                            
                           </div>
                       </div>';    
 

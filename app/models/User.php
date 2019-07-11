@@ -122,4 +122,8 @@
 		public function updatePassword($fields){
 			return $this->update($this->id, $fields);
 		}
+
+		public function updateRole($fields){
+			return $this->update($this->id, $fields);
+		}
 	}

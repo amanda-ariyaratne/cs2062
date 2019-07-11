@@ -4,6 +4,8 @@
 <?= $this->start('head'); ?>
 
 <link href="<?=PROOT?>assets/css/productView.css" rel="stylesheet" type="text/css" media="all" />
+<link href="<?=PROOT?>assets/css/chat.css" rel="stylesheet" type="text/css" media="all" />
+
 <script src="<?=PROOT?>assets/js/productView.js"></script>
 <style id="shopify-dynamic-checkout">
 	</style>
@@ -220,13 +222,13 @@
 
                         <div class="swatch color clearfix" data-option-index="1">
                           <div class="header">Postal Code</div>
-                          <label style="padding-top: 6px;"><?=$params['location']?></label>
+                          <div style="padding-top: 6px;"><?=$params['location']?></div>
                         </div>
                         <br>
 
                         <div class="swatch color clearfix" data-option-index="1">
                           <div class="header">Due Date</div>
-                          <label style="padding-top: 6px;"><?=$params['due_date']?></label>
+                          <div style="padding-top: 6px;"><?=$params['due_date']?></div>
                         </div>
                         <br>
 
@@ -238,7 +240,7 @@
                               echo '
 
                                 <div class="spr-form-for-measurements" style="padding-bottom:10px;margin-top: 10px;" >
-                                  <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement_type.'</label>
+                                  <label class="spr-m-form-label"  style="padding-left:40px;">'.$measurement->measurement_type.'</label>
                                   <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement.'</label>
                                   
                                   
@@ -254,38 +256,78 @@
                                           </div>
                                         </div>
 
-                    <form method="post" action="<?=PROOT?>CustomRequestController/requestedProductView/<?=$params['id']?>" onsubmit="return validateData();">
+        <div class="container-chat">
+          <img src="https://img1.jockeyimg.com/assets/managedcontent/departments/home/1907july/1907-superhero-mdept-1280x640.jpg" alt="Avatar" style="width:100%;">
+          <p>Hello. How are you today?</p>
+          <span class="time-right">11:00</span>
+        </div>
+        
+      <?php 
+        // if ($params['responses']){
+        //   foreach ($params['responses'] as $response){
 
-                        <div class="swatch color clearfix" data-option-index="1">
-                          <div class="row">
-                            <div class="header col-lg-12" style="font-weight: 700">Add a Note</div>
-                          </div>
-                          <div class="row" style="margin-left: 0px;margin-top: 15px;">
-                            <textarea placeholder="ex: your deal price and due date" class="col-lg-12" style="padding: 7px;height: 136px;" name="tailor-note"></textarea>
-                          </div>                          
+        //     echo '
+            
+        //       <div class="row respond text-align-center">
+        //         <div class="col-lg-1">
+        //             <img class="tailor-icon" src="'.PROOT.'assets/images/custom_requests/tailor_icon.jpg">
+        //         </div>
+
+        //         <div class="col-lg-2 response-pack" style="font-weight:600; font-style:italic;">
+        //           '.$response->tailor.'
+        //         </div>
+
+        //         <div class="col-lg-8 response-pack">'.$response->response.'</div>
+
+        //         <div class="col-lg-1" style="text-align:center;">
+        //             <span>
+        //               <i class="fa fa-check" data-id="" style="color:green;" aria-hidden="true"></i>
+        //             </span>
+        //             <span></span>
+        //             <span>
+        //               <i class="fa fa-window-close" data-id="" style="color:red;" aria-hidden="true"></i>
+        //             </span>                  
+        //         </div>
+
+        //       </div>
+        //       ';
+        //     $count++;
+        //   }
+
+        // }
+        // else{
+        //   echo '<div style="color:red;">You do not have any response!</div>';
+        // }
+        
+       ?>  
+
+       
+
+
+                      <!-- <div class="swatch color clearfix" data-option-index="1">
+
+                        <div class="row">
+                          <div class="header col-lg-3" style="font-weight: 700">Add a Note</div>
+                          <div class="header col-lg-9" id ="success-message" style="font-style: italic; color: red; text-align:left;"></div>
                         </div>
 
-                        <br/>
+                        <div style="margin-left: 0px;margin-top: 15px;">
+                          <textarea placeholder="ex: your deal price and due date" id="response" class="col-lg-12" style="padding: 7px;height: 136px;" name="tailor-note"></textarea>
+                        </div>                          
+                      </div> 
+ -->
+                      <br/>
                       <div class="qty-add-cart">
                         <div class="action-button">
-                          <!-- <input type="hidden" name="product-id" value="<?=$params['id']?>"> -->
-                          <button id="add-to-cart" value="Submit" class="btn btn-1 pull-right" >Send response
+                          <button id="submit-response" value="Submit" class="btn btn-1 pull-right" >Send response
                           </button> 
                         </div>
                       </div>
 
-                    </form>
+                      <?php include(ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'chat.php'); ?>
 
-                                        
-                                        <div class="people-in-cart">
-                                          <div class="img-user">
-                                            <a href="<?=PROOT?>CartController/cart/0"><img src="<?=PROOT?>assets/images/icon-cart.png" alt="Image"/>
-                                          </div>
-                                          <div class="people-block-text"></div>
-                                        </div>
-                                      </div>
-                                      <div id="pre-order-popup" style="display: none;">
-                                      </div>
+
+
                                     </div>
                                   </div>
                                 </div>
@@ -304,6 +346,33 @@
       </div>
     </div>
   </div>
+
+
+  <script type="text/javascript">
+    
+    $(document).ready(function(){
+
+      $('#submit-response').on('click', function(){
+          
+          var response=$('#response').val();
+          var product=<?php echo $params['id']; ?>;
+          var tailor=<?php echo currentUser()->id; ?>;
+
+          var data=JSON.stringify([product,tailor,response]);
+          
+          $.ajax({
+            url:"<?=PROOT?>CustomRequestController/sendResponse",
+            method:"POST",
+            data:{'response':data},
+            success: function(){
+              $("#success-message").html("Response Added!");
+              $("#response").val("");
+            }
+          });
+
+      });
+    });
+  </script>
   
 
 

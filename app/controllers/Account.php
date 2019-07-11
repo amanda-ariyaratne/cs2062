@@ -10,6 +10,18 @@
 		}
 
 		public function registerAction(){
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 1) {
+					Router::redirect('admin/newProducts');
+				} else if ($user->role == 2){
+					Router::redirect('VendorController/VendorPage/'.$user->id);
+				} else if ($user->role == 3) {
+					Router::redirect('home/ProductList/1');
+				} else if ($user->role == 4) {
+					Router::redirect('account/setUpYourStore/'.$user->id);
+				}
+			}
 			
 			if ($_POST) {
 
@@ -27,7 +39,9 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
-				    	
+				    	if ($role == 2) {
+				    		$role = 4;
+				    	}
 				    	$fields = [
 				    		"first_name" => $first_name,
 				    		"last_name" => $last_name,
@@ -41,7 +55,7 @@
 				    	$user = $user->findByEmail($email);
 
 				    	// create new store
-				    	if ($role == 2) {
+				    	if ($role == 4) {
 				    		Router::redirect('account/setUpYourStore/'.$user->id);
 				    	}
 
@@ -75,6 +89,19 @@
 		}
 
 		public function loginAction(){
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 1) {
+					Router::redirect('admin/newProducts');
+				} else if ($user->role == 2){
+					Router::redirect('VendorController/VendorPage/'.$user->id);
+				} else if ($user->role == 3) {
+					Router::redirect('home/ProductList/1');
+				} else if ($user->role == 4) {
+					Router::redirect('account/setUpYourStore/'.$user->id);
+				}
+			}
+
 			$validation = new Validate();
 
 			if($_POST){
@@ -260,7 +287,21 @@
 		}
 
 		public function forgotPasswordAction(){
-			$this->view->render('account/forgotPassword');
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 1) {
+					$this->view->render('account/forgotPassword');
+				} else if ($user->role == 2) {
+					$this->view->render('account/forgotPassword');
+				} else if ($user->role == 3){
+					$this->view->render('account/forgotPassword');
+				} else if ($user->role == 4) {
+					$this->view->render('account/forgotPassword');
+				}
+			} else {
+				$this->view->render('home/pageNotFound');
+			}
+			
 		}
 
 		public function sendPasswordResetEmailAction(){
@@ -518,7 +559,13 @@
 				}
 
 				$store->addTailorShop($fields);
-				
+				//dnd($_POST['user_id']);
+				$user = new User();
+				$user = $user->findByUserID($_POST['user_id']);
+				$params = ['role'=>2];
+				//dnd($user);
+				$user->updateRole($params);
+				//dnd('done');
 				if (currentUser()) {
 					Router::redirect('VendorController/vendorPage/'.currentUser()->id);
 				} else {

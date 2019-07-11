@@ -1,5 +1,4 @@
 <?php
-
 	class Measurement extends Model
     {
 
@@ -41,10 +40,18 @@
                     'measurement_type' => $types[$i],
                     'measurement' => $measurements[$i]
                 ];
-
-                $this->insert($fields);
+            $this->insert($fields);
             }
         }
+
+		public function deleteAllMeasurement($pr_id){
+			$condition=['conditions'=>'product_id = ?', 'bind'=>[$pr_id]];
+			$measurements=$this->find($condition);
+			$ids=[];
+			foreach ($measurements as $measurement){
+				$this->delete($measurement->id);
+			}
+		}
 
         public function updateMeasurement($pr_id, $customer_id, $types, $measurements)
         {

@@ -12,19 +12,19 @@
 			parent::__construct($table);
 		}
 
-        public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
+        // public function getAcceptedRequest($product_id,$tailor_id,$customer_id){
             
-            //end of the function
-            $this->addObserver(new Notification());
-            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='1', $type='4');
-        }
+        //     //end of the function
+        //     $this->addObserver(new Notification());
+        //     $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='1', $type='4');
+        // }
 
-        public function rejectRequest($product_id,$tailor_id,$customer_id){
-
-            //end of the function
-            $this->addObserver(new Notification());
-            $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='0', $type='4');
-        }
+        // public function rejectRequest($product_id,$tailor_id,$customer_id){
+            
+        //     //end of the function
+        //     $this->addObserver(new Notification());
+        //     $this->notifyObservers($product_id,$customer_id ,$tailor_id,$status='0', $type='4');
+        // }
 
         public function notifyObservers($product_id,$tailor_id,$customer_id,$status ,$type){
             foreach ($this->observers as $observer){
@@ -36,18 +36,17 @@
             array_push($this->observers, $obj);
         }
 
-        public function getViewDetails($pageNo){            
+        public function getViewDetails($pageNo){  
             $pageNo=6*($pageNo-1);
 
             $limit = array('limit'=>$pageNo.',6');
 
             $details = $this->find($limit);
-            foreach ($details as $row){
-                $image=new Image('tailor_product_image');
-                $images=$image->getImage($row->id);
-                $row->images = $images;         
-            }   
 
+            $this->getAllImages($details);
+
+            $this->getRates($details);
+            
             $noOfRows=count($this->find());
             
             return [$details,$noOfRows];
@@ -62,19 +61,30 @@
             $tot=array_merge($conditions, $limit);
             
             $details = $this->find($tot);
-            
-            // dnd($details[0]);
+
+            $this->getAllImages($details);
+
+            $this->getRates($details);
+
+            $noOfRows=count($this->find($conditions));
+
+            return [$details,$noOfRows];            
+        }
+
+        public function getAllImages($details){
             foreach ($details as $row){
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
                 $row->images = $images;         
             }   
+        }
 
-            $noOfRows=count($this->find($conditions));
-
-            return [$details,$noOfRows];
-
-            
+        public function getRates($details){
+            foreach ($details as $row){
+                $rate=new Rate();
+                $rates=$rate->getRate($row->id);
+                $row->rates=$rates;
+            }
         }
 
         public function getPageVendor($id){
@@ -85,7 +95,7 @@
             foreach ($details as $row){
                 //get Image details
                 $image=new Image('tailor_product_image');
-                $images=$image->getImage($row);
+                $images=$image->getImage($row->id);
                 $row->images = $images;     
             }
 
@@ -97,8 +107,6 @@
             if ($details) {
                 $details[0]->vendorName = $name;
             }
-
-
             //dnd($details);
             $noOfRows=count($this->find());
             
