@@ -39,6 +39,7 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
+				    	
 				    	if ($role == 2) {
 				    		$role = 4;
 				    	}
@@ -74,7 +75,13 @@
 				    	//user->login();
 				    } else {
 				    	$_SESSION['error_email'] = "<div style='color: red;'>This user already exists</div>";
-				    	$this->view->render('account/register');
+				    	if ($role == 1) {
+				    		$this->view->render('account/adminRegister');
+				    	} else if($role == 2){
+				    		$this->view->render('account/tailorRegister1');
+				    	} else {
+				    		$this->view->render('account/customerRegister1');
+				    	}
 				    }
 				
 			} else {
@@ -86,6 +93,10 @@
 				$this->view->render('account/register');
 			}
 			
+		}
+
+		public function adminRegister1Action(){
+			$this->view->render('account/adminRegister');
 		}
 
 		public function loginAction(){
