@@ -90,161 +90,143 @@
 </div>
 
       <div class="col-lg-9 col-md-12">
-        <div class="row">
+        <div class="row" style="height:35px;">
           <div class="col-lg-9 col-md-12">
 
             <div class="wrap-cata-title">
-              <h2>
-                <?= $params[0][0]->vendorName;?>  
+              <h2 style="font-family: 'Open Sans',sans-serif; font-weight: 400; font-size:30px;">
+                My Designs
               </h2>
             </div>
           </div>
-          <?php if (currentUser()->role == 2) {
-            echo '<div class="col-lg-3 col-md-12">
-              <div class="pull-right">
-                <a href="'.PROOT.'Home/addProduct"><button class="btn btn-1">Add Product</button></a>
+
+          <div class="col-lg-3">
+            <div class="cata-toolbar">
+              <div class="group-toolbar">
+
+                <div class="pagination-showing">
+                  <div class="showing" style="font-weight: 50; font-style: italic;">
+                      <?php
+                        $pageNo=$params[1];
+
+
+                        $noOfPages = ceil(($params[2]/6));
+                        echo 'Showing <b>'. $pageNo.'</b> of  <b>'.$noOfPages.'</b>  pages';
+                      ?>
+                  </div>
+                </div>
               </div>
-            </div>';
+            </div>
+          </div>
+        </div>
+
+        <?php
+          if (currentUser()->role == 2) {
+            echo '
+              <div style="padding-left:840px;">
+
+                <a href="'.PROOT.'home/addProduct" title="Add Your Designs Here">
+                  fgh
+                </a>
+              </div>
+            ';
           }
           ?>
 
-          <div class="col-lg-3 col-md-12 row" style="float:right; padding-right: 0px; padding-left: 8%;">
-            
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 icon-style">
-
-                          
-            </div>
-
-
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 icon-style">
-              
-              <div></div>
-              <div><br></div>
-            </div> 
-
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12 icon-style notification">
-              
-                  
-            </div>
-          </div>
-
-        </div>
-        <div class="cata-toolbar">
-          <div class="group-toolbar">
-            
-            <div class="pagination-showing">
-              <div class="showing">
-                <?php
-                   if ($params[2]<6){
-                     echo 'Showing all Items';
-                   }
-                   elseif ($params[2]>6) {
-                     echo 'Showing 6 items from'.$params[2];
-                   }
-
-                ?>
-                
-              </div>
-            </div>
-          </div>
-        </div>
 
 
 <div id="col-main">
           
   <div class="cata-product cp-grid">
+         
 <?php
-//dnd($params[0][3]->images[0]);
-  foreach ($params[0] as $product){
-echo '
-<div class="product-grid-item mode-view-item" >
-                      
+  foreach ($params[0] as $value){
 
-  <div class="product-wrapper effect-overlay " style="background-color: ">
+      $pid=$value->id;
 
-    <div class="product-head">
-      <div class="product-image">
+      echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
-        <div class="featured-img lazyload">
-          <a href="'.PROOT.'VendorController/VendorProductView/'.$product->id.'"> 
-            <img class="featured-image front lazyload" style="width: 250px;height: 300px" src="'.PROOT.'assets/images/products/'.$product->images[0].'">            
+        <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
+
+          <div class="product-head">
+            <div class="product-image">
             
-        <span class="product-label">';
+                <a href="'.PROOT.'home/productView/'.$pid.'"> 
+                  <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
+
+                 <span class="product-label">';
 
       if($product->permission==1){
-         echo '<span class="label-sale" style="background: rgba(129, 207, 220, 0.7);border-radius: 5px">
-          <span class="sale-text" >Approved</span>  
+         echo '<span class="label-sale">
+          <span class="sale-text">Approved</span>  
           </span>';
       }
       else{
-         echo '<span class="label-sale" style="float: left;background: rgba(176, 75, 80, 0.5);border-radius: 5px">
+         echo '<span class="label-sale" style="background-color: #bc4a54">
           <span class="sale-text" >Not Approved</span>  
           </span>';
       }
 
       if($product->active==1){
-          echo '<span class="label-sale" style="background: rgba(129, 207, 220, 0.7);border-radius: 5px">
+          echo '<span class="label-sale">
           <span class="sale-text" >Active</span>  
           </span>';
       }
       else{
-          echo '<span class="label-sale" style="background: rgba(176, 75, 80, 0.5);border-radius: 5px">
+          echo '<span class="label-sale" style="background-color: #bc4a54">
           <span class="sale-text" >Not Active</span>  
           </span>';
       }
-    
-        echo '</span>
-          </a>
-        </div>
-        
-        <div class="product-button">
 
-        </div>    
 
-    <div class="wrapper-countdown">
-      <div class="countdown_1588807401531"></div>
-    </div>
-      </div>
-    </div>
-
-    <div class="product-content">
-      <div class="pc-inner">
-        
-        <div class="product-group-vendor-name" style="padding-right: 0px"> 
-          <h3 class="product-name">
-            <a style="color: #95636f;font-weight: bold;">
-             '.$product->name.'
-            </a>
-            <span class="price-sale" style="margin-right: 10px;float: right">$'.$product->price.'</span>
-          </h3>
-          
-          
-            <div class="product-review">
-              <span class="shopify-product-reviews-badge" data-id="1588807401531"></span>
+                 echo '</span>
+                </a>
             </div>
-          
-        </div>
-        
-    <div class="price-cart-wrapper">
+          </div>
 
-      
+          <div class="product-content" style="padding:7px;">
+            <div class="pc-inner">
+            <div style="text-align:center;">
+            ';
 
-      
+                              for($rate=0; $rate<$value->rates; $rate++) {
+                                echo '
+                                  <span class="fa fa-star checked"></span>
+                                ';
+                              }
 
-    </div>
-  </div>
+                              for($rate=0; $rate<5-$value->rates; $rate++) {
+                                echo '
+                                  <span class="fa fa-star unchecked"></span>
+                                ';
+                              }
+
+                              echo'
+                              </div>
+
+                              <div class="product-name" style="text-align:center;>
+                                <a href="'.PROOT.'home/productView/'.$value->id.'">'. $value->name.'</a>
+                              </div>
+
+                              <div class="price-cart-wrapper" style="text-align:center;">
+                                <span class="sold-out">$'. $value->price.'</span> 
+                              </div>
+
+                                
+
+                              </div>
+                            </div>
+
+                          </div>
+                      </div>';
+
+                }
+               ?>
 
 
-</div>
-</div>
-</div>';
 
 
-    
-  }
- ?>
 
-     
 </div>   
 </div>
 </div>
@@ -260,6 +242,7 @@ echo '
   
   </div>
 </div>
+
 <script>
 function openForm() {
   document.getElementById("myForm").style.display = "block";

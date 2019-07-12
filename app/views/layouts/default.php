@@ -15,7 +15,8 @@
   <title>
     <?= $this->siteTitle(); ?>
   </title>
-
+  <link href="<?=PROOT?>assets/css/rate.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="<?=PROOT?>assets/css/List.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bootstrap.4x.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
@@ -326,7 +327,7 @@
               
           ?>                
                 
-              </div>
+    </div>
               <!-- <div class="cart-item-quantity">
                       5
                     </div>
@@ -417,7 +418,9 @@
                                 <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
                                 <div class="dropdown-account-content">
                                   <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                  <a href="'.PROOT.'CustomerController/CustomerPage/'.$user->id.'"><i class="fas fa-tshirt" style="font-size:10px;"></i> My Requests</a>
                                   <a href="'.PROOT.'account/orderHistory"><i class="fab fa-opencart" style="font-size:10px;"></i> Order history</a>
+
                                 </div>
                               </div>          
 
@@ -643,10 +646,20 @@
 
             <nav class="navbar navbar-expand-lg">
               <div class="collapse navbar-collapse">
-                <ul class="menu-list">
 
+                <ul class="menu-list">
+                  <li class="dropdown">
+                    <a href="<?=PROOT?>home/ProductList/1" class="dropdown-link">
+                      <span>
+                      All Products                        
+                      </span>
+                    </a>
+                    <span class="expand"></span>
+                  </li>
                   
                   <?php 
+
+
                     foreach($categories as $cat=>$subCat){
 
                       echo '
@@ -657,8 +670,8 @@
                       <span class="expand"></span>
 
                       <ul class="dropdown-menu">';
-                        // dnd($subCat);
                         foreach ($subCat as $sub){
+                        // dnd($sub[1]);
                             
                             echo '<li>
                               <a tabindex="-1" href="'.PROOT.'home/ProductCategory/'.$sub[1].'/1">
@@ -671,7 +684,7 @@
                         }
 
                       echo '</ul>
-                  </li>
+                      </li>
                       ';
                       
                     }

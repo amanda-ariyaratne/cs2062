@@ -181,10 +181,10 @@
                                     ?>
                                     
                                     <span>
-                                      <button id="approve-btn" type="submit" value="Approve" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Approve</button> 
+                                      <button id="approve-btn" type="submit" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Approve</button> 
                                     </span>
                                     <span>
-                                      <button id="approve-btn" type="submit" value="Approve" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Reject</button> 
+                                      <button id="Reject-btn" type="submit" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Reject</button> 
                                     </span>
 
                                     <div class="product-price">
@@ -290,6 +290,17 @@
       </div>
     </div>
   </div>
+  <!-- <script type="text/javascript">
+    $(document).ready(function(){
+      $('#approve-btn').click(function(){
+          $.ajax({
+            url:"<?=PROOT?>/Admin/ApprovePage",
+            method:"POST",
+            data:{'status':'1', 'pr_id': <?=$params['id']?>},
+          });
+      });
+    });
+  </script> -->
   
 
 
