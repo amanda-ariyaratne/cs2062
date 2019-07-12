@@ -138,23 +138,24 @@
                                             <br>
 
                                             <!-- select Measurements -->
-                                            <div class="" id="big" style="display: none">
+                                            <div class=""  >
 
                                                 <?php
                                                 $arry = $params[1];
                                                 $mes = [];
                                                 ?>
-
+                                                <div id="big" style="display: none">
                                                 <label class="col-md-3" style="font-family: sans-serif">Measurements</label>
-                                                <label>Basic measurements required</label>
+                                                <label style="font-weight: bold">Basic measurements required</label>
 
                                                 <div class="col-md-4s" style="color: #6c757d;margin-left: 250px" id="measurements" name="mesname">
                                                     <a></a>
                                                 </div>
+                                                </div>
 
                                                 <div id="addmes" class="input_fields_wrap">
                                                     <div class="col-md-3">
-                                                        <label style="font-family: sans-serif">Add More Measurements</label>
+                                                        <label style="font-family: sans-serif">Add Measurements</label>
 
                                                     </div>
                                                     <div style="margin-left: 250px"><input style="width: 400px" type="text" name="newMesurements[]"><button class="add_field_button" style="background-color: #f1f1f1;border-radius: 5px" >+</button></div><br>
@@ -185,11 +186,12 @@
 
                                             <!-- Product Material -->
                                             <div class="control-group">
-                                                <label class="col-md-3" style="font-family: sans-serif">Product Material</label>
+                                                <label class="col-md-3" style="font-family: sans-serif">Product Material<span class="require">*</span></label>
                                                 <div class="control">
                                                     <input type="text" class="col-md-4s" style="width: 400px" name="material" id="productMaterial" value="" placeholder=""  />
                                                 </div>
                                             </div>
+                                            <small id="error-msg-material"></small>
                                             <br>
 
                                             <!-- select colors -->
@@ -198,9 +200,11 @@
                                                 <div>
                                                     <label style="font-family: sans-serif;margin-left: 15px">Add Colors</label>
                                                     <button class="add_field_button_color" style="background-color: #f1f1f1;border-radius: 5px" >+</button>
+                                                    <br><br>
+                                                    <input type="color" id="colors[]" name="colors[]"/>
                                                 </div>
                                                 <br>
-                                                <div style="display: inline-block"><input type="color" id="color1" value="null" name="colors[]"/><a href="#" class=""></a> </div>
+<!--                                                <div style="display: inline-block"><input type="color" id="color1" value="null" name="colors[]"/><a href="#" class=""></a> </div>-->
 <!--                                                <div style="margin-left: 250px"><input style="display: inline-block" type="color" name="colors[]"></div>-->
                                             </div>
                                             <script>
@@ -260,7 +264,7 @@
 
                                                             var mname = array[i].name;
 
-                                                            document.getElementById("measurements").innerHTML += mname+'<br>';
+                                                            document.getElementById("measurements").innerHTML += '<a style="font-weight: bolder"></a> '+mname+'<br>';
                                                             m.push(mname);
 
                                                         }
@@ -282,6 +286,7 @@
                                                     document.getElementById("error-msg-image").innerHTML="";
                                                     document.getElementById("error-msg-price").innerHTML="";
                                                     document.getElementById("error-msg-category").innerHTML="";
+                                                    document.getElementById("error-msg-material").innerHTML="";
                                                     document.getElementById("error-msg-color").innerHTML="";
 
 
@@ -289,7 +294,9 @@
                                                     var price=document.getElementById("productPrice").value;
                                                     var category=document.getElementById("productCategory").value;
                                                     var image=document.getElementById("productImage").files;
-                                                    var color=document.getElementById("color1").value;
+                                                    var material=document.getElementById("productMaterial").value;
+
+                                                    // var color=document.getElementById("colors[]").value;
                                                     // alert();
                                                     var error;
 
@@ -318,6 +325,11 @@
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
                                                         return false;
                                                     }
+                                                    else if (price<=0){
+                                                        error=document.getElementById("error-msg-price");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">invalid price!</small>";
+                                                        return false;
+                                                    }
 
                                                     else if (category===""){
                                                         error=document.getElementById("error-msg-category");
@@ -325,11 +337,17 @@
                                                         return false;
                                                     }
 
-                                                    else if(color==="#000000"){
-                                                        error=document.getElementById("error-msg-color");
-                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Color is required!</small>";
+                                                    if (material===""){
+                                                        error=document.getElementById("error-msg-material");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Material is required!</small>";
                                                         return false;
                                                     }
+
+                                                    // else if(count(color)===0){
+                                                    //     error=document.getElementById("error-msg-color");
+                                                    //     error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Color is required!</small>";
+                                                    //     return false;
+                                                    // }
 
                                                     else{
                                                         var msg = "";

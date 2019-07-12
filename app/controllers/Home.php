@@ -344,6 +344,7 @@
         $color = new Color();
         $colors = $color->getColorByproductID($pr_id);
         $fields = [
+            "id" => $product_details->id,
             "name" => $product_details->name,
             "description" =>$product_details->description,
             "price" => $product_details->price,
@@ -363,10 +364,11 @@
             $product->editProduct($pr_id);
             $color->editColor($_POST["colors"],$pr_id);
             $mes->editMesurement($pr_id,$_POST["newMeasurements"]);
+            Router::redirect('VendorController/VendorProductView/'.$pr_id);
+
         }
 
         $this->view->render('home/EditProduct',$params);
-//        Router::redirect('VendorController/VendorProductView/'.$pr_id);
 
     }
 
@@ -379,6 +381,8 @@
         $measurement->deleteMeasurements($pr_id);
         $color = new Color();
         $color->deleteColor($pr_id);
+        $image = new Image();
+        $image->deleteAllImages($pr_id);
 
         Router::redirect('VendorController/VendorPage/'.$vendor_id);
     }

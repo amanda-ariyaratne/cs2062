@@ -24,6 +24,7 @@
 			$details=$product->getPageVendor($a);
 
 			$param=$details[0];
+//			dnd($param);
 			$noOfProducts =$details[1];
 
 			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);

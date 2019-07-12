@@ -135,12 +135,11 @@
             <div class="pagination-showing">
               <div class="showing">
                 <?php
-
-                   if ($params[1]<6){
+                   if ($params[2]<6){
                      echo 'Showing all Items';
                    }
-                   elseif ($params[1]>6) {
-                     echo 'Showing 6 items from'.$params[1];
+                   elseif ($params[2]>6) {
+                     echo 'Showing 6 items from'.$params[2];
                    }
 
                 ?>
@@ -154,43 +153,42 @@
 <div id="col-main">
           
   <div class="cata-product cp-grid">
-         
 <?php
+//dnd($params[0][3]->images[0]);
   foreach ($params[0] as $product){
-
 echo '
-<div class="product-grid-item mode-view-item">
+<div class="product-grid-item mode-view-item" >
                       
 
-  <div class="product-wrapper effect-overlay ">
+  <div class="product-wrapper effect-overlay " style="background-color: ">
 
     <div class="product-head">
       <div class="product-image">
 
         <div class="featured-img lazyload">
           <a href="'.PROOT.'VendorController/VendorProductView/'.$product->id.'"> 
-            <img class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$product->images[0].'">            
+            <img class="featured-image front lazyload" style="width: 250px;height: 300px" src="'.PROOT.'assets/images/products/'.$product->images[0].'">            
             
         <span class="product-label">';
-    
+
       if($product->permission==1){
-         echo '<span class="label-sale">
-          <span class="sale-text">Approved</span>  
+         echo '<span class="label-sale" style="background: rgba(129, 207, 220, 0.7);border-radius: 5px">
+          <span class="sale-text" >Approved</span>  
           </span>';
       }
       else{
-         echo '<span class="label-sale" style="background-color: #bc4a54">
+         echo '<span class="label-sale" style="float: left;background: rgba(176, 75, 80, 0.5);border-radius: 5px">
           <span class="sale-text" >Not Approved</span>  
           </span>';
       }
 
       if($product->active==1){
-          echo '<span class="label-sale">
+          echo '<span class="label-sale" style="background: rgba(129, 207, 220, 0.7);border-radius: 5px">
           <span class="sale-text" >Active</span>  
           </span>';
       }
       else{
-          echo '<span class="label-sale" style="background-color: #bc4a54">
+          echo '<span class="label-sale" style="background: rgba(176, 75, 80, 0.5);border-radius: 5px">
           <span class="sale-text" >Not Active</span>  
           </span>';
       }
@@ -212,12 +210,14 @@ echo '
     <div class="product-content">
       <div class="pc-inner">
         
-        <div class="product-group-vendor-name"> 
-          <h5 class="product-name">
-            <a href="'.PROOT.'VendorController/VendorProductView/'.$product->id.'">
+        <div class="product-group-vendor-name" style="padding-right: 0px"> 
+          <h3 class="product-name">
+            <a style="color: #95636f;font-weight: bold;">
              '.$product->name.'
             </a>
-          </h5>
+            <span class="price-sale" style="margin-right: 10px;float: right">$'.$product->price.'</span>
+          </h3>
+          
           
             <div class="product-review">
               <span class="shopify-product-reviews-badge" data-id="1588807401531"></span>
@@ -227,10 +227,7 @@ echo '
         
     <div class="price-cart-wrapper">
 
-      <div class="product-price">  
-          
-        <span class="price-sale"><span class=money>$'.$product->price.'</span></span>   
-      </div>
+      
 
       
 

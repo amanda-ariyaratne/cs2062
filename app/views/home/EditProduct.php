@@ -86,7 +86,7 @@
                                             </div>
 
                                             <div id="wp-pv_shop_description-editor-container" class="col-md-4s"  ><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                                <textarea class="wp-editor-area" style="height: 180px; width:400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description">"<?php echo $params[3]["description"]; ?>"</textarea>
+                                                <textarea class="wp-editor-area" style="height: 180px; width:400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"><?php echo $params[3]["description"]; ?></textarea>
 
                                             </div>
                                         </div>
@@ -117,8 +117,9 @@
                                                 <label class="col-md-3" id="lab" style="font-family: sans-serif">Select Category<span class="require">*</span></label>
                                                 <div class="control select">
                                                     <select id="productCategory" type="number" name="category" class="col-md-4s" style="width: 400px" onchange="">
-                                                        <option><?php echo $params[0][$params[3]["sub_category_id"]-1]->name?></option>
-                                                        <?php $main_id = 0;
+                                                        <?php
+                                                        echo '<option value="'.$params[0][$params[3]["sub_category_id"]-1]->id.'">'.$params[0][$params[3]["sub_category_id"]-1]->name.'</option>';
+                                                         $main_id = 0;
                                                         $i = 0;
                                                         foreach ($params[0] as $cat) {
                                                             if($cat->main_id != $main_id){
@@ -188,11 +189,12 @@
                                             <!-- Product Material -->
                                             <br>
                                             <div class="control-group">
-                                                <label class="col-md-3" style="font-family: sans-serif">Product Material</label>
+                                                <label class="col-md-3" style="font-family: sans-serif">Product Material<span class="require">*</span></label>
                                                 <div class="control">
                                                     <input type="text" class="col-md-4s" style="width: 400px" name="material" id="productMaterial" value="<?php echo $params[3]["material"]; ?>" placeholder=""  />
                                                 </div>
                                             </div>
+                                            <small id="error-msg-material"></small>
                                             <br>
 
 <!--                                             select colors-->
@@ -239,24 +241,25 @@
 
                                             <script type="text/javascript">
 
-                                                //Add colors
-
                                                 function validateData(){
 
                                                     document.getElementById("error-msg-name").innerHTML="";
-                                                    document.getElementById("error-msg-image").innerHTML="";
+                                                    // document.getElementById("error-msg-image").innerHTML="";
                                                     document.getElementById("error-msg-price").innerHTML="";
                                                     document.getElementById("error-msg-category").innerHTML="";
+                                                    document.getElementById("error-msg-material").innerHTML="";
+
 
                                                     var name=document.getElementById("productName").value;
                                                     var price=document.getElementById("productPrice").value;
                                                     var category=document.getElementById("productCategory").value;
-                                                    var image=document.getElementById("productImage").files;
+                                                    var material=document.getElementById("productMaterial").value;
+
+                                                    // var image=document.getElementById("productImage").files;
                                                     var error;
 
-
                                                     var msg = "fill requirerd fields";
-                                                    if (name==""){
+                                                    if (name===""){
                                                         error=document.getElementById("error-msg-name");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
                                                         return false;
@@ -268,15 +271,26 @@
                                                     //     return false;
                                                     // }
 
-                                                    else if (price==""){
+                                                    else if (price===""){
                                                         error=document.getElementById("error-msg-price");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
                                                         return false;
                                                     }
+                                                    else if (price<=0){
+                                                        error=document.getElementById("error-msg-price");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">invalid price!</small>";
+                                                        return false;
+                                                    }
 
-                                                    else if (category==""){
+                                                    else if (category===""){
                                                         error=document.getElementById("error-msg-category");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
+                                                        return false;
+                                                    }
+
+                                                    if (material===""){
+                                                        error=document.getElementById("error-msg-material");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Material is required!</small>";
                                                         return false;
                                                     }
 
@@ -287,7 +301,9 @@
                                                 }
 
                                             </script>
-
+<!--                                            --><?php
+//                                            dnd($params[3]["id"]);
+//                                            ?>
 
                                             <div class="control-wrapper last">
                                                 <button class="btn btn-1" type="submit" name="submit">Update Details</button>

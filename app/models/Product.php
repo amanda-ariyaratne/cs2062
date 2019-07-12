@@ -86,14 +86,14 @@
                 //get Image details
                 $image=new Image('tailor_product_image');
                 $images=$image->getImage($row->id);
-                $row->images = $images;     
+                $row->images = $images;
             }
 
             //get vendor's name
             $con=array('conditions'=>'id =?','bind'=> [$row->vendor_id]); 
             $user=new User();
             $user_info=$user->getDetails($con);
-            $name=$user_info->first_name.$user_info->last_name;
+            $name=implode(' ',array($user_info->first_name,$user_info->last_name));
             if ($details) {
                 $details[0]->vendorName = $name;
             }
@@ -225,6 +225,7 @@
         }
 
         public function editProduct($pr_id){
+//		    dnd($_POST);
             $fields['name'] = $_POST["Product_Name"];
             $fields['price'] = $_POST["product_price"];
             $fields['sub_category_id'] = $_POST["category"];
@@ -246,7 +247,7 @@
         public function changeActiveStatus($pr_id,$status){
             $details = $this->findById($pr_id);
             $fields = [
-                "status" => $status
+                "active" => $status
             ];
             $this->update($pr_id,$fields);
         }
