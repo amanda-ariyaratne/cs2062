@@ -7,7 +7,6 @@
 <link href="<?=PROOT?>assets/css/toggle.css" rel="stylesheet" type="text/css" media="all" />
 <link href="<?=PROOT?>assets/css/chat.css" rel="stylesheet" type="text/css" media="all" />
 <link href="<?=PROOT?>assets/css/section.css" rel="stylesheet" type="text/css" media="all" />
-<link href="<?=PROOT?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
 
 <style id="shopify-dynamic-checkout">
 	</style>
@@ -34,10 +33,15 @@
       box-shadow: 0 0 5px #c1939e;
       border-radius: 5px;
       padding:5px 0; 
+      cursor: default;
     }
 
     .response-pack{
       padding:0 0 0 0 !important;     
+    }
+
+    .this-response{
+      cursor: pointer;
     }
 
   /*modal css start*/
@@ -152,28 +156,6 @@
                             </a>
                           </li>
                           <li class="active">Customer request</li>
-
-            
-<!--             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-              <a href="" itemprop="url">
-                <span itemprop="title"><?=$params[0]->main_category_name?></span>
-              </a>
-            </li>    
-            
-            <li>
-              <a href="" title=""><?=$params[0]->main_category_name?></a>
-            </li>
-
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-              <a href="/products/donkix-product-sample" itemprop="url">
-                <span itemprop="title"><?=$params[0]->sub_category_name?></span>
-              </a>
-            </li>
-
-            <li>
-              <a href="" title=""><?=$params[0]->sub_category_name?></a>
-            </li> -->
-
             
                         </ul>
                       </div>
@@ -325,9 +307,9 @@
             foreach($params['measurements'] as $measurement){
               echo '
 
-                <div class="spr-form-for-measurements" style="padding-bottom:10px;margin-top: 10px;" >
-                  <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement_type.'</label>
-                  <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement.'</label>                                   
+                <div class="spr-form-for-measurements" style="padding-bottom:10px;margin-top: 10px; " >
+                  <span class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement_type.'</span>
+                  <span class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement.'</span>                                   
                 </div>
               ';
             }
@@ -350,10 +332,9 @@
         /////  First view of Responses /////
         if ($params['responses-new'] || $params['responses-old']){
           foreach ($params['responses-new'] as $response){
-
             echo '
               
-              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" style="cursor:pointer;" data-id="'.$response->tailor_id.'">
+              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->tailor_id.'">
                 <div class="col-lg-1">
                   <img src="'.PROOT.'assets/images/store_logo/'.$response->avatar.'" alt="Avatar" style="width:100%;">
                 </div>
@@ -362,19 +343,28 @@
                   '.$response->tailor.'
                 </div>
 
-                <div class="col-lg-8 response-pack">'.$response->response.'</div>
+                <div class="col-lg-8 response-pack my-response" data-id="'.$response->tailor_id.'">'.$response->response.'</div>
 
-                <div class="col-lg-1" style="text-align:center;">
-                    <span>
-                      <i class="fa fa-check" data-id="" style="color:green;" aria-hidden="true"></i>
-                    </span>
-                    <span></span>
-                    <span>
-                      <i class="fa fa-window-close" data-id="" style="color:red; cursor: pointer;" aria-hidden="true"></i>
-                    </span>                  
-                </div>
-
+                <div class="col-lg-1"></div>
+                
               </div>
+
+
+              <div class="payment-icon" style="text-align:right;">';
+              if ($params['tailor_id']==$response->tailor_id && $params['status']==1){
+
+                echo '
+                  <a href="'.PROOT.'orderController/customerInformation">
+                    <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px;">       
+                  </a>'; 
+              }
+              else{                
+                echo '
+                  <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px; opacity:0.5; cursor:default;">
+                ';  
+              }
+                echo '
+                </div>
               ';
             $count++;
           }
@@ -432,77 +422,7 @@
   </div>
   <!-- chat ends -->
 
-
-
-  <!-- chat start -->
-  <!-- <div class="chat">
-    <div class="chat-area">
-
-       <?php 
-
-       foreach ($params['responses'] as $response){
-        echo '
-
-          <div class="container-chat">
-            <img src="'.PROOT.'assets/images/store_logo/'.$response->avatar.'" alt="Avatar" style="width:100%;">
-            <p>'.$response->response.'</p>
-            <span class="time-right">11:00</span>
-          </div>
-
-          <div class="container-chat darker">
-            <img src="'.PROOT.'assets/images/store_logo/'.$response->avatar.'" alt="Avatar" class="right" style="width:100%;">
-            <p>'.$response->response.'</p>
-            <span class="time-left">11:01</span>
-          </div>
-
-        ';
-
-       }
-
-        ?>       
-
-    </div>
-
-    <span class="media mt-3 shadow-textarea" style="width: 400px; ">
-      <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
-        alt="Generic placeholder image">
-      <div class="media-body" style="margin: auto;width: 50%;box-shadow: 5px 5px 5px 5px #c1939e;height: 40px;">
-
-        <div class="form-group basic-textarea rounded-corners">
-          <div class="row">
-            <div class="col-lg-10">
-              <textarea class="form-control z-depth-1" id="exampleFormControlTextarea345" rows="3" placeholder="Write your comment..."></textarea>
-            </div>
-            <div class="col-lg-2" style="padding-top: 8px;">
-              <i class="fa fa-paper-plane" style="font-size: 20px; text-align: right; cursor: pointer;" aria-hidden="true"></i>          
-            </div>
-          </div>
-
-        </div>
-          
-
-      </div>
-    </span>
-
-  </div> -->
-  <!-- chat ends -->
-
   </div>                 
-
-  <div class="qty-add-cart">
-    <div class="action-button">
-
-    <div class="row">
-      <div class="col-lg-6"><button id="ignore" class="btn btn-1" >IGNORE
-      </button> </div>
-      <div class="col-lg-6"><button id="accept" class="btn btn-1 pull-right" >ACCEPT
-      </button> </div>
-
-    </div>
-      
-    </div>
-  </div>
-
 
 </div>
   <div id="pre-order-popup" style="display: none;">
@@ -510,6 +430,9 @@
                                     </div>
                                   </div>
                                 </div>
+
+
+
                               </div>
                             </div>
                           </div>
@@ -530,143 +453,110 @@
     
 
   $(document).ready(function(){
-    var status= <?php echo $params['status']; ?>;
     var tailor_id='';
     var pr_id=JSON.stringify(<?=$params['id']?>);  
     var customer_id=JSON.stringify(<?= currentUser()->id ?>);
 
-      if (status=='0'){
-        $('#ignore').prop('disabled',true);
-        $('#accept').prop('disabled',true);
-        $('#ignore').css('opacity', '0.5');
-        $('#ignore').css('cursor','not-allowed');
-        $('#accept').css('opacity', '0.5');
-        $('#accept').css('cursor','not-allowed'); 
-      }
+    $('.my-response').click(function(){
+      var icon =$(this);         
+      tailor_id=JSON.stringify(icon.data("id"));  
 
-      $('.respond').click(function(){
-        var icon =$(this);         
-        tailor_id=JSON.stringify(icon.data("id"));  
+      $.ajax({
+          url:"<?=PROOT?>home/getConversation",
+          method: "POST",
+          data:{'product_id': pr_id,'tailor_id':tailor_id, 'customer_id':customer_id},
 
-        $.ajax({
-            url:"<?=PROOT?>home/getConversation",
-            method: "POST",
-            data:{'product_id': pr_id,'tailor_id':tailor_id, 'customer_id':customer_id},
-
-            success: function(data){
-              var data=JSON.parse(data);
-              $('.modal-body').html(doForAll(data));
-            }
-        });
-      });    
-
-      var btn_list=[];
-
-      function doForAll(data){
-        var chat="";
-        for (var i = data.length - 1; i >= 0; i--) {
-          chat=chat+setConversation(data[i]);
-        }
-        return chat;
-      }
-
-      function setConversation(item){
-        var avatar=item.avatar;
-        var response=item.response;
-        var sender=item.sender;
-        var time=item.created_at;
-
-        var reciever="<div class='container-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' style='width:100%;'><p>"+response+"</p><span class='time-right'>"+time+"</span></div>" ; 
-
-        var sender="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
-
-        if (item.sender=="t"){
-          return reciever;
-        }
-        else{
-          return sender;          
-        }
-      }
-
-      $('#send-trigger').click(function(){
-        var response=$('#chatTextArea').val();
-        var time='just now';
-
-
-        // check this part
-        // var avatar=<?=$params['myAvatar']?>;
-
-        var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
-        
-        var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
-
-        $('.modal-body').append(send);
-
-        var response=JSON.stringify(response);
-        var product_id=JSON.stringify(<?php echo $params['id'];?>);
-        var sender=JSON.stringify('c');
-        var tailor=JSON.stringify(tailor_id);
-
-        $.ajax({
-          url:"<?=PROOT?>CustomRequestController/sendResponse",
-          method:"POST",
-          data:{'response':response,'sender':sender, 'product_id':product_id, 'tailor_id':tailor},
-          success:function(data){
-            console.log(data);
+          success: function(data){
+            var data=JSON.parse(data);
+            $('.modal-body').html(doForAll(data));
           }
-        });
-
-
       });
+    });    
 
-      $('#ignore').click(function(){
-        var icon =$(this);   
+    var btn_list=[];
 
-        if (btn_list.length==0){ 
-          btn_list.push(icon);
+    function doForAll(data){
+      var chat="";
+      for (var i = data.length - 1; i >= 0; i--) {
+        chat=chat+setConversation(data[i]);
+      }
+      return chat;
+    }
+
+    function setConversation(item){
+      var avatar=item.avatar;
+      var response=item.response;
+      var sender=item.sender;
+      var time=item.created_at;
+
+      var reciever="<div class='container-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' style='width:100%;'><p>"+response+"</p><span class='time-right'>"+time+"</span></div>" ; 
+
+      var sender="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
+
+      if (item.sender=="t"){
+        return reciever;
+      }
+      else{
+        return sender;          
+      }
+    }
+
+    $('#send-trigger').click(function(){
+      var response=$('#chatTextArea').val();
+      var time='just now';
 
 
-          $.ajax({
-              url:"<?=PROOT?>CustomRequestController/Approval",
-              method: "POST",
-              data:{'id': pr_id,'user_id':tailor_id, 'status':'0'},
-              success: function(data){
+      // check this part
+      // var avatar=<?=$params['myAvatar']?>;
 
-                $('#accept').css('opacity', '0.5');
-                $('#accept').css('cursor','not-allowed');
-                icon.css('opacity', '0.5');
-                icon.css('cursor','not-allowed');
-                
-              }
-          });
+      var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
+      
+      var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
+
+      $('.modal-body').append(send);
+
+      var response=JSON.stringify(response);
+      var product_id=JSON.stringify(<?php echo $params['id'];?>);
+      var sender=JSON.stringify('c');
+      var tailor=JSON.stringify(tailor_id);
+
+      $.ajax({
+        url:"<?=PROOT?>CustomRequestController/sendResponse",
+        method:"POST",
+        data:{'response':response,'sender':sender, 'product_id':product_id, 'tailor_id':tailor},
+        success:function(data){
+          console.log(data);
         }
-
       });
+    });
 
-      $('#accept').click(function(){
-        var icon =$(this);
+      // });
+      // $('#accept').click(function(){
+      //   var icon =$(this);
 
-        var pr_id=JSON.stringify(<?=$params['id']?>);  
-        var tailor_id=JSON.stringify(<?=$params['tailor_id']?>); 
+      //   var pr_id=JSON.stringify(<?=$params['id']?>);  
+      //   var tailor_id=JSON.stringify(<?=$params['tailor_id']?>); 
 
-        if (btn_list.length==0){ 
-          btn_list.push(icon);
-          $.ajax({
-              url:"<?=PROOT?>CustomRequestController/Approval",
-              method:"POST",
-              data: {'id': pr_id,'user_id':tailor_id, 'status':'1'},
-              success: function(data){
+      //   if (btn_list.length==0){ 
+      //     btn_list.push(icon);
+      //     $.ajax({
+      //         url:"<?=PROOT?>CustomRequestController/Approval",
+      //         method:"POST",
+      //         data: {'id': pr_id,'user_id':tailor_id, 'status':'1'},
+      //         success: function(data){
 
-                console.log(data);
-                $('#ignore').css('opacity', '0.5');
-                $('#ignore').css('cursor','not-allowed');
-                $('#accept').css('opacity', '0.5');
-                $('#accept').css('cursor','not-allowed');
-              }
-          });
-        }
+      //           console.log(data);
+      //           $('#ignore').css('opacity', '0.5');
+      //           $('#ignore').css('cursor','not-allowed');
+      //           $('#accept').css('opacity', '0.5');
+      //           $('#accept').css('cursor','not-allowed');
+      //         }
+      //     });
+      //   }
 
-      });
+      // });
+
+      
 
       $('.fa-toggle-off').click(function(){      
         $.ajax({
