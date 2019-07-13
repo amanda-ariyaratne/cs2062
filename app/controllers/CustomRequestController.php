@@ -279,7 +279,8 @@
 			$params['responses-old']=$tailor_response->getOldResponses($request_obj->id);
 
 			$tailor_shop=new TailorShop();
-			$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
+			//$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
+			$params['myAvatar'] = PROOT . 'assets/images/default-customer.png';
 
 			$this->view->render('CustomRequest/CCustomRequestProductView',$params);
 		}

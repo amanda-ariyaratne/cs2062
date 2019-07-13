@@ -110,7 +110,8 @@
 // chamodi akka's edited page
 
         public function addProductAction(){
-        	if (currentUser()->role_id != 3) {
+//		    dnd("yes");
+        	if (currentUser()->role == 2) {
         		$db = DB::getInstance();
         		$main_category = $db->find('category');
 	            $sub_category = $db->find('sub_category');
@@ -346,7 +347,25 @@
         $product_details = $product->findById($pr_id);
         $color = new Color();
         $colors = $color->getColorByproductID($pr_id);
+        //get image details uploaded
+        $image=new Image('tailor_product_image');
+        $image_details=$image->getImageObject($pr_id);
+
+        $details = [];
+        $details['image']=$image_details;
+        $img_url_array = [];
+        $img_config_array = [];
+
+        foreach ($image_details as $image) {
+
+            array_push($img_url_array, "<img style='height:160px' src='".PROOT."assets/images/products/".$image->path."'>");
+            array_push($img_config_array, array('caption' => $image->path, 'key' => $image->id, 'url' => PROOT.'home/deleteTailorImage'));
+        }
+        $details['img_url_array'] = $img_url_array;
+        $details['img_config_array'] = $img_config_array;
+
         $fields = [
+            "id" => $product_details->id,
             "name" => $product_details->name,
             "description" =>$product_details->description,
             "price" => $product_details->price,
@@ -358,18 +377,38 @@
         $sub_category = $db->find('sub_category');
         $mes = new Measurement("product_measurement");
         $measurements = $mes->getMeasurementByID($pr_id);
-        $params = [$sub_category,$measurements,$main_category,$fields,$colors];
+        $params = [$sub_category,$measurements,$main_category,$fields,$colors,$details];
 
         $color = new Color();
+
+
         if($_POST){
 //                dnd($_POST);
             $product->editProduct($pr_id);
             $color->editColor($_POST["colors"],$pr_id);
             $mes->editMesurement($pr_id,$_POST["newMeasurements"]);
+            //add image
+            $images=($_FILES['fileUpload']['name']);
+
+            for ($x=0; $x<sizeof($images); $x++){
+
+                $image=new Image('tailor_product_image');
+
+                $im_id=count($image->find());
+
+                $image_name=date("Y-m-d-h-i-sa-").$this->_table.'-'.$im_id;
+
+                $ext=pathinfo($images[$x])['extension'];
+                $image_path=$image_name.'.'.$ext;
+
+                $image->addImage($pr_id,$image_path,$x,'products');
+            }
+
+            Router::redirect('VendorController/VendorProductView/'.$pr_id);
+
         }
 
         $this->view->render('home/EditProduct',$params);
-//        Router::redirect('VendorController/VendorProductView/'.$pr_id);
 
     }
 
@@ -382,6 +421,8 @@
         $measurement->deleteMeasurements($pr_id);
         $color = new Color();
         $color->deleteColor($pr_id);
+        $image = new Image("tailor_product_image");
+        $image->deleteAllImages($pr_id);
 
         Router::redirect('VendorController/VendorPage/'.$vendor_id);
     }
@@ -397,6 +438,13 @@
 
     public function pageNotFoundAction(){
     	$this->view->render('home/404');
+    }
+
+    public function deleteTailorImageAction(){
+        $id = $_POST['key'];
+        $image = new Image('tailor_product_image');
+        $image->deleteImage($id);
+        echo json_encode(array('data'=>'true'));
     }
 
 
