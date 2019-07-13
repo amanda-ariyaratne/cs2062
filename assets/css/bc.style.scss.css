@@ -169,7 +169,7 @@ to{margin-top:0;opacity:1}
 
 html{-webkit-font-smoothing:antialiased;height:100%}
 
-body{font-family:"Open Sans",sans-serif;font-size:14px;line-height:1.5;color:#6a6a6a;font-weight:400;position:relative;height:100%;top:0 !important}
+body{font-family:"Open Sans",sans-serif !important;font-size:14px;line-height:1.5;color:#6a6a6a;font-weight:400;position:relative;height:100%;top:0 !important}
 
 body>.skiptranslate{display:none}
 
@@ -363,7 +363,7 @@ a:hover{outline:none;color:#c1939e;text-decoration:none}
 
 .owl-theme .owl-controls .owl-buttons>div{position:absolute}
 
-.navbar{min-height:10px;border:none;margin:0;padding:0;-webkit-align-items:baseline;-moz-align-items:baseline;-ms-align-items:baseline;align-items:baseline}
+.navbar{min-height:10px;border:none;margin:0;padding:0 !important;-webkit-align-items:baseline;-moz-align-items:baseline;-ms-align-items:baseline;align-items:baseline}
 
 body.menu-opened,html.menu-opened{overflow:hidden}
 

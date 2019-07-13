@@ -78,7 +78,7 @@
 
                     //add product images array - inster to params
                     $img = new Image('tailor_product_image');
-                    $images = $img->getImage($product_obj);
+                    $images = $img->getImage($p_id);
                     $params['images'] = $images;
 
                     //new user object
@@ -105,6 +105,15 @@
                 Router::redirect('account/login');
             }
         }
+
+        // public function approveProduct(){
+        //     // if(){
+
+        //     // }
+        //     // else{
+                
+        //     // }
+        // }
 
 
         public function newsletterAction(){

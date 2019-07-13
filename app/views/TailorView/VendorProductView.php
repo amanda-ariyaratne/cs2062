@@ -5,7 +5,7 @@
 <?= $this->start('head'); ?>
 
 <link href="<?=PROOT?>assets/css/productView.css" rel="stylesheet" type="text/css" media="all" />
-<script src="<?=PROOT?>assets/js/productView.js"></script>
+<!--<script src="--><?//=PROOT?><!--assets/js/productView.js"></script>-->
 <!-- <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
  --><!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
  --><!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -180,82 +180,120 @@
 
 
 
-                                                                                <?php
-                                                                                echo '
-                       <div class="headname" style="display: inline-block" >
-                        <h1 itemprop="name" content="'.$params[0]->name.'" class="page-heading">'.$params[0]->name.'</h1>
-                        </div>
 
-                        ';
-                                                                                ?>
+                       <div class="headname row" >
+                       
+                                       <?php 
+                                    if($params[0]->active=="1"){
+                                         $class='fa-toggle-on';
+
+                                    }
+                                    if($params[0]->active=="0"){
+                                        $class='fa-toggle-off';
+
+                                    }
+                                        echo '
+                                       <h1 itemprop="name" content="'.$params[0]->name.'" class="page-heading col-lg-9">'.$params[0]->name.'</h1>
+
+                                      
+                                      <a class="col-lg-1" style="text-align:right;"><i class="fa '.$class.'"  title="Make your product visible/hidden to customers" style="color: #000; opacity: 0.5; font-size: 30px;"></i></a>
+
+                                      <a href="'.PROOT.'Home/editProduct/'.$params["id"].'" class="col-lg-1" style="text-align:right;"><i class="fas fa-edit" title="add new product" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
+
+                                      <a class="col-lg-1" style="text-align:right;"><i class="fa fa-trash" id="deleteBtn" title="Delete" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
+
+                                      
+
+
+                                      ';
+                                      ?>
+                                   </div>
+
 
                                 <?php
-                                if($params[0]->status=="1"){
+                                if($params[0]->active=="1"){
 
-                                    $pr_status = "Deactivate";
+                                    $pr_active = "Deactivate";
                                     $colr = "#be3b42";
                                 }
-                                if($params[0]->status=="0"){
-                                    $pr_status = "Activate";
+                                if($params[0]->active=="0"){
+                                    $pr_active = "Activate";
                                     $colr = "#478fdd";
                                 }
 
                                 $approved = $params[0]->permission;
 
-
-                                                                                    if($approved==0){
-                                                                                    echo '<span class="headname" style="display: inline-block"><button  class="btn btn-1" type="button" style="margin-bottom: 20px;margin-left: 100px; background-color: '.$colr.'" disabled>'.$pr_status.'</button></span><br>
-                                                                                            <p>Product still not approved</p> ';
-                                                                                    }
-                                                                                    else {
-                                                                                    echo '<span class="headname" style="display: inline-block"><button  class="btn btn-1" type="button" id="activate_id" style="margin-bottom: 20px;margin-left: 100px;background-color: '.$colr.'" >' . $pr_status . '</button></span>';
-                                                                                    }
-                                                                                    $pr_id = $params[0]->id;
-                                                                                    ?>
+                                $pr_id = $params[0]->id;
+                                ?>
 
 
                                                                                 <script>
-
-                                                                                    var activateButton = document.getElementById("activate_id");
-                                                                                    activateButton.onclick = function() {
-
-
-
-
-
-                                                                                        var id = "<?php echo $pr_id?>";
-                                                                                        if(activateButton.innerHTML==="Activate"){
-                                                                                            var arry1 = [id,"1"];
-                                                                                            var data1 = JSON.stringify( arry1 );
+                                                                                    $(document).ready(function () {
+                                                                                        $('.fa-toggle-off').click(function(){
+                                                                                            var id = "<?php echo $pr_id?>";
+                                                                                            var data=JSON.stringify([id, '1']);
                                                                                             $.ajax({
-                                                                                                url:"<?=PROOT?>Home/changeActiveStatus",
-                                                                                                type: "POST",
-                                                                                                data:{'new': data1},
-                                                                                                success: function(){
-                                                                                                    // alert("Successfully Activated");
-                                                                                                    // var array_new=JSON.parse(data);
-                                                                                                }
+                                                                                                url:"<?=PROOT?>/home/changeActiveactive",
+                                                                                                method:"POST",
+                                                                                                data:{'new' : data}
                                                                                             });
-                                                                                            activateButton.innerHTML = "Deactivate";
-                                                                                            activateButton.style.backgroundColor = "#be3b42";
+                                                                                            $(this).toggleClass('fa-toggle-on');
+                                                                                            $(this).toggleClass('fa-toggle-off');
 
-                                                                                        }
-                                                                                        else {
-                                                                                            var arry2 = [id,"0"];
-                                                                                            var data2 = JSON.stringify( arry2 );
+                                                                                        });
+
+                                                                                        $('.fa-toggle-on').click(function(){
+                                                                                            var id = "<?php echo $pr_id?>";
+                                                                                            var data=JSON.stringify([id, '0']);
                                                                                             $.ajax({
-                                                                                                url:"<?=PROOT?>Home/changeActiveStatus",
-                                                                                                type: "POST",
-                                                                                                data:{'new' : data2},
-                                                                                                success: function(){
-                                                                                                    // alert("Successfully Deactivated");
-                                                                                                    // var array_new=JSON.parse(data);
-                                                                                                }
+                                                                                                url:"<?=PROOT?>/home/changeActiveactive",
+                                                                                                method:"POST",
+                                                                                                data:{'new' : data}
                                                                                             });
-                                                                                            activateButton.innerHTML = "Activate";
-                                                                                            activateButton.style.backgroundColor = "#478fdd"
-                                                                                        }
-                                                                                    }
+                                                                                            $(this).toggleClass('fa-toggle-off');
+                                                                                            $(this).toggleClass('fa-toggle-on');
+
+
+                                                                                            console.log($(this));
+                                                                                        });
+                                                                                    });
+
+                                                                                    //var activateButton = document.getElementById("activate_id");
+                                                                                    //activateButton.onclick = function() {
+                                                                                    //
+                                                                                    //    var id = "<?php //echo $pr_id?>//";
+                                                                                    //    if(activateButton.innerHTML==="Activate"){
+                                                                                    //        var arry1 = [id,"1"];
+                                                                                    //        var data1 = JSON.stringify( arry1 );
+                                                                                    //        $.ajax({
+                                                                                    //            url:"<?//=PROOT?>//Home/changeActiveactive",
+                                                                                    //            type: "POST",
+                                                                                    //            data:{'new': data1},
+                                                                                    //            success: function(){
+                                                                                    //                // alert("Successfully Activated");
+                                                                                    //                // var array_new=JSON.parse(data);
+                                                                                    //            }
+                                                                                    //        });
+                                                                                    //        activateButton.innerHTML = "Deactivate";
+                                                                                    //        activateButton.style.backgroundColor = "#be3b42";
+                                                                                    //
+                                                                                    //    }
+                                                                                    //    else {
+                                                                                    //        var arry2 = [id,"0"];
+                                                                                    //        var data2 = JSON.stringify( arry2 );
+                                                                                    //        $.ajax({
+                                                                                    //            url:"<?//=PROOT?>//Home/changeActiveactive",
+                                                                                    //            type: "POST",
+                                                                                    //            data:{'new' : data2},
+                                                                                    //            success: function(){
+                                                                                    //                // alert("Successfully Deactivated");
+                                                                                    //                // var array_new=JSON.parse(data);
+                                                                                    //            }
+                                                                                    //        });
+                                                                                    //        activateButton.innerHTML = "Activate";
+                                                                                    //        activateButton.style.backgroundColor = "#478fdd"
+                                                                                    //    }
+                                                                                    //}
                                                                                     </script>
 
 
@@ -314,7 +352,7 @@
 
 
                                                                                             <div class="swatch color clearfix" data-option-index="1">
-                                                                                                <div class="header">Color</div>
+                                                                                                <div class="header" style="font-weight: bold">Color</div>
 
                                                                                                 <?php
                                                                                                 foreach($params['colors'] as $key=>$color){
@@ -342,16 +380,16 @@
 
 
                                                                                             <div class="measurements-main" data-option-index="0">
-                                                                                                <div class="header" style="float: none;">Size</div>
+                                                                                                <br><div class="header" style="float: none;font-weight: bold">Measurements</div><br>
 
                                                                                                 <?php
                                                                                                 foreach($params['measurements'] as $key=>$measurement){
                                                                                                     echo '
 
-                                        <div class="spr-form-for-measurements" style="padding-bottom:10px;" >
-                                          <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
+                                        <ul class="spr-form-for-measurements" style="padding-bottom:10px;" >
+                                          <li class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</li>
                                           
-                                        </div>
+                                        </ul>
                                       ';
                                                                                                 }
                                                                                                 ?>
@@ -362,30 +400,6 @@
                                                                                         <div class="bg-danger" ><?=$this->displayErrors ?></div>
 
                                                                                         <div class="qty-add-cart">
-
-                                                                                            <div class="edit_remove" style="display: inline-block;">
-                                                                                                <?php
-                                                                                                if($approved==0){
-                                                                                                    echo '<a href="'.PROOT.'Home/editProduct/'.$params[0]->id.'" ><button " type="button"  class="btn btn-1" disabled>Edit</button></a>';
-                                                                                                }
-                                                                                                else {
-                                                                                                    echo '<a href="'.PROOT.'Home/editProduct/'.$params[0]->id.'" ><button " type="button"  class="btn btn-1" >Edit</button></a>';
-                                                                                                }
-                                                                                                ?>
-
-                                                                                            </div>
-
-                                                                                            <div class="edit_remove" style="display: inline-block;">
-                                                                                                <?php
-                                                                                                if($approved==0) {
-                                                                                                    echo '<button id="deleteBtn" style="margin-left: 20px" class="btn btn-1" disabled>Remove</button>';
-                                                                                                }
-                                                                                                else{
-                                                                                                    echo '<button id="deleteBtn" style="margin-left: 20px" class="btn btn-1" >Remove</button>';
-
-                                                                                                }
-
-                                                                                                ?>
 
                                                                                                 <!-- The Modal -->
                                                                                                 <div id="deleteModal" class="modal">
@@ -421,6 +435,7 @@
                                                                                                 </div>
 
                                                                                                 <script>
+
                                                                                                     // Get the modal
                                                                                                     var modal_d = document.getElementById('deleteModal');
 
@@ -446,10 +461,12 @@
 
                                                                                                     // When the user clicks anywhere outside of the modal, close it
                                                                                                     window.onclick = function(event) {
-                                                                                                        if (event.target == modal) {
+                                                                                                        if (event.target == modal_d) {
                                                                                                             modal_d.style.display = "none";
                                                                                                         }
                                                                                                     }
+
+
                                                                                                 </script>
 
                                                                                             </div>

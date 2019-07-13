@@ -12,7 +12,7 @@
         <div class="page">
             <div class="sb-widget">
                 <div class="sb-caterogies">
-                    <h4 class="sb-title">Categories</h4>
+                    <h4 style="font-family:'Open Sans',sans-serif;">Categories</h4>
                     <ul class="categories-list">
 
                         <li class="cat-item cat-item-70 cat-parent current-cat-parent">

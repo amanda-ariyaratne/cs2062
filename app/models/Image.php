@@ -59,13 +59,10 @@
 			move_uploaded_file($_FILES["fileUpload"]["tmp_name"][$ind], $target_dir.'/'.$im_path);
 		}
 
-
-		// public function removeImage(){}
-
 		// get details of a particular image\\
 
 		public function getImage($pr_id){
-
+			// $pr_id = $detail->id;
 			$condition=array('conditions'=> 'product_id = ?','bind'=>[$pr_id]);
 			$image_details = $this->find($condition);
 			$images = array();

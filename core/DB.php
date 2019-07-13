@@ -30,7 +30,7 @@
 						$x++;
 					}
 				}
-				
+				// dnd($this->_query->execute());
 				if ($this->_query->execute()) {
 					$this->_result = $this->_query->fetchALL(PDO::FETCH_OBJ);
 					$this->_count = $this->_query->rowCount();
@@ -57,7 +57,7 @@
 			$valueString = rtrim($valueString, ',');
 
 			$sql = "INSERT INTO {$table} ({$fieldString}) VALUES ({$valueString})";
-
+			//dnd($sql);
 			if (!$this->query($sql, $values)->error()) {
 				return true;
 			}	

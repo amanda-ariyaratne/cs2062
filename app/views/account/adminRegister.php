@@ -16,7 +16,7 @@
     <div class="row">
       
         <div class="col-lg-6 d-none d-lg-block">
-          <div class="page-title">Register as a Customer</div>
+          <div class="page-title">Become an Admin</div>
         </div>
       
       
@@ -52,7 +52,7 @@
             <!--<h2 class="heading">Register</h2>-->
 
             <form method="post" action="<?=PROOT?>account/register" id="registerform" name="registerform" onsubmit="return validateRegistration();">
-              <input type="hidden" name="role" id="role" value="" />
+              <input type="hidden" name="role" id="role" value="1" />
           <div id="register-form">
 
             <div class="row control-wrapper">
@@ -144,9 +144,6 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-      $('#role').val(localStorage.getItem('role'));
-    });
 
 function validateRegistration(){
     
