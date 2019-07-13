@@ -38,22 +38,7 @@
   <div class="boxed-wrapper" id="changing-image">
     
     <div class="new-loading"></div>
-    <div class="cart-sb">
-<!--       <form action="/cart" method="post">
-        <div class="cart-sb-title">
-          <span class="c-title">Your Cart</span>
-          <span class="c-close">
-            <i class="demo-icon icon-close" aria-hidden="true"></i>
-          </span>
-        </div>
     
-        <div id="cart-info" class="shipping-true">
-          <div id="cart-content" class="cart-content">
-            <div class="cart-loading"></div>
-          </div>
-        </div>
-      </form> -->
-    </div>
     
     <div id="page-body" class="breadcrumb-color">
       
