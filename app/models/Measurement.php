@@ -1,5 +1,4 @@
 <?php
-
 	class Measurement extends Model
     {
 

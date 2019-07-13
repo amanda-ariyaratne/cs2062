@@ -12,10 +12,16 @@
 			$this->view->renderFrontPage('home/index');
 		}
 
-		// public function testAction(){
-		// 	$product=new Product();
-		// 	$product->getAcceptedRequest('1','1','2');
-		// }
+		public function getConversationAction(){
+
+			$product_id=$_POST['product_id'];
+			$tailor_id=$_POST['tailor_id'];
+			
+			$tailor_response=new TailorResponse();
+			$conversation=$tailor_response->getCoversation($product_id, $tailor_id);
+
+			echo json_encode($conversation);
+		}
 		
 		public function AllVendorsAction($no){
 

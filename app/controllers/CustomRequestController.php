@@ -10,6 +10,24 @@
 
 		}
 
+		public function sendResponseAction(){
+			// if (currentUser()->role==2){
+				
+			$product_id=$_POST['product_id'];
+			$sender=json_decode($_POST['sender']);
+			$tailor_id=json_decode($_POST['tailor_id']);
+			$response=json_decode($_POST['response']);
+
+			$responseObj=new TailorResponse();
+
+			var_dump($product_id,$sender,$tailor_id,$response);
+
+			// check weather this goes to the db or not
+			$sent=$responseObj->setResponse($product_id, $sender, $tailor_id, $response);	
+			echo json_encode($sent);	
+			// }
+		}
+
 		public function DeleteCustomRequestAction(){
 			if(currentUser()->role==3){
 				$pr_id=$_POST['product_id'];
@@ -73,8 +91,8 @@
 			else{
 				var_dump('Access denied!');
 			}
-
         }
+
 
         public function ProductRequestEditAction($pr_id){
 
@@ -166,8 +184,9 @@
 
 		}
 
-		//product view
-		public function requestedProductViewAction($r_id){
+
+		//product view to Tailor
+		public function requestedProductViewTailorAction($r_id){
 			$params = array();
 
 			//load customer request table and get details
@@ -188,6 +207,7 @@
 				'max_price'=> $request_obj->max_price
 			]; 
 
+
 			//load images 
 			$image = new Image('custom_design_image');
 			$image_obj = $image->getImage($request_obj->id);
@@ -195,34 +215,23 @@
 
 			//load product measurements
 			$measurement = new Measurement('custom_request_measurement');
+
 			$params['measurements'] = $measurement->getMeasurementForTView($request_obj->id);
 
-			//send response to the customer
-			if ($_POST){
-				$tailor_response=new TailorResponse();
-				
-				$product_id= $request_obj->id;
-				$tailor_id= currentUser()->id;
-				$response= $_POST['tailor-note'];
+			$product_id= $request_obj->id;
 
-				$tailor_response->setResponse($product_id, $tailor_id, $response);
+			$tailor_id= currentUser()->id;
 
-				$_SESSION['alert']='
-				
-				<div class="container">
-					<div class="alert alert-success fade in">    
-				    	<strong>Success!</strong> Your Response has been sent successfully!
-				  	</div>
-				</div>';	
+			$tailor_response=new TailorResponse();	
+					
+			$params['responses-new'] = $tailor_response->getTailorNewResponses($product_id, $tailor_id);
 
-				Router::redirect('CustomRequestController/requestedProductView/'.$product_id);
-			}
-			//dnd($params);
+			$params['responses-old'] = $tailor_response->getTailorOldResponses($product_id, $tailor_id);
 
 			$this->view->render('CustomRequest/TCustomRequestProductView',$params);
 		}
 
-		//product view
+		//product view to the customer
 		public function requestedProductViewCustomerAction($r_id){
 			$params = array();
 
@@ -256,7 +265,12 @@
 
 			//load tailor responses
 			$tailor_response=new TailorResponse();
-			$params['responses']=$tailor_response->getResponse($request_obj->id, '2');
+			$params['responses-new']=$tailor_response->getNewResponses($request_obj->id);
+
+			$params['responses-old']=$tailor_response->getOldResponses($request_obj->id);
+
+			$tailor_shop=new TailorShop();
+			$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
 
 			$this->view->render('CustomRequest/CCustomRequestProductView',$params);
 		}
