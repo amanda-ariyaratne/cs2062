@@ -301,7 +301,7 @@
         </div>
 
         <div data-option-index="0">
-          <div class="swatch color clearfix header" style="font-weight: 800;">Measurements</div>
+          <div class="swatch color clearfix header" style="font-weight: 600;">Measurements</div>
           
           <?php
             foreach($params['measurements'] as $measurement){

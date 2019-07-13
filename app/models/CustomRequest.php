@@ -78,9 +78,9 @@
         }
 
         // tailor confirms order
-		public function acceptRequest($product_id,$tailor_id,$customer_id){
+		public function acceptOrder($product_id,$tailor_id){
 			$fields=['status'=> '1', 'tailor_id'=>$tailor_id];
-			$this->update($product_id, $fields);
+			return $this->update($product_id, $fields);
 
 			//set Notification
 			$this->addObserver(new Notification());

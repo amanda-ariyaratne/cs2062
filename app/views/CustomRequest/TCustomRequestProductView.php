@@ -13,6 +13,14 @@
 	</style>
 
   <style>
+
+    .btn-accept{
+      color: ash;
+    }
+
+    .btn-accept :hover{
+      background-color: #c1939e;
+    }
     .bg-danger{
       background-color:#e8a0a7!important;
     }
@@ -274,15 +282,15 @@
         </div>
 
         <div data-option-index="0">
-          <div class="swatch color clearfix header" style="font-weight: 800;">Measurements</div>
+          <div class="swatch color clearfix header" style="font-weight: 600;">Measurements</div>
           
           <?php
             foreach($params['measurements'] as $measurement){
               echo '
 
-                <div class="spr-form-for-measurements" style="padding-bottom:10px;margin-top: 10px;" >
-                  <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement_type.'</label>
-                  <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement.'</label>                                   
+                <div class="spr-form-for-measurements" style="padding-bottom:10px;margin-top: 10px; " >
+                  <span class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement_type.'</span>
+                  <span class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement->measurement.'</span>                                   
                 </div>
               ';
             }
@@ -297,19 +305,20 @@
 
 
   <div class="swatch color clearfix" data-option-index="1">
-    
-      <div style="font-weight: 700">Tailor-Note</div>    
-      <br/>  
+    <div class="row" style="vertical-align: center;">
+      <div class="col-lg-8" style="font-weight: 700">Tailor-Note</div>   
+
+      <div class="col-lg-4" style="text-align: right;font-size: 50px; "><button class="btn btn-accept">Ready to Tailor</button></div>
+    </div>
 
 <?php 
 
         /////  First view of Responses /////
         if ($params['responses-new'] || $params['responses-old']){
           foreach ($params['responses-new'] as $response){
-
             echo '
               
-              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" style="cursor:pointer;" data-id="'.$response->tailor_id.'">
+              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->tailor_id.'">
                 <div class="col-lg-1">
                   <img src="'.PROOT.'assets/images/store_logo/'.$response->avatar.'" alt="Avatar" style="width:100%;">
                 </div>
@@ -318,19 +327,28 @@
                   '.$response->tailor.'
                 </div>
 
-                <div class="col-lg-8 response-pack">'.$response->response.'</div>
+                <div class="col-lg-8 response-pack my-response" data-id="'.$response->tailor_id.'">'.$response->response.'</div>
 
-                <div class="col-lg-1" style="text-align:center;">
-                    <span>
-                      <i class="fa fa-check" data-id="" style="color:green;" aria-hidden="true"></i>
-                    </span>
-                    <span></span>
-                    <span>
-                      <i class="fa fa-window-close" data-id="" style="color:red; cursor: pointer;" aria-hidden="true"></i>
-                    </span>                  
-                </div>
-
+                <div class="col-lg-1"></div>
+                
               </div>
+
+
+              <div class="payment-icon" style="text-align:right;">';
+              if ($params['tailor_id']==$response->tailor_id && $params['status']==1){
+
+                echo '
+                  <a href="'.PROOT.'orderController/customerInformation">
+                    <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px;">       
+                  </a>'; 
+              }
+              else{                
+                echo '
+                  <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px; opacity:0.5; cursor:default;">
+                ';  
+              }
+                echo '
+                </div>
               ';
             $count++;
           }
@@ -397,8 +415,9 @@
                                   </div>
                                 </div>
 
-
                               </div>
+
+
                             </div>
                           </div>
                         </div>
@@ -419,26 +438,66 @@
     
     $(document).ready(function(){
 
-      $('#submit-response').on('click', function(){
-          
-          var response=$('#response').val();
-          var product=<?php echo $params['id']; ?>;
-          var tailor=<?php echo currentUser()->id; ?>;
+      var tailor_id='';
+      var pr_id=JSON.stringify(<?=$params['id']?>);  
+      var customer_id=JSON.stringify(<?= currentUser()->id ?>);
 
-          var data=JSON.stringify([product,tailor,response]);
-          
-          $.ajax({
-            url:"<?=PROOT?>CustomRequestController/sendResponse",
-            method:"POST",
-            data:{'response':data},
-            success: function(){
-              $("#success-message").html("Response Added!");
-              $("#response").val("");
+      $('.my-response').click(function(){
+        var icon =$(this);         
+        tailor_id=JSON.stringify(icon.data("id"));  
+
+        $.ajax({
+            url:"<?=PROOT?>home/getConversation",
+            method: "POST",
+            data:{'product_id': pr_id,'tailor_id':tailor_id, 'customer_id':customer_id},
+
+            success: function(data){
+              var data=JSON.parse(data);
+              $('.modal-body').html(doForAll(data));
             }
-          });
-      });
+        });
+      });    
 
-      var btn_list=[];
+    $('.btn-accept').click(function(){
+          console.log('ready 5');
+
+      $.ajax({
+        url:"<?=PROOT?>CustomRequestController/acceptOrder",
+        method:"POST",
+        data:{'product_id':pr_id},
+        success: function(){
+          console.log('ready');
+        }
+      });
+    });
+
+    $('#send-trigger').click(function(){
+      var response=$('#chatTextArea').val();
+      var time='just now';
+
+      var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
+      
+      var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
+
+      $('.modal-body').append(send);
+
+      var response=JSON.stringify(response);
+      var product_id=JSON.stringify(<?php echo $params['id'];?>);
+      var sender=JSON.stringify('t');
+      var tailor=JSON.stringify(tailor_id);
+
+      $.ajax({
+        url:"<?=PROOT?>CustomRequestController/sendResponse",
+        method:"POST",
+        data:{'response':response,'sender':sender, 'product_id':product_id, 'tailor_id':tailor},
+        success:function(data){
+          console.log(data);
+        }
+      });
+    });
+
+
+    });
 
     function doForAll(data){
       var chat="";
@@ -465,38 +524,6 @@
         return sender;          
       }
     }
-
-    $('#send-trigger').click(function(){
-      var response=$('#chatTextArea').val();
-      var time='just now';
-
-
-      // check this part
-      // var avatar=<?=$params['myAvatar']?>;
-
-      var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
-      
-      var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
-
-      $('.modal-body').append(send);
-
-      var response=JSON.stringify(response);
-      var product_id=JSON.stringify(<?php echo $params['id'];?>);
-      var sender=JSON.stringify('c');
-      var tailor=JSON.stringify(tailor_id);
-
-      $.ajax({
-        url:"<?=PROOT?>CustomRequestController/sendResponse",
-        method:"POST",
-        data:{'response':response,'sender':sender, 'product_id':product_id, 'tailor_id':tailor},
-        success:function(data){
-          console.log(data);
-        }
-      });
-    });
-
-
-    });
   </script>
   
 
