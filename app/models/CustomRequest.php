@@ -78,7 +78,7 @@
         }
 
         // tailor confirms order
-		public function acceptRequest($product_id,$tailor_id,$customer_id){
+		public function acceptOrder($product_id,$tailor_id){
 			$fields=['status'=> '1', 'tailor_id'=>$tailor_id];
 			$this->update($product_id, $fields);
 
@@ -130,6 +130,7 @@
     		
 
     		$images=($_FILES["fileUpload"]['name']);
+//			dnd(sizeof($images));
     		for ($x=0; $x<sizeof($images); $x++){
     			
     			$image=new Image('custom_design_image'); 

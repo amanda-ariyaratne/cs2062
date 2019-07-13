@@ -5,15 +5,17 @@
 			parent::__construct($controller,$action);
 		}
 
-		public function CustomerPageAction($id){
+		public function CustomerPageAction($pagination){
+			$user_id=currentUser()->id;
 			$customRequest=new CustomRequest();
-			$allRequest=$customRequest->getMyCustomRequests($id);
+			$allRequest=$customRequest->getMyCustomRequests($user_id);
 	
 
 			$customer_name=currentUser()->first_name.' '.currentUser()->last_name;
 			// dnd($customer_name);
 			$noOfProducts=count($allRequest);
-			$params=array($allRequest, $id, $noOfProducts, $customer_name );
+
+			$params=array($allRequest, $pagination, $noOfProducts, $customer_name );
 
 			$this->view->render('CustomerView/CustomerPage', $params);
 		}

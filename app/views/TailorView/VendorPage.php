@@ -124,7 +124,7 @@
               <div style="padding-left:840px;">
 
                 <a href="'.PROOT.'home/addProduct" title="Add Your Designs Here">
-                  
+                  <i class="fas fa-plus" style="color:black; font-size:35px; color:gray;"></i>
                 </a>
               </div>
             ';

@@ -21,8 +21,8 @@
   <link href="<?=PROOT?>assets/css/bc.style.scss.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/arenafont.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/css/bc_wl_cp_style.scss.css" rel="stylesheet" type="text/css" media="all" />
-  
-  <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
+<link href="<?=PROOT?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?=PROOT?>assets/fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?=PROOT?>assets/plugin/jquery.plugin.css" rel="stylesheet" type="text/css" media="all" />
   <!--<link href="<?=PROOT?>assets/css/jquery.min.css" rel="stylesheet" type="text/css" media="all" />-->
   <script type="text/javascript" src="<?=PROOT?>assets/js/jquery-3.4.1.min.js"></script>
@@ -1118,7 +1118,7 @@
                           
                           
                           
-                            <li> <!-- class=" lazyload waiting -->"
+                            <li> <!-- class=" lazyload waiting -->
                               
                               <i class="demo-icon icon-mail"></i>
 

@@ -68,7 +68,9 @@
                                                             <span itemprop="title" class="d-none">Handy Store</span>Home
                                                         </a>
                                                     </li>
-
+<!--                                                    --><?php
+//                                                    dnd($params[0]->main_category_name);
+//                                                    ?>
 
                                                     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
                                                         <a href="" itemprop="url">
@@ -144,7 +146,7 @@
                                     <div class="slick-item slick-zoom">
                                         <div class="ar-quicklook-overlay" data-shopify-3d-variant-id="14880170180667" style="display: none;"></div>
 
-                                        <img class="image-zoom " src="'.PROOT.'assets/images/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
+                                        <img class="image-zoom " src="'.PROOT.'assets/images/products/'.$image.'" alt="'.$params[0]->name.'" style="width:400px;display:block;margin-left: auto;margin-right: auto;">
 
                                     </div>
                                     <div class="slick-item slick-zoom">
@@ -161,7 +163,6 @@
                              
                              ';
                               }
-                               $image_path = $params[1][0];
                               ?>
 
                                                                         </div>
@@ -196,9 +197,9 @@
                                        <h1 itemprop="name" content="'.$params[0]->name.'" class="page-heading col-lg-9">'.$params[0]->name.'</h1>
 
                                       
-                                      <a class="col-lg-1" style="text-align:right;"><i class="fa '.$class.'"  title="Make your product visible/hidden to customers" style="color: #000; opacity: 0.5; font-size: 30px;"></i></a>
+                                      <a class="col-lg-1" style="text-align:right;"><i class="fa '.$class.'" id="activeBtn" title="Make your product visible/hidden to customers" style="color: #000; opacity: 0.5; font-size: 30px;"></i></a>
 
-                                      <a href="'.PROOT.'Home/editProduct/'.$params["id"].'" class="col-lg-1" style="text-align:right;"><i class="fas fa-edit" title="add new product" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
+                                      <a href="'.PROOT.'Home/editProduct/'.$params[0]->id.'" class="col-lg-1" style="text-align:right;"><i class="fas fa-edit" title="edit product details" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
 
                                       <a class="col-lg-1" style="text-align:right;"><i class="fa fa-trash" id="deleteBtn" title="Delete" style="color: #000; opacity: 0.5; font-size: 25px;"></i></a>
 
@@ -233,7 +234,7 @@
                                                                                             var id = "<?php echo $pr_id?>";
                                                                                             var data=JSON.stringify([id, '1']);
                                                                                             $.ajax({
-                                                                                                url:"<?=PROOT?>/home/changeActiveactive",
+                                                                                                url:"<?=PROOT?>/home/changeActiveStatus",
                                                                                                 method:"POST",
                                                                                                 data:{'new' : data}
                                                                                             });
@@ -246,7 +247,7 @@
                                                                                             var id = "<?php echo $pr_id?>";
                                                                                             var data=JSON.stringify([id, '0']);
                                                                                             $.ajax({
-                                                                                                url:"<?=PROOT?>/home/changeActiveactive",
+                                                                                                url:"<?=PROOT?>/home/changeActiveStatus",
                                                                                                 method:"POST",
                                                                                                 data:{'new' : data}
                                                                                             });
@@ -350,8 +351,15 @@
                                                                                             </style>
 
 
-
                                                                                             <div class="swatch color clearfix" data-option-index="1">
+                                                                                                <div class="" style="font-weight: bold;">Material
+                                                                                                    <p style="font-weight: normal;display: inline;margin-left: 40px"><?php echo $params[0]->material;?></p></div>
+                                                                                            </div>
+                                                                                            <br>
+
+
+
+                                                                                                <div class="swatch color clearfix" data-option-index="1">
                                                                                                 <div class="header" style="font-weight: bold">Color</div>
 
                                                                                                 <?php
@@ -378,11 +386,13 @@
                                                                                             </style>
 
 
+                                                                                            <?php
+                                                                                            if (count($params['measurements'])>0){
 
-                                                                                            <div class="measurements-main" data-option-index="0">
-                                                                                                <br><div class="header" style="float: none;font-weight: bold">Measurements</div><br>
+                                                                                            echo '<div class="measurements-main" data-option-index="0">
+                                                                                                <br><div class="header" style="float: none;font-weight: bold">Measurements</div><br>';
 
-                                                                                                <?php
+
                                                                                                 foreach($params['measurements'] as $key=>$measurement){
                                                                                                     echo '
 
@@ -391,7 +401,8 @@
                                           
                                         </ul>
                                       ';
-                                                                                                }
+
+                                                                                                }}
                                                                                                 ?>
 
                                                                                             </div>

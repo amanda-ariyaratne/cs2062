@@ -59,6 +59,9 @@
 			move_uploaded_file($_FILES["fileUpload"]["tmp_name"][$ind], $target_dir.'/'.$im_path);
 		}
 
+
+		// public function removeImage(){}
+
 		// get details of a particular image\\
 
 		public function getImage($pr_id){

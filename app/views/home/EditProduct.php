@@ -3,12 +3,22 @@
 <?= $this->start('head'); ?>
     <link rel='stylesheet' id='pt-grid-css'  href='<?=PROOT?>assets/css/pt-grid.css' type='text/css' media='all' />
     <link rel='stylesheet' href='<?=PROOT?>assets/css/AddProduct.css' type='text/css' />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
     <!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/woo-styles.css' type='text/css' media='all' />-->
     <!--    <link rel='stylesheet'  href='--><?//=PROOT?><!--assets/css/grid.css' type='text/css' media='all' />-->
 
 <?= $this->end(); ?>
 
 <?= $this->start('body'); ?>
+
+<?php
+
+$images = $params[5]['img_url_array'];
+$images_config = $params[5]['img_config_array'];
+
+?>
 
     <div id="body-content" class="layout-boxed">
         <div id="main-content">
@@ -54,7 +64,7 @@
                             <div class="wcv-grid">
 
 
-                                <form name="add-product-form" method="post" id="wcv-store-settings" action="" onsubmit="return validateData();" class="wcv-form wcv-formvalidator" enctype="multipart/form-data">
+                                <form name="edit-product-form" method="post" id="edit-product-form" action="<?=PROOT?>home/editProduct/<?=$params[3]["id"]?>" onsubmit="return validateData();" class="wcv-form wcv-formvalidator" enctype="multipart/form-data">
 
 
                                     <h2 class="heading" style="font-family: Roboto,sans-serif; margin: 3px">Product Details</h2>
@@ -86,20 +96,23 @@
                                             </div>
 
                                             <div id="wp-pv_shop_description-editor-container" class="col-md-4s"  ><div id="qt_pv_shop_description_toolbar" class="quicktags-toolbar"></div>
-                                                <textarea class="wp-editor-area" style="height: 180px; width:400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description">"<?php echo $params[3]["description"]; ?>"</textarea>
+                                                <textarea class="wp-editor-area" style="height: 180px; width:400px" aulete="off" cols="40" name="Product Description" id="pv_shop_description"><?php echo $params[3]["description"]; ?></textarea>
 
                                             </div>
                                         </div>
                                         <br/>
 
                                         <!-- Add image -->
-                                        <form action="" method="post" enctype="multipart/form-data">
-                                            <label class="col-md-3" style="font-family: sans-serif">Select image</label>
-                                            <div class="col-md-4s">
-                                                <input type="file" style="line-height: normal" name="fileUpload[]" id="productImage" multiple >
+                                        <div class="control-group">
+                                            <label class="col-md-3" style="font-family: sans-serif">Image<br><small>Add 1-6 images<span class="require">*</span></small></label>
+
+                                            <br><br><br>
+                                            <div class="col-md-4s" style="width: 80%;margin-left: 15px">
+                                                <input  type='file' id="productImage" name="fileUpload[]" multiple="true" style="margin-left: 250px ;border:none" />
                                             </div>
-                                            <br/>
-                                            <br/>
+                                            <small id="error-msg-image"></small>
+                                        </div>
+                                        <br><br>
 
                                             <!-- Product Price -->
                                             <div class="control-group">
@@ -117,8 +130,9 @@
                                                 <label class="col-md-3" id="lab" style="font-family: sans-serif">Select Category<span class="require">*</span></label>
                                                 <div class="control select">
                                                     <select id="productCategory" type="number" name="category" class="col-md-4s" style="width: 400px" onchange="">
-                                                        <option><?php echo $params[0][$params[3]["sub_category_id"]-1]->name?></option>
-                                                        <?php $main_id = 0;
+                                                        <?php
+                                                        echo '<option value="'.$params[0][$params[3]["sub_category_id"]-1]->id.'">'.$params[0][$params[3]["sub_category_id"]-1]->name.'</option>';
+                                                         $main_id = 0;
                                                         $i = 0;
                                                         foreach ($params[0] as $cat) {
                                                             if($cat->main_id != $main_id){
@@ -188,11 +202,12 @@
                                             <!-- Product Material -->
                                             <br>
                                             <div class="control-group">
-                                                <label class="col-md-3" style="font-family: sans-serif">Product Material</label>
+                                                <label class="col-md-3" style="font-family: sans-serif">Product Material<span class="require">*</span></label>
                                                 <div class="control">
                                                     <input type="text" class="col-md-4s" style="width: 400px" name="material" id="productMaterial" value="<?php echo $params[3]["material"]; ?>" placeholder=""  />
                                                 </div>
                                             </div>
+                                            <small id="error-msg-material"></small>
                                             <br>
 
 <!--                                             select colors-->
@@ -239,24 +254,25 @@
 
                                             <script type="text/javascript">
 
-                                                //Add colors
-
                                                 function validateData(){
 
                                                     document.getElementById("error-msg-name").innerHTML="";
-                                                    document.getElementById("error-msg-image").innerHTML="";
+                                                    // document.getElementById("error-msg-image").innerHTML="";
                                                     document.getElementById("error-msg-price").innerHTML="";
                                                     document.getElementById("error-msg-category").innerHTML="";
+                                                    document.getElementById("error-msg-material").innerHTML="";
+
 
                                                     var name=document.getElementById("productName").value;
                                                     var price=document.getElementById("productPrice").value;
                                                     var category=document.getElementById("productCategory").value;
-                                                    var image=document.getElementById("productImage").files;
+                                                    var material=document.getElementById("productMaterial").value;
+
+                                                    // var image=document.getElementById("productImage").files;
                                                     var error;
 
-
                                                     var msg = "fill requirerd fields";
-                                                    if (name==""){
+                                                    if (name===""){
                                                         error=document.getElementById("error-msg-name");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Name is required!</small>";
                                                         return false;
@@ -268,15 +284,26 @@
                                                     //     return false;
                                                     // }
 
-                                                    else if (price==""){
+                                                    else if (price===""){
                                                         error=document.getElementById("error-msg-price");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Price is required!</small>";
                                                         return false;
                                                     }
+                                                    else if (price<=0){
+                                                        error=document.getElementById("error-msg-price");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">invalid price!</small>";
+                                                        return false;
+                                                    }
 
-                                                    else if (category==""){
+                                                    else if (category===""){
                                                         error=document.getElementById("error-msg-category");
                                                         error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Category is required!</small>";
+                                                        return false;
+                                                    }
+
+                                                    if (material===""){
+                                                        error=document.getElementById("error-msg-material");
+                                                        error.innerHTML="<small style=\"font-color:red; font-size:12px;\">Material is required!</small>";
                                                         return false;
                                                     }
 
@@ -286,11 +313,104 @@
                                                     }
                                                 }
 
+                                                $(document).ready(function(){
+
+                                                    jQuery("#productImage").fileinput({
+                                                        overwriteInitial: false,
+                                                        dropZoneEnabled: true,
+                                                        dropZoneTitle: '<span style="font-size:16px;"><b>Drop files here or click to upload.</b></span>',
+                                                        dropZoneClickTitle: '<br><span style="font-size:14px;">(Maximum file size is 30MB and 6 files are allowed</span>)',
+                                                        uploadUrl: "<?=PROOT?>home/editProduct",
+                                                        uploadAsync : true,
+                                                        showUpload: false,
+                                                        showBrowse: false,
+                                                        showPreview: true,
+                                                        purifyHtml: true,
+                                                        showCaption: false,
+                                                        showUploadedThumbs: true,
+                                                        browseOnZoneClick: true,
+                                                        minFileCount: 1,
+                                                        maxFileCount: 6,
+                                                        allowedFileTypes: ['image'],
+                                                        allowedFileExtensions: ["jpg", "gif", "png", "jpeg", "jfif"],
+                                                        maxFileSize: 30000,
+                                                        initialPreview: <?php echo json_encode(array_slice($images, 0, 10 ) ); ?>,
+                                                        initialPreviewConfig: <?php echo json_encode(array_slice($images_config, 0, 10)) ?>,
+                                                        elErrorContainer : false,
+                                                        fileActionSettings: {
+                                                            showUpload: false,
+                                                            showZoom: false
+                                                        },
+                                                        uploadExtraData: function(event, files) {
+                                                            tinymce.triggerSave();
+
+                                                            var poData = new FormData(document.getElementById('edit-product-form'));
+
+                                                            var test = {};
+                                                            for (var pair of poData.entries()) {
+
+                                                                test[pair[0]] = pair[1]
+                                                            }
+                                                            console.log(test);
+                                                            return test;
+                                                        }
+
+                                                    }).on('filebatchuploadsuccess', function(event, data, previewId, index) {
+                                                        $("#submitForm").prop('disabled', true);
+                                                        toastr.success("Your Ad was successfully submitted");
+                                                        location.reload();
+                                                    }).on('filebatchuploaderror', function(event, data, msg) {
+                                                        alert(msg);
+                                                        $("#submitFormBtn").prop("disabled", false)
+                                                        $("#saveFormBtn").prop('disabled', false);
+                                                        $(".submit-btn-loader").css('display', 'none');
+
+                                                        if(data.jqXHR.responseJSON.hasOwnProperty("errors")){
+                                                            var errors = data.jqXHR.responseJSON.errors
+
+                                                            $.each(errors, function(index, value){
+
+                                                                toastr.error(value);
+                                                            });
+
+                                                        }else{
+                                                            toastr.error("!! Opps, Something went wrong. Please try again.");
+
+                                                        }
+                                                    }).on('filesorted', function(e, params) {
+                                                        console.log('File sorted params', params);
+                                                    });
+
+                                                    $('#file_upload').on('filedeleted', function(event, key, jqXHR, data) {
+                                                        console.log("Successfully deleted!");
+                                                    });
+
+                                                });
+
+
                                             </script>
 
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/piexif.min.js" type="text/javascript"></script>
+                                        <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+                                            This must be loaded before fileinput.min.js -->
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/sortable.min.js" type="text/javascript"></script>
+                                        <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for
+                                            HTML files. This must be loaded before fileinput.min.js -->
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/plugins/purify.min.js" type="text/javascript"></script>
+                                        <!-- popper.min.js below is needed if you use bootstrap 4.x (for popover and tooltips). You can also use the bootstrap js
+                                           3.3.x versions without popper.min.js. -->
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+                                        <!-- bootstrap.min.js below is needed if you wish to zoom and preview file content in a detail modal
+                                            dialog. bootstrap 4.x is supported. You can also use the bootstrap js 3.3.x versions. -->
+                                        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+                                        <!-- the main fileinput plugin file -->
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.0.1/js/fileinput.min.js"></script>
+<!--                                            --><?php
+//                                            dnd($params[3]["id"]);
+//                                            ?>
 
                                             <div class="control-wrapper last">
-                                                <button class="btn btn-1" type="submit" name="submit">Update Details</button>
+                                                <button class="btn btn-1" type="submit" name="submit" id="submitForm">Update Details</button>
                                             </div>
 
                                         </form>
@@ -307,6 +427,8 @@
                     <!--                    style="right: 65%"-->
 <!--                    --><?php //include ('Categories.php');?>
 <!--                </div>-->
+
+
 
             </div>
         </div>

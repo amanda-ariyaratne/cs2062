@@ -75,13 +75,7 @@
 				    	//user->login();
 				    } else {
 				    	$_SESSION['error_email'] = "<div style='color: red;'>This user already exists</div>";
-				    	if ($role == 1) {
-				    		$this->view->render('account/adminRegister');
-				    	} else if($role == 2){
-				    		$this->view->render('account/tailorRegister1');
-				    	} else {
-				    		$this->view->render('account/customerRegister1');
-				    	}
+				    	$this->view->render('account/register');
 				    }
 				
 			} else {
@@ -93,10 +87,6 @@
 				$this->view->render('account/register');
 			}
 			
-		}
-
-		public function adminRegister1Action(){
-			$this->view->render('account/adminRegister');
 		}
 
 		public function loginAction(){
@@ -267,22 +257,69 @@
 		public function saveEditMyAccountAction(){
 			if ($_POST) {
 				$id = currentUser()->id;
-				$fields = [
-					"first_name" => $_POST['first_name'],
-					"last_name" => $_POST['last_name'],
-					"dateOfBirth" => $_POST['dateOfBirth'],
-					"apartmentNo" => $_POST['apartmentNo'],
-					"streetName1" => $_POST['streetName1'],
-					"streetName2" => $_POST['streetName2'],
-					"city" => $_POST['city'],
-					"postalCode" => $_POST['postalCode'],
-					"mobileNo" => $_POST['mobileNo'],
-					"landLine" => $_POST['landLine']
-				];
+				$image = ($_FILES['logo']['name']);
+				//dnd($image);
+				$file_name = 'logo-' . date("Y-m-d-h-i-sa") . '-' . $store->id;
+				$file_ext = pathinfo($image)['extension'];
+				if ($file_ext != null) {
+					$file_path = $file_name . '.' . $file_ext;
+					$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/ProfilePictures';
+					move_uploaded_file($_FILES["logo"]["tmp_name"], $target_dir.'/'.$file_path);
+				} else {
+					$file_path = '';
+				}
+				//dnd($file_path);
+				// $fields = [
+				// 	"first_name" => $_POST['first_name'],
+				// 	"last_name" => $_POST['last_name'],
+				// 	"dateOfBirth" => $_POST['dateOfBirth'],
+				// 	"apartmentNo" => $_POST['apartmentNo'],
+				// 	"streetName1" => $_POST['streetName1'],
+				// 	"streetName2" => $_POST['streetName2'],
+				// 	"city" => $_POST['city'],
+				// 	"postalCode" => $_POST['postalCode'],
+				// 	"mobileNo" => $_POST['mobileNo'],
+				// 	"landLine" => $_POST['landLine']
+				// ];
+				if ($_POST['first_name'] != null) {
+					$fields["first_name"] = $_POST['first_name'];
+				}
+				if ($_POST["last_name"] != null) {
+					$fields["last_name"] = $_POST["last_name"];
+				}
+				if ($_POST['dateOfBirth'] != null) {
+					$fields["dateOfBirth"] = $_POST['dateOfBirth'];
+				}
+				if ($_POST['apartmentNo'] != null) {
+					$fields["apartmentNo"] = $_POST['apartmentNo'];
+				}
+				if ($_POST['streetName1'] != null) {
+					$fields["streetName1"] = $_POST['streetName1'];
+				}
+				if ($_POST['streetName2'] != null) {
+					$fields["streetName2"] = $_POST['streetName2'];
+				}
+				if ($_POST['city'] != null) {
+					$fields["city"] = $_POST['city'];
+				}
+				if ($_POST['postalCode'] != null) {
+					$fields["postalCode"] = $_POST['postalCode'];
+				}
+				if ($_POST['mobileNo'] != null) {
+					$fields["mobileNo"] = $_POST['mobileNo'];
+				}
+				if ($_POST['landLine'] != null) {
+					$fields["landLine"] = $_POST['landLine'];
+				}
+				if ($file_path != null) {
+					$fields['logo'] = $file_path;
+				}
+				//dnd($fields);
 				$user = new User();
 				$user = currentUser();
+				//dnd($user);
 				$user->update($id, $fields);
-
+				//dnd("done");
 				Router::redirect('account/myAccount');
 			}	
 		}
