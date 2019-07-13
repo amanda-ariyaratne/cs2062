@@ -28,7 +28,7 @@
   <script type="text/javascript" src="<?=PROOT?>assets/js/bootstrap.min.js"></script>
   <style type="text/css">
     .header-container.bg-imagee{
-      background-image:url(<?=PROOT?>assets/images/back-1.jpg);
+      background-image:url(<?=PROOT?>assets/images/main_background/1.jpg);
   }
 
     .header-container.bg-image{
@@ -45,19 +45,19 @@
 
     @keyframes animateee{
       0%,100%{
-        background-image: url(<?=PROOT?>assets/images/back-1.jpg);
+        background-image: url(<?=PROOT?>assets/images/main_background/1.jpg);
       }
       20%{
-        background-image: url(<?=PROOT?>assets/images/back-2.jpg);
+        background-image: url(<?=PROOT?>assets/images/main_background/2.jpg);
       }
       40%{
-        background-image: url(<?=PROOT?>assets/images/back-3.jpg);
+        background-image: url(<?=PROOT?>assets/images/main_background/3.jpg);
       }
       60%{
-        background-image: url(<?=PROOT?>assets/images/back-4.jpg);
+        background-image: url(<?=PROOT?>assets/images/main_background/4.jpg);
       }
       80%{
-        background-image: url(<?=PROOT?>assets/images/back-5.jpg);
+        background-image: url(<?=PROOT?>assets/images/main_background/6.jpg);
       }
     }
 
@@ -424,12 +424,13 @@
      
                             ';
                           }
-                          else{
+                          else if($user->role == 2){
                             echo '   
                               <div class="dropdown-account" style="color:black;">  
                                 <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
                                 <div class="dropdown-account-content">
                                   <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                  <a href="'.PROOT.'VendorController/VendorOrderList"><i class="fab fa-opencart" style="font-size:10px;"></i> All orders</a>
                                 </div>
                               </div>          
 

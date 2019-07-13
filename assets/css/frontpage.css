@@ -22,7 +22,7 @@
 }
 
 .nav-area li a{
-	color: #fff;
+	color: #08cf26;
 	text-decoration: none;
 	padding: 5px 20px;
 	font-family: poppings;
@@ -30,7 +30,7 @@
 }
 
 .nav-area li a:hover{
-	background:#fff;
+	background:#917a7e;
 	color:#333;
 }
 
@@ -68,7 +68,7 @@
 	color: #fff;
 	text-transform: uppercase;
 	font-size: 50px;
-	text-shadow: 3px 2px red;
+	text-shadow: 3px 2px #633546;
 }
 
 .welcome-text a{

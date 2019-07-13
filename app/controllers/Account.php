@@ -27,8 +27,8 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
-				    	$if ($role == 2) {
-				    		$role == 4;
+				    	if ($role == 2) {
+				    		$role = 4;
 				    	}
 				    	$fields = [
 				    		"first_name" => $first_name,
@@ -179,6 +179,7 @@
 					$order = new CustomerOrder();
 					$status_details = $order->getOrderList($user->id);
 
+
 					//reverse order list
 					$reverse_orders = array();
 					if(!empty($status_details)){
@@ -197,9 +198,7 @@
 						];
 						array_push($orders, $order_details)	;
 					}
-
 					$params['orders'] = $orders;
-
 					$this->view->render('account/orderHistory', $params);
 				} else if ($user->role == 2){
 					$store = new TailorShop();

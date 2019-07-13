@@ -16,7 +16,9 @@
 					$field = [
 						'product_id' => $item->product_id,
 						'quantity'   => $item->quantity,
-                        'vendor_id'  => $item->vendor_id
+                        'vendor_id'  => $item->vendor_id,
+                        'color'      => $item->color,
+                        'image_path' => $item->image_path
 					];
 					array_push($payments, $field);
 				}

@@ -24,7 +24,10 @@
 
 		public function getOrderList($id){
 			return $this->find(array('conditions'=>'user_id = ?' , 'bind' => [$id]));
+		}public function getVendorOrderList($id){
+			return $this->find(array('conditions'=>'vendor_id = ?' , 'bind' => [$id]));
 		}
+
 
 		public function getOrderDetails($o_id){
 			return $this->findFirst(array('conditions'=>'id = ?' , 'bind' => [$o_id]));
@@ -45,6 +48,10 @@
 			return $params;
 		}
 
+		public function deleteLastID(){
+			$this->_db->query("DELETE FROM customer_order order by id desc limit 1");
+		}
+
 
 		/////////////////notifications
 		public function notify_call($t){
@@ -52,16 +59,20 @@
 			$this->addObserver(new Notification());
             $this->notifyObservers('2', $user_IDs['customer_id'] , $user_IDs['vendor_id'] , $status='1', $type=$t);
 		}
-
         public function notifyObservers($product_id,$tailor_id,$customer_id,$status ,$type){
             foreach ($this->observers as $observer){
                 $observer->updateClass($product_id,$tailor_id,$customer_id,$status, $type);
             }
         }
-
         public function addObserver($obj){
             array_push($this->observers, $obj);
         }
+        public function notifyVendor(){
+        	$order_obj = $this->find(array('limit'=>1  , 'order'=>'id DESC'));
+        	$notification_obj = new Notification();
+        	$notification_obj->updateClass($order_obj[0]->id , $order_obj[0]->vendor_id , $order_obj[0]->user_id , '1' , '4');
+        }
+
 
 		//state behavioral pattern
 		public function setState($state,$_state_obj){
@@ -122,8 +133,8 @@
 	class StateInitial extends OrderState{
 		function changeState($order){
 			$this->confirm($order);
-			$order->setState(new StateConfirmed());
-			Router::redirect("home");
+			$order->setState(new StateConfirmed() , $order);
+			Router::redirect("VendorController/vendorOrderStatus/".$order->id);
 		}
 	}
 
@@ -132,8 +143,8 @@
 	class StateConfirmed extends OrderState{
 		function changeState($order){
 			$this->manufacturing($order);
-			$order->setState(new StateManufacturing());
-			Router::redirect("home");
+			$order->setState(new StateManufacturing() , $order);
+			Router::redirect("VendorController/vendorOrderStatus/".$order->id);
 		}
 	}
 
@@ -142,8 +153,8 @@
 	class StateManufacturing extends OrderState{
 		function changeState($order){
 			$this->delivering($order);
-			$order->setState(new StateDelivering());
-			Router::redirect("home");
+			$order->setState(new StateDelivering() , $order);
+			Router::redirect("VendorController/vendorOrderStatus/".$order->id);
 		}
 	}
 
@@ -151,14 +162,14 @@
 	class StateDelivering extends OrderState{
 		function changeState($order){
 			$this->delivered($order);
-			$order->setState(new StateDelivered());
-			Router::redirect("home");
+			$order->setState(new StateDelivered() , $order);
+			Router::redirect("VendorController/vendorOrderStatus/".$order->id);
 		}
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	class StateDelivered extends OrderState{
 		function changeState($order){
-			Router::redirect("home");
+			Router::redirect("VendorController/vendorOrderStatus/".$order->id);
 		}
 	}
