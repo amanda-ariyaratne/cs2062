@@ -1118,7 +1118,7 @@
                           
                           
                           
-                            <li> <!-- class=" lazyload waiting -->"
+                            <li> <!-- class=" lazyload waiting -->
                               
                               <i class="demo-icon icon-mail"></i>
 
