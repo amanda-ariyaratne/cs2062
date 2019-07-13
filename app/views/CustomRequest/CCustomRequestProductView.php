@@ -394,7 +394,7 @@
 
         <div class="modal-footer">
           <span class="media mt-3 shadow-textarea" style="width: 500px;margin-right: 50px;">
-            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
+            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="<?=PROOT?>assets/images/default-customer.png"
               alt="Generic placeholder image">
             <div class="media-body" style="margin: auto;width: 50%;box-shadow: 5px 5px 5px 5px #c1939e;height: 40px;">
 
@@ -502,16 +502,16 @@
     }
 
     $('#send-trigger').click(function(){
+
       var response=$('#chatTextArea').val();
       var time='just now';
 
 
       // check this part
-      // var avatar=<?=$params['myAvatar']?>;
-
-      var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
+      var avatar="<?php echo $params['myAvatar'] ?>";
+      //avatar='logo-2019-05-11-06-17-03pm-1.jpg';
       
-      var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
+      var send="<div class='container-chat darker-chat'><img src="+avatar+ " alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
 
       $('.modal-body').append(send);
 
