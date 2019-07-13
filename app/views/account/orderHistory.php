@@ -112,7 +112,7 @@
                     
                   </div>
 
-                  <a href="<?=PROOT?>register/myAccount" class="btn btn-1">View More... </a>
+                  <a href="<?=PROOT?>account/myAccount" class="btn btn-1">View More... </a>
                 </div>
               </div>
             
@@ -135,36 +135,38 @@
                   ?>
                     
                   <div class="list-group">
-                    <form  method="post" action="<?=PROOT?>OrderController/orderStatus">
-        <?php
-          foreach($params['orders'] as $order){
-            echo '
-            <div class="order-list" style="">
-              <span class="order_details">
-                <div  class="order-detail-item-block">
-                  <p class="order-detail-item"><i class="far fa-calendar-alt order-icon"></i>'.$order['created_at'].'</p>
-                  <p class="order-detail-item"><i class="fab fa-paypal order-icon"></i>$'.$order['total_amount'].'</p>
-                  ';
-                  if ($order['delivered'] == false) {
-                    echo'<p class="order-detail-item" style="color:#d8d500;"><i class="fa fa-spinner fa-spin order-icon"></i>Pending</p>';
-                  }
-                  else{
-                    echo'<p class="order-detail-item" style="color:#0bea30;"><i class="fas fa-check-double order-icon"></i>Closed</p>';
-                  }
+                    <div style="display: block;">
+                      <?php
+                        foreach($params['orders'] as $order){
+                          echo '
+                          <div class="order-list" style="">
+                            <span class="order_details">
+                              <div  class="order-detail-item-block">
+                                <p class="order-detail-item"><i class="far fa-calendar-alt order-icon"></i>'.$order['created_at'].'</p>
+                                <p class="order-detail-item"><i class="fab fa-paypal order-icon"></i>$'.$order['total_amount'].'</p>
+                                
+                                ';
+                                if ($order['delivered'] == false) {
+                                  echo'<p class="order-detail-item" style="color:#d8d500;"><i class="fa fa-spinner fa-spin order-icon"></i>Pending</p>';
+                                }
+                                else{
+                                  echo'<p class="order-detail-item" style="color:#0bea30;"><i class="fas fa-check-double order-icon"></i>Closed</p>';
+                                }
 
-                  echo'
+                                echo'
 
-                </div>
-              </span>
-  
-              <center>
-                <input type="hidden" name="order_id" value='.$order['order_id'].'>
-                <input class="order-id" type="submit" name="order_id" value="View more">
-              </center>
-            </div>';
-          }
-        ?>
-                    </form>
+                              </div>
+                            </span>
+                            
+                            <center>
+                              <a href="'.PROOT.'OrderController/orderStatus/'.$order['order_id'].'"> 
+                                 <input class="order-id" type="submit" name="view_more" value="View more">
+                              </a>
+                            </center>
+                          </div>';
+                        }
+                      ?>
+                    </div>
                     
                   </div>
                     

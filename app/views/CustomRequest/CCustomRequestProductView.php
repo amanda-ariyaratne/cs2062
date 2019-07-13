@@ -162,7 +162,7 @@
                       <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                         <ul class="breadcrumb">
                           <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                            <a itemprop="url" href="/">
+                            <a itemprop="url" href="<?=PROOT?>">
                               <span itemprop="title" class="d-none"></span>Home
                             </a>
                           </li>

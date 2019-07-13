@@ -3,12 +3,12 @@
 
 <head>
 	<title>HOME</title>
-	<link rel="shortcut icon" href="<?=PROOT?>assets/images/logo.jpg" type="image/png" />
+	<link rel="shortcut icon" href="<?=PROOT?>assets/images/icon-main.jpg" type="image/png" />
     <link rel="stylesheet" type="text/css" href="<?=PROOT?>assets/css/frontpage.css" />
 
     <style type="text/css">
 		header{
-		  background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(<?=PROOT?>assets/images/back-1.jpg);
+		  background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(<?=PROOT?>assets/images/main_background/1.jpg);
 		  height: 753px;
 		  background-position:center center;
 		  position: relative;
@@ -21,21 +21,47 @@
 
 		@keyframes animateee{
 		  0%,100%{
-		    background-image: url(<?=PROOT?>assets/images/back-6.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/1.jpg);
 		  }
 		  20%{
-		    background-image: url(<?=PROOT?>assets/images/back-2.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/2.jpg);
 		  }
 		  40%{
-		    background-image: url(<?=PROOT?>assets/images/back-3.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/3.jpg);
 		  }
 		  60%{
-		    background-image: url(<?=PROOT?>assets/images/back-7.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/4.jpg);
 		  }
 		  80%{
-		    background-image: url(<?=PROOT?>assets/images/back-5.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/6.jpg);
 		  }
 		}
+
+		.nav-area li a{
+			color: #633546;
+			font-weight: 700;
+		}
+		.nav-area li a:hover{
+			background:#633546;
+			color:#fff;
+		}
+		.welcome-text a{
+			color: #633546;
+			border:1px solid #633546;
+			background:#ffe3eb;
+		}
+		.welcome-text a:hover{
+			background:#633546;
+			color: #fff;
+		}
+		.welcome-text h1{
+			color: #633546;
+			text-shadow: 4px 5px #fff;
+		}
+		.logo h2{
+			text-shadow: 3px 2px #f25784;
+		}
+
     </style>
 </head>
 

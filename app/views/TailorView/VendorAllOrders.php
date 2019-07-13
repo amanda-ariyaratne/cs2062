@@ -90,7 +90,7 @@
               </span>
               
               <center>
-                <a href="'.PROOT.'OrderController/orderStatus/'.$order['order_id'].'"> 
+                <a href="'.PROOT.'VendorController/vendorOrderStatus/'.$order['order_id'].'"> 
                    <input class="order-id" type="submit" name="view_more" value="View more">
                 </a>
               </center>

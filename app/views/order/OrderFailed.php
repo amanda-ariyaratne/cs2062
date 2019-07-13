@@ -1,4 +1,4 @@
-<?= $this->setSiteTitle('Thank you! - Tailor Mate Store - Checkout') ?>
+<?= $this->setSiteTitle('Order Cancelled') ?>
 
 <?= $this->start('head'); ?>
 
@@ -7,7 +7,7 @@
 <?= $this->start('body'); ?>
 	<style type="text/css">
 		.background-of-success{
-			background-image: url(<?=PROOT?>assets/images/order-success-background.jpg);
+			background-image: url(<?=PROOT?>assets/images/order-failed-background2.jpg);
 			background-size: 100%;
 		}
 		.center{
@@ -28,10 +28,11 @@
 	</style>
 	<div class="background-of-success">
 		<div class="center">
-		  <h1 class="display-3">Thank You!</h1>
+		  <h1 class="display-3">Order Cancelled</h1>
 		  <p class="lead">
-		  	<strong>Please check your email</strong> 
-		  	for further details about your order.
+		  	You
+		  	<strong>cancelled your order</strong> 
+		  	before payment.
 		  </p>
 		  <hr>
 		  <p>
@@ -39,7 +40,7 @@
 		    <a href="<?=PROOT?>home/ContactUs">Contact us</a>
 		  </p>
 		  <p class="lead">
-		    <a class="btn btn-primary btn-sm continue-to-home" href="<?=PROOT?>home/productlist/1" role="button">Continue to homepage</a>
+		    <a class="btn btn-primary btn-sm continue-to-home" href="<?=PROOT?>home/productlist/1" role="button">Continue shopping</a>
 		  </p>
 		</div>	
 	</div>
