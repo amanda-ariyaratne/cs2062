@@ -82,11 +82,13 @@
         {
             if ($arry != null) {
                 foreach ($arry as $mes) {
-                    $fields = [
-                        "product_id" => $p_id,
-                        "name" => $mes
-                    ];
-                    $this->insert($fields);
+                    if($mes != null) {
+                        $fields = [
+                            "product_id" => $p_id,
+                            "name" => $mes
+                        ];
+                        $this->insert($fields);
+                    }
                 }
             }
 
