@@ -55,7 +55,12 @@
 			}
 		}
 
+		public function getAvatar($user_id){
+			$conditions=['conditions'=>'id=?','bind'=>[$user_id]];
+			$avatar=$this->findFirst($conditions)->logo;
+			return $avatar;
 
+		}
 
 		public function logout(){
 			$user_agnet = Session::uagent_no_version();

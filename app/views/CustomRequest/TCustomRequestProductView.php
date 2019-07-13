@@ -45,7 +45,7 @@
     }
 
     .response-pack{
-      padding:0 0 0 0 !important;     
+      padding:0 5px 0 0 !important;     
     }
 
   /*modal css start*/
@@ -315,43 +315,26 @@
 
         /////  First view of Responses /////
         if ($params['responses-new'] || $params['responses-old']){
-          foreach ($params['responses-new'] as $response){
+          // foreach ($params['responses-new'] as $response){
+          $response=$params['responses-new'];
+          $avatar=$params['CustomerAvatar'];
+          // dnd($response);
             echo '
               
               <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->tailor_id.'">
                 <div class="col-lg-1">
-                  <img src="'.PROOT.'assets/images/store_logo/'.$response->avatar.'" alt="Avatar" style="width:100%;">
-                </div>
+                  <img src="'.PROOT.'assets/images/ProfilePictures/'.$avatar.'" alt="Avatar" style="width:100%;">
+                </div>      
+                <div class="col-lg-1"></div>          
 
-                <div class="col-lg-2 response-pack" style="font-weight:600; font-style:italic;">
-                  '.$response->tailor.'
-                </div>
+                <div class="col-lg-10 response-pack my-response" data-id="'.$response->tailor_id.'">'.$response->response.'</div>
 
-                <div class="col-lg-8 response-pack my-response" data-id="'.$response->tailor_id.'">'.$response->response.'</div>
-
-                <div class="col-lg-1"></div>
+                
                 
               </div>
-
-
-              <div class="payment-icon" style="text-align:right;">';
-              if ($params['tailor_id']==$response->tailor_id && $params['status']==1){
-
-                echo '
-                  <a href="'.PROOT.'orderController/customerInformation">
-                    <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px;">       
-                  </a>'; 
-              }
-              else{                
-                echo '
-                  <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px; opacity:0.5; cursor:default;">
-                ';  
-              }
-                echo '
-                </div>
-              ';
+              <br/>';
             $count++;
-          }
+          // }
 
         }
         else{
@@ -438,9 +421,8 @@
     
     $(document).ready(function(){
 
-      var tailor_id='';
       var pr_id=JSON.stringify(<?=$params['id']?>);  
-      var customer_id=JSON.stringify(<?= currentUser()->id ?>);
+      var tailor_id=JSON.stringify(<?= currentUser()->id ?>);
 
       $('.my-response').click(function(){
         var icon =$(this);         
@@ -449,7 +431,7 @@
         $.ajax({
             url:"<?=PROOT?>home/getConversation",
             method: "POST",
-            data:{'product_id': pr_id,'tailor_id':tailor_id, 'customer_id':customer_id},
+            data:{'product_id': pr_id,'tailor_id':tailor_id},
 
             success: function(data){
               var data=JSON.parse(data);

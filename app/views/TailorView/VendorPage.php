@@ -149,7 +149,7 @@
           <div class="product-head">
             <div class="product-image">
             
-                <a href="'.PROOT.'home/productView/'.$pid.'"> 
+                <a href="'.PROOT.'VendorController/VendorProductView/'.$pid.'"> 
                   <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
 
                  <span class="product-label">';
