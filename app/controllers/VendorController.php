@@ -20,15 +20,17 @@
 		}
 
 		public function VendorPageAction($a){
-			$product=new Product('product');
-			$details=$product->getPageVendor($a);
+		    if (currentUser()->role == 2) {
+                $product = new Product('product');
+                $details = $product->getPageVendor($a);
 
-			$param=$details[0];
+                $param = $details[0];
 //			dnd($param);
-			$noOfProducts =$details[1];
+                $noOfProducts = $details[1];
 
-			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
-			$this->view->render('TailorView/VendorPage',$params);
+                $params = array($param, $a, $noOfProducts, $param[0]->vendorName);
+                $this->view->render('TailorView/VendorPage', $params);
+            }
 
 		}
 

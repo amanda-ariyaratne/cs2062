@@ -130,6 +130,7 @@
     		
 
     		$images=($_FILES["fileUpload"]['name']);
+//			dnd(sizeof($images));
     		for ($x=0; $x<sizeof($images); $x++){
     			
     			$image=new Image('custom_design_image'); 

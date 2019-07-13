@@ -123,13 +123,9 @@
         <?php
           if (currentUser()->role == 2) {
             echo '
-              <div style="padding-left:840px;">
-
-                <a href="'.PROOT.'home/addProduct" title="Add Your Designs Here">
-                  fgh
-                </a>
-              </div>
-            ';
+              <div style="padding-left:700px;">
+                <a href="'.PROOT.'Home/addProduct">Add Your Designs</a>
+                </div>';
           }
           ?>
 
@@ -151,35 +147,36 @@
           <div class="product-head">
             <div class="product-image">
             
-                <a href="'.PROOT.'home/productView/'.$pid.'"> 
+                <a href="'.PROOT.'VendorController/VendorProductView/'.$pid.'"> 
                   <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
 
                  <span class="product-label">';
 
-      if($product->permission==1){
-         echo '<span class="label-sale">
-          <span class="sale-text">Approved</span>  
+      if($value->permission==1){
+          echo '<span class="label-sale" style="background: rgba(129, 207, 220, 0.7);border-radius: 5px">
+          <span class="sale-text" >Approved</span>  
           </span>';
       }
       else{
-         echo '<span class="label-sale" style="background-color: #bc4a54">
+          echo '<span class="label-sale" style="float: left;background: rgba(176, 75, 80, 0.5);border-radius: 5px">
           <span class="sale-text" >Not Approved</span>  
           </span>';
       }
 
-      if($product->active==1){
-          echo '<span class="label-sale">
+      if($value->active==1){
+          echo '<span class="label-sale" style="background: rgba(129, 207, 220, 0.7);border-radius: 5px">
           <span class="sale-text" >Active</span>  
           </span>';
       }
       else{
-          echo '<span class="label-sale" style="background-color: #bc4a54">
+          echo '<span class="label-sale" style="background: rgba(176, 75, 80, 0.5);border-radius: 5px">
           <span class="sale-text" >Not Active</span>  
           </span>';
       }
 
 
-                 echo '</span>
+
+      echo '</span>
                 </a>
             </div>
           </div>
