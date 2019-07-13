@@ -14,11 +14,14 @@
 			foreach ($order_obj as $key => $order) {
 				$orderdetais = [];
 				$orderdetais = [
+					'id' => $order->id,
 					'product_id' => $order->product_id,
 					'name' => $order->name,
 					'quantity' => $order->quantity,
 					'price' => $order->price,
-					'item_total' => $order->item_total
+					'item_total' => $order->item_total,
+					'color' => $order->color,
+					'image_path' => $order->image_path
 				];	
 				array_push($params,$orderdetais);
 			}

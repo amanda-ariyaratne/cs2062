@@ -128,12 +128,12 @@
       
    
 <?php 
-// dnd($params[0]);
+
 foreach($params[0]as $value){
 
   $pid=$value->id;
 
-    echo '<div class="product-grid-item mode-view-item product-list-style" >                   
+    echo '<div class="product-grid-item mode-view-item product-list-style" >   
 
         <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">
 
@@ -144,7 +144,7 @@ foreach($params[0]as $value){
                   
 
               <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/custom_requests/'.$value->images[0]->path.'"/>
-
+              
               <span class="product-label">
             
               

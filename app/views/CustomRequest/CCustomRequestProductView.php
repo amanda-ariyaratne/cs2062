@@ -10,7 +10,7 @@
 <link href="<?=PROOT?>assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" media="all" />
 
 <style id="shopify-dynamic-checkout">
-	</style>
+  </style>
 
   <style>
     .bg-danger{

@@ -22,7 +22,6 @@
 		public function VendorPageAction($a){
 			$product=new Product('product');
 			$details=$product->getPageVendor($a);
-
 			$param=$details[0];
 			$noOfProducts =$details[1];
 
@@ -126,6 +125,79 @@
         }
 
 
+        public function VendorOrderListAction(){
+            if (currentUser()) {
+                $user = currentUser();
+                if ($user->role == 2 or $user->role == 1) {
+                    $params = array();
+                    $params['user_id'] = $user->id;
 
+                    $order = new CustomerOrder();
+                    $status_details = $order->getVendorOrderList($user->id);
+
+                    //reverse order list
+                    $reverse_orders = array();
+                    if(!empty($status_details)){
+                        $reverse_orders = array_reverse($status_details);
+                    }
+
+                    //update order state
+                    $state = new OrderStatus();
+                    $orders = array();
+                    foreach ($reverse_orders as $key => $order) {
+                        $order_details = [
+                            'order_id'  => $order->id,
+                            'total_amount'  => $order->total_amount,
+                            'created_at'  => $order->created_at,
+                            'delivered' =>  $state->checkIfDelivered($order->id)
+                        ];
+                        array_push($orders, $order_details) ;
+                    }
+                    $params['orders'] = $orders;
+                    $this->view->render('TailorView/VendorAllOrders', $params);
+                }
+                else {
+                    Router::redirect('home/pageNotFound');
+                }
+            } else {
+                Router::redirect('account/login');
+            }
+        }
+
+        public function vendorOrderStatusAction($o_id){
+            
+            $user = new User();
+            $user = $user->currentLoggedInUser();
+            if($user!=null){
+                //get order status
+                $order = new OrderStatus();
+                $order_status = $order->getOrderStatusByID($o_id);
+                $params = ['order_status' => $order_status];
+
+                //get ordered items
+                $order_item_obj = new OrderedItem();
+                $orderedItems = $order_item_obj->getItemList_by_Order_ID($o_id);
+                
+                //get order item measurements
+                $orderedItemMeasurement_obj = new OrderedItemMeasurement('ordered_item_measurement');
+                $orderedItem_withMes = [];
+                foreach ($orderedItems as $key => $item) {
+                    $item['mesurements'] = $orderedItemMeasurement_obj->getMeasurements_by_orderedItemID($item['id']);
+                    array_push($orderedItem_withMes, $item);
+                }
+                $params['ordered_items'] = $orderedItem_withMes;
+
+                //get order info
+                $customerOrder = new CustomerOrder();
+                $order_details = $customerOrder->getOrderDetails($o_id);
+                $params['order_details'] = $order_details;
+                //dnd($params);
+                $this->view->render('TailorView/VendorOrderStatus', $params);
+            }
+            else{
+                    Router::redirect('account/login');
+            }
+            
+        }
 
     }

@@ -121,7 +121,7 @@
     foreach ($params[0] as $field){
       $pid=$field->id;
 
-
+      
     echo '<div class="product-grid-item mode-view-item product-list-style" >                   
 
         <div class="product-wrapper effect-overlay " style="height: 252px;width: 258px;border-width:0px;">

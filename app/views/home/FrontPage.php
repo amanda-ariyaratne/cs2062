@@ -8,7 +8,7 @@
 
     <style type="text/css">
 		header{
-		  background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(<?=PROOT?>assets/images/back-1.jpg);
+		  background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(<?=PROOT?>assets/images/main_background/1.jpg);
 		  height: 753px;
 		  background-position:center center;
 		  position: relative;
@@ -21,19 +21,19 @@
 
 		@keyframes animateee{
 		  0%,100%{
-		    background-image: url(<?=PROOT?>assets/images/back-6.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/1.jpg);
 		  }
 		  20%{
-		    background-image: url(<?=PROOT?>assets/images/back-2.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/2.jpg);
 		  }
 		  40%{
-		    background-image: url(<?=PROOT?>assets/images/back-3.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/3.jpg);
 		  }
 		  60%{
-		    background-image: url(<?=PROOT?>assets/images/back-7.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/4.jpg);
 		  }
 		  80%{
-		    background-image: url(<?=PROOT?>assets/images/back-5.jpg);
+		    background-image: url(<?=PROOT?>assets/images/main_background/5.jpg);
 		  }
 		}
     </style>

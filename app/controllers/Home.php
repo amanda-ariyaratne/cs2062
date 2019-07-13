@@ -16,7 +16,7 @@
 		// 	$product=new Product();
 		// 	$product->getAcceptedRequest('1','1','2');
 		// }
-
+		
 		public function getConversationAction(){
 
 			$product_id=$_POST['product_id'];
@@ -27,7 +27,7 @@
 
 			echo json_encode($conversation);
 		}
-		
+
 		public function AllVendorsAction($no){
 
 			$tailorshop=new Tailorshop('tailor_shop');

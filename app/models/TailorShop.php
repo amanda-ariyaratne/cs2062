@@ -20,7 +20,7 @@
 		}
 
 		public function getAvatar($tailor_id){
-			$conditions=['conditions'=>'user_id=?','bind'=>[$tailor_id]];
+			$conditions=['conditions'=>'vendor_id=?','bind'=>[$tailor_id]];
 			$avatar=$this->findFirst($conditions)->logo;
 			return $avatar;
 

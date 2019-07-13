@@ -10,6 +10,7 @@
 
 		}
 
+		
 		public function sendResponseAction(){
 			// if (currentUser()->role==2){
 				
@@ -52,7 +53,6 @@
 				$details= $this->customRequest->getAllCustomRequests($a);
 				$param=$details[0];
 				$noOfProducts =$details[1];	
-
 
 				$params=array($param,$a,$noOfProducts,'Custom Requests');
 				$this->view->render('CustomRequest/CustomerRequests', $params);

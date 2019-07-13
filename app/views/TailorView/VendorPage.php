@@ -131,8 +131,6 @@
           }
           ?>
 
-        
-
 <div id="col-main">
           
   <div class="cata-product cp-grid">
