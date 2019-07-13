@@ -87,14 +87,14 @@
             <div class="row control-wrapper">
               <div class="row"><span id="error_password" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
               <label class="col-md-3" for="password">Password<span class="req">*</span></label>
-              <input type="password" name="password" id="password" class="password" />
+              <input type="password" name="password" id="password" class="password" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
               <label class="col-md-1" id="first_name_error"></label>
             </div>
 
             <div class="row control-wrapper">
               <div class="row"><span id="error_confirm_password" style="color: red; padding-left: 180px; font-size: 12px; margin-top: 20px;"></span></div>
               <label class="col-md-3" for="password">Confirm Password<span class="req">*</span></label>
-              <input type="password" name="confirm_password" id="confirm_password" class="password" />
+              <input type="password" name="confirm_password" id="confirm_password" class="password" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
               <label class="col-md-1" id="first_name_error"></label>
             </div>
 
