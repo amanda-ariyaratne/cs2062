@@ -547,8 +547,8 @@
   $(document).ready(function(){
     var status= <?php echo $params['status']; ?>;
     var tailor_id='';
-      var pr_id=JSON.stringify(<?=$params['id']?>);  
-      var customer_id=JSON.stringify(<?= currentUser()->id ?>);
+    var pr_id=JSON.stringify(<?=$params['id']?>);  
+    var customer_id=JSON.stringify(<?= currentUser()->id ?>);
 
       if (status=='0'){
         $('#ignore').prop('disabled',true);
@@ -561,7 +561,7 @@
 
       $('.respond').click(function(){
         var icon =$(this);         
-        var tailor_id=JSON.stringify(icon.data("id"));  
+        tailor_id=JSON.stringify(icon.data("id"));  
 
         $.ajax({
             url:"<?=PROOT?>home/getConversation",
@@ -572,7 +572,6 @@
               var data=JSON.parse(data);
               $('.modal-body').html(doForAll(data));
             }
-
         });
       });    
 
@@ -614,15 +613,13 @@
 
         var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
         
-
-        console.log(avatar);
-
         var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
 
         $('.modal-body').append(send);
 
+        var response=JSON.stringify(response);
         var product_id=JSON.stringify(<?php echo $params['id'];?>);
-        var sender='c';
+        var sender=JSON.stringify('c');
         var tailor=JSON.stringify(tailor_id);
 
         $.ajax({
@@ -630,7 +627,7 @@
           method:"POST",
           data:{'response':response,'sender':sender, 'product_id':product_id, 'tailor_id':tailor},
           success:function(data){
-            console.log('done..');
+            console.log(data);
           }
         });
 

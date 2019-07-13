@@ -83,8 +83,6 @@
 		}
 
 		public function insert($fields){
-
-
 			if (empty($fields)) {
 				return false;
 			} 

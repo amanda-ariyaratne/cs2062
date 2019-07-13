@@ -11,19 +11,21 @@
 		}
 
 		public function sendResponseAction(){
-			if (currentUser()->role==2){
+			// if (currentUser()->role==2){
 				
-				$product_id=json_decode($_POST['product_id']);
-				$sender=json_decode($_POST['sender']);
-				$tailor_id=json_decode($_POST['tailor_id']);
-				$response=json_decode($_POST['response']);
+			$product_id=$_POST['product_id'];
+			$sender=json_decode($_POST['sender']);
+			$tailor_id=json_decode($_POST['tailor_id']);
+			$response=json_decode($_POST['response']);
 
-				$response=new TailorResponse();
+			$responseObj=new TailorResponse();
 
-				// check weather this goes to the db or not
-				
-				$response->setResponse($product_id, $sender, $tailor_id, $response);			
-			}
+			var_dump($product_id,$sender,$tailor_id,$response);
+
+			// check weather this goes to the db or not
+			$sent=$responseObj->setResponse($product_id, $sender, $tailor_id, $response);	
+			echo json_encode($sent);	
+			// }
 		}
 
 		public function DeleteCustomRequestAction(){

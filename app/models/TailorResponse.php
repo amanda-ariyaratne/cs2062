@@ -75,11 +75,11 @@
 					'product_id'=>$product_id,
 					'sender'=>$sender,
 					'tailor_id'=>$tailor_id,
-					'response'=>$response
-					
+					'response'=>$response					
 			];
+			var_dump($fields);
 
-			$this->insert($fields);
+			return $this->insert($fields);
 		}
 	}
  ?>
