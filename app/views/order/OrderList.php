@@ -55,8 +55,18 @@
       <i class="demo-icon icon-handy-cart" style="font-size: 70px; padding: 0px 20px 0 0;"></i>
       <h2>ALL ORDERS</h2>
     </center>
+    <?php 
+      if(sizeof($params['orders'])==0){
+        echo'
+          <div class="alert alert-success">
+            <button type="button" class="close" title="Close" data-dismiss="alert">×</button>
+            <p>You haven&#39;t placed any orders yet.</p>
+          </div>
+        ';
+      }
+    ?>
     <div class="list-group">
-      <form  method="post" action="<?=PROOT?>OrderController/orderStatus">
+      <div style="display: block;">
         <?php
           foreach($params['orders'] as $order){
             echo '
@@ -65,6 +75,7 @@
                 <div  class="order-detail-item-block">
                   <p class="order-detail-item"><i class="far fa-calendar-alt order-icon"></i>'.$order['created_at'].'</p>
                   <p class="order-detail-item"><i class="fab fa-paypal order-icon"></i>$'.$order['total_amount'].'</p>
+                  
                   ';
                   if ($order['delivered'] == false) {
                     echo'<p class="order-detail-item" style="color:#d8d500;"><i class="fa fa-spinner fa-spin order-icon"></i>Pending</p>';
@@ -77,16 +88,17 @@
 
                 </div>
               </span>
-  
+              
               <center>
-                <input type="hidden" name="order_id" value='.$order['order_id'].'>
-                <input class="order-id" type="submit" name="order_id" value="View more">
+                <a href="'.PROOT.'OrderController/orderStatus/'.$order['order_id'].'"> 
+                   <input class="order-id" type="submit" name="view_more" value="View more">
+                </a>
               </center>
             </div>';
           }
         ?>
-      </form>
-
+      </div>
+      
     </div>
   </div>
 

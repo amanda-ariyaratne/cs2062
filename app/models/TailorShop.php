@@ -19,6 +19,13 @@
 			return $this->findFirst(['conditions'=>"vendor_id = ?" , 'bind'=>[$id]]);
 		}
 
+		public function getAvatar($tailor_id){
+			$conditions=['conditions'=>'vendor_id=?','bind'=>[$tailor_id]];
+			$avatar=$this->findFirst($conditions)->logo;
+			return $avatar;
+
+		}
+
 		public function updateStoreDetails($id, $fields){
 			$this->update($id, $fields);
 		}

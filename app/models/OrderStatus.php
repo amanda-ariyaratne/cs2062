@@ -25,13 +25,13 @@
 			$order_obj = $order->findById($o_id);
 			$state_obj = $this->findById($o_id);
 
-			$states = [
+			$status = [
 				'StateConfirmed' => $state_obj->state_confirmed,
 				'StateManufacturing' => $state_obj->state_manufacturing,
 				'StateDelivering' => $state_obj->state_delivering,
 				'StateDelivered' => $state_obj->state_delivered
 			];
-			foreach ($states as $key => $value) {
+			foreach ($status as $key => $value) {
 				if ($value==1) {
 					$last_updated_state = $key;
 				}
@@ -72,5 +72,9 @@
 			else{
 				return false;
 			}
+		}
+
+		public function deleteLastID(){
+			$this->_db->query("DELETE FROM order_status order by id desc limit 1");
 		}
 	}

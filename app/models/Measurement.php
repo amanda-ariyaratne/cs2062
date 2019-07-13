@@ -1,5 +1,4 @@
 <?php
-
 	class Measurement extends Model
     {
 
@@ -115,5 +114,16 @@
 
         }
 
+        public function deleteMeasurement_by_customerID($u_id){
+            $measurements = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$u_id]));
 
+            if (count($measurements) != null) {
+                foreach ($measurements as $mes) {
+                    $id = $mes->id;
+                    $this->delete($id);
+                }
+            }
         }
+
+
+    }

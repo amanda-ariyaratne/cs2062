@@ -1,6 +1,8 @@
 <?php
-	
+
 	class OrderController extends Controller{
+
+		//public $_last_inserted_id;
 
 		public function customerInformationAction(){
 			//load user email
@@ -30,25 +32,15 @@
 
 
 		public function orderListAction(){
-			$user = new User();
-			$user = $user->currentLoggedInUser();
-
-			if($user!=null){
-
-
-	            if (currentUser()->role == 3) {
-					$params = array();
-					array_push($params,$user);
-
-					$params = $this->addToParams($params, $user->id);
-					//dnd($params);
-					$this->view->render('Order/CustomerInformation',$params);
-
+			if (currentUser()) {
+				$user = currentUser();
+				if ($user->role == 3) {
 					$params = array();
 					$params['user_id'] = $user->id;
 
 					$order = new CustomerOrder();
 					$status_details = $order->getOrderList($user->id);
+
 
 					//reverse order list
 					$reverse_orders = array();
@@ -56,6 +48,7 @@
 						$reverse_orders = array_reverse($status_details);
 					}
 
+					//update order state
 					$state = new OrderStatus();
 					$orders = array();
 					foreach ($reverse_orders as $key => $order) {
@@ -65,26 +58,29 @@
 							'created_at'  => $order->created_at,
 							'delivered' =>	$state->checkIfDelivered($order->id)
 						];
-
 						array_push($orders, $order_details)	;
 					}
 					$params['orders'] = $orders;
-
-					//dnd($params);
-					$this->view->render('Order/OrderList', $params);
-	            } else {
-	                Router::redirect('home/pageNotFound');
-	            }
-
-	
-			}else{
-					Router::redirect('account/login');
+					$this->view->render('order/orderList', $params);
+				} else if ($user->role == 2){
+					$store = new TailorShop();
+					if ($store->getStoreByVendor($user->id)) {
+						Router::redirect('VendorController/VendorOrderList');
+					} else {
+						Router::redirect('account/setUpYourStore');
+					}
+				}
+				else {
+					Router::redirect('home/pageNotFound');
+				}
+			} else {
+				Router::redirect('account/login');
 			}
 			
 		}
 
-		public function orderStatusAction(){
-			$o_id = $_POST['order_id'];
+		public function orderStatusAction($o_id){
+			//dnd($o_id);
 			$user = new User();
 			$user = $user->currentLoggedInUser();
 			if($user!=null){
@@ -220,8 +216,7 @@
 		public function updateStatusAction(){
 			$this->view->render('Order/updateStatus');
 		}
-		public function inputStatusAction($o_id=''){
-			$o_id = '27';
+		public function inputStatusAction($o_id){
 			$order = new OrderStatus();
 			$order->updateStatus($o_id);
 		}
@@ -235,6 +230,23 @@
 
 
 		public function orderSuccessAction(){
+			$user = new User();
+            $user = $user->currentLoggedInUser();
+            $u_id = $user->id;
+
+            //delete cart items
+            $cart_obj = new Cart();
+			$cart_obj->emptyCart($u_id);
+
+			//notify vendor
+			$customer_order_obj = new CustomerOrder();
+			$customer_order_obj->notifyVendor();
+
+			//delete measurements of tailorRequestMeasurement table of the given customer_id
+			$tailorRequestMeasurement_obj = new TailorRequestMeasurement('tailor_request_measurement');
+			$tailorRequestMeasurement_obj->deleteMeasurement_by_customerID($u_id);
+
+			//render page
 			$this->view->render('Order/OrderSuccess');
 		}
 
@@ -243,7 +255,18 @@
 		}
 
 
+		public function orderFailedAction(){
+			//delete last id of customer_order
+			$customerOrder_obj = new CustomerOrder();
+			$customerOrder_obj->deleteLastID();
 
+			//delete last id of order_states
+			$order_status_obj = new OrderStatus();
+			$order_status_obj->deleteLastID();
+
+			//load page
+			$this->view->render('Order/OrderFailed');
+		}
 
 
 		/////////////////////////////////////////////////////////////////////////////////////////////// paypal
@@ -267,7 +290,7 @@
 			$paypalConfig = [
 			    'email' => 'selleraccount2062@gmail.com',
 			    'return_url' => 'http://localhost/cs2062/OrderController/orderSuccess',
-			    'cancel_url' => 'http://localhost/cs2062/OrderController/CustomerInformation',
+			    'cancel_url' => 'http://localhost/cs2062/OrderController/orderFailed',
 			    'notify_url' => 'http://localhost/cs2062/OrderController/notify'
 			];
 
@@ -336,29 +359,44 @@
 			    //////////////////////////////////save in ordered_item
 			    $last_inserted_id = $customerOrder_obj->lastInsertedID();
 
-			    //dnd($payment_summary);
 			    foreach ($payment_summary as $order_key => $order) {
 			    	$db_order_item_fields = [];
 				    foreach ($order as $item_key => $item) {
 				        $db_order_item_fields[$item_key] = stripslashes($item);
 				    }
 				    $db_order_item_fields['order_id'] = $last_inserted_id;
-				    //dnd($db_order_item_fields);
 				    $orderedItems_obj = new OrderedItem();
-
 				    $orderedItems_obj->insert($db_order_item_fields);
+
+				    //get last inserted ordered item id
+				    $last_inserted_item_id = $orderedItems_obj->lastInsertedID();
+				    //get measurments of orded item
+				    $tailorRequestMeasurement_obj = new TailorRequestMeasurement('tailor_request_measurement');
+				    $measurments_of_ordered_item = $tailorRequestMeasurement_obj->getMeasutmentBy_CustomerID_and_ProductID($db_customer_order_fields['user_id'] , $db_order_item_fields['product_id'] );
+				    
+				    //insert to order_item_measurement table
+				    foreach ($measurments_of_ordered_item as $key => $measurment_obj) {
+					    $db_orderedItemMeasurement_fields = [
+					    									'ordered_item_id' => $last_inserted_item_id,
+					    								  	'measurement_type'=>$measurment_obj->measurement_type,
+					    								  	'measurement'=>$measurment_obj->measurement
+					    								  	];
+					    
+					    $orderedItemMeasurement_obj = new OrderedItemMeasurement('ordered_item_measurement');
+					    $orderedItemMeasurement_obj->insert($db_orderedItemMeasurement_fields);
+					}
+				    
 			    }
 
-			   	////////////////////////////////////save order status
+			    
+			    //save order status
 			   	$db_order_status_fields = [
 			   		'id' => $last_inserted_id,
 			   		'state_confirmed' => '1'
 			   	];
 			   	$order_status_obj = new OrderStatus();
 			   	$order_status_obj->insert($db_order_status_fields);
-
-			  	$cart_obj = new Cart();
-			  	$cart_obj->emptyCart($customer_info['user_id']);
+			  	
 
 			    //dnd('done');
 
