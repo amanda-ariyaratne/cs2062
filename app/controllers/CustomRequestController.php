@@ -10,6 +10,15 @@
 
 		}
 
+		public function acceptOrderAction(){
+			if (currentUser()->role==2){
+				$product_id=$_POST['product_id'];
+				$ok=$this->customRequest->acceptOrder($product_id, currentUser()->id);
+
+				echo json_encode($ok);
+			}
+		}
+
 		public function sendResponseAction(){
 			// if (currentUser()->role==2){
 				
@@ -215,18 +224,16 @@
 
 			//load product measurements
 			$measurement = new Measurement('custom_request_measurement');
-
 			$params['measurements'] = $measurement->getMeasurementForTView($request_obj->id);
 
-			$product_id= $request_obj->id;
+			//load tailor responses
+			$tailor_response=new TailorResponse();
+			$params['responses-new']=$tailor_response->getNewResponses($request_obj->id);
 
-			$tailor_id= currentUser()->id;
+			$params['responses-old']=$tailor_response->getOldResponses($request_obj->id);
 
-			$tailor_response=new TailorResponse();	
-					
-			$params['responses-new'] = $tailor_response->getTailorNewResponses($product_id, $tailor_id);
-
-			$params['responses-old'] = $tailor_response->getTailorOldResponses($product_id, $tailor_id);
+			$tailor_shop=new TailorShop();
+			$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
 
 			$this->view->render('CustomRequest/TCustomRequestProductView',$params);
 		}
