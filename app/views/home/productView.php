@@ -5,7 +5,7 @@
 <?= $this->start('head'); ?>
 
 <link href="<?=PROOT?>assets/css/productView.css" rel="stylesheet" type="text/css" media="all" />
-<script src="<?=PROOT?>assets/js/productView.js"></script>
+<!-- <script src="<?=PROOT?>assets/js/productView.js"></script> -->
 <!-- <link rel='stylesheet' id='fontawesome-css' href='https://use.fontawesome.com/releases/v5.0.1/css/all.css?ver=4.9.1' type='text/css' media='all' />
  --><!-- <script type="text/javascript" src="<?=PROOT?>assets/js/productView.js"></script>
  --><!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
