@@ -64,7 +64,7 @@
                     
                     <div class="control-wrapper">
                       <label for="password">Password<span class="req">*</span></label>
-                      <input type="password" name="password" id="password" class="password" />
+                      <input type="password" name="password" id="password" class="password" onselectstart="return false" onpaste="return false;" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off/>
                     </div>
 
 
