@@ -433,6 +433,7 @@
                                 <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
                                 <div class="dropdown-account-content">
                                   <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
+                                  <a href="'.PROOT.'VendorController/VendorPage/'.$user->id.'"><i class="far fa-id-badge"></i> My Page</a>
                                   <a href="'.PROOT.'VendorController/VendorOrderList"><i class="fab fa-opencart" style="font-size:10px;"></i> All orders</a>
                                 </div>
                               </div>          

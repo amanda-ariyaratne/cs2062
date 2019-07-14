@@ -450,6 +450,9 @@
     public function pageNotFoundAction(){
     	$this->view->render('home/404');
     }
+    public function termsOfUseAction(){
+    	$this->view->render('home/termsOfUse');
+    }
 
     public function deleteTailorImageAction(){
         $id = $_POST['key'];
