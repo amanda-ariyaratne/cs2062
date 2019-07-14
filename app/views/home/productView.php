@@ -66,13 +66,13 @@
           <ul class="breadcrumb">
             
             <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a itemprop="url" href="/">
+              <a itemprop="url" href="<?=PROOT?>home/productList/1">
                 <span itemprop="title" class="d-none">Tailor Mate</span>Home
               </a>
             </li>
 
             
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
+            <li itemscope itemtype="" class="d-none">
               <a href="" itemprop="url">
                 <span itemprop="title"><?=$params[0]->main_category_name?></span>
               </a>
@@ -82,8 +82,8 @@
               <a href="" title=""><?=$params[0]->main_category_name?></a>
             </li>
 
-            <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="d-none">
-              <a href="/products/donkix-product-sample" itemprop="url">
+            <li itemscope itemtype="" class="d-none">
+              <a href="" itemprop="url">
                 <span itemprop="title"><?=$params[0]->sub_category_name?></span>
               </a>
             </li>
@@ -223,7 +223,7 @@
                         </div>   
                         
                         
-                          <link itemprop="availability" href="http://schema.org/InStock" />
+                          <link itemprop="availability" href="" />
                         
                           
                           <?php echo '
@@ -494,7 +494,7 @@
                         
                           <li class="product-vendor">
                             <span>Sold By:</span>
-                            <a href="/collections/vendors?q=Armani" title="Armani"><?=$params[0]->vendor->first_name?></a>
+                            <a href="" title=""><?=$params[0]->vendor->first_name?></a>
                           </li>
                         
 

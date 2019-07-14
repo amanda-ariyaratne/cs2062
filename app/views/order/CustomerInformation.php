@@ -296,8 +296,8 @@
 
           </div>
           <div class="main__footer">
-            <div class="Container"> <a href="https://store...com/pages/terms-of-use" target="_blank"style="color:#0000FF;">Terms of Use</a>
-            | <a href=https://store...com/pages/privacy-policy target="_blank" style="color:#0000FF;">Privacy Policy</a> | <a href=https://store...com/pages/returns-exchange-policy target="_blank" style="color:#0000FF;">Returns/Exchange Policy</a>       
+            <div class="Container"> <a href="<?=PROOT?>home/termsOfUse" target="_blank"style="color:#0000FF;">Terms of Use</a>
+            | <a href="<?=PROOT?>home/termsOfUse" target="_blank" style="color:#0000FF;">Privacy Policy</a> | <a href="<?=PROOT?>home/termsOfUse" target="_blank" style="color:#0000FF;">Returns/Exchange Policy</a>       
           </div>
           </div>
         </div>
