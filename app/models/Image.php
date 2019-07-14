@@ -27,6 +27,16 @@
 			return $ids;
 		}
 
+		public function getAllImages($pr_id){
+			$condition=['conditions'=>'product_id = ?', 'bind'=>[$pr_id]];
+			$images=$this->find($condition);
+			$image_array=[];
+			foreach ($images as $image){
+				array_push($image_array, $image->path);
+			}
+			return $image_array;
+		}
+
 		//deletes all images related to pr_id
 		public function deleteAllImages($pr_id){
 			$ids=$this->getAllImageId($pr_id);

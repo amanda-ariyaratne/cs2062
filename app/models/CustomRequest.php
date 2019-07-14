@@ -57,7 +57,7 @@
 			$image=new Image('custom_design_image');	
 
 			foreach($fields  as $field){
-				$images=array();
+
 				$conditions=['conditions'=> 'product_id = ?', 'bind' => [$field->id]];
 				$image_set=$image->find($conditions);
 
@@ -66,6 +66,17 @@
 			// dnd($fields);
 			return $fields;		
 		}
+
+        public function getMyCustomRequestByID($product_id){
+            $conditions=array('conditions'=> 'id = ?' , 'bind' => [$product_id]);
+
+            $fields=$this->findFirst($conditions);
+            // get Images
+            $image=new Image('custom_design_image');          
+            $fields->images=$image->getAllImages($product_id);    
+
+            return $fields;     
+        }
 
         public function notifyObservers($product_id,$to,$from,$status,$type){
             foreach ($this->observers as $observer){

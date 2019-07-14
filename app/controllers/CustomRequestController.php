@@ -160,7 +160,7 @@
 					  	</div>
 					</div>';	
 
-					Router::redirect("CustomRequestController/ProductRequestEdit/".$pr_id);
+					Router::redirect("CustomRequestController/requestedProductViewCustomer/".$pr_id);
 				}				
 
 				// dnd($params['details']['measurements'][1]->measurement_type);
