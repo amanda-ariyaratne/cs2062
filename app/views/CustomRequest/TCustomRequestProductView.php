@@ -370,7 +370,7 @@
 
         <div class="modal-footer">
           <span class="media mt-3 shadow-textarea" style="width: 500px;margin-right: 50px;">
-            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="<?=PROOT?>assets/images/ProfilePictures/default-avatar.png"
+            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="<?=PROOT?>assets/images/ProfilePictures/default-customer.png"
               alt="Generic placeholder image">
             <div class="media-body" style="margin: auto;width: 50%;box-shadow: 5px 5px 5px 5px #c1939e;height: 40px;">
 

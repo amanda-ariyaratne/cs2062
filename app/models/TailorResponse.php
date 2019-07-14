@@ -17,7 +17,7 @@
 			$conditions=array('conditions'=>['product_id = ?', 'seen=?', 'sender=?'], 'bind' => [$product_id,$seen, $sender]);
 			$responses=$this->find($conditions);
 
-			$this->setRespondents($responses);
+			$responses=$this->getUniqueResponses($responses,$product_id,$sender,$seen);
 
 			return $responses;
 		}
@@ -47,6 +47,22 @@
 				// get sender 
 				$response->avatar=$this->getAvatar($user_id);
 			}
+		}
+
+		public function getUniqueResponses($responses,$product_id,$sender,$seen){
+			$tailors=[];
+			foreach($responses as $response){
+				array_push($tailors,$response->tailor_id);
+			}
+			$tailors=array_unique($tailors);
+
+			$new_responses=[];
+			foreach($tailors as $tailor_id){
+				$new_response=end($this->getResponsesByCustomer($product_id,$tailor_id, $sender,$seen));
+
+				array_push($new_responses, $new_response);
+			}
+			return $new_responses;
 		}
 
 		public function getRespondentName($id){
