@@ -57,7 +57,7 @@
 	<div class="wcv-grid">
 
 
-		<form method="post" id="post-custom-request-form" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();">
+		<form method="post" id="post-custom-request-form" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();" style="font-family: 'Roboto',sans-serif;">
 			<?php 
 				if(isset($_SESSION['alert']))
 					{echo $_SESSION['alert']; $_SESSION['alert'] = '';
@@ -233,8 +233,8 @@
 				</div>
 
 				<div class="control-wrapper last">
-	                <button class="btn btn-1"  type="submit" id="submitForm">
-	                	Submit Product
+	                <button class="btn btn-1"  type="submit" style="font-size: 14px;" id="submitForm">
+	                	Submit Custom Request
 	            	</button>
 	            </div>
 		</form>
