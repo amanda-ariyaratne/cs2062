@@ -37,8 +37,8 @@
                 "image_path" => $val["image"],
                 "vendor_id" => $val["vendor_id"],
                 "color" => $val["color"]
-
             ];
+            
             $details = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$val["user_id"]]));
             if(count($details)!= 0 ){
                 $vendor_id = $details[0]->vendor_id;
