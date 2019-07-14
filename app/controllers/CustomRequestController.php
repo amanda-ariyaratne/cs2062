@@ -19,6 +19,17 @@
 			}
 		}
 
+		public function setPriceAction(){
+			$product_id=$_POST['product_id'];
+			$price=$_POST['text'];
+			$tailor_id=currentUser()->id;
+
+			$tailor_price=new TailorPrice();
+			$ok=$tailor_price->addTailorPrice($product_id, $tailor_id, $price);
+
+			echo json_encode([$ok, $product_id, $price, $tailor_id]);
+		}
+
 		public function sendResponseAction(){
 			// if (currentUser()->role==2){
 				
@@ -230,7 +241,16 @@
 			$params['responses-new']=$tailor_response->getResponsesByCustomer($request_obj->id, currentUser()->id,'c','0');
 
 			$params['responses-old']=$tailor_response->getResponsesByCustomer($request_obj->id,currentUser()->id,'c','1');
-
+			
+			$tailorPrice=new TailorPrice();			
+			$price=$tailorPrice->getTailorPrice($request_obj->id,currentUser()->id);
+			if ($price){
+				$params['price']=$price;
+			}
+			else{
+				$params['price']='';
+			}
+// dnd($params['price']);
 			$user=new User();
 			$params['Customer-Avatar']=$user->getAvatar($request_obj->customer_id);
 

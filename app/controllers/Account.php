@@ -610,9 +610,9 @@
 				$user = new User();
 				$user = $user->findByUserID($_POST['user_id']);
 				$params = ['role'=>2];
-				//dnd($user);
+				// dnd($user);
 				$user->updateRole($params);
-				//dnd('done');
+				// dnd('done');
 				if (currentUser()) {
 					Router::redirect('VendorController/vendorPage/'.currentUser()->id);
 				} else {

@@ -25,6 +25,15 @@
       vertical-align: middle;
     }
 
+    .align-text{
+      text-align: right;
+      display: inline-block;
+    }
+
+    .payment-icon{
+      text-align: right;
+    }
+
     .respond{
       width: 599px;
       height: auto;
@@ -338,19 +347,18 @@
                 <div class="col-lg-1">
                   <img src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%;">
                 </div>
-
                 <div class="col-lg-2 response-pack" style="font-weight:600; font-style:italic;">
                   '.$response->senderName.'
                 </div>
-
                 <div class="col-lg-8 response-pack my-response" data-id="'.$response->sender_id.'">'.$response->response.'</div>
-
-                <div class="col-lg-1"></div>
-                
+                <div class="col-lg-1"></div>                
               </div>
 
+              <div class="payment-icon" style="text-align:right;">
 
-              <div class="payment-icon" style="text-align:right;">';
+
+              '
+              ;
               if ($params['tailor_id']==$response->tailor_id && $params['status']==1){
 
                 echo '
@@ -373,9 +381,10 @@
       foreach ($params['responses-old'] as $response) 
         {
          echo '
+            <div class="row">
               
-              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
-                <div class="col-lg-1">
+              <div class="col-lg-6 row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
+                <div class="col-lg-3">
                   <img src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%;">
                 </div>
 
@@ -383,29 +392,30 @@
                   '.$response->senderName.'
                 </div>
 
-                <div class="col-lg-8 response-pack my-response" data-id="'.$response->sender_id.'">'.$response->response.'</div>
-
-                <div class="col-lg-1"></div>
+                <div class="col-lg-7 response-pack my-response" data-id="'.$response->sender_id.'">'.$response->response.'</div>
                 
               </div>
 
-
-              <div class="payment-icon" style="text-align:right;">';
+              <div class="col-lg-6 align-text">
+                  <label style="height:8px; width:80px;">'.$response->price.'</label>
+                
+';
               if ($params['tailor_id']==$response->tailor_id && $params['status']==1){
 
                 echo '
-                  <a href="'.PROOT.'orderController/customerInformation">
-                    <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px;">       
+                  <a href="'.PROOT.'orderController/customerInformation" class="payment-icon">
+                    <img src="'.PROOT.'assets/images/PayIcon.png" style="height:25px;width:40px;">       
                   </a>'; 
               }
 
               else{                
                 echo '
-                  <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px; opacity:0.5; cursor:default;">
+                  <img src="'.PROOT.'assets/images/PayIcon.png" class="payment-icon" style="height:25px;width:40px; opacity:0.5; cursor:default;">
                 ';  
               }
                 echo '
-                </div>
+            </div>
+         </div>
               ';
           }
         }
@@ -416,7 +426,6 @@
 
         /////  end of First view of Responses /////
 
-        
 ?> 
 
   <div class="modal fade" id="myModal" role="dialog">
