@@ -259,6 +259,14 @@
             ];
             $this->update($pr_id,$fields);
         }
+
+        public function approveProduct($pr_id){
+            $details = $this->findById($pr_id);
+            $fields = [
+                "permission" => 1
+            ];
+            $this->update($pr_id,$fields);
+        }
     }
 
 

@@ -166,7 +166,7 @@
                                     ?>
                                     
                                     <span>
-                                      <button id="approve-btn" type="submit" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Approve</button> 
+                                      <a href="<?=PROOT?>Admin/approve/<?php echo $product->id?>"><button id="approve-btn" type="submit" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Approve</button></a>
                                     </span>
                                     <span>
                                       <button id="Reject-btn" type="submit" class="btn btn-1" style="float: right; font-size: 20px; padding: 10px; margin: 5px;">Reject</button> 
@@ -191,6 +191,16 @@
                                       </div>
                                       
                                     ';?>
+
+
+
+                                      <div class="swatch color clearfix" data-option-index="1">
+                                          <div class="" style="font-weight: bold;">Material
+                                              <p style="font-weight: normal;display: inline;margin-left: 40px"><?php echo $product->material;?></p></div>
+                                      </div>
+                                      <br>
+
+
 
                                     <meta itemprop="priceCurrency" content="USD" /> 
 
@@ -227,15 +237,19 @@
                                           #product-select-option-0 + .custom-style-select-box { display: none !important; }
                                         </style>
                                         <div class="measurements-main" data-option-index="0">
-                                          <div class="header" style="float: none; font-weight: 600;">Size</div>
                                             <?php
+
+                                            if(count($params['measurements'])>0){
+
+                                            echo '<br><div class="header" style="float: none; font-weight: 600;">Measurements</div><br>';
+
                                               foreach($params['measurements'] as $key=>$measurement){
-                                                echo '
-                                                  <div class="spr-form-for-measurements" style="padding-bottom:10px;" >
-                                                    <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
-                                                  </div>
-                                                ';
-                                              }
+
+                                                  echo '<div class="spr-form-for-measurements" style="padding-bottom:10px;" >
+                                                        <label class="spr-m-form-label" for="" style="padding-left:40px;">'.$measurement.'</label>
+                                                        </div>';
+
+                                              }}
                                             ?> 
                                           
                                         </div>
@@ -275,18 +289,8 @@
       </div>
     </div>
   </div>
-  <!-- <script type="text/javascript">
-    $(document).ready(function(){
-      $('#approve-btn').click(function(){
-          $.ajax({
-            url:"<?=PROOT?>/Admin/ApprovePage",
-            method:"POST",
-            data:{'status':'1', 'pr_id': <?=$params['id']?>},
-          });
-      });
-    });
-  </script> -->
-  
+
+
 
 
 
