@@ -55,7 +55,25 @@
 			}
 		}
 
+		public function getAvatar($user_id){
+			$conditions=['conditions'=>'id=?','bind'=>[$user_id]];
+			$avatar=$this->findFirst($conditions)->logo;
+			
+			if ($avatar=='null'){
+				$avatar="default-avatar.png";
+			}
+			return $avatar;
 
+		}
+
+		public function getName($user_id){
+			$conditions=['conditions'=>'id=?','bind'=>[$user_id]];
+			$user=$this->findFirst($conditions);
+			
+			$fullName=$user->first_name.' '.$user->last_name;
+			return $fullName;
+
+		}
 
 		public function logout(){
 			$user_agnet = Session::uagent_no_version();

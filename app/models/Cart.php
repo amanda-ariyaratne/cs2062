@@ -37,11 +37,12 @@
                 "image_path" => $val["image"],
                 "vendor_id" => $val["vendor_id"],
                 "color" => $val["color"]
-
             ];
+            
             $details = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$val["user_id"]]));
             if(count($details)!= 0 ){
                 $vendor_id = $details[0]->vendor_id;
+//                dnd($vendor_id);
                 if($val["vendor_id"]==$vendor_id){
                     $this->insert($fields);
                     return true;

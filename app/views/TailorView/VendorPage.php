@@ -149,29 +149,29 @@
           <div class="product-head">
             <div class="product-image">
             
-                <a href="'.PROOT.'home/productView/'.$pid.'"> 
+                <a href="'.PROOT.'VendorController/VendorProductView/'.$pid.'"> 
                   <img style="height:250px;width:260px;" class="featured-image front lazyload" src="'.PROOT.'assets/images/products/'.$value->images[0].'"/>
 
                  <span class="product-label">';
 
-      if($product->permission==1){
-         echo '<span class="label-sale">
+      if($value->permission==1){
+         echo '<span class="label-sale" style="background-color: rgba(129, 207, 220, 0.9);border-radius: 3px">
           <span class="sale-text">Approved</span>  
           </span>';
       }
       else{
-         echo '<span class="label-sale" style="background-color: #bc4a54">
+         echo '<span class="label-sale" style="background-color: rgba(176, 75, 80, 0.8);border-radius: 3px">
           <span class="sale-text" >Not Approved</span>  
           </span>';
       }
 
-      if($product->active==1){
-          echo '<span class="label-sale">
-          <span class="sale-text" >Active</span>  
+      if($value->active==1){
+          echo '<span class="label-sale" style="background-color: rgba(129, 207, 220, 0.9);border-radius: 3px">
+          <span class="sale-text">Active</span>  
           </span>';
       }
       else{
-          echo '<span class="label-sale" style="background-color: #bc4a54">
+          echo '<span class="label-sale" style="background-color: rgba(176, 75, 80, 0.8);border-radius: 3px">
           <span class="sale-text" >Not Active</span>  
           </span>';
       }

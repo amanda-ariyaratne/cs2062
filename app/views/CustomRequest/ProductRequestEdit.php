@@ -36,7 +36,15 @@
 						</div>
 			</div>
 			<div class="col-md-8 col-sm-6 col-xs-12">
-				<p id="breadcrumbs" class="breadcrumbs"><span xmlns:v="http://rdf.data-vocabulary.org/#"><span typeof="v:Breadcrumb"><a href="http://handy.themes.zone/" rel="v:url" property="v:title">Home</a> / <span class="breadcrumb_last">Custom Request</span></span></span></p>						
+				<p id="breadcrumbs" class="breadcrumbs">
+					<span xmlns:v="ttp://rdf.data-vocabulary.org/#">
+						<span typeof="v:Breadcrumb">
+							<a href="http://handy.themes.zone/" rel="v:url" property="v:title">Home</a>
+							<span class="breadcrumb_last">/</span>
+
+						</span>
+					</span>
+				</p>						
 			</div>
 		</div>
 	</div>
@@ -65,8 +73,8 @@
 					{echo $_SESSION['alert']; $_SESSION['alert'] = '';
 				}
 			?>
+					<h3>Design Request</h3>			
 			
-			<h3>Design Request</h3>			
 
 			<br />
 
@@ -75,7 +83,7 @@
 				<!-- Design request Settings Form -->
 
 				<div class="tabs-content" id="store">
-
+					
 					<!-- Design Name -->
 
 					<div class="control-group" >
@@ -91,7 +99,8 @@
 						
 
 					</div>
-					<br />
+										<br />
+					
 					
 					<!-- Design Description -->
 
@@ -109,7 +118,8 @@
 						</div>
 						</div>
 					</div>
-					<br />
+
+					<br/>
 
 					
 
@@ -193,7 +203,7 @@
 
 							<div class="col-lg-1"></div>
 
-							<input type="text" name="measurement[]" value="'.$measurements[$i-1]->measurement.'" class="form-control col-lg-2" placeholder="$xxx" data-rules="required"/>
+							<input type="number" name="measurement[]" value="'.$measurements[$i-1]->measurement.'" class="form-control col-lg-2" min="0" placeholder="$xxx" data-rules="required"/>
 
 							<button type="button" class="close col-lg-1 btn-id-update" data-id='.$measurements[$i-1]->id.' aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
@@ -223,10 +233,10 @@
 					<div class="control-group" style="padding-left: 14px;">
 						<label>Price Range</label>
 						<div class="row control">
-							<input type='text' id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" value="<?=$details->min_price?>"/>
+							<input type='number' id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" min="0" value="<?=$details->min_price?>"/>
 
 							<div class="col-lg-1"></div>
-							<input type='text' id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" value="<?=$details->max_price?>"/>	
+							<input type='number' id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" min="0" value="<?=$details->max_price?>"/>	
 							<div class="col-lg-7"></div>
 						</div>								
 					</div>
@@ -238,7 +248,7 @@
 
 						<div class="control-group">
 							<label >Postal Code</label>	
-							<input type='text' value="<?=$details->location?>" placeholder="ex: 15000" style="width: 181px;" id="postal-code" class="form-control" name="postal-code"  />
+							<input type='number' value="<?=$details->location?>" placeholder="ex: 15000" style="width: 181px;" min="10000" max="99999" id="postal-code" class="form-control" name="postal-code"  />
 							<small id="error-msg-location"></small>
 						</div>
 						<br/>
@@ -246,10 +256,12 @@
 						
 
 						<!-- Add due Date -->
-						
+						<?php
+						$date=date("Y-m-d");
+						?>
 						<div class="control-group">
 							<label >Due date</label>	
-							<input type='date'  id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" class="form-control" name="due-date" value="<?=$details->due_date?>"/>
+							<input type='date' min='<?=$date?>' id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" class="form-control" name="due-date" value="<?=$details->due_date?>"/>
 							<small id="error-msg-due-date"></small>
 						</div>
 					             

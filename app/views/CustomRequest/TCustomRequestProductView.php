@@ -45,7 +45,7 @@
     }
 
     .response-pack{
-      padding:0 0 0 0 !important;     
+      padding:0 5px 0 0 !important;     
     }
 
   /*modal css start*/
@@ -95,7 +95,7 @@
       position:relative;
       padding:15px; 
       width: 595px;
-      height:600px;  
+      height:500px;  
       overflow: scroll;
     }
 
@@ -312,50 +312,42 @@
     </div>
 
 <?php 
-
         /////  First view of Responses /////
-        if ($params['responses-new'] || $params['responses-old']){
-          foreach ($params['responses-new'] as $response){
-            echo '
-              
-              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->tailor_id.'">
-                <div class="col-lg-1">
-                  <img src="'.PROOT.'assets/images/store_logo/'.$response->avatar.'" alt="Avatar" style="width:100%;">
-                </div>
+        if ($params['responses-old']){
+          $response=end($params['responses-old']);
 
-                <div class="col-lg-2 response-pack" style="font-weight:600; font-style:italic;">
-                  '.$response->tailor.'
-                </div>
-
-                <div class="col-lg-8 response-pack my-response" data-id="'.$response->tailor_id.'">'.$response->response.'</div>
-
-                <div class="col-lg-1"></div>
-                
-              </div>
-
-
-              <div class="payment-icon" style="text-align:right;">';
-              if ($params['tailor_id']==$response->tailor_id && $params['status']==1){
-
-                echo '
-                  <a href="'.PROOT.'orderController/customerInformation">
-                    <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px;">       
-                  </a>'; 
-              }
-              else{                
-                echo '
-                  <img src="'.PROOT.'assets/images/payIcon.png" style="height:25px;width:40px; opacity:0.5; cursor:default;">
-                ';  
-              }
-                echo '
-                </div>
-              ';
-            $count++;
+          if ($params['responses-new']){
+            $response=end($params['responses-new']);
           }
 
+            echo '              
+              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
+                <div class="col-lg-1">
+                  <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%; height:100%;">
+                </div>      
+                <div class="col-lg-2">'.$response->senderName.'</div>          
+
+                <div class="col-lg-9 response-pack my-response" data-id="'.$response->sender_id.'">'.$response->response.'</div>                                
+              </div>
+              <br/>';
+          // }
+
         }
+
         else{
-          echo '<div style="color:red;">You do not have any response!</div>';
+
+          echo '
+          <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
+                <div class="col-lg-1">
+                  <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%;">
+                </div>  
+
+                <div class="col-lg-2">'.$response->senderName.'</div>    
+
+                <div class="col-lg-9 response-pack my-response" data-id="'.$response->sender_id.'">Start a new Deal with our TailorMates!!!</div>                
+                
+              </div>
+              <br/>';
         }
 
         /////  end of First view of Responses /////
@@ -368,7 +360,7 @@
       <div class="modal-content">
 
         <div class="modal-header">
-          <h4 class="modal-title"  style="text-align: left;"><?=$response->tailor?></h4>
+          <h4 class="modal-title"  style="text-align: left;"><?=$params['customer-name']?></h4>
           <i class="fa fa-times close" aria-hidden="true" data-dismiss="modal"></i>
         </div>
 
@@ -378,7 +370,7 @@
 
         <div class="modal-footer">
           <span class="media mt-3 shadow-textarea" style="width: 500px;margin-right: 50px;">
-            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg"
+            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="<?=PROOT?>assets/images/ProfilePictures/default-customer.png"
               alt="Generic placeholder image">
             <div class="media-body" style="margin: auto;width: 50%;box-shadow: 5px 5px 5px 5px #c1939e;height: 40px;">
 
@@ -438,22 +430,26 @@
     
     $(document).ready(function(){
 
-      var tailor_id='';
       var pr_id=JSON.stringify(<?=$params['id']?>);  
-      var customer_id=JSON.stringify(<?= currentUser()->id ?>);
+      var tailor_id=JSON.stringify(<?= currentUser()->id ?>);
 
       $('.my-response').click(function(){
         var icon =$(this);         
-        tailor_id=JSON.stringify(icon.data("id"));  
 
         $.ajax({
             url:"<?=PROOT?>home/getConversation",
             method: "POST",
-            data:{'product_id': pr_id,'tailor_id':tailor_id, 'customer_id':customer_id},
+            data:{'product_id': pr_id,'tailor_id':tailor_id},
 
             success: function(data){
               var data=JSON.parse(data);
-              $('.modal-body').html(doForAll(data));
+              var content=doForAll(data);
+
+              setTimeout(function(){console.log('wait')}, 2500);
+              console.log(data);
+              var element=$('.modal-body');
+              element.html(content);
+              element.scrollTop(element.height());
             }
         });
       });    
@@ -475,9 +471,9 @@
       var response=$('#chatTextArea').val();
       var time='just now';
 
-      var avatar='logo-2019-05-11-06-17-03pm-1.jpg';
+      var avatar="<?=$params['tailor-Avatar']?>";
       
-      var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
+      var send="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/ProfilePictures/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
 
       $('.modal-body').append(send);
 
@@ -491,7 +487,7 @@
         method:"POST",
         data:{'response':response,'sender':sender, 'product_id':product_id, 'tailor_id':tailor},
         success:function(data){
-          console.log(data);
+          $('#chatTextArea').val("");
         }
       });
     });
@@ -501,7 +497,7 @@
 
     function doForAll(data){
       var chat="";
-      for (var i = data.length - 1; i >= 0; i--) {
+      for (var i = 0; i< data.length; i++) {
         chat=chat+setConversation(data[i]);
       }
       return chat;
@@ -513,11 +509,11 @@
       var sender=item.sender;
       var time=item.created_at;
 
-      var reciever="<div class='container-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' style='width:100%;'><p>"+response+"</p><span class='time-right'>"+time+"</span></div>" ; 
+      var reciever="<div class='container-chat'><img src='<?=PROOT?>assets/images/ProfilePictures/"+avatar+ "' alt='Avatar' style='width:100%;'><p>"+response+"</p><span class='time-right'>"+time+"</span></div>"; 
 
-      var sender="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/store_logo/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
+      var sender="<div class='container-chat darker-chat'><img src='<?=PROOT?>assets/images/ProfilePictures/"+avatar+ "' alt='Avatar' class='right' style='width:100%;'><p>"+response+"</p><span class='time-left'>"+time+"</span></div>" ;
 
-      if (item.sender=="t"){
+      if (item.sender=="c"){
         return reciever;
       }
       else{

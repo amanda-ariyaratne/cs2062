@@ -218,10 +218,13 @@
 						<?php $dateCurrent=date("m/d/Y");?>
 
 						<!-- Add due Date -->
-						
+						<?php
+						$date=date("Y-m-d");
+						?>
 						<div class="control-group">
 							<label >Need before</label>	
-							<input type='date' id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" value="<?=$dateCurrent?>" class="form-control" name="due-date"  />
+							<input type='date' min='<?=$date?>' id="due-date" style="width: 182px;padding-left: 10px;padding-right: 10px;" class="form-control" name="due-date" />
+							
 							<small id="error-msg-due-date"></small>
 						</div>
 					             
