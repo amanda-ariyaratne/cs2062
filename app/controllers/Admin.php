@@ -194,4 +194,11 @@
             echo json_encode($id);
         }
 
+        public function approveAction($pr_id){
+            $product = new Product();
+            $product->approveProduct($pr_id);
+            $this->newProductsAction();
+
+        }
+
 	}
