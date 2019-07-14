@@ -101,6 +101,10 @@
 			return $this->findFirst(array('conditions' => 'id = ?', 'bind' => [$p_id]));
 		}
 
+        public function getOwner($product_id){
+            return $this->findByID($product_id)->customer_id;
+        }
+
 		
 		public function createRequest(){
 			

@@ -29,8 +29,6 @@
 
 			$responseObj=new TailorResponse();
 
-			var_dump($product_id,$sender,$tailor_id,$response);
-
 			// check weather this goes to the db or not
 			$sent=$responseObj->setResponse($product_id, $sender, $tailor_id, $response);	
 			echo json_encode($sent);	
@@ -228,12 +226,19 @@
 
 			//load tailor responses
 			$tailor_response=new TailorResponse();
-			$params['responses-new']=$tailor_response->getTailorNewResponses($request_obj->id, currentUser()->id);
 
-			$params['responses-old']=$tailor_response->getTailorOldResponses($request_obj->id, currentUser()->id);
+			$params['responses-new']=$tailor_response->getResponsesByCustomer($request_obj->id, currentUser()->id,'c','0');
+
+			$params['responses-old']=$tailor_response->getResponsesByCustomer($request_obj->id,currentUser()->id,'c','1');
 
 			$user=new User();
-			$params['CustomerAvatar']=$user->getAvatar($request_obj->customer_id);
+			$params['Customer-Avatar']=$user->getAvatar($request_obj->customer_id);
+
+			$params['tailor-Avatar']=$user->getAvatar(currentUser()->id);
+
+			$params['customer-name']=$user->getName($request_obj->customer_id);
+			// dnd($params['customer-name']);
+
 
 			// dnd($request_obj);
 
@@ -274,15 +279,15 @@
 
 			//load tailor responses
 			$tailor_response=new TailorResponse();
-			$params['responses-new']=$tailor_response->getNewResponses($request_obj->id);
+			$params['responses-new']=$tailor_response->getResponses($request_obj->id,'t','0');
 
-			$params['responses-old']=$tailor_response->getOldResponses($request_obj->id);
+			$params['responses-old']=$tailor_response->getResponses($request_obj->id,'t','1');
 
-			$tailor_shop=new TailorShop();
-			//$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
-			$params['myAvatar'] = PROOT . 'assets/images/default-customer.png';
+			$user=new User();
+			$params['Customer-Avatar']=$user->getAvatar($request_obj->customer_id);
 
 			$this->view->render('CustomRequest/CCustomRequestProductView',$params);
+
 		}
 
 		public function removeMeasurementAction(){
