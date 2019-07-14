@@ -436,6 +436,7 @@
 
     }
 
+
     public function pageNotFoundAction(){
     	$this->view->render('home/404');
     }

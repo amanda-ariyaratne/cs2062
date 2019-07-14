@@ -217,7 +217,6 @@
                                                     <br><br>
                                                     <input type="color" id="colors[]" name="colors[]"/>
                                                 </div>
-                                                <br>
                                                 <!--                                                <div style="display: inline-block"><input type="color" id="color1" value="null" name="colors[]"/><a href="#" class=""></a> </div>-->
                                                 <!--                                                <div style="margin-left: 250px"><input style="display: inline-block" type="color" name="colors[]"></div>-->
                                             </div>
@@ -482,7 +481,7 @@
 <!--                                    style="right: 65%"-->
 <!--                                    --><?php //include ('Categories.php');?>
 <!--                                </div>-->
-<!--                    <div id="sidebar-pages" class="widget-area col-xs-12 col-sm-4 col-md-3 col-md-pull-9 col-sm-pull-8 sidebar" role="complementary">-->
+<!--                    <div id="sidebar-pages" class="site-content col-xs-12 col-md-4 col-sm-8 col-md-push-3 col-sm-push-4" role="complementary">-->
 <!--                        <br><br>-->
 <!--                        --><?php //include (ROOT.DS.'app'.DS.'views'.DS.'home'.DS.'Categories.php');?>
 <!--                    </div>-->
