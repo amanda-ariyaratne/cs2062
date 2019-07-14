@@ -176,7 +176,7 @@
                     $product_obj['id'] = $product->id;
                     $product_obj['name'] = $product->name;
                     $product_obj['price'] = $product->price;
-                    $product_obj['sale_price'] = $product->sale_price;
+                    
                 
                     array_push($related_products, $product_obj);
                 }
@@ -194,7 +194,7 @@
             foreach ($item_array as $item) {
                 $product = $this->findById($item['product_id']);
                 $item['name'] = $product->name;
-                $item['price'] = $product->sale_price;
+                $item['price'] = $product->price;
                 array_push($new_item_array, $item);
             }
             return $new_item_array;

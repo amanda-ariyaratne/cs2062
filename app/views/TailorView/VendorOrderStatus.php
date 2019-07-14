@@ -101,7 +101,7 @@
                                   <h4><pre>Value         :     $'.$item['price'].'</pre></h4>
                                   <h4><pre>Quantity      :     '.$item['quantity'].'</pre></h4>
                                   <h4 style="display:inline-block"><pre>Color         :   </pre></h4>
-                                  <div style="background-color: '.$item["color"].' ; height:25px; width:30px; display:inline-block; border-radius:5px;"></div>
+                                  <div style="background-color: '.$item["color"].' ; height:35px; width:40px; display:inline-block; border-radius:5px;margin:8px;"></div>
 
                                   <h4><pre>Measurments   :</pre></h4>
                                   <div class="measurments">';
