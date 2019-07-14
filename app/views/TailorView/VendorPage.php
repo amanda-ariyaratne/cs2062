@@ -118,22 +118,23 @@
           </div>         
         </div>
 
-        <?php 
+          <?php
           if (currentUser()->role == 2) {
-            echo '
-              <div style="padding-left:840px;">
+
+              echo '<div style="padding-left:840px;">
 
                 <a href="'.PROOT.'home/addProduct" title="Add Your Designs Here">
+                <br>
                   <i class="fas fa-plus" style="color:black; font-size:35px; color:gray;"></i>
                 </a>
-              </div>
-            ';
+              </div>';
           }
           ?>
 
-        
 
-<div id="col-main">
+
+
+          <div id="col-main">
           
   <div class="cata-product cp-grid">
          

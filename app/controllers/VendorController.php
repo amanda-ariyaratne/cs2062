@@ -20,7 +20,7 @@
 		}
 
 		public function VendorPageAction($a){
-			$product=new Product('product');
+		    $product=new Product('product');
 			$details=$product->getPageVendor($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];
