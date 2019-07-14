@@ -27,8 +27,10 @@ class CartController extends Controller{
 
             if (($user != null ) and $user->role==3) {
                 if ($validation->passed()) {
+                    $product = new Product();
+                    $proDetails = $product->findById($_POST["product_id"]);
                     $fields = [
-                        "vendor_id" => $_POST["vendor_id"],
+                        "vendor_id" => (string)$proDetails->vendor_id,
                         "name" => $_POST["name"],
                         "image"=> $_POST["image"],
                         "price" => $_POST["price"],
