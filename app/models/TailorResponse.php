@@ -10,22 +10,11 @@
 			$conditions=array('conditions'=>['product_id = ?', 'tailor_id=?'], 'bind' => [$product_id, $tailor_id]);
 			$responses=$this->find($conditions);
 			$this->setRespondents($responses);
-
 			return $responses;
 		}
 
-		public function getNewResponses($product_id){
-			$conditions=array('conditions'=>['product_id = ?', 'seen=?', 'sender=?'], 'bind' => [$product_id,'0', 't']);
-			$responses=$this->find($conditions);
-
-			$this->setRespondents($responses);
-
-			//have to get the unique vale
-			return $responses;
-		}
-
-		public function getTailorNewResponses($product_id, $tailor_id){
-			$conditions=array('conditions'=>['product_id = ?', 'tailor_id=?', 'seen=?'], 'bind' => [$product_id, $tailor_id, $customer_id, '0']);
+		public function getResponses($product_id,$sender,$seen){
+			$conditions=array('conditions'=>['product_id = ?', 'seen=?', 'sender=?'], 'bind' => [$product_id,$seen, $sender]);
 			$responses=$this->find($conditions);
 
 			$this->setRespondents($responses);
@@ -33,17 +22,8 @@
 			return $responses;
 		}
 
-		public function getOldResponses($product_id){
-			$conditions=array('conditions'=>['product_id = ?', 'seen=?', 'sender=?'], 'bind' => [$product_id,'1', 't']);
-			$responses=$this->find($conditions);
-
-			$this->setRespondents($responses);
-
-			return $responses;
-		}
-
-		public function getTailorOldResponses($product_id, $tailor_id){
-			$conditions=array('conditions'=>['product_id = ?', 'tailor_id=?', 'seen=?'], 'bind' => [$product_id, $tailor_id, $customer_id, '1']);
+		public function getResponsesByCustomer($product_id,$tailor_id, $sender,$seen){
+			$conditions=array('conditions'=>['product_id = ?', 'tailor_id=?', 'sender=?', 'seen=?'], 'bind' => [$product_id, $tailor_id, $sender, $seen]);
 			$responses=$this->find($conditions);
 
 			$this->setRespondents($responses);
@@ -53,26 +33,37 @@
 
 		public function setRespondents($responses){
 			foreach ($responses as $response){
-				$id=$response->tailor_id;
-
+				$sender=$response->sender;
+				if ($sender=='t'){
+					$user_id=$response->tailor_id;
+				}
+				elseif ($sender=='c'){
+					$user_id=$this->getOwner($response->product_id);
+				}
 				// get full name of respondent //
-				$respondant=$this->getRespondent($id);
-				$fullName=$respondant->first_name.' '.$respondant->last_name;
-				$response->tailor=$fullName;
-				$response->tailor_id=$respondant->id;
-
-				// get tailor shop
-				$tailor_shop=new TailorShop();
-				$response->avatar=$tailor_shop->getAvatar($id);
+				$respondant=$this->getRespondentName($user_id);			
+				$response->senderName=$respondant;
+				$response->sender_id=$user_id;
+				// get sender 
+				$response->avatar=$this->getAvatar($user_id);
 			}
 		}
 
-		public function getRespondent($id){
-			$conditions=array('conditions'=>['id = ?'], 'bind' => [$id]);
+		public function getRespondentName($id){
 			$user=new User();
-			return $user->findFirst($conditions);
+			$user_details=$user->getName($id);
+			return $user_details;
 		}
 
+		public function getOwner($product_id){
+			$custom_request=new CustomRequest();
+			return $custom_request->getOwner($product_id);
+		}
+
+		public function getAvatar($user_id){
+			$user=new User();
+			return $user->getAvatar($user_id);
+		}
 
 		public function setResponse($product_id, $sender, $tailor_id, $response){
 			$fields=[
@@ -84,6 +75,16 @@
 			var_dump($fields);
 
 			return $this->insert($fields);
+		}
+
+		public function updateResponses($product_id,$sender){
+
+			$new_responses=$this->getResponses($product_id,$sender,'0');
+			
+			$fields=['seen'=>'1'];
+			foreach ($new_responses as $new) {
+				$this->update($new->id,$fields);
+			}		
 		}
 	}
  ?>

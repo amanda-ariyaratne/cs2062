@@ -16,9 +16,19 @@
 
 			$product_id=$_POST['product_id'];
 			$tailor_id=$_POST['tailor_id'];
-			
+
 			$tailor_response=new TailorResponse();
 			$conversation=$tailor_response->getCoversation($product_id, $tailor_id);
+
+
+			if (currentUser()->role==2){
+				$sender='c';
+			}
+			elseif (currentUser()->role==3) {
+				$sender='t';
+			}
+
+			$tailor_response->updateResponses($product_id,$sender);
 
 			echo json_encode($conversation);
 		}
