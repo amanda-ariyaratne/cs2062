@@ -69,7 +69,7 @@
           <div class="sb-banner">
 
               
-                <a href="/collections/birthday-gifts">
+                <a href="#">
                   <img class="lazyload" src = "<?=PROOT?>assets/images/vendorpage-img-1.jpg" alt="" /> 
                 </a>
             
@@ -77,7 +77,7 @@
               
               <div class="block-text">
                 <span class="text" style="color: #ffffff;">Tailored Products</span>
-                <a class="btn btn-1" href="/collections/birthday-gifts">shop now</a>
+                
               </div>
           </div>
         </div>

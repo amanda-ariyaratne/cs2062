@@ -225,7 +225,9 @@
                     <td style="text-align:center;"><?php echo $item["quantity"]; ?></td>
                     <td  style="text-align:center;"><?php echo "$ ". number_format($item["price"],2); ?></td>
                     <td  style="text-align:center;"><?php echo "$ ". number_format($item_price,2); ?></td>
+
                     <td style="text-align:center;"><a href="<?=PROOT?>CartController/remove/<?php echo $item["cart_id"]; ?>/<?php echo $item["customer_id"]; ?>" class="btnRemoveAction"><img style="" src="<?=PROOT?>assets/images/icon-delete.png" alt="Remove Item" /></td>
+
                 </tr>
                 <?php
                 $total_quantity += $item["quantity"];

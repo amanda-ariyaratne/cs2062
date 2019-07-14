@@ -71,7 +71,7 @@
           <div class="sb-banner">
 
               
-                <a href="/collections/birthday-gifts">
+                <a href="#">
                   <img class="lazyload" src = "//cdn.shopify.com/s/files/1/0102/1155/7435/files/sb_banner_270x.jpg?v=1539569056" alt="" /> 
                 </a>
             
@@ -79,7 +79,7 @@
               
               <div class="block-text">
                 <span class="text" style="color: #ffffff;">Wooden kitchen tools</span>
-                <a class="btn btn-1" href="/collections/birthday-gifts">shop now</a>
+                
               </div>
           </div>
         </div>

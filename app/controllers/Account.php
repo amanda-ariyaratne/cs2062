@@ -22,7 +22,7 @@
 					Router::redirect('account/setUpYourStore/'.$user->id);
 				}
 			}
-			
+
 			if ($_POST) {
 
 				    $_SESSION['email'] = $_POST['email'];
@@ -56,9 +56,9 @@
 				    	$user = $user->findByEmail($email);
 
 				    	// create new store
-				    	if ($role == 4) {
-				    		Router::redirect('account/setUpYourStore/'.$user->id);
-				    	}
+				    	// if ($role == 4) {
+				    	// 	Router::redirect('account/setUpYourStore/'.$user->id);
+				    	// }
 
 				    	$remember = true;
 						$user->login($remember);
@@ -68,6 +68,8 @@
 							Router::redirect('account/orderHistory');
 						} else if ($user->role == 1) {
 							Router::redirect('admin/newProducts');
+						} else {
+							Router::redirect('account/setUpYourStore/'.$user->id);
 						}
 						
 
@@ -75,7 +77,14 @@
 				    	//user->login();
 				    } else {
 				    	$_SESSION['error_email'] = "<div style='color: red;'>This user already exists</div>";
-				    	$this->view->render('account/register');
+				    	if ($role == 1) {
+				    		$this->view->render('account/adminRegister');
+				    	} else if($role == 2){
+				    		$this->view->render('account/tailorRegister1');
+				    	} else {
+				    		$this->view->render('account/customerRegister1');
+				    	}
+
 				    }
 				
 			} else {
@@ -87,6 +96,10 @@
 				$this->view->render('account/register');
 			}
 			
+		}
+
+		public function adminRegister1Action(){
+			$this->view->render('account/adminRegister');
 		}
 
 		public function loginAction(){
@@ -518,101 +531,134 @@
 		}
 
 		public function setUpYourStoreAction($user_id=0){
-			if ($_POST) {
+			$user = currentUser();
+			if ($user != null) {
+				if ($user->role == 2 || $user->role == 4) {
+					if ($_POST) {
 
-				$store = new TailorShop();
+						$store = new TailorShop();
 
-				$image = ($_FILES['logo']['name']);
-				$file_name = 'logo-' . date("Y-m-d-h-i-sa") . '-' . $store->id;
-				$file_ext = pathinfo($image)['extension'];
-				if ($file_ext != null) {
-					$file_path = $file_name . '.' . $file_ext;
-					$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/store_logo';
-					move_uploaded_file($_FILES["logo"]["tmp_name"], $target_dir.'/'.$file_path);
-				} else {
-					$file_path = '';
-				}
-	            
+						$image = ($_FILES['logo']['name']);
+						$file_name = 'logo-' . date("Y-m-d-h-i-sa") . '-' . $store->id;
+						$file_ext = pathinfo($image)['extension'];
+						if ($file_ext != null) {
+							$file_path = $file_name . '.' . $file_ext;
+							$target_dir = $_SERVER['DOCUMENT_ROOT'] . PROOT.'assets/images/store_logo';
+							move_uploaded_file($_FILES["logo"]["tmp_name"], $target_dir.'/'.$file_path);
+						} else {
+							$file_path = '';
+						}
+			            
 
-				$fields = [];
-				$fields['vendor_id'] = $_POST['user_id'];
-				if ($_POST['store_name'] != null) {
-					$fields['name'] = $_POST['store_name'];
-				} else {
-					$fields['name'] = "";
-				}
-				if ($_POST['paypal_email'] != null) {
-					$fields['paypal_email'] = $_POST['paypal_email'];
-				} else {
-					$fields['paypal_email'] = "";
-				}
-				if ($_POST['apartmentNo'] != null) {
-					$fields['apartmentNo'] = $_POST['apartmentNo'];
-				} else {
-					$fields['apartmentNo'] = "";
-				}
-				if ($_POST['streetName1'] != null) {
-					$fields['streetName1'] = $_POST['streetName1'];
-				} else {
-					$fields['streetName1'] = "";
-				}
-				if ($_POST['streetName2'] != null) {
-					$fields['streetName2'] = $_POST['streetName2'];
-				} else {
-					$fields['streetName2'] = "";
-				}
-				if ($_POST['city'] != null) {
-					$fields['city'] = $_POST['city'];
-				} else {
-					$fields['city'] = "";
-				}
-				if ($_POST['postalCode'] != null) {
-					$fields['postal_code'] = $_POST['postalCode'];
-				} else {
-					$fields['postal_code'] = "";
-				}
-				if ($_POST['contactNo'] != null) {
-					$fields['contactNumber'] = $_POST['contactNo'];
-				} else {
-					$fields['contactNumber'] = "";
-				}
-				if ($_POST['facebook_url'] != null) {
-					$fields['facebook_url'] = $_POST['facebook_url'];
-				} else {
-					$fields['facebook_url'] = "";
-				}
-				if ($_POST['google_plus_url'] != null) {
-					$fields['google_plus_url'] = $_POST['google_plus_url'];
-				} else {
-					$fields['google_plus_url'] = "";
-				}
-				if ($_POST['instagram_url'] != null) {
-					$fields['instagram_url'] = $_POST['instagram_url'];
-				} else {
-					$fields['instagram_url'] = "";
-				}
-				if ($_POST['youtube_url'] != null) {
-					$fields['youtube_url'] = $_POST['youtube_url'];
-				} else {
-					$fields['youtube_url'] = "";
-				}
-				if ($_POST['linkedin_url'] != null) {
-					$fields['linkedin_url'] = $_POST['linkedin_url'];
-				} else {
-					$fields['linkedin_url'] = "";
-				}
-				if ($file_path != null) {
-					$fields['logo'] = $file_path;
-				}
+						$fields = [];
+						$fields['vendor_id'] = $_POST['user_id'];
+						if ($_POST['store_name'] != null) {
+							$fields['name'] = $_POST['store_name'];
+						} else {
+							$fields['name'] = "";
+						}
+						if ($_POST['paypal_email'] != null) {
+							$fields['paypal_email'] = $_POST['paypal_email'];
+						} else {
+							$fields['paypal_email'] = "";
+						}
+						if ($_POST['apartmentNo'] != null) {
+							$fields['apartmentNo'] = $_POST['apartmentNo'];
+						} else {
+							$fields['apartmentNo'] = "";
+						}
+						if ($_POST['streetName1'] != null) {
+							$fields['streetName1'] = $_POST['streetName1'];
+						} else {
+							$fields['streetName1'] = "";
+						}
+						if ($_POST['streetName2'] != null) {
+							$fields['streetName2'] = $_POST['streetName2'];
+						} else {
+							$fields['streetName2'] = "";
+						}
+						if ($_POST['city'] != null) {
+							$fields['city'] = $_POST['city'];
+						} else {
+							$fields['city'] = "";
+						}
+						if ($_POST['postalCode'] != null) {
+							$fields['postal_code'] = $_POST['postalCode'];
+						} else {
+							$fields['postal_code'] = "";
+						}
+						if ($_POST['contactNo'] != null) {
+							$fields['contactNumber'] = $_POST['contactNo'];
+						} else {
+							$fields['contactNumber'] = "";
+						}
+						if ($_POST['facebook_url'] != null) {
+							$fields['facebook_url'] = $_POST['facebook_url'];
+						} else {
+							$fields['facebook_url'] = "";
+						}
+						if ($_POST['google_plus_url'] != null) {
+							$fields['google_plus_url'] = $_POST['google_plus_url'];
+						} else {
+							$fields['google_plus_url'] = "";
+						}
+						if ($_POST['instagram_url'] != null) {
+							$fields['instagram_url'] = $_POST['instagram_url'];
+						} else {
+							$fields['instagram_url'] = "";
+						}
+						if ($_POST['youtube_url'] != null) {
+							$fields['youtube_url'] = $_POST['youtube_url'];
+						} else {
+							$fields['youtube_url'] = "";
+						}
+						if ($_POST['linkedin_url'] != null) {
+							$fields['linkedin_url'] = $_POST['linkedin_url'];
+						} else {
+							$fields['linkedin_url'] = "";
+						}
+						if ($file_path != null) {
+							$fields['logo'] = $file_path;
+						}
+
+						$store->addTailorShop($fields);
+						//dnd($_POST['user_id']);
+						$user = new User();
+						$user = $user->findByUserID($_POST['user_id']);
+						$params = ['role'=>2];
+						//dnd($user);
+						$user->updateRole($params);
+						//dnd('done');
+						if (currentUser()) {
+							Router::redirect('VendorController/vendorPage/'.currentUser()->id);
+						} else {
+							$user = new User();
+							$user = $user->findByUserID($fields['vendor_id']);
+
+							$remember = true;
+							$user->login($remember);
+							if ($user->role == 2) {
+								Router::redirect('VendorController/VendorPage/'.$user->id);
+							} else if($user->role == 3){
+								Router::redirect('account/orderHistory');
+							} else if ($user->role == 1) {
+								Router::redirect('admin/newProducts');
+							}
+						}
+
+					}
+
+					$params['user_id'] = $user_id;
+					$this->view->render('account/setUpYourStore', $params);
 
 				$store->addTailorShop($fields);
 				//dnd($_POST['user_id']);
 				$user = new User();
 				$user = $user->findByUserID($_POST['user_id']);
 				$params = ['role'=>2];
-				//dnd($user);
+				// dnd($user);
 				$user->updateRole($params);
-				//dnd('done');
+				// dnd('done');
 				if (currentUser()) {
 					Router::redirect('VendorController/vendorPage/'.currentUser()->id);
 				} else {
@@ -630,10 +676,16 @@
 					}
 				}
 
-				
+				} else if($user->role == 1 || $user->role == 3){
+					Router::redirect('home/pageNotFound');
+				}
+					
+			} else {
+				Router::redirect('account/login');
 			}
-			$params['user_id'] = $user_id;
-			$this->view->render('account/setUpYourStore', $params);
+			
+					
+				
 		}
 
 	}
