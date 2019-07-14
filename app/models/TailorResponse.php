@@ -57,8 +57,17 @@
 			$tailors=array_unique($tailors);
 
 			$new_responses=[];
+			$tailorPrice=new TailorPrice();
 			foreach($tailors as $tailor_id){
 				$new_response=end($this->getResponsesByCustomer($product_id,$tailor_id, $sender,$seen));
+
+				$price=$tailorPrice->getTailorPrice($product_id,$tailor_id);
+				if ($price==null){
+					$new_response->price='';
+				}
+				else{
+					$new_response->price=$price;
+				}
 
 				array_push($new_responses, $new_response);
 			}

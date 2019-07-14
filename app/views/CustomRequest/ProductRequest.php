@@ -57,14 +57,14 @@
 	<div class="wcv-grid">
 
 
-		<form method="post" id="post-custom-request-form" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();">
+		<form method="post" id="post-custom-request-form" enctype="multipart/form-data" action="<?=PROOT?>CustomRequestController/ProductRequest" onsubmit="return validateData();" style="font-family: 'Roboto',sans-serif;">
 			<?php 
 				if(isset($_SESSION['alert']))
 					{echo $_SESSION['alert']; $_SESSION['alert'] = '';
 				}
 			?>
 			
-			<h3>Add your Design Here</h3>			
+			<h3>Add your Custom Request Here</h3>			
 
 			<br />
 
@@ -77,12 +77,12 @@
 					<!-- Design Name -->
 
 					<div class="control-group" >
-						<label>Design Name 							
+						<label>Design Title 							
 							<small style="font-color: red !important;">*Required</small>
 						</label>
 
 						<div class="control" >
-							<input type="text" class="form-control" name="design-name" value="" id="design-name"  style="width: 616px;" placeholder="design name" data-rules="required"/> 
+							<input type="text" class="form-control" name="design-name" value="" id="design-name"  style="width: 616px;" placeholder="Enter Title" data-rules="required"/> 
 							<small id="error-msg-name"></small>
 						</div>
 
@@ -165,14 +165,14 @@
 						<div class="row id-1">
 
 							<div class="form-group col-lg-2">
-						      <select class="form-control" id="type-1" name="type[]" style="width: 150px;height: 38.5px;">
+						      <select class="form-control" id="type-1" name="type[]" style="width: 150px;height: 38.5px; font-size: 14px;">
 						        <?=$options?>
 						      </select>
 						     </div>
 
 							<div class="col-lg-1"></div>
 							
-							<input type='number' name="measurement[]" value="10" class="form-control col-lg-2" placeholder="$xxx" data-rules="required" style="width:181px;padding-left:10px;border-right-width:10px;"/>
+							<input type='number' name="measurement[]" value="10" class="form-control col-lg-2" placeholder="in inches" data-rules="required" style="width:181px;padding: 5px 10px;border-right-width:10px;"/>
 
 							<button type="button" class="close col-lg-1 btn-id" aria-label="Close">
 							  <span aria-hidden="true">&times;</span>
@@ -195,10 +195,10 @@
 					<div class="control-group" style="padding-left: 14px;">
 						<label>Price Range</label>
 						<div class="row control">
-							<input type='number' min="0" id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$least" data-rules="required" value="10" style="width: 181px;padding-left: 10px;border-right-width: 10px;"/>
+							<input type='number' min="0" id="min-price" name="min-price" class="form-control col-lg-2" placeholder="$$ Min Price" data-rules="required" style="width: 181px;padding-left: 10px;border-right-width: 10px;"/>
 
 							<div class="col-lg-1"></div>
-							<input type='number' min="0" id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$maximum" data-rules="required" value="100" style="width: 181px;padding-left: 10px;border-right-width: 10px;"/>	
+							<input type='number' min="0" id="max-price" name="max-price" class="form-control col-lg-2" placeholder="$$ Max Price" data-rules="required" style="width: 181px;padding-left: 10px;border-right-width: 10px;"/>	
 							<div class="col-lg-7"></div>
 						</div>								
 					</div>
@@ -233,8 +233,8 @@
 				</div>
 
 				<div class="control-wrapper last">
-	                <button class="btn btn-1"  type="submit" id="submitForm">
-	                	Submit Product
+	                <button class="btn btn-1"  type="submit" style="font-size: 14px;" id="submitForm">
+	                	Submit Custom Request
 	            	</button>
 	            </div>
 		</form>
@@ -263,7 +263,7 @@
 				
 
 				// console.log($('#id-'+id));
-				var divTag='<div class="form-group col-lg-2"><select class="form-control"  name="type[]" style="width: 150px;height: 38.5px;"><?=$options?></select></div><div class="col-lg-1"></div><input type="number" min="0" name="measurement[]" class="form-control col-lg-2" style="width:181px;padding-left:10px;border-right-width:10px;" placeholder="$xxx" data-rules="required"/><button type="button" class="close col-lg-1 btn-id" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-lg-6"></div>';
+				var divTag='<div class="form-group col-lg-2"><select class="form-control"  name="type[]" style="width: 150px;height: 38.5px;"><?=$options?></select></div><div class="col-lg-1"></div><input type="number" min="0" name="measurement[]" class="form-control col-lg-2" style="width:181px;padding-left:10px;border-right-width:10px;" placeholder="in inches" data-rules="required"/><button type="button" class="close col-lg-1 btn-id" aria-label="Close"><span aria-hidden="true">&times;</span></button><div class="col-lg-6"></div>';
 
 				$('#id-'+id).html(divTag);
 				id++;

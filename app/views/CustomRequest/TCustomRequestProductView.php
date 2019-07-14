@@ -34,6 +34,12 @@
       vertical-align: middle;
     }
 
+    .price-text{
+      width: 202px;
+      height: 32px;
+      padding: 5px;
+    }
+
     .respond{
       width: 599px;
       height: auto;
@@ -276,6 +282,11 @@
           <div style="padding-top: 6px;"><?=$params['location']?></div>
         </div>
 
+        
+
+
+                  
+
         <div class="swatch color clearfix" data-option-index="1">
           <div class="header">Due Date</div>
           <div style="padding-top: 6px;"><?=$params['due_date']?></div>
@@ -296,6 +307,17 @@
             }
           ?> 
         </div>
+
+        <div class="swatch color clearfix" data-option-index="1">
+          <div class="header">Your Price</div>
+          <div class="before-sending">
+            <textarea class="price-text" readonly>
+              <?=$params['price']?>
+            </textarea>
+            <i class="fa fa-paper-plane" id="price-tag" style="font-size: 28px; cursor: pointer;" aria-hidden="true"></i>
+          </div>
+          
+        </div>
         
 
         <!-- <input placeholder=" # of inches"  class="spr-form-input spr-form-input-text"  style="position:absolute; right:250px; height:25px; width:100px; padding:5px 10px;" type="text" name="measuremnt'.$measurement->id.'" value="'.$measurement->measurement.'"aria-required="true" /> -->
@@ -313,39 +335,51 @@
 
 <?php 
         /////  First view of Responses /////
-        if ($params['responses-old']){
+        if ($params['responses-old'] || $params['responses-new']){
           $response=end($params['responses-old']);
 
           if ($params['responses-new']){
             $response=end($params['responses-new']);
           }
+          echo '
+            <div class="row">
+              
+              <div class="col-lg-7 row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
+                <div class="col-lg-3">
+                  <img src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%;">
+                </div>
 
-            echo '              
-              <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
-                <div class="col-lg-1">
-                  <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%; height:100%;">
-                </div>      
-                <div class="col-lg-2">'.$response->senderName.'</div>          
+                <div class="col-lg-2 response-pack" style="font-weight:600; font-style:italic;">
+                  '.$response->senderName.'
+                </div>
 
-                <div class="col-lg-9 response-pack my-response" data-id="'.$response->sender_id.'">'.$response->response.'</div>                                
+                <div class="col-lg-7 response-pack my-response" data-id="'.$response->sender_id.'">'.$response->response.'</div>
+                
               </div>
-              <br/>';
-          // }
 
-        }
+              <div class="col-lg-5 align-text"></div>
+         </div>
+              ';
+        }       
 
         else{
 
           echo '
-          <div class="row respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$response->sender_id.'">
-                <div class="col-lg-1">
-                  <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="'.PROOT.'assets/images/ProfilePictures/'.$response->avatar.'" alt="Avatar" style="width:100%;">
-                </div>  
+          <div class="row">
+            <div class="row col-lg-7 respond text-align-center" data-toggle="modal" data-target="#myModal" data-id="'.$params['customer_id'].'">
+                  <div class="col-lg-2">
+                    <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="'.PROOT.'assets/images/ProfilePictures/'.$params['Customer-Avatar'].'" alt="Avatar" style="width:100%;">
+                  </div>  
 
-                <div class="col-lg-2">'.$response->senderName.'</div>    
+                  <div class="col-lg-2">'.$params['customer_id'].'</div>    
 
-                <div class="col-lg-9 response-pack my-response" data-id="'.$response->sender_id.'">Start a new Deal with our TailorMates!!!</div>                
-                
+                  <div class="col-lg-8 response-pack my-response" data-id="'.$params['customer-name'].'">
+                    Start a new Deal with our TailorMates!!!
+                  </div>  
+
+                </div>
+                <div class="col-lg-5 align-text"></div>
+
               </div>
               <br/>';
         }
@@ -354,7 +388,6 @@
 
         
 ?> 
-
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -370,7 +403,7 @@
 
         <div class="modal-footer">
           <span class="media mt-3 shadow-textarea" style="width: 500px;margin-right: 50px;">
-            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="<?=PROOT?>assets/images/ProfilePictures/default-customer.png"
+            <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="<?=PROOT?>assets/images/default-customer.png"
               alt="Generic placeholder image">
             <div class="media-body" style="margin: auto;width: 50%;box-shadow: 5px 5px 5px 5px #c1939e;height: 40px;">
 
@@ -432,6 +465,23 @@
 
       var pr_id=JSON.stringify(<?=$params['id']?>);  
       var tailor_id=JSON.stringify(<?= currentUser()->id ?>);
+
+      $('.price-text').dblclick(function(){
+        $('.price-text').attr("readonly",false);
+      });
+
+      $('#price-tag').click(function(){
+        var text=$('.price-text').val();
+
+        $.ajax({
+          url:"<?=PROOT?>CustomRequestController/setPrice",
+          method:"POST",
+          data:{'product_id': pr_id,'text':text},
+          success:function(data){
+            console.log(data);
+          }
+        });
+      });
 
       $('.my-response').click(function(){
         var icon =$(this);         
