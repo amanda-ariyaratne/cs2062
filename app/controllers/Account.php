@@ -651,6 +651,30 @@
 					$params['user_id'] = $user_id;
 					$this->view->render('account/setUpYourStore', $params);
 
+				$store->addTailorShop($fields);
+				//dnd($_POST['user_id']);
+				$user = new User();
+				$user = $user->findByUserID($_POST['user_id']);
+				$params = ['role'=>2];
+				// dnd($user);
+				$user->updateRole($params);
+				// dnd('done');
+				if (currentUser()) {
+					Router::redirect('VendorController/vendorPage/'.currentUser()->id);
+				} else {
+					$user = new User();
+					$user = $user->findByUserID($fields['vendor_id']);
+
+					$remember = true;
+					$user->login($remember);
+					if ($user->role == 2) {
+						Router::redirect('VendorController/VendorPage/'.$user->id);
+					} else if($user->role == 3){
+						Router::redirect('account/orderHistory');
+					} else if ($user->role == 1) {
+						Router::redirect('admin/newProducts');
+					}
+				}
 
 				} else if($user->role == 1 || $user->role == 3){
 					Router::redirect('home/pageNotFound');
