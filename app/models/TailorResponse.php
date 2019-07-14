@@ -28,7 +28,9 @@
 			$conditions=array('conditions'=>['product_id = ?', 'tailor_id=?', 'seen=?'], 'bind' => [$product_id, $tailor_id, $customer_id, '0']);
 			$responses=$this->find($conditions);
 
-			return count($responses);
+			$this->setRespondents($responses);
+
+			return $responses;
 		}
 
 		public function getOldResponses($product_id){
@@ -44,7 +46,9 @@
 			$conditions=array('conditions'=>['product_id = ?', 'tailor_id=?', 'seen=?'], 'bind' => [$product_id, $tailor_id, $customer_id, '1']);
 			$responses=$this->find($conditions);
 
-			return count($responses);
+			$this->setRespondents($responses);
+
+			return $responses;
 		}
 
 		public function setRespondents($responses){

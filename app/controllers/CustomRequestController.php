@@ -228,12 +228,14 @@
 
 			//load tailor responses
 			$tailor_response=new TailorResponse();
-			$params['responses-new']=$tailor_response->getNewResponses($request_obj->id);
+			$params['responses-new']=$tailor_response->getTailorNewResponses($request_obj->id, currentUser()->id);
 
-			$params['responses-old']=$tailor_response->getOldResponses($request_obj->id);
+			$params['responses-old']=$tailor_response->getTailorOldResponses($request_obj->id, currentUser()->id);
 
-			$tailor_shop=new TailorShop();
-			$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
+			$user=new User();
+			$params['CustomerAvatar']=$user->getAvatar($request_obj->customer_id);
+
+			// dnd($request_obj);
 
 			$this->view->render('CustomRequest/TCustomRequestProductView',$params);
 		}
@@ -277,7 +279,8 @@
 			$params['responses-old']=$tailor_response->getOldResponses($request_obj->id);
 
 			$tailor_shop=new TailorShop();
-			$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
+			//$params['myAvatar']=$tailor_shop->getAvatar($request_obj->customer_id);
+			$params['myAvatar'] = PROOT . 'assets/images/default-customer.png';
 
 			$this->view->render('CustomRequest/CCustomRequestProductView',$params);
 		}
