@@ -768,7 +768,7 @@
 
     
 
-<footer id="footer-content">
+<footer id="footer-content" style="font-family: 'Roboto',sans-serif;">
   <div id="shopify-section-footer" class="shopify-section">
 
 
