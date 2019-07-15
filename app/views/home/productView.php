@@ -744,7 +744,7 @@
                                 position: absolute;
                                 display: block;
                                 color: #7f4956;
-                                top: 260px;
+                                top: 225px;
                                 opacity: 0;
                                 transition: .5s;
                               }

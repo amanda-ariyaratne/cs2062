@@ -18,7 +18,7 @@
       color: ash;
     }
 
-    .btn-accept :hover{
+    .btn-accept:hover{
       background-color: #c1939e;
     }
     .bg-danger{
@@ -38,6 +38,10 @@
       width: 202px;
       height: 32px;
       padding: 5px;
+    }
+
+    #price-tag:hover{
+      color: #c1939e;
     }
 
     .respond{
@@ -310,11 +314,13 @@
 
         <div class="swatch color clearfix" data-option-index="1">
           <div class="header">Your Price</div>
+
           <div class="before-sending">
             <textarea class="price-text" readonly>
               <?=$params['price']?>
             </textarea>
             <i class="fa fa-paper-plane" id="price-tag" style="font-size: 28px; cursor: pointer;" aria-hidden="true"></i>
+            <div id="success-price" style="font-style: italic; font-weight:300; color: #c1939e;"></div>
           </div>
           
         </div>
@@ -328,9 +334,11 @@
 
   <div class="swatch color clearfix" data-option-index="1">
     <div class="row" style="vertical-align: center;">
-      <div class="col-lg-8" style="font-weight: 700">Tailor-Note</div>   
+      <div class="col-lg-4" style="font-weight: 700">Tailor-Note</div>   
+      <div class="col-lg-4 accept-order-success" style="font-style: italic; font-weight:300; color: #c1939e;"></div>
+      <div class="col-lg-4" style="text-align: right;font-size: 50px; ">
 
-      <div class="col-lg-4" style="text-align: right;font-size: 50px; "><button class="btn btn-accept">Ready to Tailor</button></div>
+        <button class="btn btn-accept">Ready to Tailor</button></div>
     </div>
 
 <?php 
@@ -479,6 +487,8 @@
           data:{'product_id': pr_id,'text':text},
           success:function(data){
             console.log(data);
+
+            $('#success-price').html('You added your Price!');
           }
         });
       });
@@ -513,6 +523,7 @@
         data:{'product_id':pr_id},
         success: function(){
           console.log('ready');
+          $('.accept-order-success').html('Successful!');
         }
       });
     });

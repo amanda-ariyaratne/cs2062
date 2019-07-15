@@ -176,7 +176,7 @@
                     $product_obj['id'] = $product->id;
                     $product_obj['name'] = $product->name;
                     $product_obj['price'] = $product->price;
-                    $product_obj['sale_price'] = $product->sale_price;
+                    
                 
                     array_push($related_products, $product_obj);
                 }

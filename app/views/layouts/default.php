@@ -418,7 +418,7 @@
                                 <i class="demo-icon icon-user dropbtn" style="font-style: normal;">  '. $user->first_name . '</i>
                                 <div class="dropdown-account-content">
                                   <a href="'.PROOT.'account/myAccount"><i class="far fa-user-circle"></i> My account</a>
-                                  <a href="'.PROOT.'CustomerController/CustomerPage/'.$user->id.'"><i class="fas fa-tshirt" style="font-size:10px;"></i> My Requests</a>
+                                  <a href="'.PROOT.'CustomRequestController/ProductRequest"><i class="fas fa-tshirt" style="font-size:10px;"></i> Add Requests</a>
                                   <a href="'.PROOT.'account/orderHistory"><i class="fab fa-opencart" style="font-size:10px;"></i> Order history</a>
 
                                 </div>
@@ -605,19 +605,19 @@
                       $sentence='';
                       $LinkPath='';
                       if ($user->role==2){
-                        $sentence="Add-our-Designs";
-                        $LinkPath="CustomerRequestView/1";
-
-                      }                          
-                      elseif ($user->role==3){
                         $sentence="Custom-Requests";
-                        $LinkPath="ProductRequest/1";
+                        $LinkPath="CustomRequestController/CustomerRequestView/1";
+
+                      }                         
+                      elseif ($user->role==3){
+                        $sentence="My-Custom-Requests";
+                        $LinkPath="CustomerController/CustomerPage/".$user->id;
                       }
 
                     echo '
                     
                     <div class="phone-icon lazyload waiting" style="position: relative; top: -25px;">
-                      <a href="'.PROOT.'CustomRequestController/'.$LinkPath.'">
+                      <a href="'.PROOT.$LinkPath.'">
                       
                       <i class="fas fa-tshirt" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px 4px; border-radius:3px; position:absolute; top:7px; right:40px;" title='.$sentence.'></i>
                       </a>

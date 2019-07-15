@@ -69,7 +69,60 @@ class CartController extends Controller{
         }
     }
 
-    public function cartAction(){
+    public function addCustomRequestToCartAction($product_id){
+        $custom_request=new CustomRequest();
+        $product= $custom_request->getMyCustomRequestByID($product_id);
+
+        $cart = new Cart();
+        $cartItems = $cart->getCartItems(currentUser()->id);
+
+        if ($cartItems){
+            $tailor=$cartItems[0]->vendor_id;
+        }
+        else{
+            $tailor='0';
+        }
+
+        if ($tailor!=$product->tailor_id){
+
+            //get final price
+            $tailor_price=new TailorPrice();
+            $price=$tailor_price->getTailorPrice($product_id, $product->tailor_id);
+
+            $fields = [
+                "vendor_id" => "".$product->tailor_id,
+                "name" => $product->pr_name,
+                "image"=> $product->images[0],
+                "price" => $price,
+                "product_id" => $product->id,
+                "user_id" => $product->customer_id,
+                "color" => $product->color,
+                "quantity" => '1',
+            ];
+
+            $cart = new Cart();
+            $status = $cart->addItem($fields);
+
+            $this->cartAction('custom_requests'); 
+
+
+        }   
+        else{
+            $_SESSION['alert']='
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">              
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+                <div class="container">
+                    <div class="alert alert-success fade in">    
+                        <strong>Unsuccess!</strong> You cannot add products for Two Tailors at the same time!<strong>Try remove existing items!</strong>
+                    </div>
+                </div>';    
+
+            Router::redirect('CustomRequestController/requestedProductViewCustomer/'.$product_id);
+        }  
+
+    }
+
+    public function cartAction($folder="products"){
         $user = new User();
         $user = $user->currentLoggedInUser();
         $userId = $user->id;
@@ -77,7 +130,7 @@ class CartController extends Controller{
         if (($user != null ) and $user->role==3) {
             $cart = new Cart();
             $cartItems = $cart->getCartItems($userId);
-            $params = [$cartItems];
+            $params = [$cartItems,$folder];
             $this->view->render('cart/cart',$params);
         }
         else {
