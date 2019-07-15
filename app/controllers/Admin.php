@@ -201,4 +201,10 @@
 
         }
 
+        public function notifyApprovalAction(){
+            $order_obj = $this->find(array('limit'=>1  , 'order'=>'id DESC'));
+            $notification_obj = new Notification();
+            $notification_obj->updateClass($order_obj[0]->id , $order_obj[0]->vendor_id , $order_obj[0]->user_id , '1' , '4');
+        }
+
 	}
