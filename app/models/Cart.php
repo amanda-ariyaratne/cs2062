@@ -27,7 +27,7 @@
 		}
 
 
-        public function addItem($val){
+        public function addItem($val, $type='0'){
             $fields = [
                 "product_id" => $val["product_id"],
                 "product_name" => $val["name"],
@@ -36,7 +36,8 @@
                 "price" => $val["price"],
                 "image_path" => $val["image"],
                 "vendor_id" => $val["vendor_id"],
-                "color" => $val["color"]
+                "color" => $val["color"],
+                "type" => $type 
             ];
             
             $details = $this->find(array('conditions' => 'customer_id = ?', 'bind' => [$val["user_id"]]));
@@ -78,7 +79,8 @@
                         "customer_id" => $o_id,
                         "image" => $item->image_path,
                         "color" => $item->color,
-                        "vendor_name" => $tailor_name
+                        "vendor_name" => $tailor_name,
+                        "type"=>$item->type
 
                     ];
 

@@ -5,7 +5,7 @@
       <div id="deleteModal" class="modal">
 
         <!-- Modal content -->
-        <div class="modal-content" style="width: 20%">
+        <div class="modal-content" style="width: 50px !important: height: 50px !important;">
           <div class="modal-header">
             <h4 style="float: left;">DELETE THE REVIEW</h4>
             <span class="close_x" data-dismiss="modal" style="float: right;cursor: pointer;font-size:20px;">&times;</span>

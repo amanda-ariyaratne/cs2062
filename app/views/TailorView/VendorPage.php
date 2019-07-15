@@ -1,5 +1,5 @@
-<?= $this->setSiteTitle(($params[0][0]->vendorName).'-TailorMate' )?>
 
+<?= $this->setSiteTitle(end($params).' - TailorMate' )?>
 <?= $this->start('head'); ?>
 
 

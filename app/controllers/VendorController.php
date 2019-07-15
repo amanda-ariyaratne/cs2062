@@ -24,8 +24,7 @@
 			$details=$product->getPageVendor($a);
 			$param=$details[0];
 			$noOfProducts =$details[1];
-
-			$params=array($param,$a,$noOfProducts,$param[0]->vendorName);
+			$params=array($param,$a,$noOfProducts,'My Page');
 			$this->view->render('TailorView/VendorPage',$params);
 
 		}

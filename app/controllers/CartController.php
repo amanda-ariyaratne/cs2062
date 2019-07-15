@@ -41,7 +41,7 @@ class CartController extends Controller{
                     ];
 
                     $cart = new Cart();
-                    $status = $cart->addItem($fields);
+                    $status = $cart->addItem($fields,'0');
                     $measurements = unserialize($_POST['measurements']);
                     $values = [];
                     foreach ($measurements as $key => $mes) {
@@ -101,7 +101,7 @@ class CartController extends Controller{
             ];
 
             $cart = new Cart();
-            $status = $cart->addItem($fields);
+            $status = $cart->addItem($fields,'1');
 
             $this->cartAction('custom_requests'); 
 
@@ -122,7 +122,7 @@ class CartController extends Controller{
 
     }
 
-    public function cartAction($folder="products"){
+    public function cartAction(){
         $user = new User();
         $user = $user->currentLoggedInUser();
         $userId = $user->id;
@@ -130,7 +130,7 @@ class CartController extends Controller{
         if (($user != null ) and $user->role==3) {
             $cart = new Cart();
             $cartItems = $cart->getCartItems($userId);
-            $params = [$cartItems,$folder];
+            $params = [$cartItems];
             $this->view->render('cart/cart',$params);
         }
         else {

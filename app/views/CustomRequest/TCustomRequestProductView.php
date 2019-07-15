@@ -553,6 +553,30 @@
       });
     });
 
+    $('.fa-toggle-off').click(function(){      
+        $.ajax({
+          url:"<?=PROOT?>/CustomRequestController/Activation",
+          method:"POST",
+          data:{'data' : '1', 'product': <?=$params['id']?>}
+        });
+        $(this).toggleClass('fa-toggle-on');
+        $(this).toggleClass('fa-toggle-off');
+        
+      });
+
+      $('.fa-toggle-on').click(function(){      
+        $.ajax({
+          url:"<?=PROOT?>/CustomRequestController/Activation",
+          method:"POST",
+          data:{'data' : '0' , 'product': <?=$params['id']?>}
+        });
+        $(this).toggleClass('fa-toggle-off');
+        $(this).toggleClass('fa-toggle-on');
+        
+
+        console.log($(this));
+      });
+
 
     });
 
