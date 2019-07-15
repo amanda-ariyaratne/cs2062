@@ -626,7 +626,7 @@
 						$user = new User();
 						$user = $user->findByUserID($_POST['user_id']);
 						$params = ['role'=>2];
-						//dnd($user);
+						// dnd($_POST);
 						$user->updateRole($params);
 						//dnd('done');
 						if (currentUser()) {

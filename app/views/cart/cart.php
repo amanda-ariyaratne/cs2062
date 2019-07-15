@@ -188,7 +188,6 @@
 
     <?php
     $fields = $params[0];
-    $folder = $params[1];
     session_start();
     $_SESSION["cart_item"] = $fields;
 
@@ -218,6 +217,14 @@
 
                 $color = $item["color"];
 
+                $type=$item["type"];
+                $folder='';
+                if ($type=='0'){
+                    $folder='products';
+                }
+                else{
+                    $folder='custom_request';
+                }
 
                 ?>
                 <tr>
