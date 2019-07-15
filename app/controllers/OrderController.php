@@ -16,7 +16,7 @@
 					array_push($params,$user);
 
 					$params = $this->addToParams($params, $user->id);
-					//dnd($params);
+//					dnd($params);
 					$this->view->render('Order/CustomerInformation',$params);
 	            } else {
 	                Router::redirect('home/pageNotFound');

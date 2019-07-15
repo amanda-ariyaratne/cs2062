@@ -194,7 +194,7 @@
             foreach ($item_array as $item) {
                 $product = $this->findById($item['product_id']);
                 $item['name'] = $product->name;
-                $item['price'] = $product->sale_price;
+                $item['price'] = $product->price;
                 array_push($new_item_array, $item);
             }
             return $new_item_array;

@@ -351,7 +351,7 @@
                                 <?php echo'<input type="hidden" name="price" value='.$params[0]->price.'>';?>
                                 <?php echo '<input type="hidden" name="image" value='.$image_path.'>';?>
                                 <?php echo'<input type="hidden" name="name" value="'.$params[0]->name.'">';?>
-                                <?php echo'<input type="hidden" name="vendor_id" value="'.$params['vendor_id'].'">';?>
+<!--                                --><?php //echo'<input type="hidden" name="vendor_id" value="'.$params['vendor_id'].'">';?>
 
 
 
