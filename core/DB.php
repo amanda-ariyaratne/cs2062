@@ -167,7 +167,7 @@
 
 			$sql = "SELECT * FROM {$table}{$conditionString}{$order}{$limit}";
 			
-			// dnd($sql);
+			//var_dump($sql);
 			// dnd($this->query($sql, $bind));
 			if ($this->query($sql, $bind)) {
 				if (!count($this->_result)) {

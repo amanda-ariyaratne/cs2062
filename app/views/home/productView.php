@@ -589,7 +589,7 @@
                                           <div id="deleteModal" class="modal">
 
                                             <!-- Modal content -->
-                                            <div class="modal-content" style="width: 20%">
+                                            <div class="modal-content" style="width:20%;">
                                               <div class="modal-header">
                                                 <h4 style="float: left;">DELETE THE REVIEW</h4>
                                                 <span class="close_x" data-dismiss="modal" style="float: right;cursor: pointer;font-size:20px;">&times;</span>
@@ -601,7 +601,7 @@
                                                   <div class="yes-no-selector">
                                                     <label class="spr-form-label" style="font-weight: 600">Do you want to delete this review ?</label>
                                                     <div class="spr-form-input">
-                                                      <input type="submit" class="button button-primary btn-primary delete_modal" value="YES" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:50px; padding:5px 10px;">
+                                                      <input type="submit" class="button button-primary btn-primary delete_modal" value="YES" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:100px; padding:5px 10px;">
                                                       <input type="" class="close_d button button-primary btn-primary delete_modal" data-dismiss="modal" value="NO" style="display:inline-block; background-color: white; outline: none; cursor: pointer; border-color: black; border-radius: 4px; border:1px solid black; color:black; margin-left:30px; padding:5px 10px; width:42px;">
                                           
                                                       

@@ -37,7 +37,7 @@
 			$allConditions=array_merge($conditions, $limit);
 
 			$details = $this->find($allConditions);
-			
+			//dnd($details);
 			foreach ($details as $row){
 				$image=new Image('custom_design_image');
 				$images=$image->getImage($row->id);

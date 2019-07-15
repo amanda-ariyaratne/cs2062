@@ -26,7 +26,7 @@
       margin: 50px 0;
     }
     .register-btn{
-      font-size: 20px;
+      font-size: 19px;
       padding: 20px;
       background-color: #6d6d6d;
       

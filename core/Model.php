@@ -46,6 +46,7 @@
 		public function find($params = []){
 			$params = $this->_softDeleteParams($params);
 			$results = [];
+			
 			$resultsQuery = $this->_db->find($this->_table, $params);
 			if($resultsQuery!=false){
 				foreach ($resultsQuery as $result) {
