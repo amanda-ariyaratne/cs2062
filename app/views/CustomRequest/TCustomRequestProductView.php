@@ -334,7 +334,7 @@
 
   <div class="swatch color clearfix" data-option-index="1">
     <div class="row" style="vertical-align: center;">
-      <div class="col-lg-4" style="font-weight: 700">Tailor-Note</div>   
+      <div class="col-lg-4" style="font-weight: 700">Tailor-Response</div>   
       <div class="col-lg-4 accept-order-success" style="font-style: italic; font-weight:300; color: #c1939e;"></div>
       <div class="col-lg-4" style="text-align: right;font-size: 50px; ">
 
@@ -379,7 +379,7 @@
                     <img class="d-flex rounded-circle avatar z-depth-1-half mr-3" src="'.PROOT.'assets/images/ProfilePictures/'.$params['Customer-Avatar'].'" alt="Avatar" style="width:100%;">
                   </div>  
 
-                  <div class="col-lg-2">'.$params['customer_id'].'</div>    
+                  <div class="col-lg-2"></div>    
 
                   <div class="col-lg-8 response-pack my-response" data-id="'.$params['customer-name'].'">
                     Start a new Deal with our TailorMates!!!

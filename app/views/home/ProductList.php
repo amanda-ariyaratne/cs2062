@@ -37,7 +37,7 @@
                   <ul class="breadcrumb">
 
                     <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                      <a itemprop="url" href="#home">
+                      <a itemprop="url" href="<?=PROOT?>">
                         Home
                       </a>
                     </li>

@@ -223,7 +223,7 @@
                     $folder='products';
                 }
                 else{
-                    $folder='custom_request';
+                    $folder='custom_requests';
                 }
 
                 ?>

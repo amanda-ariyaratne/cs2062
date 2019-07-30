@@ -73,23 +73,23 @@
 
             
             <li itemscope itemtype="" class="d-none">
-              <a href="" itemprop="url">
+              <a  itemprop="url" style="cursor: default;">
                 <span itemprop="title"><?=$params[0]->main_category_name?></span>
               </a>
             </li>    
             
             <li>
-              <a href="" title=""><?=$params[0]->main_category_name?></a>
+              <a  title="" style="cursor: default;"><?=$params[0]->main_category_name?></a>
             </li>
 
             <li itemscope itemtype="" class="d-none">
-              <a href="" itemprop="url">
+              <a  itemprop="url" style="cursor: default;">
                 <span itemprop="title"><?=$params[0]->sub_category_name?></span>
               </a>
             </li>
 
             <li>
-              <a href="" title=""><?=$params[0]->sub_category_name?></a>
+              <a  title="" style="cursor: default;"><?=$params[0]->sub_category_name?></a>
             </li>
 
             
