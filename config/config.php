@@ -2,7 +2,7 @@
  	
 	define('DEBUG', true);
 
-	define('DB_NAME', 'tailor_mate');
+	define('DB_NAME', 'tailor_mate_final');
 	define('DB_USER', 'root');
 	define('DB_PASSWORD', '');
 	define('DB_HOST', '127.0.0.1');	//use ip address for live server

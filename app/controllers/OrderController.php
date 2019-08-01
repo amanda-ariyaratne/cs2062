@@ -128,7 +128,7 @@
 						'required' => true
 					],
 					'address' => [
-						'display' => "Address",
+						'display' => "Apartment No",
 						'required' => true
 					],
 					'city' => [

@@ -21,6 +21,13 @@
     font-size: 17px;
     font-weight: bold;
   }
+  .order-icons a {
+    background: #c1939e;
+    color: #000;
+    padding: 8px 90px;
+    font-size: 20px;
+    border-radius: 5px;
+}
   </style>
 
   <div class="content" data-content>
@@ -236,8 +243,15 @@
                   <div class="order-icons" id="state_delivered">
                     <?php
                       if ($params['order_status']['state_delivered'] == '0') {
-                        echo '<span>Delivered</span>
+                        if ($params['order_status']['state_delivering'] == '0') {
+                          echo '<a href="#" style="opacity: 0.65; 
+  cursor: not-allowed;">Delivered</a>
                               <i class="fas orderstatus fa-home"></i>';
+                        } else {
+                          echo '<a href="'.PROOT.'/OrderController/inputStatus/'.$params['order_details']->id.'">Delivered</a>
+                              <i class="fas orderstatus fa-home"></i>';
+                        }
+                        
                       } else {
                         echo '<span style="color: #7f4956">Delivered</span>
                               <i class="fas orderstatus fa-home" style="color: #7f4956"></i> ';

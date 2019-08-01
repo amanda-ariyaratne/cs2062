@@ -39,7 +39,7 @@
         public function getViewDetails($pageNo){  
             $pageNo=6*($pageNo-1);
 
-            $limit = array('limit'=>$pageNo.',6');
+            $limit = array('limit'=>$pageNo.',6','conditions'=>['permission = 1', 'active = 1'], 'order' => 'id DESC');
 
             $details = $this->find($limit);
 
@@ -144,7 +144,6 @@
             $colors = $_POST["colors"];
             $color = new Color();
             $color->addColor($colors,$pr_id);
-
             //add image
             $images=($_FILES['fileUpload']['name']);
 

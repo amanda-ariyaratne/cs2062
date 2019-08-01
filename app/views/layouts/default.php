@@ -585,9 +585,9 @@
                       elseif ($user->role==2){
 
                         echo '
-                         <a href="'.PROOT.'home/test" title="Sales"> 
+                         <!--<a href="'.PROOT.'home/test" title="Sales"> 
                           <i class="fas fa-comments-dollar" style="background: rgba(255,255,255,0.5); color:black; font-size:30px;padding:5px; border-radius:3px;"></i>
-                        </a>
+                        </a>-->
                         ';
                       }
 

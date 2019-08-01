@@ -163,7 +163,7 @@
 		function changeState($order){
 			$this->delivered($order);
 			$order->setState(new StateDelivered() , $order);
-			Router::redirect("VendorController/vendorOrderStatus/".$order->id);
+			Router::redirect("OrderController/orderStatus/".$order->id);
 		}
 	}
 

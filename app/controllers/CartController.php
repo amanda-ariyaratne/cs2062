@@ -103,8 +103,8 @@ class CartController extends Controller{
             $cart = new Cart();
             $status = $cart->addItem($fields,'1');
 
-            $this->cartAction('custom_requests'); 
-
+            //$this->cartAction('custom_requests'); 
+            Router::redirect('CartController/cart/0');
 
         }   
         else{
@@ -132,6 +132,7 @@ class CartController extends Controller{
             $cartItems = $cart->getCartItems($userId);
             $params = [$cartItems];
             $this->view->render('cart/cart',$params);
+            //Router::redirect('CartController/cart/0');
         }
         else {
             Router::redirect('account/login');

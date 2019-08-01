@@ -12,6 +12,9 @@
       list-style-type: square !important;
       padding: 1px;
     }
+    .field__label{
+      display: block;
+    }
   </style>
 
 <?= $this->end(); ?>
@@ -209,56 +212,56 @@
           <div class="field--half field field--required" style="width: 50%;">
             <label class="field__label" for="">First name</label>
             <div class="field__input-wrapper">
-              <input placeholder="First name"  class="field__input" aria-required="true" size="30" type="text" name="first_name" id="checkout_shipping_address_first_name" />
+              <input placeholder="First name"  class="field__input" aria-required="true" size="30" type="text" name="first_name" id="checkout_shipping_address_first_name" value="<?php if(isset($user)){echo $user->first_name;}?>" style="padding-left: 5px;" />
             </div>
           </div>
 
           <div class="field--half field field--required" style="width: 50%;">
             <label class="field__label" for="">Last name</label>
             <div class="field__input-wrapper">
-              <input placeholder="Last name"  class="field__input" aria-required="true" size="30" type="text" name="last_name" id="checkout_shipping_address_last_name" />
+              <input placeholder="Last name"  class="field__input" aria-required="true" size="30" type="text" name="last_name" id="checkout_shipping_address_last_name" value="<?php if(isset($user)){echo $user->last_name;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 
           <div class="field--half field field--required" >
             <label class="field__label" for="">Address</label>
             <div class="field__input-wrapper">
-              <input placeholder="Address"  class="field__input" aria-required="true" type="text" name="address" id="checkout_shipping_address" />
+              <input placeholder="Apartment No"  class="field__input" aria-required="true" type="text" name="address" id="checkout_shipping_address" value="<?php if(isset($user)){echo $user->apartmentNo;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 
           <div class="field--half field field--optional" >
-            <label class="field__label" for="checkout_shipping_address_address2">Apartment, suite, etc. (optional)</label>
+            <!-- <label class="field__label" for="checkout_shipping_address_address2">Street Name 1</label> -->
             <div class="field__input-wrapper">
-              <input placeholder="Apartment, suite, etc. (optional)"  class="field__input"   type="text" name="address2" id="checkout_shipping_address_last_name" />
+              <input placeholder="Street Name 1"  class="field__input"   type="text" name="address2" id="checkout_shipping_address_last_name" value="<?php if(isset($user)){echo $user->streetName1;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 
           <div  class="field field--required">
-            <label class="field__label" for="">City</label>
+            <!-- <label class="field__label" for="">Street Name 2</label> -->
             <div class="field__input-wrapper">
-              <input placeholder="City" class="field__input" aria-required="true" size="30" type="text" name="city" id="checkout_shipping_address_city" />
+              <input placeholder="Street Name 2" class="field__input" aria-required="true" size="30" type="text" name="city" id="checkout_shipping_address_city" value="<?php if(isset($user)){echo $user->streetName2;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 
           <div class="field--third field field--required" >
-            <label class="field__label" for="">District</label>
+            <!-- <label class="field__label" for="">City</label> -->
             <div class="field__input-wrapper">
-              <input placeholder="District" class="field__input" aria-required="true" type="text" name="province" id="checkout_shipping_address_province" />
+              <input placeholder="City" class="field__input" aria-required="true" type="text" name="province" id="checkout_shipping_address_province" value="<?php if(isset($user)){echo $user->city;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 
           <div class="field--third field field--required" style="width: 50%;">
             <label class="field__label" for="">Postal code</label>
             <div class="field__input-wrapper">
-              <input placeholder="Postal code"  class="field__input" aria-required="true" size="30" type="text" name="zip" id="checkout_shipping_address_zip" />
+              <input placeholder="Postal code"  class="field__input" aria-required="true" size="30" type="text" name="zip" id="checkout_shipping_address_zip" value="<?php if(isset($user)){echo $user->postalCode;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 
           <div class="field field--required" style="width: 50%;">
             <label class="field__label" for="">Phone</label>
             <div class="field__input-wrapper">
-              <input placeholder="Phone" class="field__input field__input--numeric" aria-required="true" size="30" type="tel" name="phone" id="checkout_shipping_address_phone" />
+              <input placeholder="Phone" class="field__input field__input--numeric" aria-required="true" size="30" type="tel" name="phone" id="checkout_shipping_address_phone" value="<?php if(isset($user)){echo $user->mobileNo;}?>" style="padding-left: 5px;"/>
             </div>
           </div>
 

@@ -273,7 +273,8 @@
                     <?php
                       if ($params['order_status']['state_delivered'] == '0' and $params['order_status']['state_delivering'] == '1') {
                         echo '
-                              <a href="'.PROOT.'/OrderController/inputStatus/'.$params['order_details']->id.'">Delivered</a>
+                              <span>Delivered</span>
+                              <!--<a href="'.PROOT.'/OrderController/inputStatus/'.$params['order_details']->id.'">Delivered</a>-->
                               <i class="fas orderstatus fa-home"></i>';
                       }else if ($params['order_status']['state_delivered'] == '0') {
                         echo '
