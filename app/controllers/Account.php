@@ -39,10 +39,7 @@
 
 				    $user = new User();
 				    if ($user->findByEmail($email) == null){
-<<<<<<< HEAD
-=======
 
->>>>>>> 58c3472647cdac9d465ff9dc8a9edfa04f39ce0c
 				    	if ($role == 2) {
 				    		$role = 4;
 				    	}
